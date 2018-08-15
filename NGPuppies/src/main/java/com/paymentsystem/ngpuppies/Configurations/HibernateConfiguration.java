@@ -1,9 +1,6 @@
 package com.paymentsystem.ngpuppies.Configurations;
 
-import com.paymentsystem.ngpuppies.models.Bill;
-import com.paymentsystem.ngpuppies.models.Currency;
-import com.paymentsystem.ngpuppies.models.Service;
-import com.paymentsystem.ngpuppies.models.Subscriber;
+import com.paymentsystem.ngpuppies.models.*;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +17,8 @@ public class HibernateConfiguration {
                 .addAnnotatedClass(Currency.class)
                 .addAnnotatedClass(Service.class)
                 .addAnnotatedClass(Subscriber.class)
+                .addAnnotatedClass(Role.class)
+                .addAnnotatedClass(User.class)
                 .buildSessionFactory();
     }
 

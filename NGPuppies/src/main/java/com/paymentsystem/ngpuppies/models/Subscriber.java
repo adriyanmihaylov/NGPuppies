@@ -18,18 +18,18 @@ public class Subscriber {
     private String address;
     @ManyToOne
     @JoinColumn(name = "BankID")
-    private Bank bank;
+    private User user;
 
     public Subscriber(){
 
     }
-    public Subscriber(String id, String firstName, String lastName, String egn, String address, Bank bank) {
+    public Subscriber(String id, String firstName, String lastName, String egn, String address, User user) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.egn = egn;
         this.address = address;
-        this.bank = bank;
+        this.user = user;
     }
 
     public String getId() {
@@ -71,4 +71,5 @@ public class Subscriber {
     public void setAddress(String address) {
         this.address = address;
     }
+
 }
