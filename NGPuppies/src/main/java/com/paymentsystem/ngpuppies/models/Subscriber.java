@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name="subscribers")
 public class Subscriber {
     @Id
+    @Column(name = "PhoneNumber")
     private String id;
     @Column(name = "FirstName")
     private String firstName;
@@ -19,6 +20,9 @@ public class Subscriber {
     @JoinColumn(name = "BankID")
     private Bank bank;
 
+    public Subscriber(){
+
+    }
     public Subscriber(String id, String firstName, String lastName, String egn, String address, Bank bank) {
         this.id = id;
         this.firstName = firstName;

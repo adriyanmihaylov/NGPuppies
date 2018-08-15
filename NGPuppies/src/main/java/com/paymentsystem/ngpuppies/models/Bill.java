@@ -7,6 +7,7 @@ import java.sql.Date;
 @Table(name = "bills")
 public class Bill {
     @Id
+    @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @OneToOne
