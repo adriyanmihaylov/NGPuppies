@@ -9,6 +9,7 @@ public class Currency {
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @Column(name = "Type")
     private String currencyType;
 
@@ -18,6 +19,14 @@ public class Currency {
 
     public Currency(String currencyType) {
         this.currencyType = currencyType;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCurrencyType() {

@@ -9,19 +9,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     private int id;
+
     @Column(name = "Username")
     private String userName;
+
     @Column(name = "Password")
     private String password;
+
     @OneToOne
     @JoinColumn(name = "RoleID")
     private Role role;
+
     @Column(name = "EIK")
     private String eik;
+
     @Column(name = "Details")
     private String details;
 
-    public User(){
+    public User() {
 
     }
 
@@ -33,6 +38,14 @@ public class User {
         this.role = role;
         this.eik = eik;
         this.details = details;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUserName() {
@@ -73,9 +86,5 @@ public class User {
 
     public void setDetails(String details) {
         this.details = details;
-    }
-
-    public int getId() {
-        return id;
     }
 }

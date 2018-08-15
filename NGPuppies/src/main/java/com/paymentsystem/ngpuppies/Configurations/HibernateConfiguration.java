@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.Configurations;
+package com.paymentsystem.ngpuppies.configurations;
 
 import com.paymentsystem.ngpuppies.models.*;
 import org.hibernate.SessionFactory;
@@ -15,7 +15,7 @@ public class HibernateConfiguration {
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Bill.class)
                 .addAnnotatedClass(Currency.class)
-                .addAnnotatedClass(Service.class)
+                .addAnnotatedClass(OfferedService.class)
                 .addAnnotatedClass(Subscriber.class)
                 .addAnnotatedClass(Role.class)
                 .addAnnotatedClass(User.class)

@@ -4,18 +4,29 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "services")
-public class Service {
+public class OfferedService {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     private int id;
+
     @Column(name = "Type")
     private String type;
-    public Service(){
+
+    public OfferedService() {
 
     }
-    public Service(String type) {
+
+    public OfferedService(String type) {
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getType() {

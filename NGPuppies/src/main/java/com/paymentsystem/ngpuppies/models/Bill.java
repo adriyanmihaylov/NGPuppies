@@ -10,40 +10,53 @@ public class Bill {
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @OneToOne
-    @JoinColumn(name= "ServiceID")
-    private Service service;
+    @JoinColumn(name = "ServiceID")
+    private OfferedService offeredService;
+
     @OneToOne
-    @JoinColumn(name= "SubscriberID")
+    @JoinColumn(name = "SubscriberID")
     private Subscriber subscriber;
-    @Column(name="StartDate")
+
+    @Column(name = "StartDate")
     private Date startDate;
+
     @Column(name = "EndDate")
     private Date dueDate;
+
     @OneToOne
-    @JoinColumn(name= "CurrencyID")
+    @JoinColumn(name = "CurrencyID")
     private Currency currency;
 
-    public Bill(){
+    public Bill() {
 
     }
 
-    public Bill(Service service,
+    public Bill(OfferedService offeredService,
                 Subscriber subscriber,
                 Date startDate, Date dueDate, Currency currency) {
-        this.service = service;
+        this.offeredService = offeredService;
         this.subscriber = subscriber;
         this.startDate = startDate;
         this.dueDate = dueDate;
         this.currency = currency;
     }
 
-    public Service getService() {
-        return service;
+    public int getId() {
+        return id;
     }
 
-    public void setService(Service service) {
-        this.service = service;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public OfferedService getOfferedService() {
+        return offeredService;
+    }
+
+    public void setOfferedService(OfferedService offeredService) {
+        this.offeredService = offeredService;
     }
 
     public Subscriber getSubscriber() {
@@ -76,9 +89,5 @@ public class Bill {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
-    }
-
-    public int getId() {
-        return id;
     }
 }
