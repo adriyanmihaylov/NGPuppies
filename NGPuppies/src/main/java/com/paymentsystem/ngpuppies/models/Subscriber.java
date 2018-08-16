@@ -6,38 +6,57 @@ import javax.persistence.*;
 @Table(name="subscribers")
 public class Subscriber {
     @Id
+    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     @Column(name = "PhoneNumber")
-    private String id;
+    private String phoneNumber;
+
     @Column(name = "FirstName")
     private String firstName;
+
     @Column(name = "LastName")
     private String lastName;
+
     @Column(name = "EGN")
     private String egn;
-    @Column(name = "Address")
-    private String address;
+
+    @OneToOne
+    @JoinColumn(name = "AddressID")
+    private Address address;
+
     @ManyToOne
-    @JoinColumn(name = "BankID")
-    private User user;
+    @JoinColumn(name = "ClientID")
+    private Client client;
 
-    public Subscriber(){
+    public Subscriber() {
 
     }
-    public Subscriber(String id, String firstName, String lastName, String egn, String address, User user) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.egn = egn;
-        this.address = address;
-        this.user = user;
+
+    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, Client client) {
+        setPhoneNumber(phoneNumber);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEgn(egn);
+        setAddress(address);
+        setClient(client);
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getFirstName() {
@@ -64,12 +83,19 @@ public class Subscriber {
         this.egn = egn;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 }
