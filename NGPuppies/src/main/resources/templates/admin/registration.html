@@ -20,14 +20,15 @@
     <label for="username">Username <span>*</span></label>
     <input type="text" class="form-control" id="username" th:field="*{username}" required="required" placeholder="Enter Username">
     <div class="text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+
     <label for="email">Email Address <span>*</span></label>
     <input type="email" class="form-control" id="email" th:field="*{email}" required="required" placeholder="Enter Email Address">
-    <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
-    </div>
+    <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
     <label for="password">Password <span>*</span></label>
     <input type="password" class="form-control" th:field="*{password}" id="password" required="required" placeholder="Enter Password">
-    <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-    </div>
+    <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
     <button form="register-form" type="submit">REGISTER</button>
 </form>
 </body>

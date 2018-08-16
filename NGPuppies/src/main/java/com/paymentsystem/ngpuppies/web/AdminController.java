@@ -48,25 +48,26 @@ public class AdminController {
             return "index";
         }
 
-        if (adminService.checkIfUsernameIsPresent(admin.getUsername())) {
-            model.addAttribute("view","admin/registration");
+        if (!adminService.checkIfUsernameIsPresent(admin.getUsername())) {
+            model.addAttribute("view", "admin/registration");
             model.addAttribute("usernameExist", true);
 
             return "index";
         }
-        if (adminService.checkIfEmailIsPresent(admin.getEmail())) {
-            model.addAttribute("view","admin/registration");
+        if (!adminService.checkIfEmailIsPresent(admin.getEmail())) {
+            model.addAttribute("view", "admin/registration");
             model.addAttribute("emailExist", true);
 
             return "index";
         }
 
-        if(adminService.create(admin)) {
+        if (adminService.create(admin)) {
             model.addAttribute("view", "test/testResults");
             model.addAttribute("registrationSuccess", true);
         } else {
             model.addAttribute("view", "test/testResult");
         }
+
         return "index";
     }
 

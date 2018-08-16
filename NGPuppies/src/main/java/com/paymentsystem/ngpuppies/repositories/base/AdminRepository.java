@@ -16,5 +16,4 @@ public interface AdminRepository {
     boolean create(Admin admin);
 
     boolean deleteByUsername(String username);
-
 }
