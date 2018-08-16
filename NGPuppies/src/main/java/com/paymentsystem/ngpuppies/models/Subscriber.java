@@ -34,8 +34,12 @@ public class Subscriber {
 
     }
 
-    public Subscriber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Client client) {
+        setPhoneNumber(phoneNumber);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEgn(egn);
+        setClient(client);
     }
 
     public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, Client client) {

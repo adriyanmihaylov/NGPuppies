@@ -23,9 +23,13 @@ public class Client {
     @OneToOne
     @JoinColumn(name = "DetailsID")
     private ClientDetail detail;
+    public Client(){
 
-    public Client() {
-
+    }
+    public Client(String username, String password, String eik) {
+        setUsername(username);
+        setPassword(password);
+        setEik(eik);
     }
 
     public Client(String username, String password, String eik, ClientDetail detail) {
