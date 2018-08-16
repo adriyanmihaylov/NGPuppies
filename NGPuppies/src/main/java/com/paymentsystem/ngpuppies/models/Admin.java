@@ -20,7 +20,7 @@ public class Admin {
     @Column(name = "email")
     private String email;
 
-    Admin() {
+    public Admin() {
 
     }
 
