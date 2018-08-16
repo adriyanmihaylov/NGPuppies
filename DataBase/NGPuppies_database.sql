@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS `admins` (
 -- Dumping structure for table ngpuppies_database.billing_records
 CREATE TABLE IF NOT EXISTS `billing_records` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `StartDate` datetime NOT NULL,
-  `EndDate` datetime NOT NULL,
+  `StartDate` datetime NOT NULL DEFAULT current_timestamp(),
+  `EndDate` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `Amount` double NOT NULL,
   `OfferedServiceID` int(11) NOT NULL DEFAULT 0,
   `CurrencyID` int(11) NOT NULL,
