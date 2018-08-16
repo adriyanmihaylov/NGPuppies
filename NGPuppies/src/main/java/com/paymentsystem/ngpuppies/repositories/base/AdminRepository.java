@@ -7,4 +7,14 @@ import java.util.List;
 public interface AdminRepository {
 
     List<Admin> getAll();
+
+    Admin getByUsername(String username);
+
+    Admin getByEmail(String email);
+
+
+    boolean create(Admin admin);
+
+    boolean deleteByUsername(String username);
+
 }

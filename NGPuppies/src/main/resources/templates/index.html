@@ -6,20 +6,6 @@
 </head>
 <body>
     <p>THIS IS OUR MAIN PAGE</p>
-    <div th:if="${not #lists.isEmpty(admin)}" >
-        <div th:each= "admin : ${admin} ">
-            <h1 th:text="${admin.username}"></h1>
-            <h2 th:text="${admin.email}"></h2>
-            <h3 th:text="${admin.password}"></h3>
-        </div>
-    </div>
-
-    <div th:if="${not #lists.isEmpty(client)}" >
-        <div th:each= "client : ${client} ">
-            <h1 th:text="${client.username}"></h1>
-            <h2 th:text="${client.password}"></h2>
-            <h3 th:text="${client.eik}"></h3>
-        </div>
-    </div>
+    <main th:include="${view}"></main>
 </body>
 </html>

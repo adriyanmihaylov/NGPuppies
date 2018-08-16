@@ -21,12 +21,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin getByUsername(String username) {
-        return null;
+        return adminRepository.getByUsername(username);
     }
 
     @Override
     public boolean create(Admin admin) {
-        return false;
+        return adminRepository.create(admin);
     }
 
     @Override
@@ -36,16 +36,16 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean deleteByUsername(String username) {
-        return false;
+        return adminRepository.deleteByUsername(username);
     }
 
     @Override
     public boolean checkIfUsernameIsPresent(String username) {
-        return false;
+        return adminRepository.getByUsername(username) != null;
     }
 
     @Override
     public boolean checkIfEmailIsPresent(String email) {
-        return false;
+        return  adminRepository.getByEmail(email) != null;
     }
 }
