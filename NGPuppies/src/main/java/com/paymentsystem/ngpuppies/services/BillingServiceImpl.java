@@ -56,7 +56,7 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
-    public String update(BillingRecord updatedBillingRecord) {
+    public String update( BillingRecord updatedBillingRecord) {
         if (recordRepository.update(updatedBillingRecord)){
             return "Success";
         }else {
