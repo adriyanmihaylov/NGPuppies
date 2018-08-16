@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
     </head>
     <body>
@@ -23,6 +23,14 @@
                 <h1 th:text="${client.username}"></h1>
                 <h2 th:text="${client.password}"></h2>
                 <h3 th:text="${client.eik}"></h3>
+            </div>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(subscriber)}" >
+            <div th:each= "subscriber : ${subscriber} ">
+                <h1 th:text="${subscriber.phoneNumber}"></h1>
+                <h2 th:text="${subscriber.email}"></h2>
+                <h3 th:text="${subscriber.password}"></h3>
             </div>
         </div>
     </body>

@@ -1,14 +1,12 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.BillingRecord;
-import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.BillingRecordRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import sun.text.bidi.BidiLine;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -19,7 +17,7 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
     }
     @Override
     public List<BillingRecord> getAll() {
-        List<BillingRecord> all = null;
+        List<BillingRecord> all = new ArrayList<>();
         try(Session session = factory.openSession()){
             Transaction tx = session.beginTransaction();
             all = session.createQuery("From BillingRecord ").list();
@@ -28,8 +26,9 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
         }catch (Exception e ){
             e.printStackTrace();
             System.out.println("Something went wrong");
-            return all;
+
         }
+        return all;
     }
 
     @Override
@@ -44,8 +43,8 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
         }catch (Exception e ){
             e.printStackTrace();
             System.out.println("Something went wrong");
-            return billingRecordBySubscriber;
         }
+        return billingRecordBySubscriber;
     }
 
     @Override
@@ -61,8 +60,8 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
         }catch (Exception e ){
             e.printStackTrace();
             System.out.println("Something went wrong");
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -76,8 +75,8 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
         }catch (Exception e ){
             e.printStackTrace();
             System.out.println("Something went wrong");
-            return null;
         }
+        return null;
     }
 
     @Override
@@ -91,8 +90,8 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("The billing record was not deleted");
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -105,8 +104,8 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("The billing record was not created");
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -119,7 +118,7 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("The Billing record was not updated");
-            return false;
         }
+        return false;
     }
 }
