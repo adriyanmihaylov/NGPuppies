@@ -38,6 +38,7 @@ public class BillingRecord {
 
     }
 
+
     public BillingRecord(Date startDate, Date endDate, double amount,
                          OfferedService offeredService, Currency currency, Subscriber subscriber) {
         setStartDate(startDate);

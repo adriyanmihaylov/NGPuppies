@@ -30,8 +30,12 @@ public class Subscriber {
     @JoinColumn(name = "ClientID")
     private Client client;
 
-    public Subscriber() {
+    public Subscriber(){
 
+    }
+
+    public Subscriber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, Client client) {
