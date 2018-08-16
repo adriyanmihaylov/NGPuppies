@@ -10,4 +10,5 @@ public interface SubscribersService {
     boolean deleteByNumber(String phoneNumber);
     boolean update(Subscriber updatedSubscriber);
     boolean create(Subscriber subscriber);
+    boolean checkIfPhoneExists(String phoneNumber);
 }

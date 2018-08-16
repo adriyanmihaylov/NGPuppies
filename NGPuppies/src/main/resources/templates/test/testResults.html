@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
     <head>
     </head>
     <body>
         <div th:if="${registrationSuccess}">
             <p class="text text-center">
                 Registration success!
+            </p>
+        </div>
+        <div th:if="${creationSuccess}">
+            <p class="text text-center">
+                Creation success!
             </p>
         </div>
         <p th:text="${message}"></p>
@@ -29,8 +35,8 @@
         <div th:if="${not #lists.isEmpty(subscriber)}" >
             <div th:each= "subscriber : ${subscriber} ">
                 <h1 th:text="${subscriber.phoneNumber}"></h1>
-                <h2 th:text="${subscriber.email}"></h2>
-                <h3 th:text="${subscriber.password}"></h3>
+                <h2 th:text="${subscriber.firstName}"></h2>
+                <h3 th:text="${subscriber.lastName}"></h3>
             </div>
         </div>
     </body>
