@@ -6,12 +6,6 @@
 </head>
 <body>
     <p>THIS IS OUR MAIN PAGE</p>
-    <div th:if="${not #lists.isEmpty(admin)}" >
-        <div th:each= "admin : ${admin} ">
-            <h1 th:text="${admin.username}"></h1>
-            <h2 th:text="${admin.email}"></h2>
-            <h1 th:text="${admin.password}"></h1>
-        </div>
-    </div>
+    <main th:include="${view}"></main>
 </body>
 </html>
