@@ -24,7 +24,7 @@ public class Client {
     @JoinColumn(name = "DetailsID")
     private ClientDetail detail;
 
-    Client() {
+    public Client() {
 
     }
 

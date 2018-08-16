@@ -16,7 +16,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<Admin> getAll() {
-        return null;
+        return adminRepository.getAll();
     }
 
     @Override

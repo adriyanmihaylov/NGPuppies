@@ -25,7 +25,7 @@ public class Address {
     @Column(name = "Country")
     private String country;
 
-    Address() {
+    public Address() {
 
     }
 
