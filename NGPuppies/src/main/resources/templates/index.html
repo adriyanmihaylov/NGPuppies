@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Start Page</title>
+</head>
+<body>
+    <p>THIS IS OUR MAIN PAGE</p>
+    <div th:if="${not #lists.isEmpty(admin)}" >
+        <div th:each= "admin : ${admin} ">
+            <h1 th:text="${admin.username}"></h1>
+            <h2 th:text="${admin.email}"></h2>
+            <h1 th:text="${admin.password}"></h1>
+        </div>
+    </div>
+</body>
+</html>
