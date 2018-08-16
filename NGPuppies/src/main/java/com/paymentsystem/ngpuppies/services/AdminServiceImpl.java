@@ -41,11 +41,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean checkIfUsernameIsPresent(String username) {
-        return adminRepository.getByUsername(username) != null;
+        return adminRepository.getByUsername(username) == null;
     }
 
     @Override
     public boolean checkIfEmailIsPresent(String email) {
-        return  adminRepository.getByEmail(email) != null;
+        return  adminRepository.getByEmail(email) == null;
     }
 }

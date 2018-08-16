@@ -10,6 +10,8 @@ public interface ClientService {
 
     Client getByUsername(String username);
 
+    Client getByEik(String eik);
+
     boolean create(Client client);
 
     boolean update(Client client);
