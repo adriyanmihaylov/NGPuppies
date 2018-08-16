@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import sun.security.smartcardio.SunPCSC;
 
 import java.util.List;
 
@@ -109,7 +108,7 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
     }
 
     @Override
-    public boolean updateById(int id, BillingRecord updatedBillingRecord) {
+    public boolean update(BillingRecord updatedBillingRecord) {
         try(Session session = factory.openSession()){
             Transaction tx = session.beginTransaction();
             session.update(updatedBillingRecord);

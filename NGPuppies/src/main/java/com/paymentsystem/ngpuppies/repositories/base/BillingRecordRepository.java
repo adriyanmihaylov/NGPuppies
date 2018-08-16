@@ -11,5 +11,5 @@ public interface BillingRecordRepository {
     BillingRecord getById(int id);
     boolean deleteById(int id);
     boolean create(BillingRecord billingRecordToBeCreated);
-    boolean updateById(int id, BillingRecord updatedBillingRecord);
+    boolean update(BillingRecord updatedBillingRecord);
 }
