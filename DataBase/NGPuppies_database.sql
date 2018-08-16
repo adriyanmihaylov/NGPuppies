@@ -41,8 +41,10 @@ CREATE TABLE IF NOT EXISTS `admins` (
   UNIQUE KEY `Email` (`Email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ngpuppies_database.admins: ~0 rows (approximately)
+-- Dumping data for table ngpuppies_database.admins: ~1 rows (approximately)
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
+INSERT INTO `admins` (`Id`, `Username`, `Password`, `Email`) VALUES
+	(1, 'admin', '123456', 'adriyanmihaylov@yahoo.com');
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 
 -- Dumping structure for table ngpuppies_database.billing_records
@@ -59,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `billing_records` (
   KEY `FK_billing_record_currencies` (`CurrencyID`),
   KEY `FK_billing_records_subscribers` (`SubscriberID`),
   CONSTRAINT `FK_billing_record_currencies` FOREIGN KEY (`CurrencyID`) REFERENCES `currencies` (`Id`),
-  CONSTRAINT `FK_billing_record_offered_sercvices` FOREIGN KEY (`OfferedServiceID`) REFERENCES `offered_sercvices` (`Id`),
+  CONSTRAINT `FK_billing_record_offered_sercvices` FOREIGN KEY (`OfferedServiceID`) REFERENCES `offered_services` (`Id`),
   CONSTRAINT `FK_billing_records_subscribers` FOREIGN KEY (`SubscriberID`) REFERENCES `subscribers` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -108,16 +110,16 @@ CREATE TABLE IF NOT EXISTS `currencies` (
 /*!40000 ALTER TABLE `currencies` DISABLE KEYS */;
 /*!40000 ALTER TABLE `currencies` ENABLE KEYS */;
 
--- Dumping structure for table ngpuppies_database.offered_sercvices
-CREATE TABLE IF NOT EXISTS `offered_sercvices` (
+-- Dumping structure for table ngpuppies_database.offered_services
+CREATE TABLE IF NOT EXISTS `offered_services` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ngpuppies_database.offered_sercvices: ~0 rows (approximately)
-/*!40000 ALTER TABLE `offered_sercvices` DISABLE KEYS */;
-/*!40000 ALTER TABLE `offered_sercvices` ENABLE KEYS */;
+-- Dumping data for table ngpuppies_database.offered_services: ~0 rows (approximately)
+/*!40000 ALTER TABLE `offered_services` DISABLE KEYS */;
+/*!40000 ALTER TABLE `offered_services` ENABLE KEYS */;
 
 -- Dumping structure for table ngpuppies_database.subscribers
 CREATE TABLE IF NOT EXISTS `subscribers` (
