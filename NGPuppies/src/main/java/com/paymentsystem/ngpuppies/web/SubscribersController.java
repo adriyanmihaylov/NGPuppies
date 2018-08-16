@@ -1,5 +1,7 @@
 package com.paymentsystem.ngpuppies.web;
 
+import com.paymentsystem.ngpuppies.models.Address;
+import com.paymentsystem.ngpuppies.models.Client;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.services.base.SubscribersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +33,18 @@ public class SubscribersController {
     }
 
     @GetMapping("/create")
-    public String register(Model model) {
+    public String create(Model model) {
         model.addAttribute("view", "subscribers/creation");
         model.addAttribute("subscriber", new Subscriber());
+        model.addAttribute("address", new Address());
+        model.addAttribute("client", new Client());
 
         return "index";
     }
 
     @PostMapping("/create")
     public String createSubscriber(@Valid Subscriber subscriber, BindingResult bindingResult, Model model) {
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("view", "test/testResult");
             return "index";

@@ -23,6 +23,14 @@
     <input type="text" class="form-control" th:field="*{lastName}" id="lastName" required="required" placeholder="Enter Last Name">
     <div class="text text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
     </div>
+    <label for="address" th:object="${address}">Address <span>*</span></label>
+    <input type="text" class="form-control" th:field="*{name}" id="address" required="required" placeholder="Enter Address Name">
+    <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+    </div>
+    <label for="clients" th:object="${client}">Client <span>*</span></label>
+    <input type="text" class="form-control" th:field="*{userName}" id="clients" required="required" placeholder="Enter Address Name">
+    <div class="text text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">
+    </div>
     <button form="register-form" type="submit">Create</button>
 </form>
 </body>
