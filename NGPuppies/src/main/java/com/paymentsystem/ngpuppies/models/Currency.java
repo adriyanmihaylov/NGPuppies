@@ -10,15 +10,15 @@ public class Currency {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "Type")
-    private String currencyType;
+    @Column(name = "Name")
+    private String name;
 
-    public Currency(){
+    public Currency() {
 
     }
 
-    public Currency(String currencyType) {
-        this.currencyType = currencyType;
+    public Currency(String name) {
+        setName(name);
     }
 
     public int getId() {
@@ -29,11 +29,11 @@ public class Currency {
         this.id = id;
     }
 
-    public String getCurrencyType() {
-        return currencyType;
+    public String getName() {
+        return name;
     }
 
-    public void setCurrencyType(String currencyType) {
-        this.currencyType = currencyType;
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -3,22 +3,22 @@ package com.paymentsystem.ngpuppies.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "services")
+@Table(name = "offered_services")
 public class OfferedService {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     private int id;
 
-    @Column(name = "Type")
-    private String type;
+    @Column(name = "Name")
+    private String name;
 
     public OfferedService() {
 
     }
 
-    public OfferedService(String type) {
-        this.type = type;
+    public OfferedService(String name) {
+        setName(name);
     }
 
     public int getId() {
@@ -29,11 +29,11 @@ public class OfferedService {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 }

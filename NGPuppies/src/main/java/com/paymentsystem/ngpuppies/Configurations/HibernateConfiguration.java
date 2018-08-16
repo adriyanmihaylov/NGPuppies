@@ -13,13 +13,14 @@ public class HibernateConfiguration {
 
         return new org.hibernate.cfg.Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Bill.class)
+                .addAnnotatedClass(Address.class)
+                .addAnnotatedClass(Admin.class)
+                .addAnnotatedClass(BillingRecord.class)
+                .addAnnotatedClass(Client.class)
+                .addAnnotatedClass(ClientDetail.class)
                 .addAnnotatedClass(Currency.class)
                 .addAnnotatedClass(OfferedService.class)
                 .addAnnotatedClass(Subscriber.class)
-                .addAnnotatedClass(Role.class)
-                .addAnnotatedClass(User.class)
                 .buildSessionFactory();
     }
-
 }
