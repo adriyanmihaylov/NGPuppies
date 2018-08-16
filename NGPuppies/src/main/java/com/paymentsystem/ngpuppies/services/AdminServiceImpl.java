@@ -2,6 +2,7 @@ package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.Admin;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
+import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
 import com.paymentsystem.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     @Override
     public List<Admin> getAll() {
@@ -41,7 +45,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean checkIfUsernameIsPresent(String username) {
-        return adminRepository.getByUsername(username) == null;
+        return adminRepository.getByUsername(username) == null && clientRepository.getByUsername(username) == null;
     }
 
     @Override
