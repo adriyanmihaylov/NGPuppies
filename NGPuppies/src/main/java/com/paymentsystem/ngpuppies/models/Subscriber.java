@@ -29,17 +29,19 @@ public class Subscriber {
     @ManyToOne
     @JoinColumn(name = "ClientID")
     private Client client;
+    @Transient
+    private String clientUsername;
 
     public Subscriber(){
 
     }
 
-    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Client client) {
+    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, String clientUsername) {
         setPhoneNumber(phoneNumber);
         setFirstName(firstName);
         setLastName(lastName);
         setEgn(egn);
-        setClient(client);
+        this.clientUsername = clientUsername;
     }
 
     public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, Client client) {
@@ -105,5 +107,18 @@ public class Subscriber {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public String getClientUsername() {
+        return clientUsername;
+    }
+
+    public void setClientUsername(String clientUsername) {
+        this.clientUsername = clientUsername;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Name: %s, EGN: %s, PhoneNumber: %s", getFirstName(), getEgn(), getPhoneNumber());
     }
 }

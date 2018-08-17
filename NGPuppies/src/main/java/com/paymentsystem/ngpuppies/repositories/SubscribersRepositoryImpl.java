@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.repositories;
 
+import com.paymentsystem.ngpuppies.models.Client;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscribersRepository;
 import com.sun.org.apache.bcel.internal.generic.FADD;
@@ -36,8 +37,13 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
         Subscriber subscriber = null;
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
-            subscriber = (Subscriber) session.createQuery("FROM Subscriber s where" +
-                    " s.phoneNumber = " + phoneNumber).list().get(0);
+            String query = String.format("FROM Subscriber s where s.phoneNumber = '%s'", phoneNumber);
+            List<Subscriber> subscribers = session.createQuery(query).list();
+            if (subscribers.size() == 0){
+                System.out.println("No such subscriber, need to create new");
+            }else{
+                return subscribers.get(0);
+            }
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,14 +87,30 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
 
     @Override
     public boolean create(Subscriber subscriber) {
-        try (Session session = factory.openSession()) {
-            Transaction tx = session.beginTransaction();
-            session.save(subscriber);
-            tx.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Subscriber was not saved");
+        if (subscriber.getClientUsername() != null){
+            try (Session session = factory.openSession()) {
+                Transaction tx = session.beginTransaction();
+                String query = String.format("From Client c where c.username = '%s'", subscriber.getClientUsername());
+                Client bank = (Client) session.createQuery(query).
+                        list().get(0);
+                subscriber.setClient(bank);
+                session.save(subscriber);
+                tx.commit();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Subscriber was not saved");
+            }
+        }else {
+            try (Session session = factory.openSession()) {
+                Transaction tx = session.beginTransaction();
+                session.save(subscriber);
+                tx.commit();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Subscriber was not saved");
+            }
         }
         return false;
     }

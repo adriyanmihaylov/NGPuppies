@@ -36,8 +36,6 @@ public class SubscribersController {
     public String create(Model model) {
         model.addAttribute("view", "subscribers/creation");
         model.addAttribute("subscriber", new Subscriber());
-        model.addAttribute("address", new Address());
-        model.addAttribute("client", new Client());
 
         return "index";
     }
@@ -59,6 +57,7 @@ public class SubscribersController {
         if(subscribersService.create(subscriber)) {
             model.addAttribute("view", "test/testResults");
             model.addAttribute("creationSuccess", true);
+            System.out.println(subscriber);
         } else {
             model.addAttribute("view", "test/testResult");
         }
