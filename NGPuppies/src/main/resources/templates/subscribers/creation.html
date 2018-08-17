@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:if="${subscribersExists}">
+    <p class="text text-center">
+        Subscriber  already exists.
+    </p>
+</div>
+
+<form id="register-form" th:action="@{/subscriber/create}" th:object="${subscriber}" method="post">
+    <label for="username">PhoneNumber <span>*</span></label>
+    <input type="tel" class="form-control" id="username" th:field="*{phoneNumber}" required="required" placeholder="Enter PhoneNumber">
+    <div class="text text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
+    <label for="firstName">First Name <span>*</span></label>
+    <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required="required" placeholder="Enter First Name">
+    <div class="text text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{fristName}">
+    </div>
+    <label for="lastName">LastName <span>*</span></label>
+    <input type="text" class="form-control" th:field="*{lastName}" id="lastName" required="required" placeholder="Enter Last Name">
+    <div class="text text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+    </div>
+    <label for="egn">Egn <span>*</span></label>
+    <input type="text" class="form-control" th:field="*{egn}" id="egn" required="required" placeholder="Enter Address Name">
+    <div class="text text-danger" th:if="${#fields.hasErrors('egn')}" th:errors="*{egn}">
+    </div>
+    <label for="clients">Client <span>*</span></label>
+    <input type="text" class="form-control" th:field="*{clientUsername}" id="clients" required="required" placeholder="Enter Address Name">
+    <div class="text text-danger" th:if="${#fields.hasErrors('clientUsername')}" th:errors="*{clientUsername}">
+    </div>
+    <button form="register-form" type="submit">Create</button>
+</form>
+</body>
+</html>
