@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.Admin;
+import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
 import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AdminRepositoryImpl implements GenericUserRepository<Admin> {
+public class AdminRepositoryImpl implements AdminRepository, GenericUserRepository<Admin> {
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -45,5 +46,44 @@ public class AdminRepositoryImpl implements GenericUserRepository<Admin> {
             e.printStackTrace();
         }
         return admin;
+    }
+
+    @Override
+    public Admin getByEmail(String email) {
+        Admin admin = null;
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            String query = String.format("FROM Admin a WHERE a.email = '%s'", email);
+            List<Admin> allAdmins = session.createQuery(query).list();
+            session.getTransaction().commit();
+
+            if (!allAdmins.isEmpty()) {
+                admin = allAdmins.get(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return admin;
+    }
+
+    @Override
+    public boolean checkIfEmailIsPresent(String email) {
+        return getByEmail(email) != null;
+    }
+
+    @Override
+    public boolean create(Admin model) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            model.setRole("ADMIN");
+            session.save(model);
+            session.getTransaction().commit();
+            System.out.println("CREATED ADMIN Id: " + model.getId() + " username:" + model.getUsername());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

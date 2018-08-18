@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.ApplicationUser;
+import com.paymentsystem.ngpuppies.repositories.base.ApplicationUserRepository;
 import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ApplicationUserUserRepositoryImpl implements GenericUserRepository<ApplicationUser> {
+public class ApplicationUserRepositoryImpl implements ApplicationUserRepository,GenericUserRepository<ApplicationUser> {
     private SessionFactory sessionFactory;
 
-    public ApplicationUserUserRepositoryImpl(SessionFactory sessionFactory) {
+    public ApplicationUserRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -49,4 +50,13 @@ public class ApplicationUserUserRepositoryImpl implements GenericUserRepository<
         return applicationUser;
     }
 
+    @Override
+    public boolean checkIfUsernameIsPresent(String username) {
+        return getByUsername(username) != null;
+    }
+
+    @Override
+    public boolean create(ApplicationUser model) {
+        return false;
+    }
 }

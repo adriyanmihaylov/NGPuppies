@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web;
+package com.paymentsystem.ngpuppies.web.uiControllers;
 
 import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.Client;

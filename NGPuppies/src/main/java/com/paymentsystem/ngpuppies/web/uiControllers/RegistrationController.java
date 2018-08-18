@@ -1,6 +1,5 @@
-package com.paymentsystem.ngpuppies.web;
+package com.paymentsystem.ngpuppies.web.uiControllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller

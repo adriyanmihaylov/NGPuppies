@@ -1,8 +1,11 @@
-package com.paymentsystem.ngpuppies.web;
+package com.paymentsystem.ngpuppies.web.uiControllers;
 
 import com.paymentsystem.ngpuppies.models.Admin;
 import com.paymentsystem.ngpuppies.models.ApplicationUser;
 import com.paymentsystem.ngpuppies.models.Client;
+import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
+import com.paymentsystem.ngpuppies.services.ApplicationUserServiceImpl;
+import com.paymentsystem.ngpuppies.services.ClientServiceImpl;
 import com.paymentsystem.ngpuppies.services.base.GenericUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @Autowired
-    private GenericUserService<ApplicationUser> applicationUserService;
+    private ApplicationUserServiceImpl applicationUserService;
     @Autowired
-    private GenericUserService<Admin> adminService;
+    private AdminServiceImpl adminService;
     @Autowired
-    private GenericUserService<Client> clientService;
+    private ClientServiceImpl clientService;
 
     @GetMapping("/")
     public String homePage(Model model) {

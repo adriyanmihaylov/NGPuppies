@@ -6,4 +6,6 @@ public interface GenericUserService<T> {
     List<T> getAll();
 
     T getByUsername(String username);
+
+    boolean create(T model);
 }
