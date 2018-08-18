@@ -1,21 +1,26 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.Client;
-import com.paymentsystem.ngpuppies.repositories.base.GenericRepository;
-import com.paymentsystem.ngpuppies.services.base.ClientService;
+import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
+import com.paymentsystem.ngpuppies.services.base.GenericUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ClientServiceImpl implements ClientService {
+public class ClientServiceImpl implements GenericUserService<Client> {
     @Autowired
-    private GenericRepository<Client> clientRepository;
+    private GenericUserRepository<Client> clientRepository;
 
 
     @Override
     public List<Client> getAll() {
         return clientRepository.getAll();
+    }
+
+    @Override
+    public Client getByUsername(String username) {
+        return clientRepository.getByUsername(username);
     }
 }

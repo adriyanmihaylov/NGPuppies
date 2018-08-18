@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class HomeController {
+@RequestMapping("/admin")
+public class AdminController {
 
     @Autowired
     private GenericUserService<ApplicationUser> applicationUserService;
@@ -19,33 +22,26 @@ public class HomeController {
     @Autowired
     private GenericUserService<Client> clientService;
 
-    @GetMapping("/")
-    public String homePage(Model model) {
+    @GetMapping("/user")
+    public String getUserByUsername(@RequestParam String username,Model model) {
         model.addAttribute("view", "test/testResults");
+        model.addAttribute("user", applicationUserService.getByUsername(username));
 
         return "index";
     }
 
-    @GetMapping("/allUsers")
-    public String getAllApplicationUsers(Model model) {
+    @GetMapping("/admin")
+    public String getAdminByUsername(@RequestParam String username,Model model) {
         model.addAttribute("view", "test/testResults");
-        model.addAttribute("user", applicationUserService.getAll());
+        model.addAttribute("admin", adminService.getByUsername(username));
 
         return "index";
     }
 
-    @GetMapping("/allAdmins")
-    public String getAllAdmins(Model model) {
+    @GetMapping("/client")
+    public String getClientByUsername(@RequestParam String username,Model model) {
         model.addAttribute("view", "test/testResults");
-        model.addAttribute("admin", adminService.getAll());
-
-        return "index";
-    }
-
-    @GetMapping("/allClients")
-    public String getAllClients(Model model) {
-        model.addAttribute("view", "test/testResults");
-        model.addAttribute("client", clientService.getAll());
+        model.addAttribute("client", clientService.getByUsername(username));
 
         return "index";
     }

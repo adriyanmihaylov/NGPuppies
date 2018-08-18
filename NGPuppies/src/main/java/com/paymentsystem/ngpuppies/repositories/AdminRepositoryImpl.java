@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.Admin;
-import com.paymentsystem.ngpuppies.repositories.base.GenericRepository;
+import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AdminRepositoryImpl implements GenericRepository<Admin> {
+public class AdminRepositoryImpl implements GenericUserRepository<Admin> {
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -27,5 +27,23 @@ public class AdminRepositoryImpl implements GenericRepository<Admin> {
         }
 
         return admins;
+    }
+
+    @Override
+    public Admin getByUsername(String username) {
+        Admin admin = null;
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            String query = String.format("FROM Admin a WHERE a.username = '%s'", username);
+            List<Admin> allAdmins = session.createQuery(query).list();
+            session.getTransaction().commit();
+
+            if (!allAdmins.isEmpty()) {
+                admin = allAdmins.get(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return admin;
     }
 }
