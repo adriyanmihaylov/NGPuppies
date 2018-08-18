@@ -28,19 +28,29 @@ public class Subscriber {
 
     @ManyToOne
     @JoinColumn(name = "ClientID")
-    private ApplicationUser applicationUser;
+    private Client client;
+    @Transient
+    private String clientUsername;
 
-    public Subscriber() {
+    public Subscriber(){
 
     }
 
-    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, ApplicationUser applicationUser) {
+    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, String clientUsername) {
+        setPhoneNumber(phoneNumber);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEgn(egn);
+        this.clientUsername = clientUsername;
+    }
+
+    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, Client client) {
         setPhoneNumber(phoneNumber);
         setFirstName(firstName);
         setLastName(lastName);
         setEgn(egn);
         setAddress(address);
-        setApplicationUser(applicationUser);
+        setClient(client);
     }
 
     public int getId() {
@@ -91,11 +101,24 @@ public class Subscriber {
         this.address = address;
     }
 
-    public ApplicationUser getApplicationUser() {
-        return applicationUser;
+    public Client getClient() {
+        return client;
     }
 
-    public void setApplicationUser(ApplicationUser applicationUser) {
-        this.applicationUser = applicationUser;
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public String getClientUsername() {
+        return clientUsername;
+    }
+
+    public void setClientUsername(String clientUsername) {
+        this.clientUsername = clientUsername;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Name: %s, EGN: %s, PhoneNumber: %s", getFirstName(), getEgn(), getPhoneNumber());
     }
 }

@@ -26,7 +26,7 @@ public class ApplicationUser {
 
     }
 
-    public ApplicationUser(String username, String password, String role) {
+    ApplicationUser(String username, String password,String role) {
         setUsername(username);
         setPassword(password);
         setRole(role);

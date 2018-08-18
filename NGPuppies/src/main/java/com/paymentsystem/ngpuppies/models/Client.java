@@ -17,13 +17,17 @@ public class Client extends ApplicationUser {
 
     }
 
-    public Client(String username, String password, String role, String eik) {
-        super(username,password,role);
+    public Client(String eik) {
         setEik(eik);
     }
 
-    public Client(String username, String password, String role, String eik, ClientDetail details) {
-        this(username,password,role,eik);
+    public Client(String username, String password, String eik) {
+        super(username,password,"CLIENT");
+        setEik(eik);
+    }
+
+    public Client(String username, String password,String eik, ClientDetail details) {
+        this(username,password,eik);
         setDetails(details);
     }
 

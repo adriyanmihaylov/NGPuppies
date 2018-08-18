@@ -12,11 +12,10 @@ public class Admin extends ApplicationUser {
     private String email;
 
     public Admin() {
-
     }
 
-    public Admin(String username, String password, String role, String email) {
-        super(username, password, role);
+    public Admin(String username, String password, String email) {
+        super(username, password,"ADMIN");
         setEmail(email);
     }
 

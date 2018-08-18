@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -22,7 +22,7 @@
     <div class="text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
 
     <label for="email">Email Address <span>*</span></label>
-    <input type="email" class="form-control" id="email" th:field="*{email}" required="required" placeholder="Enter Email Address">
+    <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Enter Email Address">
     <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 
     <label for="password">Password <span>*</span></label>

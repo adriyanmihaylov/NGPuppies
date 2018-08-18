@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.ApplicationUser;
-import com.paymentsystem.ngpuppies.repositories.base.ApplicationUserRepository;
+import com.paymentsystem.ngpuppies.repositories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ApplicationUserRepositoryImpl implements ApplicationUserRepository {
+public class ApplicationUserRepositoryImpl implements GenericRepository<ApplicationUser> {
     private SessionFactory sessionFactory;
 
     public ApplicationUserRepositoryImpl(SessionFactory sessionFactory) {

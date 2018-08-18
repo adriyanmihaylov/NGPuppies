@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.Client;
-import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
+import com.paymentsystem.ngpuppies.repositories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ClientRepositoryImpl implements ClientRepository {
+public class ClientRepositoryImpl implements GenericRepository<Client> {
     @Autowired
     private SessionFactory sessionFactory;
 
