@@ -86,4 +86,9 @@ public class ClientRepositoryImpl implements ClientRepository,GenericUserReposit
         }
         return false;
     }
+
+    @Override
+    public boolean deleteByUsername(String username) {
+        return false;
+    }
 }

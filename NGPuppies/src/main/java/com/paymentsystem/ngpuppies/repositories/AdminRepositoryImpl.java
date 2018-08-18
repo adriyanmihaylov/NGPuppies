@@ -86,4 +86,9 @@ public class AdminRepositoryImpl implements AdminRepository, GenericUserReposito
         }
         return false;
     }
+
+    @Override
+    public boolean deleteByUsername(String username) {
+        return false;
+    }
 }

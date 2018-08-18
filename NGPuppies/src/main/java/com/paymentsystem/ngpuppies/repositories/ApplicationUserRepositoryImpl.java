@@ -59,4 +59,24 @@ public class ApplicationUserRepositoryImpl implements ApplicationUserRepository,
     public boolean create(ApplicationUser model) {
         return false;
     }
+
+    @Override
+    public boolean deleteByUsername(String username) {
+        ApplicationUser user = getByUsername(username);
+        if (user != null) {
+            try (Session session = sessionFactory.openSession()) {
+                session.beginTransaction();
+                session.delete(user);
+                session.getTransaction().commit();
+                System.out.println("DELETED User Id:" + user.getId() + " username: " + user.getUsername());
+
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("User with username: " + username + " wasn't found!");
+        return false;
+    }
 }

@@ -8,6 +8,9 @@
                 padding: 0;
                 display: inline-block;
             }
+            .delete {
+                color: red;
+            }
             span {
                 display: block;
             }
@@ -15,6 +18,16 @@
         </style>
     </head>
     <body>
+        <div th:if="${deleteSuccess}">
+            <h2 class="delete text text-center">
+                User was successfully deleted!
+            </h2>
+        </div>
+        <div th:if="${deleteNotSuccess}">
+            <h2 class="delete text text-center">
+                User was NOT deleted!
+            </h2>
+        </div>
         <div th:if="${registrationSuccess}">
             <p class="text text-center">
                 Registration success!
@@ -28,7 +41,7 @@
         <p th:text="${message}"></p>
 
         <div th:if="${not #lists.isEmpty(admin)}" >
-            <div th:each= "admin : ${admin} ">
+            <div th:each= "admin : ${admin}">
                 <h3>Admin id:<p th:text="${admin.id}"></p></h3>
                 <span>username: <p th:text="${admin.username}"></p></span>
                 <span>password: <p th:text="${admin.password}"></p></span>

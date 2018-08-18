@@ -10,4 +10,6 @@ public interface GenericUserRepository<T> {
     T getByUsername(String username);
 
     boolean create(T model);
+
+    boolean deleteByUsername(String username);
 }

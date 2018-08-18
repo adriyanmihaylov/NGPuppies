@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+    <body>
+    <div th:if="${deleteSuccess}">
+        <h2 class="delete text text-center">
+            User was successfully deleted!
+        </h2>
+    </div>
+    <div th:if="${deleteNotSuccess}">
+        <h2 class="delete text text-center">
+            User was NOT deleted!
+        </h2>
+    </div>
+    <div th:if="${registrationSuccess}">
+        <p class="text text-center">
+            Registration success!
+        </p>
+    </div>
+        <form id="register-form" th:action="@{/secured/delete}" th:object="${user}" th:method="delete">
+            <label for="username">Username <span>*</span></label>
+            <input type="text" class="form-control" id="username" th:field="*{username}" required="required" placeholder="Enter Username">
+            <button type="submit">Delete</button>
+        </form>
+    </body>
+</html>
