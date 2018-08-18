@@ -130,18 +130,20 @@ CREATE TABLE IF NOT EXISTS `users_credentials` (
   `Username` varchar(50) NOT NULL DEFAULT '0',
   `Password` varchar(255) NOT NULL DEFAULT '0',
   `Role` varchar(50) NOT NULL DEFAULT '0',
-  `Email` varchar(50) DEFAULT '0',
-  `Eik` varchar(50) DEFAULT '0',
-  `DetailsID` int(11) DEFAULT NULL,
+  `AdminEmail` varchar(50) DEFAULT '0',
+  `ClientEik` varchar(50) DEFAULT '0',
+  `ClientDetailsID` int(11) DEFAULT NULL,
+  `Type` varchar(50) NOT NULL,
   PRIMARY KEY (`Id`),
-  KEY `FK_users_credentials_clients_details` (`DetailsID`),
-  CONSTRAINT `FK_users_credentials_clients_details` FOREIGN KEY (`DetailsID`) REFERENCES `clients_details` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  KEY `FK_users_credentials_clients_details` (`ClientDetailsID`),
+  CONSTRAINT `FK_users_credentials_clients_details` FOREIGN KEY (`ClientDetailsID`) REFERENCES `clients_details` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ngpuppies_database.users_credentials: ~1 rows (approximately)
+-- Dumping data for table ngpuppies_database.users_credentials: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users_credentials` DISABLE KEYS */;
-INSERT INTO `users_credentials` (`Id`, `Username`, `Password`, `Role`, `Email`, `Eik`, `DetailsID`) VALUES
-	(3, 'admin', '123456', 'ADMIN', 'admin@abv.bg', '', NULL);
+INSERT INTO `users_credentials` (`Id`, `Username`, `Password`, `Role`, `AdminEmail`, `ClientEik`, `ClientDetailsID`, `Type`) VALUES
+	(3, 'admin', '{noob}123456', 'ADMIN', 'admin@abv.bg', '', NULL, 'ADMIN'),
+	(4, 'bankDSK', '{noob}123456', 'CLIENT', 'someemail@abv.bg', '12345678', NULL, 'CLIENT');
 /*!40000 ALTER TABLE `users_credentials` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

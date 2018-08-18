@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "users_credentials")
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class ApplicationUser {
 
     @Id

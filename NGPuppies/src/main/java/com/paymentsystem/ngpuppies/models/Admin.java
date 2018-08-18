@@ -1,19 +1,21 @@
 package com.paymentsystem.ngpuppies.models;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-public class AdminUser extends ApplicationUser {
+@DiscriminatorValue("ADMIN")
+public class Admin extends ApplicationUser {
 
-    @Column(name = "email")
+    @Column(name = "AdminEmail")
     private String email;
 
-    public AdminUser() {
+    public Admin() {
 
     }
 
-    public AdminUser(String username, String password, String role,String email) {
+    public Admin(String username, String password, String role, String email) {
         super(username, password, role);
         setEmail(email);
     }

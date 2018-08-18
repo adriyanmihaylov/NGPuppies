@@ -30,4 +30,5 @@ public class ApplicationUserRepositoryImpl implements ApplicationUserRepository 
 
         return applicationUsers;
     }
+
 }

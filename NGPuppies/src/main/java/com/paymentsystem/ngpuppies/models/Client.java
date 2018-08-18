@@ -1,30 +1,28 @@
 package com.paymentsystem.ngpuppies.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
-public class ClientUser extends ApplicationUser {
+@DiscriminatorValue("CLIENT")
+public class Client extends ApplicationUser {
 
-    @Column(name = "Eik")
+    @Column(name = "ClientEik")
     private String eik;
 
     @OneToOne
-    @JoinColumn(name = "DetailsID")
+    @JoinColumn(name = "ClientDetailsID")
     private ClientDetail details;
 
-    public ClientUser() {
+    public Client() {
 
     }
 
-    public ClientUser(String username, String password, String role,String eik) {
+    public Client(String username, String password, String role, String eik) {
         super(username,password,role);
         setEik(eik);
     }
 
-    public ClientUser(String username, String password, String role,String eik,ClientDetail details) {
+    public Client(String username, String password, String role, String eik, ClientDetail details) {
         this(username,password,role,eik);
         setDetails(details);
     }

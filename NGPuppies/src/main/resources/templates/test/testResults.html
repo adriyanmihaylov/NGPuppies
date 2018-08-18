@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
+        <style>
+            h1,h2,h3,h4,p {
+                margin: 0;
+                padding: 0;
+                display: inline-block;
+            }
+            span {
+                display: block;
+            }
+
+        </style>
     </head>
     <body>
         <div th:if="${registrationSuccess}">
@@ -12,24 +23,30 @@
 
         <div th:if="${not #lists.isEmpty(admin)}" >
             <div th:each= "admin : ${admin} ">
-                <h1 th:text="${admin.username}"></h1>
-                <h2 th:text="${admin.email}"></h2>
-                <h3 th:text="${admin.password}"></h3>
+                <h3>Admin id:<p th:text="${admin.id}"></p></h3>
+                <span>username: <p th:text="${admin.username}"></p></span>
+                <span>password: <p th:text="${admin.password}"></p></span>
+                <span>role:<p th:text="${admin.role}"></p></span>
+                <span>email<p th:text="${admin.email}"></p></span>
             </div>
         </div>
 
         <div th:if="${not #lists.isEmpty(client)}" >
             <div th:each= "client : ${client} ">
-                <h1 th:text="${client.username}"></h1>
-                <h2 th:text="${client.password}"></h2>
-                <h3 th:text="${client.eik}"></h3>
+                <h3>Client id:<p th:text="${client.id}"></p></h3>
+                <span>username: <p th:text="${client.username}"></p></span>
+                <span>password: <p th:text="${client.password}"></p></span>
+                <span>role:<p th:text="${client.role}"></p></span>
+                <span>Eik: <p th:text="${client.eik}"></p></span>
             </div>
         </div>
+
         <div th:if="${not #lists.isEmpty(user)}" >
             <div th:each= "user : ${user} ">
-                <h1 th:text="${user.username}"></h1>
-                <h2 th:text="${user.password}"></h2>
-                <h3 th:text="${user.role}"></h3>
+                <h3>User id:<p th:text="${user.id}"></p></h3>
+                <span>username: <p th:text="${user.username}"></p></span>
+                <span>password: <p th:text="${user.password}"></p></span>
+                <span>role:<p th:text="${user.role}"></p></span>
             </div>
         </div>
     </body>
