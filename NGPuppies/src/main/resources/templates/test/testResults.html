@@ -25,5 +25,12 @@
                 <h3 th:text="${client.eik}"></h3>
             </div>
         </div>
+        <div th:if="${not #lists.isEmpty(user)}" >
+            <div th:each= "user : ${user} ">
+                <h1 th:text="${user.username}"></h1>
+                <h2 th:text="${user.password}"></h2>
+                <h3 th:text="${user.role}"></h3>
+            </div>
+        </div>
     </body>
 </html>

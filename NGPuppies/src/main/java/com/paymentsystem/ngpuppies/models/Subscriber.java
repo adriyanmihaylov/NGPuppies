@@ -28,19 +28,19 @@ public class Subscriber {
 
     @ManyToOne
     @JoinColumn(name = "ClientID")
-    private Client client;
+    private ApplicationUser applicationUser;
 
     public Subscriber() {
 
     }
 
-    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, Client client) {
+    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, ApplicationUser applicationUser) {
         setPhoneNumber(phoneNumber);
         setFirstName(firstName);
         setLastName(lastName);
         setEgn(egn);
         setAddress(address);
-        setClient(client);
+        setApplicationUser(applicationUser);
     }
 
     public int getId() {
@@ -91,11 +91,11 @@ public class Subscriber {
         this.address = address;
     }
 
-    public Client getClient() {
-        return client;
+    public ApplicationUser getApplicationUser() {
+        return applicationUser;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setApplicationUser(ApplicationUser applicationUser) {
+        this.applicationUser = applicationUser;
     }
 }

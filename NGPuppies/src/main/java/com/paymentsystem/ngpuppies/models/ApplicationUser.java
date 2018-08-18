@@ -3,8 +3,9 @@ package com.paymentsystem.ngpuppies.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "clients")
-public class Client {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "users_credentials")
+public class ApplicationUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,22 +18,17 @@ public class Client {
     @Column(name = "Password")
     private String password;
 
-    @Column(name = "EIK")
-    private String eik;
+    @Column(name = "Role")
+    private String role;
 
-    @OneToOne
-    @JoinColumn(name = "DetailsID")
-    private ClientDetail detail;
-
-    public Client() {
+    public ApplicationUser() {
 
     }
 
-    public Client(String username, String password, String eik, ClientDetail detail) {
+    public ApplicationUser(String username, String password, String role) {
         setUsername(username);
         setPassword(password);
-        setEik(eik);
-        setDetail(detail);
+        setRole(role);
     }
 
     public int getId() {
@@ -59,19 +55,11 @@ public class Client {
         this.password = password;
     }
 
-    public String getEik() {
-        return eik;
+    public String getRole() {
+        return role;
     }
 
-    public void setEik(String eik) {
-        this.eik = eik;
-    }
-
-    public ClientDetail getDetail() {
-        return detail;
-    }
-
-    public void setDetail(ClientDetail detail) {
-        this.detail = detail;
+    public void setRole(String role) {
+        this.role = role;
     }
 }
