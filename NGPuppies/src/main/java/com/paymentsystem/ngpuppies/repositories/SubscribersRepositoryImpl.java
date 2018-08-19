@@ -58,11 +58,16 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
         Subscriber subscriberToBeDeleted = null;
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
-            subscriberToBeDeleted = (Subscriber) session.createQuery("FROM Subscriber s where" +
-                    " s.phoneNumber = " + phoneNumber).list().get(0);
-            session.delete(subscriberToBeDeleted);
-            tx.commit();
-            return true;
+            List<Subscriber> subscribers = session.createQuery("FROM Subscriber s where" +
+                    " s.phoneNumber = " + phoneNumber).list();
+            if(subscribers.size() != 0){
+                session.delete(subscribers.get(0));
+                tx.commit();
+                return true;
+            }else {
+                tx.commit();
+            }
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("No such subscriber");
@@ -91,12 +96,16 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
             try (Session session = factory.openSession()) {
                 Transaction tx = session.beginTransaction();
                 String query = String.format("From Client c where c.username = '%s'", subscriber.getClientUsername());
-                Client bank = (Client) session.createQuery(query).
-                        list().get(0);
-                subscriber.setClient(bank);
-                session.save(subscriber);
+                List<Client> clients = session.createQuery(query).list();
+                if (clients.size() != 0) {
+                    subscriber.setClient(clients.get(0));
+                    session.save(subscriber);
+                    tx.commit();
+                    return true;
+                }
                 tx.commit();
-                return true;
+                return false;
+
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Subscriber was not saved");

@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/billingRecords")
+@RequestMapping("/billingRecords")
 public class BillingRecordsController {
     private BillingService billingService;
 
@@ -28,20 +28,10 @@ public class BillingRecordsController {
     public BillingRecord getBySubscriber(@RequestParam(name = "phoneNumber") String phoneNumber){
         return billingService.getBySubscriber(phoneNumber);
     }
-    @GetMapping("/getById")
-    public BillingRecord getById(@RequestParam(name = "id") String id){
-        return billingService.getById(Integer.parseInt(id));
-    }
     @PostMapping("/deleteBySubscriber")
     public void deleteBySubscriber(@RequestParam(name = "phoneNumber") String phoneNumber){
         billingService.deleteBySubscriber(phoneNumber);
     }
-
-    @PostMapping("/deleteById")
-    public void deleteById(@RequestParam(name = "id") String id){
-        billingService.deleteById(Integer.parseInt(id));
-    }
-
     @PostMapping("/create")
     public void create (@RequestParam(name = "startDate") String startDate,
                         @RequestParam(name = "endDate") String endDate,

@@ -33,40 +33,48 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public Client getByUsername(String username) {
-<<<<<<< HEAD
+
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             List<Client> clients = session.createQuery("FROM Client c where c.username = " + username).list();
-            if(clients.size() == 0){
+            if (clients.size() == 0) {
                 System.out.println("No such Client");
+                session.getTransaction().commit();
                 return null;
-            }else {
+            } else {
+
+                session.getTransaction().commit();
                 return clients.get(0);
+
             }
-            session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
     public boolean deleteByUsername(String username) {
-=======
-        Client client = null;
+        Client client;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             String query = String.format("FROM Client c where c.username LIKE '%s'", username);
             List<Client> clients = session.createQuery(query).list();
-            session.getTransaction().commit();
-
             if (!clients.isEmpty()) {
                 client = clients.get(0);
+                session.delete(client);
+                session.getTransaction().commit();
+                return true;
+            }else{
+                System.out.println("No such client " + username);
+                session.getTransaction().commit();
+                return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return client;
+        return false;
     }
 
     @Override
@@ -94,45 +102,19 @@ public class ClientRepositoryImpl implements ClientRepository {
             session.beginTransaction();
             session.save(client);
             session.getTransaction().commit();
-
             System.out.println("CREATED Client Id: " + client.getId() + " username:" + client.getUsername());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
->>>>>>> 6f0af6ff06fddf3283d7d4b37bdd7ee1d7aa1594
         return false;
     }
 
     @Override
-<<<<<<< HEAD
-    public boolean update(Client updateClient) {
-=======
     public boolean update(Client client) {
->>>>>>> 6f0af6ff06fddf3283d7d4b37bdd7ee1d7aa1594
-        return false;
-    }
-
-    @Override
-<<<<<<< HEAD
-    public boolean create(Client clientToBeCreated) {
-=======
-    public boolean deleteByUsername(String username) {
-        Client client = getByUsername(username);
-        if (client != null) {
-            try (Session session = sessionFactory.openSession()) {
-                session.beginTransaction();
-                session.delete(client);
-                session.getTransaction().commit();
-                System.out.println("DELETED: Client username: " + client.getUsername());
-
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
->>>>>>> 6f0af6ff06fddf3283d7d4b37bdd7ee1d7aa1594
         return false;
     }
 }
+
+
+

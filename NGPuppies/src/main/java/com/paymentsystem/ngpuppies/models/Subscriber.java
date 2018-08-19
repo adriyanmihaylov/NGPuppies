@@ -41,7 +41,7 @@ public class Subscriber {
         setFirstName(firstName);
         setLastName(lastName);
         setEgn(egn);
-        this.clientUsername = clientUsername;
+        setClientUsername(clientUsername);
     }
 
     public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, Client client) {

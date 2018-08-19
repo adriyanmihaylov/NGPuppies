@@ -33,20 +33,6 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
-    public BillingRecord getById(int id) {
-        return recordRepository.getById(id);
-    }
-
-    @Override
-    public String deleteById(int id) {
-        if (recordRepository.deleteById(id)){
-            return "Success";
-        }else {
-            return "Something went wrong";
-        }
-    }
-
-    @Override
     public String create(BillingRecord billingRecordToBeCreated) {
         if (recordRepository.create(billingRecordToBeCreated)){
             return "Success";

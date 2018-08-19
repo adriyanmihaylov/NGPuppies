@@ -56,9 +56,12 @@ public class SubscribersController {
         if(subscribersService.create(subscriber)) {
             model.addAttribute("view", "test/testResults");
             model.addAttribute("creationSuccess", true);
-            System.out.println(subscriber);
+            System.out.println("Susbcriber Created " + subscriber);
         } else {
-            model.addAttribute("view", "test/testResult");
+            model.addAttribute("view", "test/testResults");
+            model.addAttribute("subscribersExists", true);
+            System.out.println("Subscriber was not created");
+            System.out.println("NO such client with username: " + subscriber.getClientUsername());
         }
         return "index";
     }

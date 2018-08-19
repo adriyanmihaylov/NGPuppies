@@ -6,13 +6,6 @@ import java.util.List;
 
 public interface ClientRepository {
     List<Client> getAll();
-<<<<<<< HEAD
-    Client getByUsername(String username);
-    boolean deleteByUsername(String username);
-    boolean update(Client updateClient);
-    boolean create(Client clientToBeCreated);
-}
-=======
 
     Client getByUsername(String username);
 
@@ -24,4 +17,4 @@ public interface ClientRepository {
 
     boolean deleteByUsername(String username);
 }
->>>>>>> 6f0af6ff06fddf3283d7d4b37bdd7ee1d7aa1594
+
