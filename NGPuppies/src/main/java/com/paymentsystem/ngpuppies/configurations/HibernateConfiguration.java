@@ -13,10 +13,11 @@ public class HibernateConfiguration {
 
         return new org.hibernate.cfg.Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Address.class)
+                .addAnnotatedClass(ApplicationUser.class)
                 .addAnnotatedClass(Admin.class)
-                .addAnnotatedClass(BillingRecord.class)
                 .addAnnotatedClass(Client.class)
+                .addAnnotatedClass(Address.class)
+                .addAnnotatedClass(BillingRecord.class)
                 .addAnnotatedClass(ClientDetail.class)
                 .addAnnotatedClass(Currency.class)
                 .addAnnotatedClass(OfferedService.class)

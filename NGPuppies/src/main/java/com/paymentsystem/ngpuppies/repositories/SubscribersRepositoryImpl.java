@@ -91,9 +91,9 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
             try (Session session = factory.openSession()) {
                 Transaction tx = session.beginTransaction();
                 String query = String.format("From Client c where c.username = '%s'", subscriber.getClientUsername());
-                Client bank = (Client) session.createQuery(query).
+                Client client = (Client) session.createQuery(query).
                         list().get(0);
-                subscriber.setClient(bank);
+                subscriber.setClient(client);
                 session.save(subscriber);
                 tx.commit();
                 return true;

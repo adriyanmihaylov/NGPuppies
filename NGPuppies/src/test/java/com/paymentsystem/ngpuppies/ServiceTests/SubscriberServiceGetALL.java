@@ -1,11 +1,10 @@
 package com.paymentsystem.ngpuppies.ServiceTests;
 
-import com.paymentsystem.ngpuppies.models.BillingRecord;
 import com.paymentsystem.ngpuppies.models.Client;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.SubscribersRepositoryImpl;
 
-import com.paymentsystem.ngpuppies.services.SubscribersServiceImpl;
+import com.paymentsystem.ngpuppies.services.SubscriberServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,18 +16,18 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class SubscribersServiceGetALL {
+public class SubscriberServiceGetALL {
     @Mock
     private SubscribersRepositoryImpl subscribersRepository;
 
     private List<Subscriber> subscribers;
-    private SubscribersServiceImpl service;
+    private SubscriberServiceImpl service;
 
     @Before
     public void beforeTest() {
         subscribers = new ArrayList<>();
         when(subscribersRepository.getAll()).thenReturn(subscribers);
-        service = new SubscribersServiceImpl(subscribersRepository);
+        service = new SubscriberServiceImpl(subscribersRepository);
     }
 
     @Test

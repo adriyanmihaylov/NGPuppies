@@ -12,18 +12,20 @@ import java.util.List;
 @Repository
 public class BillingRecordRepositoryImpl implements BillingRecordRepository {
     private final SessionFactory factory;
-    BillingRecordRepositoryImpl(SessionFactory factory){
+
+    BillingRecordRepositoryImpl(SessionFactory factory) {
         this.factory = factory;
     }
+
     @Override
     public List<BillingRecord> getAll() {
         List<BillingRecord> all = new ArrayList<>();
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
             all = session.createQuery("From BillingRecord ").list();
             tx.commit();
             return all;
-        }catch (Exception e ){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Something went wrong");
 
@@ -34,13 +36,13 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
     @Override
     public BillingRecord getBySubscriber(String phoneNumber) {
         BillingRecord billingRecordBySubscriber = null;
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
             billingRecordBySubscriber = (BillingRecord) session.createQuery("from BillingRecord b " +
                     "where b.subscriber.phoneNumber = " + phoneNumber).list().get(0);
             tx.commit();
             return billingRecordBySubscriber;
-        }catch (Exception e ){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Something went wrong");
         }
@@ -50,14 +52,14 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
     @Override
     public boolean deleteBySubscriber(String phoneNumber) {
         BillingRecord billingRecordBySubscriber = null;
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
             billingRecordBySubscriber = (BillingRecord) session.createQuery("from BillingRecord b " +
                     "where b.subscriber.phoneNumber = " + phoneNumber).list().get(0);
             session.delete(billingRecordBySubscriber);
             tx.commit();
             return true;
-        }catch (Exception e ){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Something went wrong");
         }
@@ -67,12 +69,12 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
     @Override
     public BillingRecord getById(int id) {
         BillingRecord billingRecordById = null;
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
             billingRecordById = session.get(BillingRecord.class, id);
             tx.commit();
             return billingRecordById;
-        }catch (Exception e ){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Something went wrong");
         }
@@ -81,13 +83,13 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
 
     @Override
     public boolean deleteById(int id) {
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
             BillingRecord billingRecordToBeDeleted = session.get(BillingRecord.class, id);
             session.delete(billingRecordToBeDeleted);
             tx.commit();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("The billing record was not deleted");
         }
@@ -96,12 +98,12 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
 
     @Override
     public boolean create(BillingRecord billingRecordToBeCreated) {
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.save(billingRecordToBeCreated);
             tx.commit();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("The billing record was not created");
         }
@@ -110,12 +112,12 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
 
     @Override
     public boolean update(BillingRecord updatedBillingRecord) {
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.update(updatedBillingRecord);
             tx.commit();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("The Billing record was not updated");
         }
