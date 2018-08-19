@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/${common.basepath}/secured/admin")
+@RequestMapping("${common.basepath}/secured/admin")
 public class AdminRestController {
 
     @Autowired
