@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web;
+package com.paymentsystem.ngpuppies.web.ViewControllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

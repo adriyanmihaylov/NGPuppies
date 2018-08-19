@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web;
+package com.paymentsystem.ngpuppies.web.ViewControllers;
 
 import com.paymentsystem.ngpuppies.models.Admin;
 import com.paymentsystem.ngpuppies.services.base.AdminService;

@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web;
+package com.paymentsystem.ngpuppies.web.ViewControllers;
 
 import com.paymentsystem.ngpuppies.services.base.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
