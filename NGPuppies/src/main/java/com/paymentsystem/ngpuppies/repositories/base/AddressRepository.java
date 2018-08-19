@@ -4,6 +4,5 @@ import com.paymentsystem.ngpuppies.models.Address;
 
 public interface AddressRepository {
     boolean create(Address address);
-    boolean update(Address address);
-    boolean delete(Address address);
+    boolean delete(int id);
 }

@@ -18,13 +18,9 @@ public class AddressServiceImpl implements AddressService {
         return addressRepository.create(address);
     }
 
-    @Override
-    public boolean update(Address address) {
-        return addressRepository.update(address);
-    }
 
     @Override
-    public boolean delete(Address address) {
-        return addressRepository.delete(address);
+    public boolean deleteById(int id) {
+       return addressRepository.delete(id);
     }
 }

@@ -31,31 +31,17 @@ public class AddressRepositoryImpl implements AddressRepository {
     }
 
     @Override
-    public boolean update(Address address) {
+    public boolean delete(int id) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.update(address);
-            System.out.println("Address was updated: " + address);
+            Address addressToBeDelete = session.get(Address.class, id);
+            session.delete(addressToBeDelete);
+            System.out.println("Address was deleted: " + addressToBeDelete);
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Address was not updated");
-        }
-        return false;
-    }
-
-    @Override
-    public boolean delete(Address address) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.delete(address);
-            System.out.println("Address was deleted: " + address);
-            session.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Address was not deleted");
+            System.out.println("Address was not deleted no such id: " + id);
         }
         return false;
     }
