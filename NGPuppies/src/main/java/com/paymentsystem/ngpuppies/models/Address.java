@@ -84,4 +84,10 @@ public class Address {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    @Override
+    public String toString() {
+        return String.format("City: %s, Street: %s , State: %s , Postcode: %s , Country: %s  ",
+                getCity(), getStreet(), getState(), getPostCode(), getCountry());
+    }
 }
