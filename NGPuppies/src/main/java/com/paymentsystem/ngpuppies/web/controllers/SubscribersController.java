@@ -43,6 +43,12 @@ public class SubscribersController {
 
         return "index";
     }
+    @GetMapping("/create")
+    public String getByNumber(Model model) {
+        model.addAttribute("view","client/subscriber-registration");
+        model.addAttribute("subscriber", new Subscriber());
+        return "index";
+    }
 
     @PostMapping("/create")
     public String create(@Valid Subscriber subscriber, BindingResult bindingResult, Model model) {

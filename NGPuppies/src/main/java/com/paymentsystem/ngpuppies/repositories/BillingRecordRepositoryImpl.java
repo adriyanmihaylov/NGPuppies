@@ -65,37 +65,6 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
         }
         return false;
     }
-
-    @Override
-    public BillingRecord getById(int id) {
-        BillingRecord billingRecordById = null;
-        try (Session session = factory.openSession()) {
-            Transaction tx = session.beginTransaction();
-            billingRecordById = session.get(BillingRecord.class, id);
-            tx.commit();
-            return billingRecordById;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Something went wrong");
-        }
-        return null;
-    }
-
-    @Override
-    public boolean deleteById(int id) {
-        try (Session session = factory.openSession()) {
-            Transaction tx = session.beginTransaction();
-            BillingRecord billingRecordToBeDeleted = session.get(BillingRecord.class, id);
-            session.delete(billingRecordToBeDeleted);
-            tx.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("The billing record was not deleted");
-        }
-        return false;
-    }
-
     @Override
     public boolean create(BillingRecord billingRecordToBeCreated) {
         try (Session session = factory.openSession()) {
