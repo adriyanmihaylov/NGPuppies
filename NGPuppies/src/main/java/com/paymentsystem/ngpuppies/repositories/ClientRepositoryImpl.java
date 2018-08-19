@@ -73,6 +73,14 @@ public class ClientRepositoryImpl implements ClientRepository,GenericUserReposit
 
     @Override
     public boolean create(Client model) {
+        if(model.getUsername() == null || model.getPassword() == null || model.getEik() == null) {
+            return false;
+        }
+
+        if(getByUsername(model.getUsername()) != null ||getByEik(model.getEik()) != null) {
+            return false;
+        }
+
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             model.setRole("CLIENT");
