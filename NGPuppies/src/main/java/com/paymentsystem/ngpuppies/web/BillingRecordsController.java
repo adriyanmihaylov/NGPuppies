@@ -52,7 +52,7 @@ public class BillingRecordsController {
 
         OfferedService offeredService = new OfferedService(serviceName);
         Currency currency = new Currency(name);
-        Subscriber subscriber = new Subscriber(phoneNumber);
+        Subscriber subscriber = new Subscriber();
         BillingRecord newBillingRecord = new BillingRecord(Date.valueOf(startDate), Date.valueOf(endDate), Double.parseDouble(amount),
                 offeredService, currency, subscriber);
 
@@ -67,7 +67,7 @@ public class BillingRecordsController {
                 @RequestParam(name = "phoneNumber") String phoneNumber){
         OfferedService offeredService = new OfferedService(serviceName);
         Currency currency = new Currency(name);
-        Subscriber subscriber = new Subscriber(phoneNumber);
+        Subscriber subscriber = new Subscriber();
         BillingRecord billingRecordToUpdate = new BillingRecord(Date.valueOf(startDate), Date.valueOf(endDate), Double.parseDouble(amount),
                 offeredService, currency, subscriber);
         billingService.update(billingRecordToUpdate);
