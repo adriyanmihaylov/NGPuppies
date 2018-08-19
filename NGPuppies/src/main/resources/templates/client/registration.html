@@ -17,7 +17,7 @@
         </p>
     </div>
     <label for="register-form">Client registration form</label>
-    <form id="register-form" th:action="@{/secured/client/register}" th:object="${client}" method="post">
+    <form id="register-form" th:action="@{/secured/admin/client/register}" th:object="${client}" method="post">
         <label for="username">Username <span>*</span></label>
         <input type="text" class="form-control" id="username" th:field="*{username}" required="required" placeholder="Enter Username">
         <div class="text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>

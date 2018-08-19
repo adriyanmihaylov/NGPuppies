@@ -2,15 +2,15 @@ package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscribersRepository;
-import com.paymentsystem.ngpuppies.services.base.SubscribersService;
+import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class SubscribersServiceImpl implements SubscribersService {
+public class SubscriberServiceImpl implements SubscriberService {
     private SubscribersRepository subscribersRepository;
 
-    public SubscribersServiceImpl(SubscribersRepository subscribersRepository){
+    public SubscriberServiceImpl(SubscribersRepository subscribersRepository){
         this.subscribersRepository = subscribersRepository;
     }
 

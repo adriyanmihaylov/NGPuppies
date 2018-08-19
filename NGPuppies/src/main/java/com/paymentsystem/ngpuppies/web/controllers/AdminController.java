@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web.uiControllers;
+package com.paymentsystem.ngpuppies.web.controllers;
 
 import com.paymentsystem.ngpuppies.models.Admin;
 import com.paymentsystem.ngpuppies.models.ApplicationUser;
@@ -6,8 +6,6 @@ import com.paymentsystem.ngpuppies.models.Client;
 import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
 import com.paymentsystem.ngpuppies.services.ApplicationUserServiceImpl;
 import com.paymentsystem.ngpuppies.services.ClientServiceImpl;
-import com.paymentsystem.ngpuppies.services.base.GenericUserService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/secured")
+@RequestMapping("/secured/admin")
 public class AdminController {
 
     @Autowired
@@ -26,7 +24,6 @@ public class AdminController {
     private AdminServiceImpl adminService;
     @Autowired
     private ClientServiceImpl clientService;
-
     @GetMapping("/user")
     public String getUserByUsername(@RequestParam String username,Model model) {
         model.addAttribute("view", "test/testResults");
@@ -35,7 +32,7 @@ public class AdminController {
         return "index";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/")
     public String getAdminByUsername(@RequestParam String username,Model model) {
         model.addAttribute("view", "test/testResults");
         model.addAttribute("admin", adminService.getByUsername(username));
@@ -51,7 +48,31 @@ public class AdminController {
         return "index";
     }
 
-    @GetMapping("/admin/register")
+    @GetMapping("/allUsers")
+    public String getAllApplicationUsers(Model model) {
+        model.addAttribute("view", "test/testResults");
+        model.addAttribute("user", applicationUserService.getAll());
+
+        return "index";
+    }
+
+    @GetMapping("/all")
+    public String getAllAdmins(Model model) {
+        model.addAttribute("view", "test/testResults");
+        model.addAttribute("admin", adminService.getAll());
+
+        return "index";
+    }
+
+    @GetMapping("/allClients")
+    public String getAllClients(Model model) {
+        model.addAttribute("view", "test/testResults");
+        model.addAttribute("client", clientService.getAll());
+
+        return "index";
+    }
+
+    @GetMapping("/register")
     public String registerAdmin(Model model) {
         model.addAttribute("view","admin/registration");
         model.addAttribute("admin",new Admin());
@@ -59,7 +80,7 @@ public class AdminController {
         return "index";
     }
 
-    @PostMapping("/admin/register")
+    @PostMapping("/register")
     public String registerAdmin(@Valid  Admin admin, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "index";
@@ -78,9 +99,13 @@ public class AdminController {
             return "index";
         }
 
-        adminService.create(admin);
         model.addAttribute("view", "test/testResults");
-        model.addAttribute("registrationSuccess",true);
+
+        if(adminService.create(admin)) {
+            model.addAttribute("registrationSuccess", true);
+        } else {
+            model.addAttribute("registrationNotSuccess", true);
+        }
         return "index";
     }
 
@@ -111,13 +136,16 @@ public class AdminController {
             return "index";
         }
 
-        clientService.create(client);
         model.addAttribute("view", "test/testResults");
-        model.addAttribute("registrationSuccess",true);
+
+        if(clientService.create(client)) {
+            model.addAttribute("registrationSuccess", true);
+        } else {
+            model.addAttribute("registrationNotSuccess", true);
+        }
 
         return "index";
     }
-
 
     @GetMapping("/delete")
     public String deletePage(Model model) {

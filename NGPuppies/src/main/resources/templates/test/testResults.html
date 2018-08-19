@@ -8,36 +8,48 @@
                 padding: 0;
                 display: inline-block;
             }
-            .delete {
-                color: red;
-            }
             span {
                 display: block;
+            }
+
+            p span {
+                color: red;
             }
 
         </style>
     </head>
     <body>
         <div th:if="${deleteSuccess}">
-            <h2 class="delete text text-center">
+            <p class="delete text text-center">
                 User was successfully deleted!
-            </h2>
+            </p>
         </div>
         <div th:if="${deleteNotSuccess}">
-            <h2 class="delete text text-center">
-                User was NOT deleted!
-            </h2>
+            <p class="text text-center">
+                User was<span>NOT</span> deleted!
+            </p>
         </div>
         <div th:if="${registrationSuccess}">
             <p class="text text-center">
                 Registration success!
             </p>
         </div>
-        <div th:if="${creationSuccess}">
+        <div th:if="${registrationNotSuccess}">
             <p class="text text-center">
-                Creation success!
+                Registration was<span>NOT</span>successful!
             </p>
         </div>
+        <div th:if="${creationSuccess}">
+            <p class="text text-center">
+                Client creation success!
+            </p>
+        </div>
+        <div th:if="${creationNotSuccess}">
+            <p class="text text-center">
+                Client creation was <span>NOT</span>successful!
+            </p>
+        </div>
+
         <p th:text="${message}"></p>
 
         <div th:if="${not #lists.isEmpty(admin)}" >

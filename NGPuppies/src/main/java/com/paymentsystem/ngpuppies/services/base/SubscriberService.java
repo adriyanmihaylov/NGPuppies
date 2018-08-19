@@ -4,7 +4,7 @@ import com.paymentsystem.ngpuppies.models.Subscriber;
 
 import java.util.List;
 
-public interface SubscribersService {
+public interface SubscriberService {
     List<Subscriber> getAll();
     Subscriber getByNumber(String phoneNumber);
     boolean deleteByNumber(String phoneNumber);
