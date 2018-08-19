@@ -11,12 +11,11 @@ import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/secured/admin")
+@RequestMapping("/${common.basepath}/secured/admin")
 public class AdminRestController {
 
     @Autowired
