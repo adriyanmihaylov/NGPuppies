@@ -14,6 +14,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/secured/client")
+//@PreAuthorize("hasRole('CLIENT')")
 public class ClientController {
 
     @Autowired

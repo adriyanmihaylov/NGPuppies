@@ -15,9 +15,10 @@ import java.util.List;
 public class SubscribersRepositoryImpl implements SubscribersRepository {
     private SessionFactory factory;
 
-    public SubscribersRepositoryImpl(SessionFactory factory){
+    public SubscribersRepositoryImpl(SessionFactory factory) {
         this.factory = factory;
     }
+
     @Override
     public List<Subscriber> getAll() {
         List<Subscriber> subscribers = new ArrayList<>();
@@ -39,9 +40,9 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
             Transaction tx = session.beginTransaction();
             String query = String.format("FROM Subscriber s where s.phoneNumber = '%s'", phoneNumber);
             List<Subscriber> subscribers = session.createQuery(query).list();
-            if (subscribers.size() == 0){
+            if (subscribers.size() == 0) {
                 System.out.println("No such subscriber, need to create new");
-            }else{
+            } else {
                 return subscribers.get(0);
             }
             tx.commit();
@@ -87,7 +88,7 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
 
     @Override
     public boolean create(Subscriber subscriber) {
-        if (subscriber.getClientUsername() != null){
+        if (subscriber.getClientUsername() != null) {
             try (Session session = factory.openSession()) {
                 Transaction tx = session.beginTransaction();
                 String query = String.format("From Client c where c.username = '%s'", subscriber.getClientUsername());
@@ -101,7 +102,7 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
                 e.printStackTrace();
                 System.out.println("Subscriber was not saved");
             }
-        }else {
+        } else {
             try (Session session = factory.openSession()) {
                 Transaction tx = session.beginTransaction();
                 session.save(subscriber);

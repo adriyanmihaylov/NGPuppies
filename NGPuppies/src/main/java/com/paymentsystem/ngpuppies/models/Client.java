@@ -17,10 +17,6 @@ public class Client extends ApplicationUser {
 
     }
 
-    public Client(String eik) {
-        setEik(eik);
-    }
-
     public Client(String username, String password, String eik) {
         super(username,password,"CLIENT");
         setEik(eik);

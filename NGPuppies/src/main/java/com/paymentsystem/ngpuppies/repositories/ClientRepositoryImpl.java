@@ -29,9 +29,8 @@ public class ClientRepositoryImpl implements ClientRepository,GenericUserReposit
         return clients;
     }
 
-  
     @Override
-    public boolean deleteByUsername(String username) {
+    public Client getByUsername(String username) {
         Client client = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -81,7 +80,7 @@ public class ClientRepositoryImpl implements ClientRepository,GenericUserReposit
         if(getByUsername(model.getUsername()) != null ||getByEik(model.getEik()) != null) {
             return false;
         }
-      
+
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             model.setRole("CLIENT");
@@ -97,13 +96,7 @@ public class ClientRepositoryImpl implements ClientRepository,GenericUserReposit
     }
 
     @Override
-    public boolean update(Client client) {
-        return false;
-    }
-
-    @Override
-
     public boolean deleteByUsername(String username) {
-       return false;
+        return false;
     }
 }

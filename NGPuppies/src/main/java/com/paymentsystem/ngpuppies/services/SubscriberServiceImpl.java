@@ -10,7 +10,7 @@ import java.util.List;
 public class SubscriberServiceImpl implements SubscriberService {
     private SubscribersRepository subscribersRepository;
 
-    public SubscriberServiceImpl(SubscribersRepository subscribersRepository){
+    public SubscriberServiceImpl(SubscribersRepository subscribersRepository) {
         this.subscribersRepository = subscribersRepository;
     }
 
@@ -42,15 +42,15 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public boolean checkIfPhoneExists(String phoneNumber) {
         Subscriber getByNumber = null;
-        try{
+        try {
             getByNumber = getByNumber(phoneNumber);
-        }catch (Exception e ){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-        if(getByNumber == null){
+        if (getByNumber == null) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }

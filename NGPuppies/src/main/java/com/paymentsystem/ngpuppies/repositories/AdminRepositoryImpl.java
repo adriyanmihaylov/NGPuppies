@@ -74,6 +74,14 @@ public class AdminRepositoryImpl implements AdminRepository, GenericUserReposito
 
     @Override
     public boolean create(Admin model) {
+        if (model.getUsername() == null || model.getPassword() == null || model.getEmail() == null) {
+            return false;
+        }
+
+        if (getByUsername(model.getUsername()) != null || getByEmail(model.getEmail()) != null) {
+            return false;
+        }
+
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             model.setRole("ADMIN");
