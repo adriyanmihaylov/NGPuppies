@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -16,7 +16,8 @@
             EIK is invalid or already taken
         </p>
     </div>
-    <form id="register-form" th:action="@{/client/register}" th:object="${client}" method="post">
+    <label for="register-form">Client registration form</label>
+    <form id="register-form" th:action="@{/secured/admin/client/register}" th:object="${client}" method="post">
         <label for="username">Username <span>*</span></label>
         <input type="text" class="form-control" id="username" th:field="*{username}" required="required" placeholder="Enter Username">
         <div class="text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>

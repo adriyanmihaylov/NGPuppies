@@ -2,20 +2,19 @@ package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.Admin;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
+import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AdminRepositoryImpl implements AdminRepository {
+public class AdminRepositoryImpl implements AdminRepository, GenericUserRepository<Admin> {
+    @Autowired
     private SessionFactory sessionFactory;
-
-    public AdminRepositoryImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     @Override
     public List<Admin> getAll() {
@@ -36,17 +35,16 @@ public class AdminRepositoryImpl implements AdminRepository {
         Admin admin = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            String query = String.format("FROM Admin a where a.username LIKE '%s'", username);
-            List<Admin> admins = session.createQuery(query).list();
+            String query = String.format("FROM Admin a WHERE a.username = '%s'", username);
+            List<Admin> allAdmins = session.createQuery(query).list();
             session.getTransaction().commit();
 
-            if (!admins.isEmpty()) {
-                admin = admins.get(0);
+            if (!allAdmins.isEmpty()) {
+                admin = allAdmins.get(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return admin;
     }
 
@@ -55,12 +53,12 @@ public class AdminRepositoryImpl implements AdminRepository {
         Admin admin = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            String query = String.format("FROM Admin a where a.email LIKE '%s'", email);
-            List<Admin> admins = session.createQuery(query).list();
+            String query = String.format("FROM Admin a WHERE a.email = '%s'", email);
+            List<Admin> allAdmins = session.createQuery(query).list();
             session.getTransaction().commit();
 
-            if (!admins.isEmpty()) {
-                admin = admins.get(0);
+            if (!allAdmins.isEmpty()) {
+                admin = allAdmins.get(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,35 +68,35 @@ public class AdminRepositoryImpl implements AdminRepository {
     }
 
     @Override
-    public boolean create(Admin admin) {
+    public boolean checkIfEmailIsPresent(String email) {
+        return getByEmail(email) != null;
+    }
+
+    @Override
+    public boolean create(Admin model) {
+        if (model.getUsername() == null || model.getPassword() == null || model.getEmail() == null) {
+            return false;
+        }
+
+        if (getByUsername(model.getUsername()) != null || getByEmail(model.getEmail()) != null) {
+            return false;
+        }
+
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.save(admin);
+            model.setRole("ADMIN");
+            session.save(model);
             session.getTransaction().commit();
-
-            System.out.println("CREATED User Id: " + admin.getId() + " username:" + admin.getUsername());
+            System.out.println("CREATED ADMIN Id: " + model.getId() + " username:" + model.getUsername());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
     @Override
     public boolean deleteByUsername(String username) {
-        Admin admin = getByUsername(username);
-        if(admin != null) {
-            try (Session session = sessionFactory.openSession()) {
-                session.beginTransaction();
-                session.delete(admin);
-                session.getTransaction().commit();
-                System.out.println("DELETED: Admin: " + admin.getUsername());
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         return false;
     }
 }

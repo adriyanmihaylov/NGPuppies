@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+    <form id="client-registration" th:action="@{/secured/client/subscriber/register}" th:object="${subscriber}" method="post">
+        <label for="phone-number">Phone number <span>*</span></label>
+        <input type="text" class="form-control" id="phone-number" th:field="*{phoneNumber}" required="required" placeholder="Enter phone number">
+
+        <label for="firstName">First name <span>*</span></label>
+        <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required="required" placeholder="Enter first name">
+
+        <label for="lastName">First name <span>*</span></label>
+        <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required="required" placeholder="Enter last name">
+
+
+        <label for="egn">First EGN <span>*</span></label>
+        <input type="text" class="form-control" id="egn" th:field="*{egn}" required="required" placeholder="Enter EGN">
+
+        <button form="client-registration" type="submit">REGISTER</button>
+</form>
+</body>
+</html>

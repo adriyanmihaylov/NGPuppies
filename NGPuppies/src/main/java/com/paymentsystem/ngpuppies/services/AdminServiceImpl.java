@@ -1,22 +1,20 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.Admin;
-import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
-import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
+import com.paymentsystem.ngpuppies.repositories.AdminRepositoryImpl;
+import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
 import com.paymentsystem.ngpuppies.services.base.AdminService;
+import com.paymentsystem.ngpuppies.services.base.GenericUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl implements GenericUserService<Admin>,AdminService {
 
     @Autowired
-    private AdminRepository adminRepository;
-
-    @Autowired
-    private ClientRepository clientRepository;
+    private AdminRepositoryImpl adminRepository;
 
     @Override
     public List<Admin> getAll() {
@@ -29,27 +27,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean create(Admin admin) {
-        return adminRepository.create(admin);
-    }
-
-    @Override
-    public boolean update(Admin admin) {
-        return false;
-    }
-
-    @Override
-    public boolean deleteByUsername(String username) {
-        return adminRepository.deleteByUsername(username);
-    }
-
-    @Override
-    public boolean checkIfUsernameIsPresent(String username) {
-        return adminRepository.getByUsername(username) == null && clientRepository.getByUsername(username) == null;
+    public boolean create(Admin model) {
+       return adminRepository.create(model);
     }
 
     @Override
     public boolean checkIfEmailIsPresent(String email) {
-        return  adminRepository.getByEmail(email) == null;
+        return adminRepository.checkIfEmailIsPresent(email);
     }
 }

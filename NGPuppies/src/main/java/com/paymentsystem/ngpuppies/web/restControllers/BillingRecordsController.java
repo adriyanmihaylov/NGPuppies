@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web.ViewControllers;
+package com.paymentsystem.ngpuppies.web.restControllers;
 
 import com.paymentsystem.ngpuppies.models.BillingRecord;
 import com.paymentsystem.ngpuppies.models.Currency;

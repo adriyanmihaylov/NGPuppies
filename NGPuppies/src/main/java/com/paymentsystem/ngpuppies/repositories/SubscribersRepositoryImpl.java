@@ -15,9 +15,10 @@ import java.util.List;
 public class SubscribersRepositoryImpl implements SubscribersRepository {
     private SessionFactory factory;
 
-    public SubscribersRepositoryImpl(SessionFactory factory){
+    public SubscribersRepositoryImpl(SessionFactory factory) {
         this.factory = factory;
     }
+
     @Override
     public List<Subscriber> getAll() {
         List<Subscriber> subscribers = new ArrayList<>();
@@ -39,9 +40,9 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
             Transaction tx = session.beginTransaction();
             String query = String.format("FROM Subscriber s where s.phoneNumber = '%s'", phoneNumber);
             List<Subscriber> subscribers = session.createQuery(query).list();
-            if (subscribers.size() == 0){
+            if (subscribers.size() == 0) {
                 System.out.println("No such subscriber, need to create new");
-            }else{
+            } else {
                 return subscribers.get(0);
             }
             tx.commit();
@@ -58,16 +59,11 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
         Subscriber subscriberToBeDeleted = null;
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
-            List<Subscriber> subscribers = session.createQuery("FROM Subscriber s where" +
-                    " s.phoneNumber = " + phoneNumber).list();
-            if(subscribers.size() != 0){
-                session.delete(subscribers.get(0));
-                tx.commit();
-                return true;
-            }else {
-                tx.commit();
-            }
-            return false;
+            subscriberToBeDeleted = (Subscriber) session.createQuery("FROM Subscriber s where" +
+                    " s.phoneNumber = " + phoneNumber).list().get(0);
+            session.delete(subscriberToBeDeleted);
+            tx.commit();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("No such subscriber");
@@ -92,25 +88,21 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
 
     @Override
     public boolean create(Subscriber subscriber) {
-        if (subscriber.getClientUsername() != null){
+        if (subscriber.getClientUsername() != null) {
             try (Session session = factory.openSession()) {
                 Transaction tx = session.beginTransaction();
                 String query = String.format("From Client c where c.username = '%s'", subscriber.getClientUsername());
-                List<Client> clients = session.createQuery(query).list();
-                if (clients.size() != 0) {
-                    subscriber.setClient(clients.get(0));
-                    session.save(subscriber);
-                    tx.commit();
-                    return true;
-                }
+                Client client = (Client) session.createQuery(query).
+                        list().get(0);
+                subscriber.setClient(client);
+                session.save(subscriber);
                 tx.commit();
-                return false;
-
+                return true;
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Subscriber was not saved");
             }
-        }else {
+        } else {
             try (Session session = factory.openSession()) {
                 Transaction tx = session.beginTransaction();
                 session.save(subscriber);

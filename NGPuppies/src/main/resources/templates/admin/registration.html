@@ -16,13 +16,13 @@
         Email is invalid or already taken
     </p>
 </div>
-<form id="register-form" th:action="@{/admin/register}" th:object="${admin}" method="post">
+<form id="register-form" th:action="@{/secured/admin/register}" th:object="${admin}" method="post">
     <label for="username">Username <span>*</span></label>
     <input type="text" class="form-control" id="username" th:field="*{username}" required="required" placeholder="Enter Username">
     <div class="text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
 
     <label for="email">Email Address <span>*</span></label>
-    <input type="email" class="form-control" id="email" th:field="*{email}" required="required" placeholder="Enter Email Address">
+    <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Enter Email Address">
     <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 
     <label for="password">Password <span>*</span></label>

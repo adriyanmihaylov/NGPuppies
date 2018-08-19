@@ -2,15 +2,15 @@ package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscribersRepository;
-import com.paymentsystem.ngpuppies.services.base.SubscribersService;
+import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class SubscribersServiceImpl implements SubscribersService {
+public class SubscriberServiceImpl implements SubscriberService {
     private SubscribersRepository subscribersRepository;
 
-    public SubscribersServiceImpl(SubscribersRepository subscribersRepository){
+    public SubscriberServiceImpl(SubscribersRepository subscribersRepository) {
         this.subscribersRepository = subscribersRepository;
     }
 
@@ -42,15 +42,15 @@ public class SubscribersServiceImpl implements SubscribersService {
     @Override
     public boolean checkIfPhoneExists(String phoneNumber) {
         Subscriber getByNumber = null;
-        try{
+        try {
             getByNumber = getByNumber(phoneNumber);
-        }catch (Exception e ){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-        if(getByNumber == null){
+        if (getByNumber == null) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }

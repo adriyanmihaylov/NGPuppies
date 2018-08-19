@@ -1,57 +1,22 @@
 package com.paymentsystem.ngpuppies.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
-@Table(name = "admins")
-public class Admin {
+@DiscriminatorValue("ADMIN")
+public class Admin extends ApplicationUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
-    private int id;
-
-    @Column(name = "Username")
-    private String username;
-
-    @Column(name = "Password")
-    private String password;
-
-    @Column(name = "email")
+    @Column(name = "AdminEmail")
     private String email;
 
     public Admin() {
-
     }
 
     public Admin(String username, String password, String email) {
-        setUsername(username);
-        setPassword(password);
+        super(username, password,"ADMIN");
         setEmail(email);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
