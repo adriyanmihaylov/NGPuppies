@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.viewModels;
 
+
 import com.paymentsystem.ngpuppies.models.Admin;
 
 public class AdminViewModel {

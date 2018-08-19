@@ -11,7 +11,11 @@ import java.sql.Date;
 import java.util.List;
 
 @RestController
+<<<<<<< HEAD
 @RequestMapping("/billingRecords")
+=======
+@RequestMapping("/${common.basepath}/billingRecords")
+>>>>>>> bb530922d26cec2de39f7f7da193e2ba56fb8618
 public class BillingRecordsController {
     private BillingService billingService;
 
