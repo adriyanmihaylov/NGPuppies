@@ -11,10 +11,6 @@ public interface BillingRecordRepository {
 
     boolean deleteBySubscriber(String phoneNumber);
 
-    BillingRecord getById(int id);
-
-    boolean deleteById(int id);
-
     boolean create(BillingRecord billingRecordToBeCreated);
 
     boolean update(BillingRecord updatedBillingRecord);
