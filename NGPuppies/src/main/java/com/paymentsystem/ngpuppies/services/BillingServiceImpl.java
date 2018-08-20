@@ -5,6 +5,7 @@ import com.paymentsystem.ngpuppies.repositories.base.BillingRecordRepository;
 import com.paymentsystem.ngpuppies.services.base.BillingService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 @Service
 public class BillingServiceImpl implements BillingService {
@@ -49,5 +50,10 @@ public class BillingServiceImpl implements BillingService {
         }else {
             return "Something went wrong";
         }
+    }
+
+    @Override
+    public List<BillingRecord> getByDate(String startDate, String endDate) {
+       return recordRepository.getByDate(startDate, endDate);
     }
 }

@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
+
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ import java.util.List;
 public class BillingRecordRepositoryImpl implements BillingRecordRepository {
     private final SessionFactory factory;
 
-    BillingRecordRepositoryImpl(SessionFactory factory) {
+    public BillingRecordRepositoryImpl(SessionFactory factory) {
         this.factory = factory;
     }
 
@@ -91,5 +93,20 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
             System.out.println("The Billing record was not updated");
         }
         return false;
+    }
+
+    @Override
+    public List<BillingRecord> getByDate(String startDate, String endDate) {
+        try (Session session = factory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            String query =String.format("from  BillingRecord b where b.startDate >= '%s' and b.endDate <= '%s'",startDate,endDate);
+            List<BillingRecord> billingRecords = session.createQuery(query).list();
+            tx.commit();
+            return billingRecords;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("The Billing record was not updated");
+            return new ArrayList<>();
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web.restControllers;
+package com.paymentsystem.ngpuppies.web.RestControllers;
 
 import com.paymentsystem.ngpuppies.models.Admin;
 import com.paymentsystem.ngpuppies.models.Client;

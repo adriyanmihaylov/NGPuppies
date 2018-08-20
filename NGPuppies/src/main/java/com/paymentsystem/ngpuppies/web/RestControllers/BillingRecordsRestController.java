@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web.restControllers;
+package com.paymentsystem.ngpuppies.web.RestControllers;
 
 import com.paymentsystem.ngpuppies.models.BillingRecord;
 import com.paymentsystem.ngpuppies.models.Currency;
@@ -61,6 +61,11 @@ public class BillingRecordsRestController {
         BillingRecord billingRecordToUpdate = new BillingRecord(Date.valueOf(startDate), Date.valueOf(endDate), Double.parseDouble(amount),
                 offeredService, currency, subscriber);
         billingService.update(billingRecordToUpdate);
+    }
+    @GetMapping("/date")
+        public List<BillingRecord> getByDate(@RequestParam(name = "startDate", required = false, defaultValue = "'%'") String startDate,
+                              @RequestParam(name = "endDate",required = false, defaultValue = "2999-12-31") String endDate){
+       return billingService.getByDate(startDate, endDate);
     }
 
 
