@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.viewModels;
 
-import com.paymentsystem.ngpuppies.models.Client;
+import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.models.ClientDetail;
 
 public class ClientViewModel {

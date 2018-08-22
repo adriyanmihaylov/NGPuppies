@@ -1,5 +1,7 @@
 package com.paymentsystem.ngpuppies.models;
 
+import com.paymentsystem.ngpuppies.models.users.Client;
+
 import javax.persistence.*;
 
 @Entity

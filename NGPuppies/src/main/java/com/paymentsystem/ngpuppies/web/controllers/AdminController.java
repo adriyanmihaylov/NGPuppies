@@ -1,8 +1,8 @@
 package com.paymentsystem.ngpuppies.web.controllers;
 
-import com.paymentsystem.ngpuppies.models.Admin;
-import com.paymentsystem.ngpuppies.models.ApplicationUser;
-import com.paymentsystem.ngpuppies.models.Client;
+import com.paymentsystem.ngpuppies.models.users.Admin;
+import com.paymentsystem.ngpuppies.models.users.ApplicationUser;
+import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
 import com.paymentsystem.ngpuppies.services.ApplicationUserServiceImpl;
 import com.paymentsystem.ngpuppies.services.ClientServiceImpl;

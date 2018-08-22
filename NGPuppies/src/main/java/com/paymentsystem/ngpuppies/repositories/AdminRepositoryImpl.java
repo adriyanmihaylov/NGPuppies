@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.repositories;
 
-import com.paymentsystem.ngpuppies.models.Admin;
+import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
 import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
 import org.hibernate.Session;
@@ -84,7 +84,6 @@ public class AdminRepositoryImpl implements AdminRepository, GenericUserReposito
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            model.setRole("ADMIN");
             session.save(model);
             session.getTransaction().commit();
             System.out.println("CREATED ADMIN Id: " + model.getId() + " username:" + model.getUsername());

@@ -1,6 +1,8 @@
-package com.paymentsystem.ngpuppies.models;
+package com.paymentsystem.ngpuppies.models.users;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -14,22 +16,28 @@ public class ApplicationUser {
     private int id;
 
     @Column(name = "Username")
+    @NotNull
+    @Size(min = 4, max = 50)
     private String username;
 
     @Column(name = "Password")
+    @NotNull
+    @Size(min = 4, max = 100)
     private String password;
 
-    @Column(name = "Role")
-    private String role;
+    @OneToOne
+    @JoinColumn(name = "AuthorityID")
+    @NotNull
+    private Authority authority;
 
     public ApplicationUser() {
 
     }
 
-    ApplicationUser(String username, String password, String role) {
+    ApplicationUser(String username, String password,AuthorityName authorityName) {
         setUsername(username);
         setPassword(password);
-        setRole(role);
+        setAuthority(new Authority(authorityName));
     }
 
     public int getId() {
@@ -56,11 +64,11 @@ public class ApplicationUser {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public Authority getAuthority() {
+        return authority;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
     }
 }

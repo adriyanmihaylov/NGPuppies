@@ -1,9 +1,8 @@
 package com.paymentsystem.ngpuppies.repositories;
 
-import com.paymentsystem.ngpuppies.models.Client;
+import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscribersRepository;
-import com.sun.org.apache.bcel.internal.generic.FADD;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
