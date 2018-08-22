@@ -3,6 +3,7 @@ package com.paymentsystem.ngpuppies.models.users;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -29,6 +30,15 @@ public class ApplicationUser {
     @JoinColumn(name = "AuthorityID")
     @NotNull
     private Authority authority;
+
+    @Column(name = "Enabled")
+    @NotNull
+    private Boolean enabled;
+
+    @Column(name = "LastPasswordResetDate")
+    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
+    private Date lastPasswordResetDate;
 
     public ApplicationUser() {
 
@@ -70,5 +80,21 @@ public class ApplicationUser {
 
     public void setAuthority(Authority authority) {
         this.authority = authority;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Date getLastPasswordResetDate() {
+        return lastPasswordResetDate;
+    }
+
+    public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+        this.lastPasswordResetDate = lastPasswordResetDate;
     }
 }
