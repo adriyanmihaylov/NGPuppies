@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.ServiceTests;
 
-import com.paymentsystem.ngpuppies.models.Client;
+import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.SubscribersRepositoryImpl;
 

@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.viewModels;
 
 
-import com.paymentsystem.ngpuppies.models.Admin;
+import com.paymentsystem.ngpuppies.models.users.Admin;
 
 public class AdminViewModel {
 

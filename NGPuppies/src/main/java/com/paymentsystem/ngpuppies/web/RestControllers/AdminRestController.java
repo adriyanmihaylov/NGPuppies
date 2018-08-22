@@ -1,7 +1,7 @@
-package com.paymentsystem.ngpuppies.web.RestControllers;
+package com.paymentsystem.ngpuppies.web.restControllers;
 
-import com.paymentsystem.ngpuppies.models.Admin;
-import com.paymentsystem.ngpuppies.models.Client;
+import com.paymentsystem.ngpuppies.models.users.Admin;
+import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
 import com.paymentsystem.ngpuppies.services.ApplicationUserServiceImpl;
 import com.paymentsystem.ngpuppies.services.ClientServiceImpl;

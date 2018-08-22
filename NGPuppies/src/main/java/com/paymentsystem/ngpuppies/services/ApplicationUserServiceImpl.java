@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.services;
 
-import com.paymentsystem.ngpuppies.models.ApplicationUser;
+import com.paymentsystem.ngpuppies.models.users.ApplicationUser;
 import com.paymentsystem.ngpuppies.repositories.ApplicationUserRepositoryImpl;
 import com.paymentsystem.ngpuppies.services.base.ApplicationUserService;
 import com.paymentsystem.ngpuppies.services.base.GenericUserService;

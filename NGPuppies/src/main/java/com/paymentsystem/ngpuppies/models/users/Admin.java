@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.models;
+package com.paymentsystem.ngpuppies.models.users;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -15,7 +15,7 @@ public class Admin extends ApplicationUser {
     }
 
     public Admin(String username, String password, String email) {
-        super(username, password,"ADMIN");
+        super(username, password,AuthorityName.ROLE_ADMIN);
         setEmail(email);
     }
 

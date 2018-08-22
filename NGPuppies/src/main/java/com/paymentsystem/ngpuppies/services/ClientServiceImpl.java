@@ -1,8 +1,7 @@
 package com.paymentsystem.ngpuppies.services;
 
-import com.paymentsystem.ngpuppies.models.Client;
+import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.ClientRepositoryImpl;
-import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
 import com.paymentsystem.ngpuppies.services.base.ClientService;
 import com.paymentsystem.ngpuppies.services.base.GenericUserService;
 import org.springframework.beans.factory.annotation.Autowired;
