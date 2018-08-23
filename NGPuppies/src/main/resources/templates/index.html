@@ -6,6 +6,7 @@
 
 </head>
 <body>
+    <nav th:replace="sections/site-navigation :: site-navigation"></nav>
     <main th:include="${view}"></main>
     <footer th:replace="sections/site-footer :: site-footer"></footer>
 </body>

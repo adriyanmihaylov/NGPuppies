@@ -185,7 +185,7 @@ public class AdminController {
         return "index";
     }
 
-    @GetMapping("/create/client")
+    @GetMapping("/create/user")
     public String createClient(Model model){
         model.addAttribute("view","sections/create_client");
         return "index";
