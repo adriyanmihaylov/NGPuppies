@@ -42,7 +42,7 @@ public class MethodProtectedRestController {
     public AdminViewModel getAdminProfile(Authentication authentication) {
         String username = authentication.getName();
         Admin admin = adminService.getByUsername(username);
-        
+
         return AdminViewModel.fromModel(admin);
     }
 
