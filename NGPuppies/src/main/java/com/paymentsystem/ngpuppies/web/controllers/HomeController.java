@@ -21,9 +21,8 @@ public class HomeController {
 
     @GetMapping("/")
     public String homePage(Model model) {
-        model.addAttribute("view", "test/login");
+        model.addAttribute("view","admin/login");
         model.addAttribute("user", new ApplicationUser());
-
         return "index";
     }
 }

@@ -45,14 +45,14 @@ public class SubscribersController {
     }
     @GetMapping("/create")
     public String getByNumber(Model model) {
-        model.addAttribute("view","client/subscriber-registration");
+        model.addAttribute("view","sections/subscriber-registration");
         model.addAttribute("subscriber", new Subscriber());
         return "index";
     }
 
     @PostMapping("/create")
     public String create(@Valid Subscriber subscriber, BindingResult bindingResult, Model model) {
-
+        System.out.println(subscriber.getClientUsername());
         if (bindingResult.hasErrors()) {
             model.addAttribute("view", "test/testResult");
             return "index";

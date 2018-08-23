@@ -167,4 +167,12 @@ public class AdminController {
         }
         return "index";
     }
+    @GetMapping("/login")
+    public String login(Model model){
+        model.addAttribute("site_head", "sections/site-head");
+        model.addAttribute("site_footer", "sections/site-footer");
+        model.addAttribute("view","sections/home");
+
+        return "index";
+    }
 }
