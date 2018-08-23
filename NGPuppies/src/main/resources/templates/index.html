@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:replace="sections/site-head :: site-head">
     <meta charset="UTF-8">
     <title>Start Page</title>
+
 </head>
 <body>
-    <p>THIS IS OUR MAIN PAGE</p>
     <main th:include="${view}"></main>
+    <footer th:replace="sections/site-footer :: site-footer"></footer>
 </body>
 </html>
