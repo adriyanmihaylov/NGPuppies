@@ -182,6 +182,7 @@ public class AdminController {
     @GetMapping("/create/bill")
     public String createBill(Model model){
         model.addAttribute("view","sections/create_bill");
+
         return "index";
     }
 

@@ -3,7 +3,7 @@
 
 <body>
 
-<div class="container">
+<div class="container" id="mainContainer">
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
             <form class="card card-sm">
@@ -16,7 +16,7 @@
                     </div>
 
                     <div class="col-auto">
-                        <button class="btn btn-lg btn-success" type="submit" id="submit">Search</button>
+                        <a class="btn btn-lg btn-success" id="submit">Search</a>
                     </div>
 
                 </div>
@@ -34,18 +34,7 @@
 
 
 </body>
-<script src="../../vendor/bootstrap/js/bootstrap.js"></script>
 <script>
-    var phonenumber;
-    var $submit = $("#submit");
-    function search() {
-        phonenumber = $("#search").val();
-        var isnum = /^\d+$/.test(phonenumber);
-        if (phonenumber !== "" && isnum) {
-            $.post( "localhost:8080/api/subscriber/get?phoneNumber=+" + phonenumber, function(data) {
-                $( ".result" ).html( data );
-            });
-        }
-    }
+
 </script>
 </html>
