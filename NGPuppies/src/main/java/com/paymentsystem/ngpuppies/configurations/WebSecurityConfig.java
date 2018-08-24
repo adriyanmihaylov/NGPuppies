@@ -59,9 +59,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
+    protected void configure(HttpSecurity http) throws Exception {
+        http
                 // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -70,16 +71,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .headers().httpStrictTransportSecurity().disable();
 
-        httpSecurity
+        http
                 .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
-        // disable page caching
-        httpSecurity
-                .headers()
-                .frameOptions().sameOrigin()  // required to set for H2 else H2 Console will be blank.
-                .cacheControl();
+        /**
+         * */
+        http
+                .headers().httpStrictTransportSecurity() //Let a web site tell browsers that it should only be accessed using HTTPS, instead of using HTTP.
+                .maxAgeInSeconds(0)  //The time that the browser should remember that a site is only to be accessed using HTTPS.
+                .includeSubDomains(true); // This rule applies to all of the site's subdomains as well
     }
 
     @Override
