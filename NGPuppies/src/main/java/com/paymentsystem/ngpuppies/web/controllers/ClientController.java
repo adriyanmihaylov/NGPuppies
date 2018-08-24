@@ -21,7 +21,7 @@ public class ClientController {
     private SubscriberService subscriberService;
     @GetMapping("/subscriber/register")
     public String create(Model model) {
-        model.addAttribute("view", "client/subscriber-registration");
+        model.addAttribute("view","sections/subscriber-registration");
         model.addAttribute("subscriber", new Subscriber());
 
         return "index";

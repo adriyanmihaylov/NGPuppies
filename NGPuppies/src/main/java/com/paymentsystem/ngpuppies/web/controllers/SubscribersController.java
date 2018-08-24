@@ -45,36 +45,10 @@ public class SubscribersController {
     }
     @GetMapping("/create")
     public String getByNumber(Model model) {
-        model.addAttribute("view","client/subscriber-registration");
+        model.addAttribute("view","sections/subscriber-registration");
         model.addAttribute("subscriber", new Subscriber());
         return "index";
     }
 
-    @PostMapping("/create")
-    public String create(@Valid Subscriber subscriber, BindingResult bindingResult, Model model) {
 
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("view", "test/testResult");
-            return "index";
-        }
-
-        if (subscriberService.checkIfPhoneExists(subscriber.getPhoneNumber())) {
-            model.addAttribute("view","admin/registration");
-            model.addAttribute("subscribersExists", true);
-
-            return "index";
-        }
-        if(subscriberService.create(subscriber)) {
-            model.addAttribute("view", "test/testResults");
-            model.addAttribute("creationSuccess", true);
-            System.out.println("Susbcriber Created " + subscriber);
-        } else {
-            model.addAttribute("view", "test/testResults");
-            model.addAttribute("subscribersExists", true);
-            System.out.println("Subscriber was not created");
-            System.out.println("NO such client with username: " + subscriber.getClientUsername());
-        }
-
-        return "index";
-    }
 }

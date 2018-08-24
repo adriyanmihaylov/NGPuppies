@@ -1,6 +1,5 @@
 package com.paymentsystem.ngpuppies.models;
 
-import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import java.sql.Date;

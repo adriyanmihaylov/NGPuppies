@@ -1,11 +1,13 @@
 package com.paymentsystem.ngpuppies.web.controllers;
 
+import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.ApplicationUser;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
 import com.paymentsystem.ngpuppies.services.ApplicationUserServiceImpl;
 import com.paymentsystem.ngpuppies.services.ClientServiceImpl;
+import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,10 @@ public class AdminController {
     private AdminServiceImpl adminService;
     @Autowired
     private ClientServiceImpl clientService;
+
+    @Autowired
+    private SubscriberService subscriberService;
+
     @GetMapping("/user")
     public String getUserByUsername(@RequestParam String username,Model model) {
         model.addAttribute("view", "test/testResults");
@@ -165,6 +171,55 @@ public class AdminController {
         } else {
             model.addAttribute("deleteNotSuccess", true);
         }
+        return "index";
+    }
+    @GetMapping("/login")
+    public String login(Model model){
+        model.addAttribute("view","sections/home");
+
+        return "index";
+    }
+    @GetMapping("/create/bill")
+    public String createBill(Model model){
+        model.addAttribute("view","sections/create_bill");
+
+        return "index";
+    }
+
+    @GetMapping("/create/user")
+    public String createClient(Model model){
+        model.addAttribute("view","sections/create_client");
+        return "index";
+    }
+    @GetMapping("/create/subscriber")
+    public String createSubscriber(Model model){
+        model.addAttribute("view","sections/create_subscriber");
+        model.addAttribute("subscriber", new Subscriber());
+        return "index";
+    }
+    @PostMapping("/create/subscriber")
+    public String create(@Valid Subscriber subscriber, BindingResult bindingResult, Model model) {
+        System.out.println(subscriber.getClientUsername());
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("view", "sections/create_subscriber");
+            return "index";
+        }
+
+        if (subscriberService.checkIfPhoneExists(subscriber.getPhoneNumber())) {
+            model.addAttribute("view","sections/create_subscriber");
+            model.addAttribute("subscriberExists", true);
+
+            return "index";
+        }
+        if(subscriberService.create(subscriber)) {
+            model.addAttribute("view", "sections/create_subscriber");
+            model.addAttribute("creationSuccess", true);
+            System.out.println("Susbcriber Created " + subscriber);
+        } else {
+            model.addAttribute("view", "sections/create_subscriber");
+            model.addAttribute("clientNotExists", true);
+        }
+
         return "index";
     }
 }

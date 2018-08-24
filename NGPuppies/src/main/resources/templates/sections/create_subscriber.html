@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<!-- Page Content -->
+
+
+<div class="container">
+    <div class="row-main">
+        <div class="main-login main-center">
+            <h5>Create a new subscriber</h5>
+            <form class="" method="post" action="#" th:action="@{/secured/admin/create/subscriber}" th:object="${subscriber}">
+
+                <div class="form-group">
+                    <label for="phone" class="cols-sm-2 control-label">Phone Number</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="phone" id="phone" th:field="*{phoneNumber}"  placeholder="Enter subscriber's phone"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="firstName" class="cols-sm-2 control-label">First Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="firstName" id="firstName" th:field="*{firstName}"  placeholder="Enter subscriber's First Name"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="LastName" class="cols-sm-2 control-label">Last Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="LastName" id="LastName" th:field="*{lastName}" placeholder="Enter subscriber's Last Name"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="EGN" class="cols-sm-2 control-label">EGN</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="number" class="form-control" name="EGN" id="EGN" th:field="*{Egn}"  placeholder="Enter subscriber's EGN"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ClientName" class="cols-sm-2 control-label">Client Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="ClientName" id="ClientName"  th:field="*{clientUsername}" placeholder="Enter subscriber's bank"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <input class="btn btn-primary" type="submit" value="Create">
+                </div>
+
+
+            </form>
+            <div class="alert alert-success" role="alert" th:if="${creationSuccess}">
+                Creation Success
+            </div>
+            <div class="alert alert-danger" role="alert" th:if = "${subscriberExists}">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error: Subscriber exists</span>
+                Please check subscriber's phone
+            </div>
+            <div class="alert alert-danger" role="alert" th:if = "${clientNotExists}">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error: no such client</span>
+                Please check client's name
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>
