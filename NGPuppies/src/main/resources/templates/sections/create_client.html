@@ -1,10 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
+<body>
+<div class="container">
+    <form class="needs-validation" novalidate>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Username" value="Username" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Authority</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01">
+                    <option selected>Choose role</option>
+                    <option value="1">Admin</option>
+                    <option value="2">Client</option>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3" id="admin" style="display: none">
+                <label for="email">Email</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    </div>
+                    <input type="text" class="form-control" id="email" placeholder="Email" aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                       Please choose email
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-success" role="alert" id="success" style="display: none">
+                Successful creation of admin
+            </div>
+        </div>
+
+        <div class="form-row" id="client" style="display: none;">
+            <div class="col-md-3 mb-3">
+                <label for="EIK"></label>
+                <input type="text" class="form-control" id="EIK" placeholder="EIK" required>
+                <div class="invalid-feedback">
+                    Please provide a valid EIK.
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" placeholder="Description">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="friendlyName">Friendly name</label>
+                <input type="text" class="form-control" id="friendlyName" placeholder="Friendly name">
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" id="submit">Submit form</button>
+    </form>
+</div>
 </body>
 </html>
