@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web.RestControllers;
+package com.paymentsystem.ngpuppies.web.restControllers;
 
 import com.paymentsystem.ngpuppies.models.BillingRecord;
 import com.paymentsystem.ngpuppies.models.Currency;
@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/billingRecords")
+@RequestMapping("/${common.basepath}/billingRecords")
 public class BillingRecordsRestController {
     private BillingService billingService;
 
@@ -28,13 +28,10 @@ public class BillingRecordsRestController {
     public BillingRecord getBySubscriber(@RequestParam(name = "phoneNumber") String phoneNumber){
         return billingService.getBySubscriber(phoneNumber);
     }
-
     @PostMapping("/deleteBySubscriber")
     public void deleteBySubscriber(@RequestParam(name = "phoneNumber") String phoneNumber){
         billingService.deleteBySubscriber(phoneNumber);
     }
-
-
     @PostMapping("/create")
     public void create (@RequestParam(name = "startDate") String startDate,
                         @RequestParam(name = "endDate") String endDate,
@@ -64,6 +61,11 @@ public class BillingRecordsRestController {
         BillingRecord billingRecordToUpdate = new BillingRecord(Date.valueOf(startDate), Date.valueOf(endDate), Double.parseDouble(amount),
                 offeredService, currency, subscriber);
         billingService.update(billingRecordToUpdate);
+    }
+    @GetMapping("/date")
+        public List<BillingRecord> getByDate(@RequestParam(name = "startDate", required = false, defaultValue = "'%'") String startDate,
+                              @RequestParam(name = "endDate",required = false, defaultValue = "2999-12-31") String endDate){
+       return billingService.getByDate(startDate, endDate);
     }
 
 

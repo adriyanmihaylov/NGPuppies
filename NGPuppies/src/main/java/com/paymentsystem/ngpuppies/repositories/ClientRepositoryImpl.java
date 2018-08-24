@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.repositories;
 
-import com.paymentsystem.ngpuppies.models.Client;
+import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
 import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
 import org.hibernate.Session;
@@ -83,7 +83,6 @@ public class ClientRepositoryImpl implements ClientRepository,GenericUserReposit
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            model.setRole("CLIENT");
             session.save(model);
             session.getTransaction().commit();
 

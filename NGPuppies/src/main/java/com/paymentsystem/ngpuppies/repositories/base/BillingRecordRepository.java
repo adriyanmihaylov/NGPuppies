@@ -2,6 +2,7 @@ package com.paymentsystem.ngpuppies.repositories.base;
 
 import com.paymentsystem.ngpuppies.models.BillingRecord;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface BillingRecordRepository {
@@ -11,11 +12,9 @@ public interface BillingRecordRepository {
 
     boolean deleteBySubscriber(String phoneNumber);
 
-    BillingRecord getById(int id);
-
-    boolean deleteById(int id);
-
     boolean create(BillingRecord billingRecordToBeCreated);
 
     boolean update(BillingRecord updatedBillingRecord);
+
+    List<BillingRecord> getByDate(String startDate, String endDate);
 }

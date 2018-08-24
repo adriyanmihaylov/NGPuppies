@@ -1,4 +1,6 @@
-package com.paymentsystem.ngpuppies.models;
+package com.paymentsystem.ngpuppies.models.users;
+
+import com.paymentsystem.ngpuppies.models.ClientDetail;
 
 import javax.persistence.*;
 
@@ -18,7 +20,7 @@ public class Client extends ApplicationUser {
     }
 
     public Client(String username, String password, String eik) {
-        super(username,password,"CLIENT");
+        super(username,password,AuthorityName.ROLE_CLIENT);
         setEik(eik);
     }
 

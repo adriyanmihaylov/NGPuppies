@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.web.restControllers;
 
-import com.paymentsystem.ngpuppies.models.Admin;
-import com.paymentsystem.ngpuppies.models.Client;
+import com.paymentsystem.ngpuppies.models.users.Admin;
+import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
 import com.paymentsystem.ngpuppies.services.ApplicationUserServiceImpl;
 import com.paymentsystem.ngpuppies.services.ClientServiceImpl;
@@ -11,12 +11,11 @@ import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/secured/admin")
+@RequestMapping("${common.basepath}/secured/admin")
 public class AdminRestController {
 
     @Autowired

@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.repositories;
 
-import com.paymentsystem.ngpuppies.models.ApplicationUser;
+import com.paymentsystem.ngpuppies.models.users.ApplicationUser;
 import com.paymentsystem.ngpuppies.repositories.base.ApplicationUserRepository;
 import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
 import org.hibernate.Session;
