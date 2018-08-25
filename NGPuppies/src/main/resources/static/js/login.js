@@ -13,7 +13,7 @@ var token;
 $.ajax
 ({
     type: "POST",
-    url: 'http://localhost:8080/login',
+    url: 'https://localhost:8443/login',
     dataType: 'json',
     //json object to sent to the authentication url
     data: JSON.stringify({"username": "admin", "password": "123456"}),
@@ -24,14 +24,13 @@ $.ajax
 });
 $.ajax
 ({
-    type: "POST",
-    url: 'http://localhost:8080/secured/admin/login',
+    type: "GET",
+    url: 'https://localhost:8443/secured/admin/login',
     dataType: 'json',
-    Authorization: token,
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader ("Authorization", "Bearer " + token);
+    },
     contentType: 'application/json',
-    success: function () {
-        window.location.replace("http://localhost:8080/secured/admin/login");
-    }
-});
+   });
 
 
