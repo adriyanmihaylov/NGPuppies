@@ -175,9 +175,8 @@ public class AdminController {
     }
     @GetMapping("/login")
     public String login(Model model){
-        model.addAttribute("view","sections/home");
 
-        return "index";
+        return "sections/home";
     }
     @GetMapping("/create/bill")
     public String createBill(Model model){
