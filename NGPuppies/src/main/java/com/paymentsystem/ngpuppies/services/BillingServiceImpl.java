@@ -56,4 +56,9 @@ public class BillingServiceImpl implements BillingService {
     public List<BillingRecord> getByDate(String startDate, String endDate) {
        return recordRepository.getByDate(startDate, endDate);
     }
+
+    @Override
+    public List<BillingRecord> searchBills(Boolean payed) {
+        return recordRepository.searchBills(payed);
+    }
 }

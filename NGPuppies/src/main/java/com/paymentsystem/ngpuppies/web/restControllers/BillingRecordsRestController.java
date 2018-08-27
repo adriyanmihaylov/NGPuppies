@@ -67,6 +67,9 @@ public class BillingRecordsRestController {
                               @RequestParam(name = "endDate",required = false, defaultValue = "2999-12-31") String endDate){
        return billingService.getByDate(startDate, endDate);
     }
-
+    @GetMapping("/payed")
+    public List<BillingRecord> searchBills(@RequestParam(name = "status", defaultValue = "'%'") Boolean payed){
+        return billingService.searchBills(payed);
+    }
 
 }

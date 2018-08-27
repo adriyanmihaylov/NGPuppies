@@ -105,7 +105,26 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
             return billingRecords;
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("The Billing record was not updated");
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<BillingRecord> searchBills(Boolean payed) {
+        try (Session session = factory.openSession()) {
+            int status;
+            if (!payed){
+                status = 0;
+            }else{
+                status = 1;
+            }
+            Transaction tx = session.beginTransaction();
+            String query =String.format("from  BillingRecord b where b.payed = '%s'", status);
+            List<BillingRecord> billingRecords = session.createQuery(query).list();
+            tx.commit();
+            return billingRecords;
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ArrayList<>();
         }
     }

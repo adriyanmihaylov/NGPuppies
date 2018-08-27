@@ -33,6 +33,9 @@ public class BillingRecord {
     @JoinColumn(name = "SubscriberID")
     private Subscriber subscriber;
 
+    @Column(name = "Payed")
+    private boolean payed;
+
     public BillingRecord() {
 
     }
@@ -102,5 +105,13 @@ public class BillingRecord {
 
     public void setSubscriber(Subscriber subscriber) {
         this.subscriber = subscriber;
+    }
+
+    public boolean isPayed() {
+        return payed;
+    }
+
+    public void setPayed(boolean payed) {
+        this.payed = payed;
     }
 }

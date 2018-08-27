@@ -17,4 +17,6 @@ public interface BillingRecordRepository {
     boolean update(BillingRecord updatedBillingRecord);
 
     List<BillingRecord> getByDate(String startDate, String endDate);
+
+    List<BillingRecord> searchBills(Boolean payed);
 }

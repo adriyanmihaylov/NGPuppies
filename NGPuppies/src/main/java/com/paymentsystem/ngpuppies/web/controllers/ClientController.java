@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.web.controllers;
 
 import com.paymentsystem.ngpuppies.models.Subscriber;
+import com.paymentsystem.ngpuppies.services.base.BillingService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,15 @@ import javax.validation.Valid;
 //@PreAuthorize("hasRole('CLIENT')")
 public class ClientController {
 
+    private final SubscriberService subscriberService;
+    private final BillingService billingService;
+
     @Autowired
-    private SubscriberService subscriberService;
+    public ClientController(SubscriberService subscriberService, BillingService billingService) {
+        this.subscriberService = subscriberService;
+        this.billingService = billingService;
+    }
+
     @GetMapping("/subscriber/register")
     public String create(Model model) {
         model.addAttribute("view","sections/subscriber-registration");
