@@ -29,7 +29,7 @@ public class BillingRecord {
     @JoinColumn(name = "CurrencyID")
     private Currency currency;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "SubscriberID")
     private Subscriber subscriber;
 

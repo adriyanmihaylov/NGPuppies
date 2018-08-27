@@ -2,10 +2,12 @@ package com.paymentsystem.ngpuppies.web.restControllers;
 
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
+import com.paymentsystem.ngpuppies.viewModels.SubscriberViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/subscriber")
@@ -14,8 +16,9 @@ public class SubscribersRestController {
     private SubscriberService subscriberService;
 
     @GetMapping("/all")
-    public List<Subscriber> getAll() {
-        return subscriberService.getAll();
+    public List<SubscriberViewModel> getAll() {
+        return subscriberService.getAll().stream().map(SubscriberViewModel::fromModel).
+                collect(Collectors.toList());
     }
 
     @GetMapping("/get")

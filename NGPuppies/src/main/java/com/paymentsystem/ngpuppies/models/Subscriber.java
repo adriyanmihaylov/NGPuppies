@@ -3,6 +3,7 @@ package com.paymentsystem.ngpuppies.models;
 import com.paymentsystem.ngpuppies.models.users.Client;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="subscribers")
@@ -31,8 +32,12 @@ public class Subscriber {
     @ManyToOne
     @JoinColumn(name = "ClientID")
     private Client client;
+
     @Transient
     private String clientUsername;
+
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private List<BillingRecord> billingRecords;
 
     public Subscriber(){
 
@@ -122,5 +127,13 @@ public class Subscriber {
     @Override
     public String toString() {
         return String.format("Name: %s, EGN: %s, PhoneNumber: %s", getFirstName(), getEgn(), getPhoneNumber());
+    }
+
+    public List<BillingRecord> getBillingRecords() {
+        return billingRecords;
+    }
+
+    public void setBillingRecords(List<BillingRecord> billingRecords) {
+        this.billingRecords = billingRecords;
     }
 }
