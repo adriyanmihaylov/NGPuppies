@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web.restControllers;
+package com.paymentsystem.ngpuppies.web;
 
 import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.services.base.AddressService;

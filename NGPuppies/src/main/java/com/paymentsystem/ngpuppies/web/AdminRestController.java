@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web.restControllers;
+package com.paymentsystem.ngpuppies.web;
 
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("${common.basepath}/secured/admin")
+@RequestMapping("api/admin")
 public class AdminRestController {
 
     @Autowired
@@ -41,10 +41,10 @@ public class AdminRestController {
         return ClientViewModel.fromModel(clientService.getByUsername(username));
     }
 
-    @GetMapping("/all")
-    public List<AdminViewModel> getAllAdmins() {
-        return adminService.getAll().stream()
-                .map(AdminViewModel::fromModel)
+    @GetMapping("/allUsers")
+    public List<UserViewModel> getAllAdmins() {
+        return applicationUserService.getAll().stream()
+                .map(UserViewModel::fromModel)
                 .collect(Collectors.toList());
     }
 
