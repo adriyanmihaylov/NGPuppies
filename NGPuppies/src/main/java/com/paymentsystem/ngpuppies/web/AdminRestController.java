@@ -35,6 +35,13 @@ public class AdminRestController {
     public AdminViewModel getAdminByUsername(@PathVariable("username") String username) {
         return AdminViewModel.fromModel(adminService.getByUsername(username));
     }
+    @GetMapping("/all")
+    public List<AdminViewModel> getAllAdmins() {
+        return adminService.getAll().stream()
+                .map(AdminViewModel::fromModel)
+                .collect(Collectors.toList());
+    }
+
 
     @GetMapping("/client")
     public ClientViewModel getClientByUsername(@RequestParam String username) {
@@ -42,7 +49,7 @@ public class AdminRestController {
     }
 
     @GetMapping("/allUsers")
-    public List<UserViewModel> getAllAdmins() {
+    public List<UserViewModel> getAllUsers() {
         return applicationUserService.getAll().stream()
                 .map(UserViewModel::fromModel)
                 .collect(Collectors.toList());

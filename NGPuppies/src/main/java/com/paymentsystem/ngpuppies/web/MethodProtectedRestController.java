@@ -34,7 +34,7 @@ public class MethodProtectedRestController {
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAdminProtectedGreeting() {
-        return ResponseEntity.ok("Greetings from admin protected method!");
+        return ResponseEntity.ok("Greetings from admins protected method!");
     }
 
     @GetMapping("/admin/profile")

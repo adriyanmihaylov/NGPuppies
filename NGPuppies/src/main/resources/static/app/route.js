@@ -21,15 +21,14 @@ angular.module('NGPuppies').config(function($stateProvider, $urlRouterProvider) 
 				controller : 'LoginController'
 			}
 		}
-	}).state('users', {
+	}).state('admins', {
 		parent : 'nav',
-		url : '/users',
 		data : {
 			role : 'ADMIN'
 		},
 		views : {
 			'content@' : {
-				templateUrl : 'app/views/users.html',
+				templateUrl : 'app/views/admin.html',
 				controller : 'UsersController',
 			}
 		}
