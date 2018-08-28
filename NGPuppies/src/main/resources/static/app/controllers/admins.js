@@ -4,33 +4,32 @@ angular.module('NGPuppies')
 	var edit = false;
 	$scope.buttonText = 'Create';
 	var init = function() {
-		$http.get('api/admin/allUsers').success(function(res) {
-			$scope.users = res;
-			
+		$http.get('api/admin/all').success(function(res) {
+			$scope.admins = res;
 			$scope.userForm.$setPristine();
 			$scope.message='';
-			$scope.appUser = null;
+			$scope.appAdmin = null;
 			$scope.buttonText = 'Create';
 			
 		}).error(function(error) {
 			$scope.message = error.message;
 		});
 	};
-	$scope.initEdit = function(appUser) {
+	$scope.initEdit = function(appAdmin) {
 		edit = true;
-		$scope.appUser = appUser;
+		$scope.appAdmin = appAdmin;
 		$scope.message='';
 		$scope.buttonText = 'Update';
 	};
-	$scope.initAddUser = function() {
+	$scope.initAddAdmin = function() {
 		edit = false;
-		$scope.appUser = null;
+		$scope.appAdmin = null;
 		$scope.userForm.$setPristine();
 		$scope.message='';
 		$scope.buttonText = 'Create';
 	};
-	$scope.deleteUser = function(appUser) {
-		$http.delete('api/users/'+appUser.id).success(function(res) {
+	$scope.deleteUser = function(appAdmin) {
+		$http.delete('api/admins/'+appAdmin.id).success(function(res) {
 			$scope.deleteMessage ="Success!";
 			init();
 		}).error(function(error) {
@@ -38,8 +37,8 @@ angular.module('NGPuppies')
 		});
 	};
 	var editUser = function(){
-		$http.put('api/users', $scope.appUser).success(function(res) {
-			$scope.appUser = null;
+		$http.put('api/admins', $scope.appAdmin).success(function(res) {
+			$scope.appAdmin = null;
 			$scope.confirmPassword = null;
 			$scope.userForm.$setPristine();
 			$scope.message = "Editting Success";
@@ -49,8 +48,8 @@ angular.module('NGPuppies')
 		});
 	};
 	var addUser = function(){
-		$http.post('api/users', $scope.appUser).success(function(res) {
-			$scope.appUser = null;
+		$http.post('api/admins', $scope.appAdmin).success(function(res) {
+			$scope.appAdmin = null;
 			$scope.confirmPassword = null;
 			$scope.userForm.$setPristine();
 			$scope.message = "User Created";

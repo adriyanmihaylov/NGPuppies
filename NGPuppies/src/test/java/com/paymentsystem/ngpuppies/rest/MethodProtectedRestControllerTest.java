@@ -43,7 +43,7 @@ public class MethodProtectedRestControllerTest {
     @WithMockUser(roles = "CLIENT")
     public void shouldGetForbiddenWithClientRole() throws Exception{
         this.mvc
-                .perform(get("/protected/admin"))
+                .perform(get("/protected/admins"))
                 .andExpect(status().isForbidden());
     }
 
@@ -51,7 +51,7 @@ public class MethodProtectedRestControllerTest {
     @WithMockUser(roles = "ADMIN")
     public void shouldGetOkWithAdminRole() throws Exception{
         this.mvc
-                .perform(get("/protected/admin"))
+                .perform(get("/protected/admins"))
                 .andExpect(status().is2xxSuccessful());
     }
 }

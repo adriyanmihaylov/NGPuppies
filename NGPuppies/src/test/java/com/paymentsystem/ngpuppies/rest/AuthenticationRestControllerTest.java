@@ -98,7 +98,7 @@ public class AuthenticationRestControllerTest {
         authority.setName(AuthorityName.ROLE_ADMIN);
 
         Admin admin = new Admin();
-        admin.setUsername("admin");
+        admin.setUsername("admins");
         admin.setAuthority(authority);
         admin.setEnabled(Boolean.TRUE);
         admin.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
