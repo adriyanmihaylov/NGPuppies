@@ -60,6 +60,10 @@ public class Subscriber {
         setClient(client);
     }
 
+    public Subscriber(String phoneNumber) {
+        setPhoneNumber(phoneNumber);
+    }
+
     public int getId() {
         return id;
     }

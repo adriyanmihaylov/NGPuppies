@@ -10,6 +10,7 @@
         <property name = "hibernate.connection.driver_class">
             com.mysql.jdbc.Driver
         </property>
+        <property name="hibernate.id.new_generator_mappings">false</property>
 
         <!-- Assume test is the database name -->
 

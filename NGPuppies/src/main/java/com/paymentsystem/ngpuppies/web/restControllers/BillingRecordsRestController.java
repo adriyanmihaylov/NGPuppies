@@ -29,9 +29,10 @@ public class BillingRecordsRestController {
 
     @GetMapping("/getBySubscriber")
     public BillingRecordsViewModel getBySubscriber(@RequestParam(name = "phoneNumber") String phoneNumber){
-        return BillingRecordsViewModel.fromModel(billingService.getBySubscriber(phoneNumber));
+
+            return BillingRecordsViewModel.fromModel(billingService.getBySubscriber(phoneNumber));
     }
-    @PostMapping("/deleteBySubscriber")
+    @DeleteMapping("/deleteBySubscriber")
     public void deleteBySubscriber(@RequestParam(name = "phoneNumber") String phoneNumber){
         billingService.deleteBySubscriber(phoneNumber);
     }
@@ -42,10 +43,9 @@ public class BillingRecordsRestController {
                         @RequestParam(name = "serviceName") String serviceName,
                         @RequestParam(name = "currencyName") String name,
                         @RequestParam(name = "phoneNumber") String phoneNumber){
-
         OfferedService offeredService = new OfferedService(serviceName);
         Currency currency = new Currency(name);
-        Subscriber subscriber = new Subscriber();
+        Subscriber subscriber = new Subscriber(phoneNumber);
         BillingRecord newBillingRecord = new BillingRecord(Date.valueOf(startDate), Date.valueOf(endDate), Double.parseDouble(amount),
                 offeredService, currency, subscriber);
 
@@ -58,9 +58,10 @@ public class BillingRecordsRestController {
                 @RequestParam(name = "serviceName") String serviceName,
                 @RequestParam(name = "currencyName") String name,
                 @RequestParam(name = "phoneNumber") String phoneNumber){
+
         OfferedService offeredService = new OfferedService(serviceName);
         Currency currency = new Currency(name);
-        Subscriber subscriber = new Subscriber();
+        Subscriber subscriber = new Subscriber(phoneNumber);
         BillingRecord billingRecordToUpdate = new BillingRecord(Date.valueOf(startDate), Date.valueOf(endDate), Double.parseDouble(amount),
                 offeredService, currency, subscriber);
         billingService.update(billingRecordToUpdate);

@@ -1,10 +1,14 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.BillingRecord;
+import com.paymentsystem.ngpuppies.models.Currency;
+import com.paymentsystem.ngpuppies.models.OfferedService;
+import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.BillingRecordRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.propertyeditors.CurrencyEditor;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -53,12 +57,14 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
 
     @Override
     public boolean deleteBySubscriber(String phoneNumber) {
-        BillingRecord billingRecordBySubscriber = null;
+        List<BillingRecord> billingRecordsToBeDelete = null;
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
             String query = String.format("From BillingRecord b where b.subscriber.phoneNumber = '%s'" , phoneNumber);
-            billingRecordBySubscriber = (BillingRecord) session.createQuery(query).list().get(0);
-            session.delete(billingRecordBySubscriber);
+            billingRecordsToBeDelete = session.createQuery(query).list();
+            for (BillingRecord aBillingRecordsToBeDelete : billingRecordsToBeDelete) {
+                session.delete(aBillingRecordsToBeDelete);
+            }
             tx.commit();
             return true;
         } catch (Exception e) {
@@ -69,8 +75,28 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
     }
     @Override
     public boolean create(BillingRecord billingRecordToBeCreated) {
+        String phoneNumber = billingRecordToBeCreated.getSubscriber().getPhoneNumber();
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
+            List<Currency> currencies = session.createQuery(String.format("from Currency c where c.name = '%s'", billingRecordToBeCreated.getCurrency().getName())).list();
+            if (currencies.size()!= 0){
+                billingRecordToBeCreated.setCurrency(currencies.get(0));
+            }else{
+                session.save(billingRecordToBeCreated.getCurrency());
+            }
+            List<OfferedService> services = session.createQuery(String.format("from OfferedService where name = '%s'", billingRecordToBeCreated.getOfferedService().getName())).list();
+            if (services.size()!= 0){
+                billingRecordToBeCreated.setOfferedService(services.get(0));
+            }else{
+                session.save(billingRecordToBeCreated.getOfferedService());
+            }
+            String query =String.format("from Subscriber where phoneNumber = '%s'", phoneNumber);
+            List<Subscriber> subscribers = session.createQuery(query).list();
+            if (subscribers.size()!= 0){
+                billingRecordToBeCreated.setSubscriber(subscribers.get(0));
+            }else{
+
+            }
             session.save(billingRecordToBeCreated);
             tx.commit();
             return true;
