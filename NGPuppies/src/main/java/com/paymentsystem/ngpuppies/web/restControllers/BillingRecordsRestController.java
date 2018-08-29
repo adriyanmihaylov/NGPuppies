@@ -89,14 +89,18 @@ public class BillingRecordsRestController {
         }
         billingService.update(billingRecord);
     }
-    @GetMapping("/date")
-        public List<BillingRecord> getByDate(@RequestParam(name = "startDate", required = false, defaultValue = "'%'") String startDate,
-                              @RequestParam(name = "endDate",required = false, defaultValue = "2999-12-31") String endDate){
-       return billingService.getByDate(startDate, endDate);
+    @GetMapping("/getByDate")
+        public List<BillingRecordsViewModel> getByDate(@RequestParam(name = "startDate", required = false, defaultValue = "'%'") String startDate,
+                                                       @RequestParam(name = "endDate",required = false, defaultValue = "2999-12-31") String endDate){
+       return billingService.getByDate(startDate,endDate).stream()
+               .map(billingRecord -> BillingRecordsViewModel.fromModel(billingRecord))
+               .collect(Collectors.toList());
     }
     @GetMapping("/payed")
-    public List<BillingRecord> searchBills(@RequestParam(name = "status", defaultValue = "'%'") Boolean payed){
-        return billingService.searchBills(payed);
+    public List<BillingRecordsViewModel> searchBills(@RequestParam(name = "status", defaultValue = "'%'") Boolean payed){
+        return billingService.searchBills(payed).stream()
+                .map(billingRecord -> BillingRecordsViewModel.fromModel(billingRecord))
+                .collect(Collectors.toList());
     }
 
 }

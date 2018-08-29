@@ -20,7 +20,7 @@ public class SubscriberViewModel {
 
     public Address address;
 
-    public Client client;
+    public ClientViewModel client;
 
     public Set<BillingRecordSimpleViewModel> billingRecordList;
 
@@ -33,7 +33,7 @@ public class SubscriberViewModel {
         vm.firstName = subscriber.getFirstName();
         vm.EGN = subscriber.getEgn();
         vm.address = subscriber.getAddress();
-        vm.client = subscriber.getClient();
+        vm.client = ClientViewModel.fromModel(subscriber.getClient());
 
         vm.billingRecordList = subscriber.getBillingRecords()
                 .stream()

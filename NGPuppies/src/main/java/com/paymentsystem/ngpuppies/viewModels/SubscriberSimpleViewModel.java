@@ -15,7 +15,7 @@ public class SubscriberSimpleViewModel {
 
     public Address address;
 
-    public Client client;
+    public ClientViewModel client;
 
     public static SubscriberSimpleViewModel fromModel(Subscriber subscriber) {
         SubscriberSimpleViewModel vm = new SubscriberSimpleViewModel();
@@ -25,7 +25,7 @@ public class SubscriberSimpleViewModel {
         vm.firstName = subscriber.getFirstName();
         vm.EGN = subscriber.getEgn();
         vm.address = subscriber.getAddress();
-        vm.client = subscriber.getClient();
+        vm.client = ClientViewModel.fromModel(subscriber.getClient());
 
         return vm;
     }
