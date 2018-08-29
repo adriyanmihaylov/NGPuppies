@@ -109,9 +109,32 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
 
     @Override
     public boolean update(BillingRecord updatedBillingRecord) {
+        String phoneNumber = updatedBillingRecord.getSubscriber().getPhoneNumber();
+        String currencyName = updatedBillingRecord.getCurrency().getName();
+        String offeredServiceName = updatedBillingRecord.getOfferedService().getName();
+
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
-            session.update(updatedBillingRecord);
+            List<Currency> currencies = session.createQuery(String.format("from Currency c where c.name = '%s'", currencyName)).list();
+            if (currencies.size()!= 0){
+                updatedBillingRecord.setCurrency(currencies.get(0));
+            }else{
+                session.save(updatedBillingRecord.getCurrency());
+            }
+            List<OfferedService> services = session.createQuery(String.format("from OfferedService where name = '%s'",offeredServiceName)).list();
+            if (services.size()!= 0){
+                updatedBillingRecord.setOfferedService(services.get(0));
+            }else{
+                session.save(updatedBillingRecord.getOfferedService());
+            }
+            String query = String.format("from Subscriber where phoneNumber = '%s'", phoneNumber);
+            List<Subscriber> subscribers = session.createQuery(query).list();
+            if (subscribers.size()!= 0){
+                updatedBillingRecord.setSubscriber(subscribers.get(0));
+            }else{
+                System.out.println("No such subscriber");
+            }
+            session.merge(updatedBillingRecord);
             tx.commit();
             return true;
         } catch (Exception e) {
