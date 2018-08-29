@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,15 +39,16 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
         BillingRecord billingRecordBySubscriber = null;
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
-            billingRecordBySubscriber = (BillingRecord) session.createQuery("from BillingRecord b " +
-                    "where b.subscriber.phoneNumber = " + phoneNumber).list().get(0);
+            String query = String.format("From BillingRecord b where b.subscriber.phoneNumber = '%s'" , phoneNumber);
+            billingRecordBySubscriber = (BillingRecord) session.createQuery(query).list().get(0);
             tx.commit();
             return billingRecordBySubscriber;
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Something went wrong");
         }
-        return billingRecordBySubscriber;
+        return null;
     }
 
     @Override
@@ -56,8 +56,8 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
         BillingRecord billingRecordBySubscriber = null;
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
-            billingRecordBySubscriber = (BillingRecord) session.createQuery("from BillingRecord b " +
-                    "where b.subscriber.phoneNumber = " + phoneNumber).list().get(0);
+            String query = String.format("From BillingRecord b where b.subscriber.phoneNumber = '%s'" , phoneNumber);
+            billingRecordBySubscriber = (BillingRecord) session.createQuery(query).list().get(0);
             session.delete(billingRecordBySubscriber);
             tx.commit();
             return true;

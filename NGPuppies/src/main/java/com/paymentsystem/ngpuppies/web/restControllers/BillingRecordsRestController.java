@@ -5,10 +5,12 @@ import com.paymentsystem.ngpuppies.models.Currency;
 import com.paymentsystem.ngpuppies.models.OfferedService;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.services.base.BillingService;
+import com.paymentsystem.ngpuppies.viewModels.BillingRecordsViewModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/${common.basepath}/billingRecords")
@@ -20,13 +22,14 @@ public class BillingRecordsRestController {
     }
 
     @GetMapping("/")
-    public List<BillingRecord> getAll(){
-        return billingService.getAll();
+    public List<BillingRecordsViewModel> getAll(){
+        return billingService.getAll().stream().map(billingRecord -> BillingRecordsViewModel.fromModel((billingRecord)))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/getBySubscriber")
-    public BillingRecord getBySubscriber(@RequestParam(name = "phoneNumber") String phoneNumber){
-        return billingService.getBySubscriber(phoneNumber);
+    public BillingRecordsViewModel getBySubscriber(@RequestParam(name = "phoneNumber") String phoneNumber){
+        return BillingRecordsViewModel.fromModel(billingService.getBySubscriber(phoneNumber));
     }
     @PostMapping("/deleteBySubscriber")
     public void deleteBySubscriber(@RequestParam(name = "phoneNumber") String phoneNumber){

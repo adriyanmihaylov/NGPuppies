@@ -2,7 +2,6 @@ package com.paymentsystem.ngpuppies.repositories.base;
 
 import com.paymentsystem.ngpuppies.models.BillingRecord;
 
-import java.sql.Date;
 import java.util.List;
 
 public interface BillingRecordRepository {
