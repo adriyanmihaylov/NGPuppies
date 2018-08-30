@@ -1,19 +1,20 @@
 angular.module('NGPuppies')
-// Creating the Angular Controller
-.controller('NavController', function($http, $scope, AuthService, $state, $rootScope,$window) {
-	$scope.$on('LoginSuccessful', function() {
-		$scope.user = AuthService.user;
-		$scope.isAdmin = AuthService.isAdmin;
-	});
-	$scope.$on('LogoutSuccessful', function() {
-		$scope.user = null;
-		$scope.isAdmin = null;
-	});
-	$scope.logout = function() {
-		AuthService.user = null;
-		AuthService.isAdmin = null;
-    	$window.localStorage.clear();
-		$rootScope.$broadcast('LogoutSuccessful');
-		$state.go('login');
-	};
-});
+    .controller('NavController', function($http, $scope, AuthService, $state, $rootScope,$window) {
+        $scope.$on('LoginSuccessful', function() {
+            console.log("LoginSuccessful");
+            $scope.username = AuthService.username;
+            $scope.isAuthenticated = AuthService.isAuthenticated;
+            $scope.role = AuthService.role;
+        });
+        $scope.$on('LogoutSuccessful', function() {
+            $scope.isAuthenticated = false;
+            $scope.role = null;
+        });
+        $scope.logout = function() {
+            AuthService.isAuthenticated = false;
+            AuthService.role = null;
+            $window.localStorage.clear();
+            $rootScope.$broadcast('LogoutSuccessful');
+            $state.go('login');
+        };
+    });
