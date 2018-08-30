@@ -1,22 +1,54 @@
-// Creating angular JWTDemoApp with module name "JWTDemoApp"
-angular.module('NGPuppies', [ 'ui.router' ])
+var app = angular.module('NGPuppies', [ 'ui.router' ])
 
 
-// the following method will run at the time of initializing the module. That
-// means it will run only one time.
-    .run(function(AuthService, $rootScope, $state) {
-        // For implementing the authentication with ui-router we need to listen the
-        // state change. For every state change the ui-router module will broadcast
-        // the '$stateChangeStart'.
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            // checking the user is logged in or not
-            if (!AuthService.user) {
-                // To avoiding the infinite looping of state change we have to add a
-                // if condition.
-                if (toState.name != 'login') {
-                    event.preventDefault();
-                    $state.go('login');
-                }
+app.run(function(AuthService, $rootScope,$state,$window,$http) {
+    $rootScope.$on('$stateChangeStart', function (event, toState) {
+        // checking the user is logged in or not
+        console.log('stateChangeStart()');
+        console.log(toState.name);
+        if (!AuthService.user) {
+            // To avoiding the infinite looping of state change we have to add a
+            // if condition.
+            if (toState.name !== 'login') {
+                event.preventDefault();
+                $state.go('login');
             }
-        });
+        }
     });
+    function getToken() {
+        if ($window.localStorage.getItem('token') !== null) {
+            $http.defaults.headers.common['Authorization'] = $window.localStorage.getItem('token');
+            AuthService.user = 'success';
+            AuthService.isAdmin = $window.localStorage.getItem('isAdmin');
+            $rootScope.$broadcast('LoginSuccessful');
+            $rootScope.user = AuthService.user;
+            $rootScope.isAdmin = AuthService.isAdmin;
+        }
+    }
+
+    getToken();
+});
+
+
+
+//
+// app.run(function(AuthService, $rootScope,$state,$window,$http) {
+//     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+//         // checking the user is logged in or not
+//         console.log(toState.name);
+//         if (!AuthService.user) {
+//             // To avoiding the infinite looping of state change we have to add a
+//             // if condition.
+//             if (toState.name !== 'login') {
+//                 event.preventDefault();
+//                 $state.go('login');
+//             }
+//         } else {
+//             // $window.localStorage.clear();
+//             if (toState.name == 'login' || toState.name == 'page-not-found') {
+//                 $rootScope.$broadcast('LoginSuccessful');
+//                 $state.go('home');
+//             }
+//         }
+//     });
+// });

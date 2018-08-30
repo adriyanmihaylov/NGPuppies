@@ -1,11 +1,10 @@
-angular.module('NGPuppies').config(function($stateProvider, $urlRouterProvider) {
+angular.module('NGPuppies').config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	
 	// the ui router will redirect if a invalid state has come.
 	$urlRouterProvider.otherwise('/page-not-found');
 	// parent view - navigation state
 	$stateProvider.state('nav', {
 		abstract : true,
-		url : '',
 		views : {
 			'nav@' : {
 				templateUrl : 'app/views/nav.html',
@@ -23,6 +22,7 @@ angular.module('NGPuppies').config(function($stateProvider, $urlRouterProvider) 
 		}
 	}).state('admins', {
 		parent : 'nav',
+		url: '/admins',
 		data : {
 			role : 'ADMIN'
 		},
@@ -68,5 +68,15 @@ angular.module('NGPuppies').config(function($stateProvider, $urlRouterProvider) 
 				controller : 'RegisterController'
 			}
 		}
+
 	});
+        $locationProvider.html5Mode({
+			enabled: true,
+			requireBase: true
+        });
+    // // use the HTML5 History API
+		// $locationProvider.html5Mode({
+		// 	enabled: true,
+		// 	requireBase: false
+		// });
 });
