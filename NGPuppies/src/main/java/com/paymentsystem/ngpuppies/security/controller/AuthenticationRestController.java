@@ -1,9 +1,10 @@
 package com.paymentsystem.ngpuppies.security.controller;
 
+import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.security.JwtAuthenticationRequest;
 import com.paymentsystem.ngpuppies.security.JwtTokenUtil;
 import com.paymentsystem.ngpuppies.security.JwtUser;
-import com.paymentsystem.ngpuppies.security.service.JwtAuthenticationResponse;
+import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +19,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
-
 @RestController
 public class AuthenticationRestController {
 
@@ -31,6 +33,9 @@ public class AuthenticationRestController {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    AdminServiceImpl adminService;
 
     @Autowired
     @Qualifier("jwtUserDetailsService")
@@ -45,8 +50,10 @@ public class AuthenticationRestController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        // Return the token
-        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+
+        return ResponseEntity.ok(map);
     }
 
     @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
@@ -58,7 +65,7 @@ public class AuthenticationRestController {
 
         if (jwtTokenUtil.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
-            return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
+            return ResponseEntity.ok(refreshedToken);
         } else {
             return ResponseEntity.badRequest().body(null);
         }

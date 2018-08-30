@@ -68,21 +68,22 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails.getUsername());
+        Map<String,Object> claims = new HashMap<>();
+        claims.put("role",userDetails.getAuthorities());
+        return doGenerateToken(claims,userDetails.getUsername());
     }
 
-    private String doGenerateToken(Map<String, Object> claims, String subject) {
+    private String doGenerateToken(Map<String,Object> claims, String subject) {
         final Date createdDate = clock.now();
         final Date expirationDate = calculateExpirationDate(createdDate);
 
         return Jwts.builder()
-            .setClaims(claims)
-            .setSubject(subject)
-            .setIssuedAt(createdDate)
-            .setExpiration(expirationDate)
-            .signWith(SignatureAlgorithm.HS512, secret)
-            .compact();
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(createdDate)
+                .setExpiration(expirationDate)
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
     }
 
     public Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
