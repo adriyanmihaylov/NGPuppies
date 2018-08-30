@@ -1,7 +1,5 @@
 app.controller('LoginController', function($http, $scope, $state, AuthService, $rootScope) {
-	if(AuthService.isAuthenticated !== null) {
-        $rootScope.$broadcast('LoginSuccessful');
-
+	if(AuthService.isAuthenticated) {
         $state.go('home');
     }
 
@@ -21,8 +19,6 @@ app.controller('LoginController', function($http, $scope, $state, AuthService, $
 			if (result.token) {
 				AuthService.setToken(result.token);
                	localStorage.setItem('token',result.token);
-
-				$rootScope.$broadcast('LoginSuccessful');
 				$state.go('home');
 			} else {
 				// if the token is not present in the response then the
