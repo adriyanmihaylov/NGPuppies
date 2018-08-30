@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/subscriber")
+@RequestMapping("${common.basepath}/subscriber")
 public class SubscribersRestController {
     private final SubscriberService subscriberService;
 
@@ -26,12 +26,12 @@ public class SubscribersRestController {
     }
 
     @GetMapping("/get")
-    public Subscriber getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
-        return subscriberService.getByNumber(phoneNumber);
+    public SubscriberViewModel getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
+        return SubscriberViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
     }
 
     @PostMapping("/create")
-    public void createSubscriber(@RequestParam(name="phoneNumber") String phoneNumber,
+    public boolean createSubscriber(@RequestParam(name="phoneNumber") String phoneNumber,
                                  @RequestParam(name = "firstName") String firstName,
                                  @RequestParam(name = "lastName") String lastName,
                                  @RequestParam(name = "egn") String egn,
@@ -40,26 +40,31 @@ public class SubscribersRestController {
 
         if (subscriberService.checkIfPhoneExists(phoneNumber)) {
             System.out.println("Subscriber exists");
+            return false;
         }else{
             Subscriber subscriberToCreate = new Subscriber(phoneNumber, firstName, lastName, egn, clientUsername);
             if(subscriberService.create(subscriberToCreate)){
                 System.out.println("Susbcriber Created" + subscriberToCreate);
+                return true;
             }
             else{
                 System.out.println("NO such client with username: " + subscriberToCreate.getClientUsername() + "or dublicated value");
+                return false;
             }
         }
     }
 
     @DeleteMapping("/delete")
-    public void  deleteByNumber(@RequestParam("phoneNumber") String phoneNumber) {
+    public boolean  deleteByNumber(@RequestParam("phoneNumber") String phoneNumber) {
         String message;
         if (subscriberService.deleteByNumber(phoneNumber)) {
             message = "Subscriber " + phoneNumber+ " deleted successfully!";
+            return true;
         } else {
             message = "Subscriber " + phoneNumber + " was not found!";
         }
         System.out.println(message);
+        return false;
     }
 
 }

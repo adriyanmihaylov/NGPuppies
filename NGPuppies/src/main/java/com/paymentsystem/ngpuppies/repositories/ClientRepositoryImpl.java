@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.repositories;
 
+import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
 import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
@@ -83,6 +84,8 @@ public class ClientRepositoryImpl implements ClientRepository,GenericUserReposit
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
+            Authority authority = session.get(Authority.class, 2);
+            model.setAuthority(authority);
             session.save(model);
             session.getTransaction().commit();
 
