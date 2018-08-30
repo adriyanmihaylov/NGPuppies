@@ -1,12 +1,11 @@
-angular.module('NGPuppies')
-// Creating the Angular Controller
-.controller('LoginController', function($http, $scope, $state, AuthService, $rootScope,$window) {
-	if(AuthService.user !== null) {
+app.controller('LoginController', function($http, $scope, $state, AuthService, $rootScope) {
+	if(AuthService.isAuthenticated !== null) {
         $rootScope.$broadcast('LoginSuccessful');
-        // going to the home page
+
         $state.go('home');
-	}
-	// method for login
+    }
+
+	// login method
 	$scope.login = function() {
 		// requesting the token by usename and passoword
 		var loginFormData = {username : $scope.username, password : $scope.password};
@@ -16,21 +15,14 @@ angular.module('NGPuppies')
 			data: JSON.stringify(loginFormData),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
-		}).success(function(res) {
+		}).success(function(result) {
 			$scope.password = null;
 			// checking if the token is available in the response
-			if (res.token) {
-				// setting the Authorization Bearer token with JWT token
-				$http.defaults.headers.common['Authorization'] = 'Bearer ' + res.token;
-
-				// setting the user in AuthService
-				AuthService.user = "success";
-				AuthService.isAdmin =  res.isAdmin;
-				localStorage.setItem('token','Bearer ' + res.token);
-				localStorage.setItem('isAdmin', res.isAdmin);
+			if (result.token) {
+				AuthService.setToken(result.token);
+               	localStorage.setItem('token',result.token);
 
 				$rootScope.$broadcast('LoginSuccessful');
-				// going to the home page
 				$state.go('home');
 			} else {
 				// if the token is not present in the response then the

@@ -49,14 +49,9 @@ public class AuthenticationRestController {
         // Reload password post-security so we can generate the token
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        Admin admin = adminService.getByUsername(userDetails.getUsername());
-        boolean isAdmin = false;
-        if (admin != null) {
-            isAdmin = true;
-        }
+
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
-        map.put("isAdmin", isAdmin);
 
         return ResponseEntity.ok(map);
     }

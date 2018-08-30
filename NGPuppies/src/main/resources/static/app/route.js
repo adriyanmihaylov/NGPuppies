@@ -2,7 +2,7 @@ angular.module('NGPuppies').config(function($stateProvider,$urlRouterProvider,$l
 	
 	// the ui router will redirect if a invalid state has come.
 	$urlRouterProvider.otherwise('/page-not-found');
-	// parent view - navigation state
+
 	$stateProvider.state('nav', {
 		abstract : true,
 		views : {
@@ -24,7 +24,7 @@ angular.module('NGPuppies').config(function($stateProvider,$urlRouterProvider,$l
 		parent : 'nav',
 		url: '/admins',
 		data : {
-			role : 'ADMIN'
+			role : 'ROLE_ADMIN'
 		},
 		views : {
 			'content@' : {
@@ -74,9 +74,4 @@ angular.module('NGPuppies').config(function($stateProvider,$urlRouterProvider,$l
 			enabled: true,
 			requireBase: true
         });
-    // // use the HTML5 History API
-		// $locationProvider.html5Mode({
-		// 	enabled: true,
-		// 	requireBase: false
-		// });
 });
