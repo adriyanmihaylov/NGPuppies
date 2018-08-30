@@ -1,6 +1,11 @@
 angular.module('NGPuppies')
 // Creating the Angular Controller
-.controller('LoginController', function($http, $scope, $state, AuthService, $rootScope) {
+.controller('LoginController', function($http, $scope, $state, AuthService, $rootScope,$window) {
+	if(AuthService.user !== null) {
+        $rootScope.$broadcast('LoginSuccessful');
+        // going to the home page
+        $state.go('home');
+	}
 	// method for login
 	$scope.login = function() {
 		// requesting the token by usename and passoword
@@ -15,13 +20,15 @@ angular.module('NGPuppies')
 			$scope.password = null;
 			// checking if the token is available in the response
 			if (res.token) {
-				$scope.message = '';
 				// setting the Authorization Bearer token with JWT token
 				$http.defaults.headers.common['Authorization'] = 'Bearer ' + res.token;
 
 				// setting the user in AuthService
 				AuthService.user = "success";
 				AuthService.isAdmin =  res.isAdmin;
+				localStorage.setItem('token','Bearer ' + res.token);
+				localStorage.setItem('isAdmin', res.isAdmin);
+
 				$rootScope.$broadcast('LoginSuccessful');
 				// going to the home page
 				$state.go('home');
