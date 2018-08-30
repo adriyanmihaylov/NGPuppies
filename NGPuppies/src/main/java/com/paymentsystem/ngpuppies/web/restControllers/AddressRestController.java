@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/addresses")
+@RequestMapping("${common.basepath}/addresses")
 public class AddressRestController {
     @Autowired
     private AddressService addressService;
     @PostMapping("/create")
     public void create(@RequestParam(name = "city", required = false) String city,
                        @RequestParam(name = "street", required = false) String street,
-                       @RequestParam(name = "State", required = false) String state,
+                       @RequestParam(name = "state", required = false) String state,
                        @RequestParam(name = "postCode", required = false) String postCode,
                        @RequestParam(name = "country", required = false) String country){
         Address addressToCreate = new Address();

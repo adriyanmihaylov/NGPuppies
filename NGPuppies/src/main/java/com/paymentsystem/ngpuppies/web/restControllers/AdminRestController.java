@@ -23,8 +23,7 @@ public class AdminRestController {
     private ApplicationUserServiceImpl applicationUserService;
     @Autowired
     private AdminServiceImpl adminService;
-    @Autowired
-    private ClientServiceImpl clientService;
+
 
     @GetMapping("/user")
     public UserViewModel getUserByUsername(@RequestParam String username) {
@@ -36,22 +35,10 @@ public class AdminRestController {
         return AdminViewModel.fromModel(adminService.getByUsername(username));
     }
 
-    @GetMapping("/client")
-    public ClientViewModel getClientByUsername(@RequestParam String username) {
-        return ClientViewModel.fromModel(clientService.getByUsername(username));
-    }
-
     @GetMapping("/all")
     public List<AdminViewModel> getAllAdmins() {
         return adminService.getAll().stream()
                 .map(AdminViewModel::fromModel)
-                .collect(Collectors.toList());
-    }
-
-    @GetMapping("/clients/all")
-    public List<ClientViewModel> getAllClients() {
-        return clientService.getAll().stream()
-                .map(ClientViewModel::fromModel)
                 .collect(Collectors.toList());
     }
 
@@ -72,25 +59,13 @@ public class AdminRestController {
         if (adminService.checkIfEmailIsPresent(admin.getEmail())) {
             return false;
         }
+        Admin admin1 = new Admin(admin.getUsername(), admin.getPassword(), admin.getEmail());
         //TODO encrypt password using BCrypt
         admin.setPassword(admin.getPassword());
-        return adminService.create(admin);
+        return adminService.create(admin1);
     }
 
-    @PostMapping("/client/register")
-    public boolean registerClient(@RequestBody Client client) {
-        if (applicationUserService.checkIfUsernameIsPresent(client.getUsername())) {
-            return false;
-        }
-        if (clientService.checkIfEikIsPresent(client.getEik())) {
-            return false;
-        }
 
-        //TODO encrypt password using BCrypt
-        // client.setPassword(client.getPassword());
-
-        return clientService.create(client);
-    }
 
     @DeleteMapping("/delete")
     public boolean deleteUserByUsername(@RequestParam() String username) {

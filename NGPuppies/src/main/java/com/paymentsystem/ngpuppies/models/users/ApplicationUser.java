@@ -44,7 +44,8 @@ public class ApplicationUser {
 
     }
 
-    ApplicationUser(String username, String password,AuthorityName authorityName) {
+    ApplicationUser(String username, String password,
+                    AuthorityName authorityName) {
         setUsername(username);
         setPassword(password);
         setAuthority(new Authority(authorityName));

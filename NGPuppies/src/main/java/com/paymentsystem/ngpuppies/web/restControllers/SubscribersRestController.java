@@ -12,8 +12,12 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/subscriber")
 public class SubscribersRestController {
+    private final SubscriberService subscriberService;
+
     @Autowired
-    private SubscriberService subscriberService;
+    public SubscribersRestController(SubscriberService subscriberService) {
+        this.subscriberService = subscriberService;
+    }
 
     @GetMapping("/all")
     public List<SubscriberViewModel> getAll() {

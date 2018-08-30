@@ -3,6 +3,7 @@ package com.paymentsystem.ngpuppies.models.users;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.sql.Date;
 
 @Entity
 @DiscriminatorValue("ADMIN")
@@ -16,6 +17,9 @@ public class Admin extends ApplicationUser {
 
     public Admin(String username, String password, String email) {
         super(username, password,AuthorityName.ROLE_ADMIN);
+        java.util.Date today = new java.util.Date();
+        super.setLastPasswordResetDate(today);
+        super.setEnabled(false);
         setEmail(email);
     }
 
