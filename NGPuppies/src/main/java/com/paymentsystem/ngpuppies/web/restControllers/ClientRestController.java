@@ -30,7 +30,10 @@ public class ClientRestController {
                 .map(ClientViewModel::fromModel)
                 .collect(Collectors.toList());
     }
-
+    @GetMapping("/get")
+    public ClientViewModel getByUsername(@RequestParam(name = "username") String username){
+        return ClientViewModel.fromModel(clientService.getByUsername(username));
+    }
 
     @PostMapping("/register")
     public boolean registerClient(@RequestBody Client client) {
