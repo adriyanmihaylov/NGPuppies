@@ -42,6 +42,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
         logger.debug("processing authentication for '{}'", request.getRequestURL());
 
         final String requestHeader = request.getHeader(this.tokenHeader);
+        System.out.println(requestHeader);
 
         String username = null;
         String authToken = null;
@@ -56,7 +57,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                     logger.warn("the token is expired and not valid anymore", e);
                 }
             } else {
-                logger.warn("couldn't find bearer string, will ignore the header");
+//                logger.warn("couldn't find bearer string, will ignore the header");
             }
 
             logger.debug("checking authentication for user '{}'", username);

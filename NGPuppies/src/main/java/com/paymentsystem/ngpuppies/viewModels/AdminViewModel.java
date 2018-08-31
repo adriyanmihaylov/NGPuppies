@@ -5,7 +5,7 @@ import com.paymentsystem.ngpuppies.models.users.Admin;
 
 public class AdminViewModel {
 
-    public UserViewModel adminCredentials;
+    public UserViewModel credentials;
 
     public String email;
 
@@ -13,7 +13,7 @@ public class AdminViewModel {
         AdminViewModel vm = new AdminViewModel();
 
         if(admin != null) {
-            vm.adminCredentials = UserViewModel.fromModel(admin);
+            vm.credentials = UserViewModel.fromModel(admin);
             vm.email = admin.getEmail();
         }
 
