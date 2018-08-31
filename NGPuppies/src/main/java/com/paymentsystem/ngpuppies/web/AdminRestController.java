@@ -37,23 +37,10 @@ public class AdminRestController {
                 .collect(Collectors.toList());
     }
 
-
-<<<<<<< HEAD:NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/restControllers/AdminRestController.java
-    @GetMapping("/all")
-    public List<AdminViewModel> getAllAdmins() {
-        return adminService.getAll().stream()
-                .map(AdminViewModel::fromModel)
-=======
-    @GetMapping("/client")
-    public ClientViewModel getClientByUsername(@RequestParam String username) {
-        return ClientViewModel.fromModel(clientService.getByUsername(username));
-    }
-
     @GetMapping("/allUsers")
     public List<UserViewModel> getAllUsers() {
         return applicationUserService.getAll().stream()
                 .map(UserViewModel::fromModel)
->>>>>>> 8d1a9b6ed4555a22aaa42a53312f1e9c96c94e74:NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/AdminRestController.java
                 .collect(Collectors.toList());
     }
 
