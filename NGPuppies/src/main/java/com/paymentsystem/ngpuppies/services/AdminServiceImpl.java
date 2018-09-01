@@ -1,5 +1,7 @@
 package com.paymentsystem.ngpuppies.services;
 
+import com.paymentsystem.ngpuppies.exceptions.EmailIsPresentException;
+import com.paymentsystem.ngpuppies.exceptions.UsernameIsPresentException;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
 import com.paymentsystem.ngpuppies.services.base.AdminService;
@@ -25,7 +27,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean create(Admin admin) {
+    public boolean create(Admin admin) throws Exception {
         return adminRepository.create(admin);
     }
 }

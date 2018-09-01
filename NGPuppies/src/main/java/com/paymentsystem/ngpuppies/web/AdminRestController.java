@@ -1,5 +1,8 @@
 package com.paymentsystem.ngpuppies.web;
 
+import com.paymentsystem.ngpuppies.exceptions.EikIsPresentException;
+import com.paymentsystem.ngpuppies.exceptions.EmailIsPresentException;
+import com.paymentsystem.ngpuppies.exceptions.UsernameIsPresentException;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.AdminDto;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
@@ -10,6 +13,7 @@ import com.paymentsystem.ngpuppies.services.base.AuthorityService;
 import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,8 +64,8 @@ public class AdminRestController {
     }
 
     @PostMapping("/register-admin")
-    public ResponseEntity<?> registerAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+    public ResponseEntity<?> registerAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) throws UsernameIsPresentException, EmailIsPresentException {
+        if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
             return ResponseEntity.badRequest().body(message);
@@ -74,8 +79,10 @@ public class AdminRestController {
             admin.setAuthority(authority);
 
             adminService.create(admin);
+        } catch (SQLException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Handle database error");
+            return ResponseEntity.status(500).body("Please try again later");
         }
 
         return ResponseEntity.ok("Successful registration!");
@@ -85,4 +92,9 @@ public class AdminRestController {
     public boolean deleteUserByUsername(@RequestParam() String username) {
         return appUserService.deleteByUsername(username);
     }
+//
+//    @ExceptionHandler({EmailIsPresentException.class,UsernameIsPresentException.class,EikIsPresentException.class})
+//    public ResponseEntity<String> handleCredentialsArePresentExceptions(EmailIsPresentException e) {
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//    }
 }

@@ -1,5 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories;
 
+import com.paymentsystem.ngpuppies.exceptions.EmailIsPresentException;
+import com.paymentsystem.ngpuppies.exceptions.UsernameIsPresentException;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
@@ -77,22 +79,34 @@ public class AdminRepositoryImpl implements AdminRepository {
     }
 
     @Override
-    public boolean create(Admin model) {
-        if (model.getUsername() == null || model.getPassword() == null || model.getEmail() == null) {
-            return false;
-        }
-
+    public boolean create(Admin admin) throws Exception {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            model.setPassword(passwordEncoder.encode(model.getPassword()));
-            model.setEnabled(false);
-            session.save(model);
+            admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+            admin.setEnabled(false);
+            session.save(admin);
             session.getTransaction().commit();
-            System.out.println("CREATED ADMIN Id: " + model.getId() + " username:" + model.getUsername());
+            System.out.println("CREATED ADMIN Id: " + admin.getId() + " username:" + admin.getUsername());
 
             return true;
-        } catch ( JDBCException e) {
-            
+        } catch (JDBCException e) {
+            String message = e.getSQLException().toString().toLowerCase();
+
+            String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
+
+            String errorMessage;
+            switch (key) {
+                case "username":
+                    errorMessage = "Username is present";
+                    break;
+                case "adminemail":
+                    errorMessage = "Email is present";
+                    break;
+                default:
+                    throw new Exception("Something went wrong in the database when registering new admin: " + admin.getUsername());
+            }
+
+            throw new SQLException(errorMessage, e);
         } catch (Exception e) {
 
         }

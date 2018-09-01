@@ -4,8 +4,8 @@ import org.hibernate.JDBCException;
 
 import java.sql.SQLException;
 
-public class EmailIsPresentException extends JDBCException {
-    public EmailIsPresentException(String message, SQLException cause) {
+public class EikIsPresentException extends JDBCException {
+    public EikIsPresentException(String message, SQLException cause) {
         super(message, cause);
     }
 }
