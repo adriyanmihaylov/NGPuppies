@@ -7,6 +7,7 @@ import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ import java.util.List;
 public class AdminRepositoryImpl implements AdminRepository, GenericUserRepository<Admin> {
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<Admin> getAll() {
@@ -79,15 +83,13 @@ public class AdminRepositoryImpl implements AdminRepository, GenericUserReposito
             return false;
         }
 
-        if (getByUsername(model.getUsername()) != null || getByEmail(model.getEmail()) != null) {
-            return false;
-        }
-
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             Authority authority = session.get(Authority.class, 1);
-            model.setAuthority(authority);
+            model.setPassword(passwordEncoder.encode(model.getPassword()));
 
+            model.setAuthority(authority);
+            model.setEnabled(false);
             session.save(model);
             session.getTransaction().commit();
             System.out.println("CREATED ADMIN Id: " + model.getId() + " username:" + model.getUsername());

@@ -28,7 +28,6 @@ public class ApplicationUser {
 
     @OneToOne
     @JoinColumn(name = "AuthorityID")
-    @NotNull
     private Authority authority;
 
     @Column(name = "Enabled")
@@ -37,7 +36,6 @@ public class ApplicationUser {
 
     @Column(name = "LastPasswordResetDate")
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
     private Date lastPasswordResetDate;
 
     public ApplicationUser() {

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class AddressServiceImpl implements AddressService {
     private AddressRepository addressRepository;
 
-    public AddressServiceImpl(AddressRepository addressRepository){
+    public AddressServiceImpl(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
     }
 
@@ -18,9 +18,8 @@ public class AddressServiceImpl implements AddressService {
         return addressRepository.create(address);
     }
 
-
     @Override
     public boolean deleteById(int id) {
-       return addressRepository.delete(id);
+        return addressRepository.delete(id);
     }
 }

@@ -1,13 +1,15 @@
 package com.paymentsystem.ngpuppies.web;
 
+import com.paymentsystem.ngpuppies.models.dto.AdminDto;
 import com.paymentsystem.ngpuppies.models.users.Admin;
-import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
-import com.paymentsystem.ngpuppies.services.ApplicationUserServiceImpl;
+import com.paymentsystem.ngpuppies.services.base.AdminService;
+import com.paymentsystem.ngpuppies.services.base.ApplicationUserService;
 import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,9 +18,9 @@ import java.util.stream.Collectors;
 public class AdminRestController {
 
     @Autowired
-    private ApplicationUserServiceImpl applicationUserService;
+    private ApplicationUserService applicationUserService;
     @Autowired
-    private AdminServiceImpl adminService;
+    private AdminService adminService;
 
 
     @GetMapping("/user")
@@ -44,30 +46,14 @@ public class AdminRestController {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Try with
-     * POST          http://localhost:8080/secured/admin/register
-     * {
-     * "username": "username",
-     * "password": "123456",
-     * "email": "email@yahoo.com"
-     * }
-     */
-    @PostMapping("/register")
-    public boolean registerAdmin(@RequestBody Admin admin) {
-        if (applicationUserService.checkIfUsernameIsPresent(admin.getUsername())) {
-            return false;
-        }
-        if (adminService.checkIfEmailIsPresent(admin.getEmail())) {
-            return false;
-        }
-        Admin admin1 = new Admin(admin.getUsername(), admin.getPassword(), admin.getEmail());
-        //TODO encrypt password using BCrypt
-        admin.setPassword(admin.getPassword());
-        return adminService.create(admin1);
+    @PostMapping("/register-admin")
+    public boolean registerAdmin(@Valid @RequestBody AdminDto adminDto) {
+        Admin admin = new Admin();
+        admin.setUsername(adminDto.getUsername());
+        admin.setPassword(adminDto.getPassword());
+        admin.setEmail(adminDto.getEmail());
+        return adminService.create(admin);
     }
-
-
 
     @DeleteMapping("/delete")
     public boolean deleteUserByUsername(@RequestParam() String username) {
