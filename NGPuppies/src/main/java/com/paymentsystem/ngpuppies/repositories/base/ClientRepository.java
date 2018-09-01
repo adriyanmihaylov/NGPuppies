@@ -11,5 +11,5 @@ public interface ClientRepository {
 
     Client loadByUsername(String username);
 
-    boolean create(Client client);
+    boolean create(Client client) throws Exception;
 }

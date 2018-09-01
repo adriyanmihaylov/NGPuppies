@@ -1,15 +1,15 @@
 package com.paymentsystem.ngpuppies.web;
 
-import com.paymentsystem.ngpuppies.exceptions.EikIsPresentException;
-import com.paymentsystem.ngpuppies.exceptions.EmailIsPresentException;
-import com.paymentsystem.ngpuppies.exceptions.UsernameIsPresentException;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.AdminDto;
+import com.paymentsystem.ngpuppies.models.datatransferobjects.ClientDto;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
+import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.base.AdminService;
 import com.paymentsystem.ngpuppies.services.base.AppUserService;
 import com.paymentsystem.ngpuppies.services.base.AuthorityService;
+import com.paymentsystem.ngpuppies.services.base.ClientService;
 import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
@@ -37,6 +35,8 @@ public class AdminRestController {
     @Autowired
     private AdminService adminService;
     @Autowired
+    private ClientService clientService;
+    @Autowired
     private AuthorityService authorityService;
 
 
@@ -49,6 +49,7 @@ public class AdminRestController {
     public AdminViewModel getAdminByUsername(@PathVariable("username") String username) {
         return AdminViewModel.fromModel(adminService.getByUsername(username));
     }
+
     @GetMapping("/all")
     public List<AdminViewModel> getAllAdmins() {
         return adminService.getAll().stream()
@@ -64,7 +65,7 @@ public class AdminRestController {
     }
 
     @PostMapping("/register-admin")
-    public ResponseEntity<?> registerAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) throws UsernameIsPresentException, EmailIsPresentException {
+    public ResponseEntity<?> registerAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
@@ -78,11 +79,40 @@ public class AdminRestController {
             Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
             admin.setAuthority(authority);
 
-            adminService.create(admin);
+            if (!adminService.create(admin)) {
+                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+            }
         } catch (SQLException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Please try again later");
+            return ResponseEntity.badRequest().body("Please try again later!");
+        }
+
+        return ResponseEntity.ok("Successful registration!");
+    }
+
+    @PostMapping("/register-client")
+    public ResponseEntity<?> registerClient(@Valid @RequestBody ClientDto clientDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+            return ResponseEntity.badRequest().body(message);
+        }
+        try {
+            Client client = new Client();
+            client.setUsername(clientDto.getUsername());
+            client.setPassword(clientDto.getPassword());
+            client.setEik(clientDto.getEik());
+            Authority authority = authorityService.getByName(AuthorityName.ROLE_CLIENT);
+            client.setAuthority(authority);
+
+            if (!clientService.create(client)) {
+                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+            }
+        } catch (SQLException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Please try again later!");
         }
 
         return ResponseEntity.ok("Successful registration!");
@@ -92,9 +122,4 @@ public class AdminRestController {
     public boolean deleteUserByUsername(@RequestParam() String username) {
         return appUserService.deleteByUsername(username);
     }
-//
-//    @ExceptionHandler({EmailIsPresentException.class,UsernameIsPresentException.class,EikIsPresentException.class})
-//    public ResponseEntity<String> handleCredentialsArePresentExceptions(EmailIsPresentException e) {
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-//    }
 }

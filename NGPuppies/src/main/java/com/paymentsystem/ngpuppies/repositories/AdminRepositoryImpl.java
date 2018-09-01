@@ -1,20 +1,14 @@
 package com.paymentsystem.ngpuppies.repositories;
 
-import com.paymentsystem.ngpuppies.exceptions.EmailIsPresentException;
-import com.paymentsystem.ngpuppies.exceptions.UsernameIsPresentException;
 import com.paymentsystem.ngpuppies.models.users.Admin;
-import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
-import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import javax.validation.ConstraintViolationException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,12 +97,12 @@ public class AdminRepositoryImpl implements AdminRepository {
                     errorMessage = "Email is present";
                     break;
                 default:
-                    throw new Exception("Something went wrong in the database when registering new admin: " + admin.getUsername());
+                    throw new Exception("Something went wrong when registering admin: " + admin.getUsername());
             }
 
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         return false;

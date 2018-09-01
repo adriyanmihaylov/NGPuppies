@@ -9,5 +9,5 @@ public interface ClientService {
 
     Client getByUsername(String username);
 
-    boolean create(Client client);
+    boolean create(Client client) throws Exception;
 }

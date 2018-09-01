@@ -24,7 +24,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean create(Client model) {
+    public boolean create(Client model) throws Exception {
         return clientRepository.create(model);
     }
 }

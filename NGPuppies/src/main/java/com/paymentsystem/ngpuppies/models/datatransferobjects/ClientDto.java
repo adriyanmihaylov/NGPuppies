@@ -21,7 +21,33 @@ public class ClientDto {
     })
     private String password;
 
-
     @ValidEik
     private String eik;
+
+    public ClientDto() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEik() {
+        return eik;
+    }
+
+    public void setEik(String eik) {
+        this.eik = eik;
+    }
 }
