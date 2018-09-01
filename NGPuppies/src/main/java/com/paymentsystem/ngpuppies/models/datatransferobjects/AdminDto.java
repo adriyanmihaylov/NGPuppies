@@ -16,8 +16,11 @@ public class AdminDto {
     })
     private String username;
 
-    @NotNull
-    @Size(min = 6, max = 100)
+    @NotNull(message = "Password can not be empty!")
+    @Size.List({
+            @Size(min = 6, message = "Password must be at least 6 characters"),
+            @Size(max = 100, message = "Password must be less than 100 characters")
+    })
     private String password;
 
     @ValidEmail
