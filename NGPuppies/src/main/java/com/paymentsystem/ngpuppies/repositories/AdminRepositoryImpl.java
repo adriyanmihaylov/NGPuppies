@@ -3,12 +3,17 @@ package com.paymentsystem.ngpuppies.repositories;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
+import org.hibernate.HibernateException;
+import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.ConstraintViolationException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,18 +84,19 @@ public class AdminRepositoryImpl implements AdminRepository {
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Authority authority = session.get(Authority.class, 1);
             model.setPassword(passwordEncoder.encode(model.getPassword()));
-
-            model.setAuthority(authority);
             model.setEnabled(false);
             session.save(model);
             session.getTransaction().commit();
             System.out.println("CREATED ADMIN Id: " + model.getId() + " username:" + model.getUsername());
+
             return true;
+        } catch ( JDBCException e) {
+            
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
+
         return false;
     }
 }
