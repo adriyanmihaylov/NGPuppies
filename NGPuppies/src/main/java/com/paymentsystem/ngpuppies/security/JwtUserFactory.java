@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.security;
 
-import com.paymentsystem.ngpuppies.models.users.ApplicationUser;
+import com.paymentsystem.ngpuppies.models.users.AppUser;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +13,7 @@ public final class JwtUserFactory {
     private JwtUserFactory() {
     }
 
-    public static JwtUser create(ApplicationUser user) {
+    public static JwtUser create(AppUser user) {
         return new JwtUser(
                 user.getId(),
                 user.getUsername(),

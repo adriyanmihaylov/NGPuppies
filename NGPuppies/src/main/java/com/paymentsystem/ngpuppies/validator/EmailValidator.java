@@ -1,5 +1,7 @@
 package com.paymentsystem.ngpuppies.validator;
 
+import com.paymentsystem.ngpuppies.validator.base.ValidEmail;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Matcher;

@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.users.Admin;
-import com.paymentsystem.ngpuppies.repositories.AdminRepositoryImpl;
+import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
 import com.paymentsystem.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    private AdminRepositoryImpl adminRepository;
+    private AdminRepository adminRepository;
 
     @Override
     public List<Admin> getAll() {
@@ -21,7 +21,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin getByUsername(String username) {
-        return adminRepository.getByUsername(username);
+        return adminRepository.loadByUsername(username);
     }
 
     @Override

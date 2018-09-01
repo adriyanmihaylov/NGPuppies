@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.users.Client;
-import com.paymentsystem.ngpuppies.repositories.ClientRepositoryImpl;
+import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
 import com.paymentsystem.ngpuppies.services.base.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class ClientServiceImpl implements ClientService {
     @Autowired
-    private ClientRepositoryImpl clientRepository;
+    private ClientRepository clientRepository;
 
     @Override
     public List<Client> getAll() {
@@ -20,7 +20,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client getByUsername(String username) {
-        return clientRepository.getByUsername(username);
+        return clientRepository.loadByUsername(username);
     }
 
     @Override

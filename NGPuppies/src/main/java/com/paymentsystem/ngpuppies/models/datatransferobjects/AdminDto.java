@@ -1,6 +1,6 @@
-package com.paymentsystem.ngpuppies.models.dto;
+package com.paymentsystem.ngpuppies.models.datatransferobjects;
 
-import com.paymentsystem.ngpuppies.validator.ValidEmail;
+import com.paymentsystem.ngpuppies.validator.base.ValidEmail;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;

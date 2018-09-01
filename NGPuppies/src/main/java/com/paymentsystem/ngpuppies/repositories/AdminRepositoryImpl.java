@@ -3,7 +3,6 @@ package com.paymentsystem.ngpuppies.repositories;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
-import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AdminRepositoryImpl implements AdminRepository, GenericUserRepository<Admin> {
+public class AdminRepositoryImpl implements AdminRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -36,7 +35,7 @@ public class AdminRepositoryImpl implements AdminRepository, GenericUserReposito
     }
 
     @Override
-    public Admin getByUsername(String username) {
+    public Admin loadByUsername(String username) {
         Admin admin = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -73,11 +72,6 @@ public class AdminRepositoryImpl implements AdminRepository, GenericUserReposito
     }
 
     @Override
-    public boolean checkIfEmailIsPresent(String email) {
-        return getByEmail(email) != null;
-    }
-
-    @Override
     public boolean create(Admin model) {
         if (model.getUsername() == null || model.getPassword() == null || model.getEmail() == null) {
             return false;
@@ -97,11 +91,6 @@ public class AdminRepositoryImpl implements AdminRepository, GenericUserReposito
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
-    }
-
-    @Override
-    public boolean deleteByUsername(String username) {
         return false;
     }
 }

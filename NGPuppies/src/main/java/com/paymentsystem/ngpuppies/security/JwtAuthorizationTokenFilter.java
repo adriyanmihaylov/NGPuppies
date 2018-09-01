@@ -50,17 +50,19 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                 try {
                     username = jwtTokenUtil.getUsernameFromToken(authToken);
                 } catch (IllegalArgumentException e) {
-                    logger.error("an error occured during getting username from token", e);
+                    logger.error("An error occured during getting username from token");
+                    logger.warn(e.getMessage());
                 } catch (ExpiredJwtException e) {
-                    logger.warn("the token is expired and not valid anymore", e);
+                    logger.warn("The token is expired and not valid anymore");
+                    logger.warn(e.getMessage());
                 }
             } else {
 //                logger.warn("couldn't find bearer string, will ignore the header");
             }
 
-            logger.debug("checking authentication for user '{}'", username);
+            logger.debug("Checking authentication for user '{}'", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                logger.debug("security context was null, so authorizating user");
+                logger.debug("Security context was null, so authorizating user");
 
                 // It is not compelling necessary to load the use details from the database. You could also store the information
                 // in the token and read it from it. It's up to you ;)
@@ -71,7 +73,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                 if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    logger.info("authorizated user '{}', setting security context", username);
+                    logger.info("Authorizated user '{}', setting security context", username);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }

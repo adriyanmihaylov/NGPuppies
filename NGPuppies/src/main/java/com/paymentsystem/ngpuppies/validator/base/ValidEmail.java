@@ -1,6 +1,7 @@
-package com.paymentsystem.ngpuppies.validator;
+package com.paymentsystem.ngpuppies.validator.base;
 
-import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
+
+import com.paymentsystem.ngpuppies.validator.EmailValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

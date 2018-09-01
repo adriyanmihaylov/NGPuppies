@@ -1,8 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories;
 
-import com.paymentsystem.ngpuppies.models.users.ApplicationUser;
-import com.paymentsystem.ngpuppies.repositories.base.ApplicationUserRepository;
-import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
+import com.paymentsystem.ngpuppies.models.users.AppUser;
+import com.paymentsystem.ngpuppies.repositories.base.AppUserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -11,58 +10,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ApplicationUserRepositoryImpl implements ApplicationUserRepository,GenericUserRepository<ApplicationUser> {
+public class AppUserRepositoryImpl implements AppUserRepository {
     private SessionFactory sessionFactory;
 
-    public ApplicationUserRepositoryImpl(SessionFactory sessionFactory) {
+    public AppUserRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public List<ApplicationUser> getAll() {
-        List<ApplicationUser> applicationUsers = new ArrayList<>();
+    public List<AppUser> getAll() {
+        List<AppUser> appUsers = new ArrayList<>();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            applicationUsers = session.createQuery("FROM ApplicationUser").list();
+            appUsers = session.createQuery("FROM AppUser").list();
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return applicationUsers;
+        return appUsers;
     }
 
     @Override
-    public ApplicationUser getByUsername(String username) {
-        ApplicationUser applicationUser = null;
+    public AppUser loadByUsername(String username) {
+        AppUser appUser = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            String query = String.format("FROM ApplicationUser a WHERE a.username = '%s'", username);
-            List<ApplicationUser> allUsers = session.createQuery(query).list();
+            String query = String.format("FROM AppUser WHERE username = '%s'", username);
+            List<AppUser> allUsers = session.createQuery(query).list();
             session.getTransaction().commit();
 
             if (!allUsers.isEmpty()) {
-                applicationUser = allUsers.get(0);
+                appUser = allUsers.get(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return applicationUser;
-    }
-
-    @Override
-    public boolean checkIfUsernameIsPresent(String username) {
-        return getByUsername(username) != null;
-    }
-
-    @Override
-    public boolean create(ApplicationUser model) {
-        return false;
+        return appUser;
     }
 
     @Override
     public boolean deleteByUsername(String username) {
-        ApplicationUser user = getByUsername(username);
+        AppUser user = loadByUsername(username);
         if (user != null) {
             try (Session session = sessionFactory.openSession()) {
                 session.beginTransaction();

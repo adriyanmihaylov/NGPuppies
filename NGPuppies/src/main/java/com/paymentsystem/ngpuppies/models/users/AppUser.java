@@ -9,7 +9,7 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "users")
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-public class ApplicationUser {
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class ApplicationUser {
 
     @Column(name = "Password")
     @NotNull
-    @Size(min = 4, max = 100)
+    @Size(min = 6, max = 100)
     private String password;
 
     @OneToOne
@@ -38,12 +38,12 @@ public class ApplicationUser {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastPasswordResetDate;
 
-    public ApplicationUser() {
+    public AppUser() {
 
     }
 
-    ApplicationUser(String username, String password,
-                    AuthorityName authorityName) {
+    AppUser(String username, String password,
+            AuthorityName authorityName) {
         setUsername(username);
         setPassword(password);
         setAuthority(new Authority(authorityName));

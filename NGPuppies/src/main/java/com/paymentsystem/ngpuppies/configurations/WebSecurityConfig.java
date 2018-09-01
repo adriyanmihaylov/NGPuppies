@@ -70,15 +70,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // don't create session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
-                .and()
-                .headers().httpStrictTransportSecurity().disable();
+                .antMatchers("/login/**").permitAll()
+                .anyRequest().authenticated();
 
         http
                 .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
-        /**
-         * */
         http
                 .headers().httpStrictTransportSecurity() //Let a web site tell browsers that it should only be accessed using HTTPS, instead of using HTTP.
                 .maxAgeInSeconds(0)  //The time that the browser should remember that a site is only to be accessed using HTTPS.
@@ -90,6 +87,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // AuthenticationTokenFilter will ignore the below paths
         web
                 // allow anonymous resource requests
+                .ignoring()
+                .antMatchers(
+                        HttpMethod.POST,
+                        authenticationPath
+                )
+                .and()
                 .ignoring()
                 .antMatchers(
                         HttpMethod.GET,

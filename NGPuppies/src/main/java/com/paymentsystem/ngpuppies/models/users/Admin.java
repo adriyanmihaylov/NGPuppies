@@ -3,11 +3,10 @@ package com.paymentsystem.ngpuppies.models.users;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.sql.Date;
 
 @Entity
 @DiscriminatorValue("ADMIN")
-public class Admin extends ApplicationUser {
+public class Admin extends AppUser {
 
     @Column(name = "AdminEmail")
     private String email;

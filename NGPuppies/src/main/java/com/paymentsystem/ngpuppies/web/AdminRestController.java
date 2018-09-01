@@ -1,9 +1,12 @@
 package com.paymentsystem.ngpuppies.web;
 
-import com.paymentsystem.ngpuppies.models.dto.AdminDto;
+import com.paymentsystem.ngpuppies.models.datatransferobjects.AdminDto;
 import com.paymentsystem.ngpuppies.models.users.Admin;
+import com.paymentsystem.ngpuppies.models.users.Authority;
+import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.services.base.AdminService;
-import com.paymentsystem.ngpuppies.services.base.ApplicationUserService;
+import com.paymentsystem.ngpuppies.services.base.AppUserService;
+import com.paymentsystem.ngpuppies.services.base.AuthorityService;
 import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +21,16 @@ import java.util.stream.Collectors;
 public class AdminRestController {
 
     @Autowired
-    private ApplicationUserService applicationUserService;
+    private AppUserService appUserService;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private AuthorityService authorityService;
 
 
     @GetMapping("/user")
     public UserViewModel getUserByUsername(@RequestParam String username) {
-        return UserViewModel.fromModel(applicationUserService.getByUsername(username));
+        return UserViewModel.fromModel(appUserService.loadByUsername(username));
     }
 
     @GetMapping("/{username}")
@@ -41,7 +46,7 @@ public class AdminRestController {
 
     @GetMapping("/allUsers")
     public List<UserViewModel> getAllUsers() {
-        return applicationUserService.getAll().stream()
+        return appUserService.getAll().stream()
                 .map(UserViewModel::fromModel)
                 .collect(Collectors.toList());
     }
@@ -52,11 +57,14 @@ public class AdminRestController {
         admin.setUsername(adminDto.getUsername());
         admin.setPassword(adminDto.getPassword());
         admin.setEmail(adminDto.getEmail());
+        Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
+        admin.setAuthority(authority);
+
         return adminService.create(admin);
     }
 
     @DeleteMapping("/delete")
     public boolean deleteUserByUsername(@RequestParam() String username) {
-        return applicationUserService.deleteByUsername(username);
+        return appUserService.deleteByUsername(username);
     }
 }
