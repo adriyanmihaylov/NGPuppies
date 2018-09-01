@@ -10,7 +10,13 @@ import com.paymentsystem.ngpuppies.services.base.AuthorityService;
 import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,6 +24,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/admin")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminRestController {
 
     @Autowired
@@ -52,15 +59,26 @@ public class AdminRestController {
     }
 
     @PostMapping("/register-admin")
-    public boolean registerAdmin(@Valid @RequestBody AdminDto adminDto) {
-        Admin admin = new Admin();
-        admin.setUsername(adminDto.getUsername());
-        admin.setPassword(adminDto.getPassword());
-        admin.setEmail(adminDto.getEmail());
-        Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
-        admin.setAuthority(authority);
+    public ResponseEntity<?> registerAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+            return ResponseEntity.badRequest().body(message);
+        }
+        try {
+            Admin admin = new Admin();
+            admin.setUsername(adminDto.getUsername());
+            admin.setPassword(adminDto.getPassword());
+            admin.setEmail(adminDto.getEmail());
+            Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
+            admin.setAuthority(authority);
 
-        return adminService.create(admin);
+            adminService.create(admin);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Handle database error");
+        }
+
+        return ResponseEntity.ok("Successful registration!");
     }
 
     @DeleteMapping("/delete")

@@ -23,6 +23,10 @@ public class EikValidator implements ConstraintValidator<ValidEik, String> {
     }
 
     private boolean validateEik(String eik) {
+        if(eik == null) {
+            return false;
+        }
+
         pattern = Pattern.compile(EIK_PATTERN);
         matcher = pattern.matcher(eik);
         return matcher.matches();

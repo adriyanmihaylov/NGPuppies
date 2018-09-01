@@ -11,8 +11,10 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
     private Pattern pattern;
     private Matcher matcher;
-    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+ (.[_A-Za-z0-9-]+)*@" +
-            "[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$";
+/**
+ * resource https://howtodoinjava.com/regex/java-regex-validate-email-address/
+ */
+    private static final String EMAIL_PATTERN = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
     @Override
     public void initialize(ValidEmail constraintAnnotation) {
@@ -24,6 +26,9 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
     }
 
     private boolean validateEmail(String email) {
+        if(email == null) {
+            return false;
+        }
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(email);
         return matcher.matches();

@@ -1,25 +1,26 @@
 package com.paymentsystem.ngpuppies.models.datatransferobjects;
 
 import com.paymentsystem.ngpuppies.validator.base.ValidEmail;
+import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class AdminDto {
-    @NotNull
-    @NotEmpty
-    @Length(min = 4, max = 50)
+    @ValidUsername
+    @Size.List({
+            @Size(min = 5, message = "Username must be at least 5 characters"),
+            @Size(max = 50, message = "Username must be less than 50 characters")
+    })
     private String username;
 
     @NotNull
-    @NotEmpty
-    @Length(min = 6, max = 100)
+    @Size(min = 6, max = 100)
     private String password;
 
     @ValidEmail
-    @NotNull
-    @NotEmpty
     private String email;
 
     public AdminDto() {
