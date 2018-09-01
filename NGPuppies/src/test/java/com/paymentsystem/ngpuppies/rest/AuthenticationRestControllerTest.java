@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -40,6 +41,9 @@ public class AuthenticationRestControllerTest {
     private JwtTokenUtil jwtTokenUtil;
 
     @MockBean
+    private AuthenticationManager authenticationManager;
+
+    @MockBean
     private JwtUserDetailsService jwtUserDetailsService;
 
     @Before
@@ -54,7 +58,7 @@ public class AuthenticationRestControllerTest {
     @WithAnonymousUser
     public void successfulAuthenticationWithAnonymousUser() throws Exception {
 
-        JwtAuthenticationRequest jwtAuthenticationRequest = new JwtAuthenticationRequest("user", "password");
+        JwtAuthenticationRequest jwtAuthenticationRequest = new JwtAuthenticationRequest("admin", "123456");
 
         mvc.perform(post("/login")
             .contentType(MediaType.APPLICATION_JSON)

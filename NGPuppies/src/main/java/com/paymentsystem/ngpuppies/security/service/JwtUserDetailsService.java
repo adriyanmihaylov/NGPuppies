@@ -1,8 +1,8 @@
 package com.paymentsystem.ngpuppies.security.service;
 
-import com.paymentsystem.ngpuppies.models.users.ApplicationUser;
+import com.paymentsystem.ngpuppies.models.users.AppUser;
 import com.paymentsystem.ngpuppies.security.JwtUserFactory;
-import com.paymentsystem.ngpuppies.services.ApplicationUserServiceImpl;
+import com.paymentsystem.ngpuppies.services.AppUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private ApplicationUserServiceImpl applicationUserService;
+    private AppUserServiceImpl applicationUserService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        ApplicationUser user = applicationUserService.getByUsername(username);
+        AppUser user = applicationUserService.loadByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));

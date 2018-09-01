@@ -3,15 +3,15 @@ package com.paymentsystem.ngpuppies.services;
 import com.paymentsystem.ngpuppies.models.BillingRecord;
 import com.paymentsystem.ngpuppies.repositories.base.BillingRecordRepository;
 import com.paymentsystem.ngpuppies.services.base.BillingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class BillingServiceImpl implements BillingService {
+    @Autowired
     private BillingRecordRepository recordRepository;
-    public BillingServiceImpl(BillingRecordRepository recordRepository){
-        this.recordRepository = recordRepository;
-    }
+
     @Override
     public List<BillingRecord> getAll() {
         return recordRepository.getAll();
@@ -24,10 +24,9 @@ public class BillingServiceImpl implements BillingService {
 
     @Override
     public String deleteBySubscriber(String phoneNumber) {
-        if (recordRepository.deleteBySubscriber(phoneNumber)){
+        if (recordRepository.deleteBySubscriber(phoneNumber)) {
             return "Success";
-        }
-        else {
+        } else {
             return "Fail";
         }
     }
@@ -35,25 +34,25 @@ public class BillingServiceImpl implements BillingService {
     @Override
 
     public String create(BillingRecord billingRecordToBeCreated) {
-        if (recordRepository.create(billingRecordToBeCreated)){
+        if (recordRepository.create(billingRecordToBeCreated)) {
             return "Success";
-        }else {
+        } else {
             return "Something went wrong";
         }
     }
 
     @Override
-    public String update( BillingRecord updatedBillingRecord) {
-        if (recordRepository.update(updatedBillingRecord)){
+    public String update(BillingRecord updatedBillingRecord) {
+        if (recordRepository.update(updatedBillingRecord)) {
             return "Success";
-        }else {
+        } else {
             return "Something went wrong";
         }
     }
 
     @Override
     public List<BillingRecord> getByDate(String startDate, String endDate) {
-       return recordRepository.getByDate(startDate, endDate);
+        return recordRepository.getByDate(startDate, endDate);
     }
 
     @Override
