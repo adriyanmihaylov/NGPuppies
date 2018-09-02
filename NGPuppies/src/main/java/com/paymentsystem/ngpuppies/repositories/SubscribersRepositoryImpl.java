@@ -3,11 +3,13 @@ package com.paymentsystem.ngpuppies.repositories;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscribersRepository;
+import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 @Repository
@@ -59,7 +61,7 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
             subscriberToBeDeleted = (Subscriber) session.createQuery("FROM Subscriber s where" +
-                    " s.phoneNumber = " + phoneNumber).list().get(0);
+                    " s.phone = " + phoneNumber).list().get(0);
             session.delete(subscriberToBeDeleted);
             tx.commit();
             return true;
@@ -67,7 +69,6 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
             e.printStackTrace();
             System.out.println("No such subscriber");
         }
-
         return false;
     }
 
@@ -86,31 +87,35 @@ public class SubscribersRepositoryImpl implements SubscribersRepository {
     }
 
     @Override
-    public boolean create(Subscriber subscriber) {
-        if (subscriber.getClientUsername() != null) {
-            try (Session session = factory.openSession()) {
-                Transaction tx = session.beginTransaction();
-                String query = String.format("From Client c where c.username = '%s'", subscriber.getClientUsername());
-                Client client = (Client) session.createQuery(query).list().get(0);
-                subscriber.setClient(client);
-                session.save(subscriber);
-                tx.commit();
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Subscriber was not saved");
+    public boolean create(Subscriber subscriber) throws Exception {
+        try (Session session = factory.openSession()) {
+            subscriber.setPhone(subscriber.getPhone());
+            session.beginTransaction();
+            session.save(subscriber);
+            session.getTransaction().commit();
+
+            return true;
+        } catch (JDBCException e) {
+            String message = e.getSQLException().toString().toLowerCase();
+
+            String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
+
+            String errorMessage;
+            switch (key) {
+                case "phonenumber":
+                    errorMessage = "Phone number is present";
+                    break;
+                case "egn":
+                    errorMessage = "Egn is present";
+                    break;
+                default:
+                    throw new Exception("Something went wrong when creating new subscriber");
             }
-        } else {
-            try (Session session = factory.openSession()) {
-                Transaction tx = session.beginTransaction();
-                session.save(subscriber);
-                tx.commit();
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Subscriber was not saved");
-            }
+            throw new SQLException(errorMessage, e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         return false;
     }
 }

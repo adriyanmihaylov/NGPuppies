@@ -1,9 +1,12 @@
 package com.paymentsystem.ngpuppies.models;
 
 import com.paymentsystem.ngpuppies.models.users.Client;
+import com.paymentsystem.ngpuppies.validator.base.ValidEgn;
+import com.paymentsystem.ngpuppies.validator.base.ValidName;
+import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -14,23 +17,31 @@ public class Subscriber {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
+    @ValidPhone
     @Column(name = "PhoneNumber")
-    private String phoneNumber;
+    private String phone;
 
-    @NotNull
+    @ValidName
+    @Size.List({
+            @Size(min = 3, message = "First name must be at least 3 characters"),
+            @Size(max = 50, message = "First name must be less than 50 characters")
+    })
     @Column(name = "FirstName")
     private String firstName;
 
-    @NotNull
+    @ValidName
+    @Size.List({
+            @Size(min = 3, message = "Last name must be at least 3 characters"),
+            @Size(max = 50, message = "Last name must be less than 50 characters")
+    })
     @Column(name = "LastName")
     private String lastName;
 
-    @NotNull
+    @ValidEgn
     @Column(name = "EGN")
     private String egn;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "AddressID")
     private Address address;
 
@@ -53,12 +64,12 @@ public class Subscriber {
         this.id = id;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phoneNumber) {
+        this.phone = phoneNumber;
     }
 
     public String getFirstName() {
@@ -103,7 +114,7 @@ public class Subscriber {
 
     @Override
     public String toString() {
-        return String.format("Name: %s, EGN: %s, PhoneNumber: %s", getFirstName(), getEgn(), getPhoneNumber());
+        return String.format("Name: %s, EGN: %s, PhoneNumber: %s", getFirstName(), getEgn(), getPhone());
     }
 
     public List<BillingRecord> getBillingRecords() {

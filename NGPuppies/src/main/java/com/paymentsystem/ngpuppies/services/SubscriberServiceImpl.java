@@ -33,23 +33,7 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
     @Override
-    public boolean create(Subscriber subscriber) {
+    public boolean create(Subscriber subscriber) throws Exception {
         return subscribersRepository.create(subscriber);
-    }
-
-    @Override
-    public boolean checkIfPhoneExists(String phoneNumber) {
-        Subscriber getByNumber = null;
-        try {
-            getByNumber = getByNumber(phoneNumber);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        if (getByNumber == null) {
-            return false;
-        } else {
-            return true;
-        }
     }
 }
