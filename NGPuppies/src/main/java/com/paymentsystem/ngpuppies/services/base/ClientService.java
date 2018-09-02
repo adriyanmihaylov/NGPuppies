@@ -10,4 +10,6 @@ public interface ClientService {
     Client loadByUsername(String username);
 
     boolean create(Client client) throws Exception;
+
+    boolean update(Client client) throws Exception;
 }

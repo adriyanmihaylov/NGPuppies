@@ -1,9 +1,9 @@
 package com.paymentsystem.ngpuppies.models.datatransferobjects;
 
+import com.paymentsystem.ngpuppies.models.ClientDetail;
 import com.paymentsystem.ngpuppies.validator.base.ValidEik;
 import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class ClientDto {
@@ -22,6 +22,8 @@ public class ClientDto {
 
     @ValidEik
     private String eik;
+
+    private ClientDetail details;
 
     public ClientDto() {
     }
@@ -48,5 +50,13 @@ public class ClientDto {
 
     public void setEik(String eik) {
         this.eik = eik;
+    }
+
+    public ClientDetail getDetails() {
+        return details;
+    }
+
+    public void setDetails(ClientDetail details) {
+        this.details = details;
     }
 }
