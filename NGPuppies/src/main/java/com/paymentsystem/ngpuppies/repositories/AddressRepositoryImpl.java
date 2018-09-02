@@ -44,4 +44,19 @@ public class AddressRepositoryImpl implements AddressRepository {
         }
         return false;
     }
+
+    @Override
+    public boolean update(Address address) {
+       try(Session session = sessionFactory.openSession()) {
+           session.beginTransaction();
+           session.update(address);
+           session.getTransaction().commit();
+           System.out.println("Address ID: " + address.getId() + "updated!");
+           return true;
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+
+       return false;
+    }
 }

@@ -20,4 +20,9 @@ public class AddressServiceImpl implements AddressService {
     public boolean deleteById(int id) {
         return addressRepository.delete(id);
     }
+
+    @Override
+    public boolean update(Address address) {
+        return addressRepository.update(address);
+    }
 }

@@ -6,4 +6,6 @@ public interface AddressService {
     Address create(Address address);
 
     boolean deleteById(int id);
+
+    boolean update(Address address);
 }

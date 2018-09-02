@@ -11,7 +11,7 @@ public interface SubscriberService {
 
     boolean deleteByNumber(String phoneNumber);
 
-    boolean update(Subscriber updatedSubscriber);
+    boolean update(Subscriber updatedSubscriber) throws Exception;
 
     boolean create(Subscriber subscriber) throws Exception;
 }

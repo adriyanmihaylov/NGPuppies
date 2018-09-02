@@ -2,7 +2,7 @@
 //
 //import com.paymentsystem.ngpuppies.models.users.Client;
 //import com.paymentsystem.ngpuppies.models.Subscriber;
-//import com.paymentsystem.ngpuppies.repositories.SubscribersRepositoryImpl;
+//import com.paymentsystem.ngpuppies.repositories.SubscriberRepositoryImpl;
 //
 //import com.paymentsystem.ngpuppies.services.SubscriberServiceImpl;
 //import org.junit.Assert;
@@ -18,7 +18,7 @@
 //@RunWith(MockitoJUnitRunner.class)
 //public class SubscriberServiceGetALL {
 //    @Mock
-//    private SubscribersRepositoryImpl subscribersRepository;
+//    private SubscriberRepositoryImpl subscribersRepository;
 //
 //    private List<Subscriber> subscribers;
 //    private SubscriberServiceImpl service;
