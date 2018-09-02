@@ -9,6 +9,7 @@ import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.services.base.*;
 import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.viewModels.ClientViewModel;
+import com.paymentsystem.ngpuppies.viewModels.SubscriberViewModel;
 import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,6 @@ public class AdminRestController {
     private SubscriberService subscriberService;
     @Autowired
     private AddressService addressService;
-
     @Autowired
     private AuthorityService authorityService;
     @Autowired
@@ -58,6 +58,11 @@ public class AdminRestController {
     @GetMapping("/client")
     public ClientViewModel getClientByUsername(@RequestParam("username") String username) {
         return ClientViewModel.fromModel(clientService.loadByUsername(username));
+    }
+
+    @GetMapping("/subscriber")
+    public SubscriberViewModel getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
+        return SubscriberViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
     }
 
     @GetMapping("/get/users")
@@ -81,13 +86,19 @@ public class AdminRestController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/get/subscribers")
+    public List<SubscriberViewModel> getAllSubscribers() {
+        return subscriberService.getAll().stream().map(SubscriberViewModel::fromModel).
+                collect(Collectors.toList());
+    }
+
     @GetMapping("/account")
     public AdminViewModel getAccount(Authentication authentication) {
         return AdminViewModel.fromModel(adminService.loadByUsername(authentication.getName()));
     }
 
     @PutMapping("/account/update")
-    public ResponseEntity updateAccount(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult,Authentication authentication) {
+    public ResponseEntity updateAccount(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult, Authentication authentication) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
@@ -121,7 +132,7 @@ public class AdminRestController {
             String message = error.getDefaultMessage();
             return ResponseEntity.badRequest().body(message);
         }
-        if(adminDto.getPassword() == null) {
+        if (adminDto.getPassword() == null) {
             return ResponseEntity.badRequest().body("Password can not be empty!");
         }
         try {
@@ -151,7 +162,7 @@ public class AdminRestController {
             String message = error.getDefaultMessage();
             return ResponseEntity.badRequest().body(message);
         }
-        if(clientDto.getPassword() == null) {
+        if (clientDto.getPassword() == null) {
             return ResponseEntity.badRequest().body("Password can not be empty!");
         }
         try {
@@ -208,17 +219,21 @@ public class AdminRestController {
         return ResponseEntity.ok("Subscriber created!");
     }
 
+    @DeleteMapping("/delete/user")
+    public ResponseEntity<?> deleteUserByUsername(@RequestParam() String username) {
+        if (appUserService.deleteByUsername(username)) {
+            return ResponseEntity.ok("User deleted!");
+        }
+
+        return ResponseEntity.badRequest().body("User not found!");
+    }
+
     @DeleteMapping("/delete/subscriber")
-    public ResponseEntity<?>  deleteByNumber(@RequestParam("phoneNumber") String phoneNumber) {
+    public ResponseEntity<?> deleteByNumber(@RequestParam("phoneNumber") String phoneNumber) {
         if (subscriberService.deleteByNumber(phoneNumber)) {
             return ResponseEntity.ok("Subscriber was successfully deleted");
         }
 
         return ResponseEntity.badRequest().body("Subscriber not found!");
-    }
-
-    @DeleteMapping("/delete/user")
-    public boolean deleteUserByUsername(@RequestParam() String username) {
-        return appUserService.deleteByUsername(username);
     }
 }
