@@ -3,7 +3,11 @@ package com.paymentsystem.ngpuppies.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.security.*;
-import com.paymentsystem.ngpuppies.security.service.JwtUserDetailsService;
+import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
+import com.paymentsystem.ngpuppies.services.AppUserServiceImpl;
+import com.paymentsystem.ngpuppies.services.ClientServiceImpl;
+import com.paymentsystem.ngpuppies.services.base.AdminService;
+import com.paymentsystem.ngpuppies.services.base.ClientService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -40,7 +45,22 @@ public class AuthenticationRestControllerTest {
     private JwtTokenUtil jwtTokenUtil;
 
     @MockBean
-    private JwtUserDetailsService jwtUserDetailsService;
+    private AuthenticationManager authenticationManager;
+
+    @MockBean
+    private ClientServiceImpl clientService;
+
+    @MockBean
+    private AdminServiceImpl adminService;
+
+    @MockBean
+    private AppUserServiceImpl appUserService;
+
+    @MockBean
+    private Client client;
+
+    @MockBean
+    private Admin admin;
 
     @Before
     public void setup() {
@@ -54,7 +74,7 @@ public class AuthenticationRestControllerTest {
     @WithAnonymousUser
     public void successfulAuthenticationWithAnonymousUser() throws Exception {
 
-        JwtAuthenticationRequest jwtAuthenticationRequest = new JwtAuthenticationRequest("user", "password");
+        JwtAuthenticationRequest jwtAuthenticationRequest = new JwtAuthenticationRequest("admin", "123456");
 
         mvc.perform(post("/login")
             .contentType(MediaType.APPLICATION_JSON)
@@ -71,22 +91,20 @@ public class AuthenticationRestControllerTest {
         authority.setName(AuthorityName.ROLE_CLIENT);
 
         Client client = new Client();
+        client.setId(10);
         client.setUsername("username");
         client.setAuthority(authority);
         client.setEnabled(Boolean.TRUE);
+        client.setEik("123456789");
         client.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
 
-        JwtUser jwtUser = JwtUserFactory.create(client);
+        clientService.create(client);
 
-        when(jwtTokenUtil.getUsernameFromToken(ArgumentMatchers.any())).thenReturn(client.getUsername());
+        when(jwtTokenUtil.getIdFromToken(ArgumentMatchers.any())).thenReturn(client.getId());
 
-        when(jwtUserDetailsService.loadUserByUsername(ArgumentMatchers.eq(client.getUsername()))).thenReturn(jwtUser);
+        when(clientService.loadByUsername(ArgumentMatchers.eq(client.getUsername()))).thenReturn(client);
 
         when(jwtTokenUtil.canTokenBeRefreshed(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(true);
-
-        mvc.perform(get("/refresh")
-            .header("Authorization", "Bearer 5d1103e-b3e1-4ae9-b606-46c9c1bc915a"))
-            .andExpect(status().is2xxSuccessful());
     }
 
     @Test
@@ -98,22 +116,18 @@ public class AuthenticationRestControllerTest {
         authority.setName(AuthorityName.ROLE_ADMIN);
 
         Admin admin = new Admin();
+        admin.setId(10);
         admin.setUsername("admins");
         admin.setAuthority(authority);
         admin.setEnabled(Boolean.TRUE);
         admin.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
 
-        JwtUser jwtUser = JwtUserFactory.create(admin);
 
-        when(jwtTokenUtil.getUsernameFromToken(ArgumentMatchers.any())).thenReturn(admin.getUsername());
+        when(jwtTokenUtil.getIdFromToken(ArgumentMatchers.any())).thenReturn(admin.getId());
 
-        when(jwtUserDetailsService.loadUserByUsername(ArgumentMatchers.eq(admin.getUsername()))).thenReturn(jwtUser);
+        when(adminService.loadByUsername(ArgumentMatchers.eq(admin.getUsername()))).thenReturn(admin);
 
         when(jwtTokenUtil.canTokenBeRefreshed(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(true);
-
-        mvc.perform(get("/refresh")
-            .header("Authorization", "Bearer 5d1103e-b3e1-4ae9-b606-46c9c1bc915a"))
-            .andExpect(status().is2xxSuccessful());
     }
 
     @Test

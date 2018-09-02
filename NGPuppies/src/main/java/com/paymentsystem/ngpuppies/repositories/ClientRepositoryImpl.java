@@ -3,19 +3,24 @@ package com.paymentsystem.ngpuppies.repositories;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
-import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
+import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ClientRepositoryImpl implements ClientRepository,GenericUserRepository<Client> {
+public class ClientRepositoryImpl implements ClientRepository {
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<Client> getAll() {
         List<Client> clients = new ArrayList<>();
@@ -31,7 +36,7 @@ public class ClientRepositoryImpl implements ClientRepository,GenericUserReposit
     }
 
     @Override
-    public Client getByUsername(String username) {
+    public Client loadByUsername(String username) {
         Client client = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -67,38 +72,37 @@ public class ClientRepositoryImpl implements ClientRepository,GenericUserReposit
     }
 
     @Override
-    public boolean checkIfEikIsPresent(String eik) {
-        return getByEik(eik) != null;
-    }
-
-
-    @Override
-    public boolean create(Client model) {
-        if(model.getUsername() == null || model.getPassword() == null || model.getEik() == null) {
-            return false;
-        }
-
-        if(getByUsername(model.getUsername()) != null ||getByEik(model.getEik()) != null) {
-            return false;
-        }
-
+    public boolean create(Client client) throws Exception {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Authority authority = session.get(Authority.class, 2);
-            model.setAuthority(authority);
-            session.save(model);
+            client.setPassword(passwordEncoder.encode(client.getPassword()));
+            client.setEnabled(Boolean.TRUE);
+            session.save(client);
             session.getTransaction().commit();
+            System.out.println("CREATED CLIENT Id: " + client.getId() + " username:" + client.getUsername());
 
-            System.out.println("CREATED Client Id: " + model.getId() + " username:" + model.getUsername());
             return true;
+        } catch (JDBCException e) {
+            String message = e.getSQLException().toString().toLowerCase();
+
+            String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
+
+            String errorMessage;
+            switch (key) {
+                case "username":
+                    errorMessage = "Username is present";
+                    break;
+                case "clienteik":
+                    errorMessage = "Eik is present";
+                    break;
+                default:
+                    throw new Exception("Something went wrong when registering client: " + client.getUsername());
+            }
+            throw new SQLException(errorMessage, e);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
-    }
 
-    @Override
-    public boolean deleteByUsername(String username) {
         return false;
     }
 }

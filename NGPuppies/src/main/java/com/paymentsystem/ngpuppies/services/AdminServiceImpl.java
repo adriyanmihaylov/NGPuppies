@@ -1,19 +1,18 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.users.Admin;
-import com.paymentsystem.ngpuppies.repositories.AdminRepositoryImpl;
+import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
 import com.paymentsystem.ngpuppies.services.base.AdminService;
-import com.paymentsystem.ngpuppies.services.base.GenericUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AdminServiceImpl implements GenericUserService<Admin>,AdminService {
+public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    private AdminRepositoryImpl adminRepository;
+    private AdminRepository adminRepository;
 
     @Override
     public List<Admin> getAll() {
@@ -21,17 +20,17 @@ public class AdminServiceImpl implements GenericUserService<Admin>,AdminService 
     }
 
     @Override
-    public Admin getByUsername(String username) {
-        return adminRepository.getByUsername(username);
+    public Admin loadByUsername(String username) {
+        return adminRepository.loadByUsername(username);
     }
 
     @Override
-    public boolean create(Admin model) {
-       return adminRepository.create(model);
+    public boolean create(Admin admin) throws Exception {
+        return adminRepository.create(admin);
     }
 
     @Override
-    public boolean checkIfEmailIsPresent(String email) {
-        return adminRepository.checkIfEmailIsPresent(email);
+    public boolean update(Admin admin) throws Exception {
+        return adminRepository.update(admin);
     }
 }

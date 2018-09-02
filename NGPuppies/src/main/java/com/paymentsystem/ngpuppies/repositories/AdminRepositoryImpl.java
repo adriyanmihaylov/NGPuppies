@@ -1,21 +1,28 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.users.Admin;
-import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
-import com.paymentsystem.ngpuppies.repositories.base.GenericUserRepository;
+import org.hibernate.HibernateException;
+import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AdminRepositoryImpl implements AdminRepository, GenericUserRepository<Admin> {
+public class AdminRepositoryImpl implements AdminRepository {
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<Admin> getAll() {
@@ -32,7 +39,7 @@ public class AdminRepositoryImpl implements AdminRepository, GenericUserReposito
     }
 
     @Override
-    public Admin getByUsername(String username) {
+    public Admin loadByUsername(String username) {
         Admin admin = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -69,37 +76,72 @@ public class AdminRepositoryImpl implements AdminRepository, GenericUserReposito
     }
 
     @Override
-    public boolean checkIfEmailIsPresent(String email) {
-        return getByEmail(email) != null;
-    }
-
-    @Override
-    public boolean create(Admin model) {
-        if (model.getUsername() == null || model.getPassword() == null || model.getEmail() == null) {
-            return false;
-        }
-
-        if (getByUsername(model.getUsername()) != null || getByEmail(model.getEmail()) != null) {
-            return false;
-        }
-
+    public boolean create(Admin admin) throws Exception {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Authority authority = session.get(Authority.class, 1);
-            model.setAuthority(authority);
-
-            session.save(model);
+            admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+            admin.setEnabled(false);
+            session.save(admin);
             session.getTransaction().commit();
-            System.out.println("CREATED ADMIN Id: " + model.getId() + " username:" + model.getUsername());
+            System.out.println("CREATED ADMIN Id: " + admin.getId() + " username:" + admin.getUsername());
+
             return true;
+        } catch (JDBCException e) {
+            String message = e.getSQLException().toString().toLowerCase();
+
+            String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
+
+            String errorMessage;
+            switch (key) {
+                case "username":
+                    errorMessage = "Username is present";
+                    break;
+                case "adminemail":
+                    errorMessage = "Email is present";
+                    break;
+                default:
+                    throw new Exception("Something went wrong when registering admin: " + admin.getUsername());
+            }
+
+            throw new SQLException(errorMessage, e);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
     @Override
-    public boolean deleteByUsername(String username) {
+    public boolean update(Admin admin) throws Exception {
+        if (admin != null) {
+            try (Session session = sessionFactory.openSession()) {
+                session.beginTransaction();
+                session.update(admin);
+                session.getTransaction().commit();
+                System.out.printf("UPDATED: ADMIN  Id: %d Username: %s\n", admin.getId(), admin.getUsername());
+                return true;
+            } catch (PersistenceException e) {
+                String message = e.getCause().getCause().toString().toLowerCase();
+
+                String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
+
+                String errorMessage;
+                switch (key) {
+                    case "username":
+                        errorMessage = "Username is present";
+                        break;
+                    case "adminemail":
+                        errorMessage = "Email is present";
+                        break;
+                    default:
+                        throw new Exception("Something went wrong when updating admin ID" + admin.getId());
+                }
+
+                throw new SQLException(errorMessage, e);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return false;
     }
 }

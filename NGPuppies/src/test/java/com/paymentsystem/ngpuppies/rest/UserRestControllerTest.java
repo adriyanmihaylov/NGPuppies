@@ -33,7 +33,7 @@ public class UserRestControllerTest {
 
     @Test
     public void shouldGetUnauthorizedWithoutRole() throws Exception {
-        mvc.perform(get("/user"))
+        mvc.perform(get("/api/get/users"))
                 .andExpect(status().isUnauthorized());
     }
 }

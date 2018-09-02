@@ -3,16 +3,14 @@ package com.paymentsystem.ngpuppies.services;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscribersRepository;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class SubscriberServiceImpl implements SubscriberService {
+    @Autowired
     private SubscribersRepository subscribersRepository;
-
-    public SubscriberServiceImpl(SubscribersRepository subscribersRepository) {
-        this.subscribersRepository = subscribersRepository;
-    }
 
     @Override
     public List<Subscriber> getAll() {

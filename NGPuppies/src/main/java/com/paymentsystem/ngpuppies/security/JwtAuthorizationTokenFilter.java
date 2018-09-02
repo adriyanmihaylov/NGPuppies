@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.security;
 
-import com.sun.deploy.xml.BadTokenException;
+import com.paymentsystem.ngpuppies.models.users.AppUser;
+import com.paymentsystem.ngpuppies.services.base.AppUserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -25,14 +27,13 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final UserDetailsService userDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
     private final String tokenHeader;
+    private AppUserService appUserService;
 
-    public JwtAuthorizationTokenFilter(@Qualifier("jwtUserDetailsService") UserDetailsService userDetailsService,
-                                       JwtTokenUtil jwtTokenUtil,
+    public JwtAuthorizationTokenFilter(AppUserService appUserService,JwtTokenUtil jwtTokenUtil,
                                        @Value("${jwt.header}") String tokenHeader) {
-        this.userDetailsService = userDetailsService;
+        this.appUserService = appUserService;
         this.jwtTokenUtil = jwtTokenUtil;
         this.tokenHeader = tokenHeader;
     }
@@ -42,40 +43,47 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
         logger.debug("processing authentication for '{}'", request.getRequestURL());
 
         final String requestHeader = request.getHeader(this.tokenHeader);
-        System.out.println(requestHeader);
-
-        String username = null;
+        Integer id = null;
         String authToken = null;
         try {
             if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
                 authToken = requestHeader.substring(7);
                 try {
-                    username = jwtTokenUtil.getUsernameFromToken(authToken);
+                    id = jwtTokenUtil.getIdFromToken(authToken);
                 } catch (IllegalArgumentException e) {
-                    logger.error("an error occured during getting username from token", e);
+                    logger.error("An error occured during getting username from token");
+                    logger.warn(e.getMessage());
                 } catch (ExpiredJwtException e) {
-                    logger.warn("the token is expired and not valid anymore", e);
+                    logger.warn("The token is expired and not valid anymore");
+                    logger.warn(e.getMessage());
                 }
             } else {
 //                logger.warn("couldn't find bearer string, will ignore the header");
             }
 
-            logger.debug("checking authentication for user '{}'", username);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                logger.debug("security context was null, so authorizating user");
+            logger.debug("Checking authentication for user '{}'", id);
+            if (id != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                logger.debug("Security context was null, so authorizating user");
 
                 // It is not compelling necessary to load the use details from the database. You could also store the information
                 // in the token and read it from it. It's up to you ;)
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+                AppUser appUser = null;
+                try {
+                    appUser = appUserService.loadById(id);
 
-                // For simple validation it is completely sufficient to just check the token integrity. You don't have to call
-                // the database compellingly. Again it's up to you ;)
-                if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    logger.info("authorizated user '{}', setting security context", username);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    // For simple validation it is completely sufficient to just check the token integrity.
+                    // You don't have to call the database compellingly.
+                    if (jwtTokenUtil.validateToken(authToken, appUser)) {
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(appUser, null, appUser.getAuthorities());
+                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        logger.info("Authorizated user '{}', setting security context", id);
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
+                } catch (UsernameNotFoundException e) {
+                    System.out.println("Token parsing error: " + e.getMessage());
                 }
+                // For simple validation it is completely sufficient to just check the token integrity.
+                // You don't have to call the database compellingly.
             }
 
             chain.doFilter(request, response);

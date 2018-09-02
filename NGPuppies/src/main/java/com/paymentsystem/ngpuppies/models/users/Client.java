@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @DiscriminatorValue("CLIENT")
-public class Client extends ApplicationUser {
+public class Client extends AppUser {
 
     @Column(name = "ClientEik")
     private String eik;
