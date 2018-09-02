@@ -3,6 +3,7 @@ package com.paymentsystem.ngpuppies.models;
 import com.paymentsystem.ngpuppies.models.users.Client;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -13,15 +14,19 @@ public class Subscriber {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
     @Column(name = "PhoneNumber")
     private String phoneNumber;
 
+    @NotNull
     @Column(name = "FirstName")
     private String firstName;
 
+    @NotNull
     @Column(name = "LastName")
     private String lastName;
 
+    @NotNull
     @Column(name = "EGN")
     private String egn;
 
@@ -33,35 +38,11 @@ public class Subscriber {
     @JoinColumn(name = "ClientID")
     private Client client;
 
-    @Transient
-    private String clientUsername;
-
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<BillingRecord> billingRecords;
 
     public Subscriber(){
 
-    }
-
-    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, String clientUsername) {
-        setPhoneNumber(phoneNumber);
-        setFirstName(firstName);
-        setLastName(lastName);
-        setEgn(egn);
-        setClientUsername(clientUsername);
-    }
-
-    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, Client client) {
-        setPhoneNumber(phoneNumber);
-        setFirstName(firstName);
-        setLastName(lastName);
-        setEgn(egn);
-        setAddress(address);
-        setClient(client);
-    }
-
-    public Subscriber(String phoneNumber) {
-        setPhoneNumber(phoneNumber);
     }
 
     public int getId() {
@@ -118,14 +99,6 @@ public class Subscriber {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public String getClientUsername() {
-        return clientUsername;
-    }
-
-    public void setClientUsername(String clientUsername) {
-        this.clientUsername = clientUsername;
     }
 
     @Override

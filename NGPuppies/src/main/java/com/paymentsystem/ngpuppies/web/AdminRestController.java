@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.web;
 
+import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.AdminDto;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.ClientDto;
 import com.paymentsystem.ngpuppies.models.users.*;
@@ -169,7 +170,13 @@ public class AdminRestController {
         return ResponseEntity.ok("Successful registration!");
     }
 
-    @DeleteMapping("/user/delete")
+    @PostMapping("/create/subscriber")
+    public ResponseEntity<?> createSubscriber(@Valid @RequestBody Subscriber subscriber) {
+
+        return ResponseEntity.ok("Subscriber created!");
+    }
+
+    @DeleteMapping("/delete/user")
     public boolean deleteUserByUsername(@RequestParam() String username) {
         return appUserService.deleteByUsername(username);
     }
