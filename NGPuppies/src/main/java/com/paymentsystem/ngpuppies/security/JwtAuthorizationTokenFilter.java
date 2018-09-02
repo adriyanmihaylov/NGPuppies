@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.security;
 
-import com.sun.deploy.xml.BadTokenException;
+import com.paymentsystem.ngpuppies.models.users.AppUser;
+import com.paymentsystem.ngpuppies.services.base.AppUserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,14 +27,13 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final UserDetailsService userDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
     private final String tokenHeader;
+    private AppUserService appUserService;
 
-    public JwtAuthorizationTokenFilter(@Qualifier("jwtUserDetailsService") UserDetailsService userDetailsService,
-                                       JwtTokenUtil jwtTokenUtil,
+    public JwtAuthorizationTokenFilter(AppUserService appUserService,JwtTokenUtil jwtTokenUtil,
                                        @Value("${jwt.header}") String tokenHeader) {
-        this.userDetailsService = userDetailsService;
+        this.appUserService = appUserService;
         this.jwtTokenUtil = jwtTokenUtil;
         this.tokenHeader = tokenHeader;
     }
@@ -43,13 +43,13 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
         logger.debug("processing authentication for '{}'", request.getRequestURL());
 
         final String requestHeader = request.getHeader(this.tokenHeader);
-        String username = null;
+        Integer id = null;
         String authToken = null;
         try {
             if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
                 authToken = requestHeader.substring(7);
                 try {
-                    username = jwtTokenUtil.getUsernameFromToken(authToken);
+                    id = jwtTokenUtil.getIdFromToken(authToken);
                 } catch (IllegalArgumentException e) {
                     logger.error("An error occured during getting username from token");
                     logger.warn(e.getMessage());
@@ -61,22 +61,22 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 //                logger.warn("couldn't find bearer string, will ignore the header");
             }
 
-            logger.debug("Checking authentication for user '{}'", username);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            logger.debug("Checking authentication for user '{}'", id);
+            if (id != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 logger.debug("Security context was null, so authorizating user");
 
                 // It is not compelling necessary to load the use details from the database. You could also store the information
                 // in the token and read it from it. It's up to you ;)
-                UserDetails userDetails = null;
+                AppUser appUser = null;
                 try {
-                    userDetails = this.userDetailsService.loadUserByUsername(username);
+                    appUser = appUserService.loadById(id);
 
                     // For simple validation it is completely sufficient to just check the token integrity.
                     // You don't have to call the database compellingly.
-                    if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    if (jwtTokenUtil.validateToken(authToken, appUser)) {
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(appUser, null, appUser.getAuthorities());
                         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        logger.info("Authorizated user '{}', setting security context", username);
+                        logger.info("Authorizated user '{}', setting security context", id);
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                     }
                 } catch (UsernameNotFoundException e) {

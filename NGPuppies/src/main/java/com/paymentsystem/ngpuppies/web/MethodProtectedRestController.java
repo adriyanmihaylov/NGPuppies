@@ -37,7 +37,7 @@ public class MethodProtectedRestController {
     @PreAuthorize("hasRole('ADMIN')")
     public AdminViewModel getAdminProfile(Authentication authentication) {
         String username = authentication.getName();
-        Admin admin = adminService.getByUsername(username);
+        Admin admin = adminService.loadByUsername(username);
 
         return AdminViewModel.fromModel(admin);
     }

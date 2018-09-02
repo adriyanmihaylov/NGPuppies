@@ -7,7 +7,7 @@ import java.util.List;
 public interface AdminService {
     List<Admin> getAll();
 
-    Admin getByUsername(String username);
+    Admin loadByUsername(String username);
 
     boolean create(Admin admin) throws Exception;
 

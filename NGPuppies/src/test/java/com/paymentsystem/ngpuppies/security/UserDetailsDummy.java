@@ -1,11 +1,12 @@
 package com.paymentsystem.ngpuppies.security;
 
+import com.paymentsystem.ngpuppies.models.users.AppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class UserDetailsDummy implements UserDetails {
+public class UserDetailsDummy extends AppUser{
 
     private final String username;
 

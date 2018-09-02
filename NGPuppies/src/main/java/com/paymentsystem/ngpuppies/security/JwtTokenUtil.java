@@ -1,12 +1,12 @@
 package com.paymentsystem.ngpuppies.security;
 
+import com.paymentsystem.ngpuppies.models.users.AppUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClock;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -29,12 +29,8 @@ public class JwtTokenUtil implements Serializable {
     @Value("${jwt.expiration}")
     private Long expiration;
 
-    public String getIdFromToken(String token) {
-        return getClaimFromToken(token,Claims::getSubject);
-    }
-
-    public String getUsernameFromToken(String token) {
-        return getClaimFromToken(token, Claims::getSubject);
+    public Integer getIdFromToken(String token) {
+        return Integer.parseInt(getClaimFromToken(token, Claims::getSubject));
     }
 
     public Date getIssuedAtDateFromToken(String token) {
@@ -71,10 +67,10 @@ public class JwtTokenUtil implements Serializable {
         return false;
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(AppUser appUser) {
         Map<String,Object> claims = new HashMap<>();
-        claims.put("role",userDetails.getAuthorities());
-        return doGenerateToken(claims,userDetails.getUsername());
+        claims.put("role", appUser.getAuthorities());
+        return doGenerateToken(claims, String.valueOf(appUser.getId()));
     }
 
     private String doGenerateToken(Map<String,Object> claims, String subject) {
@@ -110,15 +106,14 @@ public class JwtTokenUtil implements Serializable {
             .compact();
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        JwtUser user = (JwtUser) userDetails;
-        final String username = getUsernameFromToken(token);
+    public Boolean validateToken(String token, AppUser appUser) {
+        final Integer id = getIdFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
-        //final Date expiration = getExpirationDateFromToken(token);
+
         return (
-            username.equals(user.getUsername())
-                && !isTokenExpired(token)
-                && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())
+                id == appUser.getId()
+                        && !isTokenExpired(token)
+                        && !isCreatedBeforeLastPasswordReset(created, appUser.getLastPasswordResetDate())
         );
     }
 

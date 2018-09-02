@@ -2,13 +2,7 @@ package com.paymentsystem.ngpuppies.web;
 
 import com.paymentsystem.ngpuppies.models.datatransferobjects.AdminDto;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.ClientDto;
-import com.paymentsystem.ngpuppies.models.users.Admin;
-import com.paymentsystem.ngpuppies.models.users.Authority;
-import com.paymentsystem.ngpuppies.models.users.AuthorityName;
-import com.paymentsystem.ngpuppies.models.users.Client;
-import com.paymentsystem.ngpuppies.security.JwtTokenUtil;
-import com.paymentsystem.ngpuppies.security.JwtUser;
-import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
+import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.services.base.AdminService;
 import com.paymentsystem.ngpuppies.services.base.AppUserService;
 import com.paymentsystem.ngpuppies.services.base.AuthorityService;
@@ -17,19 +11,14 @@ import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.viewModels.ClientViewModel;
 import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.List;
@@ -53,17 +42,17 @@ public class AdminRestController {
 
     @GetMapping("/user")
     public UserViewModel getUserByUsername(@RequestParam("username") String username) {
-        return UserViewModel.fromModel(appUserService.loadByUsername(username));
+        return UserViewModel.fromModel((AppUser) appUserService.loadUserByUsername(username));
     }
 
     @GetMapping("/admin")
     public AdminViewModel getAdminByUsername(@RequestParam("username") String username) {
-        return AdminViewModel.fromModel(adminService.getByUsername(username));
+        return AdminViewModel.fromModel(adminService.loadByUsername(username));
     }
 
     @GetMapping("/client")
     public ClientViewModel getClientByUsername(@RequestParam("username") String username) {
-        return ClientViewModel.fromModel(clientService.getByUsername(username));
+        return ClientViewModel.fromModel(clientService.loadByUsername(username));
     }
 
     @GetMapping("/get/users")
@@ -89,7 +78,7 @@ public class AdminRestController {
 
     @GetMapping("/account")
     public AdminViewModel getAccount(Authentication authentication) {
-        return AdminViewModel.fromModel(adminService.getByUsername(authentication.getName()));
+        return AdminViewModel.fromModel(adminService.loadByUsername(authentication.getName()));
     }
 
     @PutMapping("/account")
@@ -101,7 +90,7 @@ public class AdminRestController {
             return ResponseEntity.badRequest().body(message);
         }
         try {
-            Admin admin = adminService.getByUsername(authentication.getName());
+            Admin admin = (Admin) authentication.getPrincipal();
             admin.setUsername(adminDto.getUsername());
             admin.setEmail(adminDto.getEmail());
 
@@ -117,10 +106,6 @@ public class AdminRestController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Please try again later!");
         }
-        if (!authentication.getName().equals(adminDto.getUsername())) {
-            return ResponseEntity.ok("Account updated! Please log in again!");
-        }
-
         return ResponseEntity.ok("Account updated!");
     }
 

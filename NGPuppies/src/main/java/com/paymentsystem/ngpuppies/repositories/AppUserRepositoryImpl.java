@@ -18,6 +18,19 @@ public class AppUserRepositoryImpl implements AppUserRepository {
     }
 
     @Override
+    public AppUser loadById(Integer id) {
+        AppUser user = null;
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            user = session.get(AppUser.class,id);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
     public List<AppUser> getAll() {
         List<AppUser> appUsers = new ArrayList<>();
         try (Session session = sessionFactory.openSession()) {
