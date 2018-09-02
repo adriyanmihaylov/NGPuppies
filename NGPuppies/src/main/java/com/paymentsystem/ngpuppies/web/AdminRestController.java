@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.web;
 
 import com.paymentsystem.ngpuppies.models.Address;
+import com.paymentsystem.ngpuppies.models.ClientDetail;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.AdminDto;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.ClientDto;
@@ -42,6 +43,8 @@ public class AdminRestController {
     private AddressService addressService;
     @Autowired
     private AuthorityService authorityService;
+    @Autowired
+    private ClientDetailService clientDetailService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -141,15 +144,60 @@ public class AdminRestController {
             subscriber.setPhone(subscriberDto.getPhone());
             subscriber.setFirstName(subscriberDto.getFirstName());
             subscriber.setLastName(subscriberDto.getLastName());
+
+            if (subscriberDto.getAddress() != null && subscriber.getAddress() == null) {
+                Address address = addressService.create(subscriberDto.getAddress());
+                subscriber.setAddress(address);
+            } else if (subscriberDto.getAddress() != null && subscriber.getAddress() != null) {
+                subscriberDto.getAddress().setId(subscriber.getAddress().getId());
+                addressService.update(subscriberDto.getAddress());
+            }
             if (!subscriberService.update(subscriber)) {
                 return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
             }
-            if (subscriberDto.getAddress() != null) {
-                subscriberDto.getAddress().setId(subscriber.getAddress().getId());
 
-                if (!addressService.update(subscriberDto.getAddress())) {
-                    return ResponseEntity.ok("Subscriber is updated but address is not!");
+        } catch (SQLException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Something went wrong! Please try again later!");
+        }
+
+        return ResponseEntity.ok("Subscriber updated successfully!");
+    }
+
+    @PutMapping("/update/client")
+    public ResponseEntity updateClient(@RequestParam("username") String username, @Valid @RequestBody ClientDto clientDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+
+            return ResponseEntity.badRequest().body(message);
+        }
+        try {
+            Client client = clientService.loadByUsername(username);
+            if (client == null) {
+                return ResponseEntity.badRequest().body("Client was not found!");
+            }
+            client.setUsername(clientDto.getUsername());
+            client.setEik(clientDto.getEik());
+            if (clientDto.getPassword() != null) {
+                if (clientDto.getPassword().length() < 6) {
+                    return ResponseEntity.badRequest().body("Password must be at least 6 characters");
+                } else if (clientDto.getPassword().length() > 100) {
+                    return ResponseEntity.badRequest().body("Password must be less than 100 characters");
                 }
+                client.setPassword(passwordEncoder.encode(clientDto.getPassword()));
+            }
+            if (clientDto.getDetails() != null && client.getDetails() == null) {
+                ClientDetail details = clientDetailService.create(clientDto.getDetails());
+                client.setDetails(details);
+            } else if (clientDto.getDetails() != null && client.getDetails() != null) {
+                clientDto.getDetails().setId(client.getDetails().getId());
+                clientDetailService.update(clientDto.getDetails());
+            }
+
+            if (!clientService.update(client)) {
+                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
             }
         } catch (SQLException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.PersistenceException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +98,37 @@ public class ClientRepositoryImpl implements ClientRepository {
                     break;
                 default:
                     throw new Exception("Something went wrong when registering client: " + client.getUsername());
+            }
+            throw new SQLException(errorMessage, e);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean update(Client client) throws Exception {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.update(client);
+            session.getTransaction().commit();
+            System.out.printf("UPDATED: CLIENT  Id: %d\n", client.getId());
+            return true;
+        } catch (PersistenceException e) {
+            String message = e.getCause().getCause().toString().toLowerCase();
+            String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
+            String errorMessage;
+
+            switch (key) {
+                case "username":
+                    errorMessage = "Username is present";
+                    break;
+                case "clienteik":
+                    errorMessage = "Eik is present";
+                    break;
+                default:
+                    throw new Exception("Something went wrong when updating client ID" + client.getId());
             }
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {

@@ -30,6 +30,21 @@ public class AddressRepositoryImpl implements AddressRepository {
     }
 
     @Override
+    public boolean update(Address address) {
+       try(Session session = sessionFactory.openSession()) {
+           session.beginTransaction();
+           session.update(address);
+           session.getTransaction().commit();
+           System.out.println("Address ID: " + address.getId() + "updated!");
+           return true;
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+
+       return false;
+    }
+
+    @Override
     public boolean delete(int id) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -43,20 +58,5 @@ public class AddressRepositoryImpl implements AddressRepository {
             System.out.println("Address was not deleted no such id: " + id);
         }
         return false;
-    }
-
-    @Override
-    public boolean update(Address address) {
-       try(Session session = sessionFactory.openSession()) {
-           session.beginTransaction();
-           session.update(address);
-           session.getTransaction().commit();
-           System.out.println("Address ID: " + address.getId() + "updated!");
-           return true;
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-
-       return false;
     }
 }
