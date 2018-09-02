@@ -9,3 +9,12 @@ Telerik Academy Project - Payment System for Bright Consulting
 
 #### Eik
 ![eikregex](https://user-images.githubusercontent.com/37835890/44949584-4cd3ff00-ae3d-11e8-88c7-ff874585da84.png)
+
+#### Subscriber names
+![names](https://user-images.githubusercontent.com/37835890/44957096-89076e00-aed6-11e8-8d06-8b4d028c9875.png)
+
+#### Phone number
+![phonenumber](https://user-images.githubusercontent.com/37835890/44957075-2dd57b80-aed6-11e8-9914-1cec5ef4be3d.png)
+
+#### EGN
+![egn](https://user-images.githubusercontent.com/37835890/44957081-59586600-aed6-11e8-95c1-ffc963f1eeea.png)
