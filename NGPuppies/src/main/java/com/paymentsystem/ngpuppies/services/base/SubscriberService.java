@@ -13,7 +13,5 @@ public interface SubscriberService {
 
     boolean update(Subscriber updatedSubscriber);
 
-    boolean create(Subscriber subscriber);
-
-    boolean checkIfPhoneExists(String phoneNumber);
+    boolean create(Subscriber subscriber) throws Exception;
 }

@@ -1,13 +1,12 @@
 package com.paymentsystem.ngpuppies.web;
 
+import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.AdminDto;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.ClientDto;
+import com.paymentsystem.ngpuppies.models.datatransferobjects.SubscriberDto;
 import com.paymentsystem.ngpuppies.models.users.*;
-import com.paymentsystem.ngpuppies.services.base.AdminService;
-import com.paymentsystem.ngpuppies.services.base.AppUserService;
-import com.paymentsystem.ngpuppies.services.base.AuthorityService;
-import com.paymentsystem.ngpuppies.services.base.ClientService;
+import com.paymentsystem.ngpuppies.services.base.*;
 import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.viewModels.ClientViewModel;
 import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
@@ -36,6 +35,11 @@ public class AdminRestController {
     private AdminService adminService;
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private SubscriberService subscriberService;
+    @Autowired
+    private AddressService addressService;
+
     @Autowired
     private AuthorityService authorityService;
     @Autowired
@@ -82,7 +86,7 @@ public class AdminRestController {
         return AdminViewModel.fromModel(adminService.loadByUsername(authentication.getName()));
     }
 
-    @PutMapping("/account")
+    @PutMapping("/account/update")
     public ResponseEntity updateAccount(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult,Authentication authentication) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
@@ -171,9 +175,46 @@ public class AdminRestController {
     }
 
     @PostMapping("/create/subscriber")
-    public ResponseEntity<?> createSubscriber(@Valid @RequestBody Subscriber subscriber) {
+    public ResponseEntity<?> createSubscriber(@Valid @RequestBody SubscriberDto subscriberDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+            return ResponseEntity.badRequest().body(message);
+        }
+        try {
+            Subscriber subscriber = new Subscriber();
+            subscriber.setFirstName(subscriberDto.getFirstName());
+            subscriber.setLastName(subscriberDto.getLastName());
+            subscriber.setPhone(subscriberDto.getPhone());
+            subscriber.setEgn(subscriberDto.getEgn());
+
+            if (subscriberDto.getAddress() != null) {
+                Address address = addressService.create(subscriberDto.getAddress());
+                if (address == null) {
+                    return ResponseEntity.badRequest().body("Invalid address");
+                }
+                subscriber.setAddress(address);
+            }
+
+            if (!subscriberService.create(subscriber)) {
+                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+            }
+        } catch (SQLException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Please try again later!");
+        }
 
         return ResponseEntity.ok("Subscriber created!");
+    }
+
+    @DeleteMapping("/delete/subscriber")
+    public ResponseEntity<?>  deleteByNumber(@RequestParam("phoneNumber") String phoneNumber) {
+        if (subscriberService.deleteByNumber(phoneNumber)) {
+            return ResponseEntity.ok("Subscriber was successfully deleted");
+        }
+
+        return ResponseEntity.badRequest().body("Subscriber not found!");
     }
 
     @DeleteMapping("/delete/user")

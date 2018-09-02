@@ -29,42 +29,4 @@ public class SubscribersRestController {
     public SubscriberViewModel getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
         return SubscriberViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
     }
-
-    @PostMapping("/create")
-    public boolean createSubscriber(@RequestParam(name="phoneNumber") String phoneNumber,
-                                 @RequestParam(name = "firstName") String firstName,
-                                 @RequestParam(name = "lastName") String lastName,
-                                 @RequestParam(name = "egn") String egn,
-                                 @RequestParam(name = "address", required = false) String address,
-                                 @RequestParam(name = "client") String clientUsername) {
-
-        if (subscriberService.checkIfPhoneExists(phoneNumber)) {
-            System.out.println("Subscriber exists");
-            return false;
-        }else{
-            Subscriber subscriberToCreate = new Subscriber(phoneNumber, firstName, lastName, egn, clientUsername);
-            if(subscriberService.create(subscriberToCreate)){
-                System.out.println("Susbcriber Created" + subscriberToCreate);
-                return true;
-            }
-            else{
-                System.out.println("NO such client with username: " + subscriberToCreate.getClientUsername() + "or dublicated value");
-                return false;
-            }
-        }
-    }
-
-    @DeleteMapping("/delete")
-    public boolean  deleteByNumber(@RequestParam("phoneNumber") String phoneNumber) {
-        String message;
-        if (subscriberService.deleteByNumber(phoneNumber)) {
-            message = "Subscriber " + phoneNumber+ " deleted successfully!";
-            return true;
-        } else {
-            message = "Subscriber " + phoneNumber + " was not found!";
-        }
-        System.out.println(message);
-        return false;
-    }
-
 }

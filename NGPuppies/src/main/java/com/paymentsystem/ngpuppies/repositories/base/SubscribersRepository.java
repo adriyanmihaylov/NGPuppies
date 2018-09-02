@@ -2,6 +2,7 @@ package com.paymentsystem.ngpuppies.repositories.base;
 
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface SubscribersRepository {
@@ -13,5 +14,5 @@ public interface SubscribersRepository {
 
     boolean update(Subscriber updatedSubscriber);
 
-    boolean create(Subscriber subscriber);
+    boolean create(Subscriber subscriber) throws Exception;
 }

@@ -12,7 +12,7 @@ public class AddressServiceImpl implements AddressService {
     private AddressRepository addressRepository;
 
     @Override
-    public boolean create(Address address) {
+    public Address create(Address address) {
         return addressRepository.create(address);
     }
 
