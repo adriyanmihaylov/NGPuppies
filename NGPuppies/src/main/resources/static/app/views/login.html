@@ -1,22 +1,43 @@
-<div class=" col-md-4 col-md-offset-4">
-	<div class="panel panel-default">
-		<div class="panel-heading">Login</div>
-		<div class="panel-body">
-			<div class="col-md-12">
-				<form ng-submit="login()">
-					<div class="form-group">
-						<label for="username">Username:</label> <input type="txt"
-							class="form-control" ng-model="username" id="username">
-					</div>
-					<div class="form-group">
-						<label for="pwd">Password:</label> <input type="password"
-							class="form-control" id="pwd" ng-model="password">
-					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
+<html>
+<head>
+    <style>
+    </style>
+</head>
 
-					<div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
+<body id="LoginForm">
+    <div class="container">
+        <div class="login-form">
+            <div class="main-div">
+                <div class="panel">
+                    <h2>Login</h2>
+                    <!-- <p>Please enter your username and password</p> -->
+                </div>
+                <form id="Login" ng-submit="login()">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="username" placeholder="Username"
+                        ng-model="username">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <input type="password" class="form-control" id="password" placeholder="Password"
+                        ng-model="password">
+
+                    </div>
+
+            
+            <button type="submit" class="btn btn-primary">Login</button>
+            <div class="alert alert-warning" role="alert" ng-show="message">
+                {{message}}
+              </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

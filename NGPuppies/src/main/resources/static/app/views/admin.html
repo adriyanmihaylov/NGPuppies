@@ -45,37 +45,35 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				Admins
-				<button type="button" class="btn btn-default btn-sm"
-					ng-click="initAddAdmin()">
-					<span class="glyphicon glyphicon-plus"></span> New Admin
-				</button>
 			</div>
 			<div class="panel-body">
 
 				<div class="alert alert-info margin-top-5" ng-show="deleteMessage">{{deleteMessage}}</div>
-				<table class="table table-bordered">
+				<table  class="table table-striped table-dark">
 					<thead>
 						<tr>
-							<th>#</th>
-							<th>Username</th>
-							<th>Role</th>
-							<th></th>
-							<th></th>
+							<th scope="col">#</th>
+							<th scope="col">Username</th>
+							<th scope="col">Role</th>
+							<th scope="col">Email</th>
+							<th scope="col"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="admin in admins">
-							<td>{{admin.credentials.id}}</td>
+							<th scope="row">{{admin.credentials.id}}</th>
 							<td>{{admin.credentials.username}}</td>
 							<td>{{admin.credentials.authority}}</td>
 							<td>{{admin.email}}</td>
-							<td><button type="button" class="btn btn-default btn-sm"
+							<td><button type="button" class="btn btn-info btn-sm"
 									ng-click="initEdit(admin)">
+								Edit
 									<span class="glyphicon glyphicon-edit"></span>
 								</button></td>
 							<td>
-								<button type="button" class="btn btn-default btn-sm"
+								<button type="button" class="btn btn-info btn-sm"
 									ng-click="deleteUser(user)">
+									Delete
 									<span class="glyphicon glyphicon-trash"></span>
 								</button>
 							</td>

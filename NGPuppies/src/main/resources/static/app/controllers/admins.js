@@ -20,6 +20,12 @@ angular.module('NGPuppies')
 		$scope.appAdmin = appAdmin;
 		$scope.message='';
 		$scope.buttonText = 'Update';
+        // $http.get('api/admin/update').success(function(res) {
+			// $scope.message = "Successful update"
+        //
+        // }).error(function(error) {
+        //     $scope.message = error.message;
+        // });
 	};
 	$scope.initAddAdmin = function() {
 		edit = false;
@@ -29,7 +35,8 @@ angular.module('NGPuppies')
 		$scope.buttonText = 'Create';
 	};
 	$scope.deleteUser = function(appAdmin) {
-		$http.delete('api/admins/'+appAdmin.id).success(function(res) {
+		console.log(this);
+		$http.delete('api/admin/delete'+ $scope.username).success(function(res) {
 			$scope.deleteMessage ="Success!";
 			init();
 		}).error(function(error) {

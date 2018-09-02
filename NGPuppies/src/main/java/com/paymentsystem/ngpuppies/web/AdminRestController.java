@@ -46,7 +46,7 @@ public class AdminRestController {
 
     /**
      * Try with
-     * POST          http://localhost:8080/secured/admin/register
+     * POST          http://localhost:8080/api/admin/register
      * {
      * "username": "username",
      * "password": "123456",
