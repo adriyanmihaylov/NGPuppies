@@ -125,6 +125,41 @@ public class AdminRestController {
         return ResponseEntity.ok("Account updated!");
     }
 
+    @PutMapping("/update/subscriber")
+    public ResponseEntity updateSubscriber(@RequestParam() String phoneNumber, @Valid @RequestBody SubscriberDto subscriberDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+
+            return ResponseEntity.badRequest().body(message);
+        }
+        try {
+            Subscriber subscriber = subscriberService.getByNumber(phoneNumber);
+            if (subscriber == null) {
+                return ResponseEntity.badRequest().body("Subscriber was not found!");
+            }
+            subscriber.setPhone(subscriberDto.getPhone());
+            subscriber.setFirstName(subscriberDto.getFirstName());
+            subscriber.setLastName(subscriberDto.getLastName());
+            if (!subscriberService.update(subscriber)) {
+                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+            }
+            if (subscriberDto.getAddress() != null) {
+                subscriberDto.getAddress().setId(subscriber.getAddress().getId());
+
+                if (!addressService.update(subscriberDto.getAddress())) {
+                    return ResponseEntity.ok("Subscriber is updated but address is not!");
+                }
+            }
+        } catch (SQLException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Please try again later!");
+        }
+
+        return ResponseEntity.ok("Subscriber updated successfully!");
+    }
+
     @PostMapping("/register/admin")
     public ResponseEntity<?> registerAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -235,41 +270,5 @@ public class AdminRestController {
         }
 
         return ResponseEntity.badRequest().body("Subscriber not found!");
-    }
-
-    @PutMapping("/update/subscriber")
-    public ResponseEntity updateSubscriber(@RequestParam() String phoneNumber, @Valid @RequestBody SubscriberDto subscriberDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-
-            return ResponseEntity.badRequest().body(message);
-        }
-        try {
-            phoneNumber = "+" + phoneNumber;
-            Subscriber subscriber = subscriberService.getByNumber(phoneNumber);
-            if (subscriber == null) {
-                return ResponseEntity.badRequest().body("Subscriber was not found!");
-            }
-            subscriber.setPhone(subscriberDto.getPhone());
-            subscriber.setFirstName(subscriberDto.getFirstName());
-            subscriber.setLastName(subscriberDto.getLastName());
-            if (!subscriberService.update(subscriber)) {
-                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
-            }
-            if (subscriberDto.getAddress() != null) {
-                subscriberDto.getAddress().setId(subscriber.getAddress().getId());
-
-                if (!addressService.update(subscriberDto.getAddress())) {
-                    return ResponseEntity.ok("Subscriber is updated but address is not!");
-                }
-            }
-        } catch (SQLException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Please try again later!");
-        }
-
-        return ResponseEntity.ok("Subscriber updated successfully!");
     }
 }
