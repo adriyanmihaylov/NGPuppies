@@ -7,7 +7,7 @@ import java.util.List;
 public interface ClientService {
     List<Client> getAll();
 
-    Client getByUsername(String username);
+    Client loadByUsername(String username);
 
     boolean create(Client client) throws Exception;
 }

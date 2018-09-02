@@ -2,7 +2,7 @@ package com.paymentsystem.ngpuppies.configurations;
 
 import com.paymentsystem.ngpuppies.security.JwtAuthenticationEntryPoint;
 import com.paymentsystem.ngpuppies.security.JwtAuthorizationTokenFilter;
-import com.paymentsystem.ngpuppies.security.service.JwtUserDetailsService;
+import com.paymentsystem.ngpuppies.services.base.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,12 +28,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
-    @Autowired
-    private JwtUserDetailsService jwtUserDetailsService;
-
     // Custom JWT based security filter
     @Autowired
     JwtAuthorizationTokenFilter authenticationTokenFilter;
+
+    @Autowired
+    private AppUserService appUserService;
 
     @Value("${jwt.header}")
     private String tokenHeader;
@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(jwtUserDetailsService)
+                .userDetailsService(appUserService)
                 .passwordEncoder(passwordEncoderBean());
     }
 

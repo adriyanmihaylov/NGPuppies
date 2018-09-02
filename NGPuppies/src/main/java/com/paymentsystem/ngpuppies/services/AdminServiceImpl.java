@@ -20,12 +20,17 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin getByUsername(String username) {
+    public Admin loadByUsername(String username) {
         return adminRepository.loadByUsername(username);
     }
 
     @Override
     public boolean create(Admin admin) throws Exception {
         return adminRepository.create(admin);
+    }
+
+    @Override
+    public boolean update(Admin admin) throws Exception {
+        return adminRepository.update(admin);
     }
 }

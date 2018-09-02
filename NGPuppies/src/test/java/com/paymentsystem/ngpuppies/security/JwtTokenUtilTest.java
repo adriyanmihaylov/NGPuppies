@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.security;
 
+import com.paymentsystem.ngpuppies.models.users.AppUser;
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.assertj.core.util.DateUtil;
@@ -54,7 +55,7 @@ public class JwtTokenUtilTest {
 
         final String token = createToken();
 
-        assertThat(jwtTokenUtil.getUsernameFromToken(token)).isEqualTo(TEST_USERNAME);
+        assertThat(jwtTokenUtil.getIdFromToken(token)).isEqualTo(TEST_USERNAME);
     }
 
     @Test
@@ -117,7 +118,7 @@ public class JwtTokenUtilTest {
     public void canValidateToken() throws Exception {
         when(clockMock.now())
             .thenReturn(DateUtil.now());
-        UserDetails userDetails = mock(JwtUser.class);
+        AppUser userDetails = mock(AppUser.class);
         when(userDetails.getUsername()).thenReturn(TEST_USERNAME);
 
         String token = createToken();

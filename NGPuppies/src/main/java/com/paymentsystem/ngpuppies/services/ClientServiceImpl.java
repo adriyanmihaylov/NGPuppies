@@ -19,7 +19,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client getByUsername(String username) {
+    public Client loadByUsername(String username) {
         return clientRepository.loadByUsername(username);
     }
 
