@@ -28,4 +28,9 @@ public class AdminServiceImpl implements AdminService {
     public boolean create(Admin admin) throws Exception {
         return adminRepository.create(admin);
     }
+
+    @Override
+    public boolean update(Admin admin) throws Exception {
+        return adminRepository.update(admin);
+    }
 }

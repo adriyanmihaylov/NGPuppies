@@ -2,6 +2,7 @@ package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
+import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +108,40 @@ public class AdminRepositoryImpl implements AdminRepository {
             e.printStackTrace();
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean update(Admin admin) throws Exception {
+        if (admin != null) {
+            try (Session session = sessionFactory.openSession()) {
+                session.beginTransaction();
+                session.update(admin);
+                session.getTransaction().commit();
+                System.out.printf("UPDATED: ADMIN  Id: %d Username: %s\n", admin.getId(), admin.getUsername());
+                return true;
+            } catch (PersistenceException e) {
+                String message = e.getCause().getCause().toString().toLowerCase();
+
+                String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
+
+                String errorMessage;
+                switch (key) {
+                    case "username":
+                        errorMessage = "Username is present";
+                        break;
+                    case "adminemail":
+                        errorMessage = "Email is present";
+                        break;
+                    default:
+                        throw new Exception("Something went wrong when updating admin ID" + admin.getId());
+                }
+
+                throw new SQLException(errorMessage, e);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return false;
     }
 }
