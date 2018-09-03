@@ -1,8 +1,12 @@
 package com.paymentsystem.ngpuppies.models;
 
 import com.paymentsystem.ngpuppies.models.users.Client;
+import com.paymentsystem.ngpuppies.validator.base.ValidEgn;
+import com.paymentsystem.ngpuppies.validator.base.ValidName;
+import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -13,19 +17,31 @@ public class Subscriber {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @ValidPhone
     @Column(name = "PhoneNumber")
-    private String phoneNumber;
+    private String phone;
 
+    @ValidName
+    @Size.List({
+            @Size(min = 3, message = "First name must be at least 3 characters"),
+            @Size(max = 50, message = "First name must be less than 50 characters")
+    })
     @Column(name = "FirstName")
     private String firstName;
 
+    @ValidName
+    @Size.List({
+            @Size(min = 3, message = "Last name must be at least 3 characters"),
+            @Size(max = 50, message = "Last name must be less than 50 characters")
+    })
     @Column(name = "LastName")
     private String lastName;
 
+    @ValidEgn
     @Column(name = "EGN")
     private String egn;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "AddressID")
     private Address address;
 
@@ -33,35 +49,11 @@ public class Subscriber {
     @JoinColumn(name = "ClientID")
     private Client client;
 
-    @Transient
-    private String clientUsername;
-
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<BillingRecord> billingRecords;
 
     public Subscriber(){
 
-    }
-
-    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, String clientUsername) {
-        setPhoneNumber(phoneNumber);
-        setFirstName(firstName);
-        setLastName(lastName);
-        setEgn(egn);
-        setClientUsername(clientUsername);
-    }
-
-    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, Client client) {
-        setPhoneNumber(phoneNumber);
-        setFirstName(firstName);
-        setLastName(lastName);
-        setEgn(egn);
-        setAddress(address);
-        setClient(client);
-    }
-
-    public Subscriber(String phoneNumber) {
-        setPhoneNumber(phoneNumber);
     }
 
     public int getId() {
@@ -72,12 +64,12 @@ public class Subscriber {
         this.id = id;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phoneNumber) {
+        this.phone = phoneNumber;
     }
 
     public String getFirstName() {
@@ -120,17 +112,9 @@ public class Subscriber {
         this.client = client;
     }
 
-    public String getClientUsername() {
-        return clientUsername;
-    }
-
-    public void setClientUsername(String clientUsername) {
-        this.clientUsername = clientUsername;
-    }
-
     @Override
     public String toString() {
-        return String.format("Name: %s, EGN: %s, PhoneNumber: %s", getFirstName(), getEgn(), getPhoneNumber());
+        return String.format("Name: %s, EGN: %s, PhoneNumber: %s", getFirstName(), getEgn(), getPhone());
     }
 
     public List<BillingRecord> getBillingRecords() {

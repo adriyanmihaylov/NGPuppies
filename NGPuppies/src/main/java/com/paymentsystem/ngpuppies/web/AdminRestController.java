@@ -1,14 +1,16 @@
 package com.paymentsystem.ngpuppies.web;
 
+import com.paymentsystem.ngpuppies.models.Address;
+import com.paymentsystem.ngpuppies.models.ClientDetail;
+import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.AdminDto;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.ClientDto;
+import com.paymentsystem.ngpuppies.models.datatransferobjects.SubscriberDto;
 import com.paymentsystem.ngpuppies.models.users.*;
-import com.paymentsystem.ngpuppies.services.base.AdminService;
-import com.paymentsystem.ngpuppies.services.base.AppUserService;
-import com.paymentsystem.ngpuppies.services.base.AuthorityService;
-import com.paymentsystem.ngpuppies.services.base.ClientService;
+import com.paymentsystem.ngpuppies.services.base.*;
 import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.viewModels.ClientViewModel;
+import com.paymentsystem.ngpuppies.viewModels.SubscriberViewModel;
 import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +38,13 @@ public class AdminRestController {
     @Autowired
     private ClientService clientService;
     @Autowired
+    private SubscriberService subscriberService;
+    @Autowired
+    private AddressService addressService;
+    @Autowired
     private AuthorityService authorityService;
+    @Autowired
+    private ClientDetailService clientDetailService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -53,6 +61,11 @@ public class AdminRestController {
     @GetMapping("/client")
     public ClientViewModel getClientByUsername(@RequestParam("username") String username) {
         return ClientViewModel.fromModel(clientService.loadByUsername(username));
+    }
+
+    @GetMapping("/subscriber")
+    public SubscriberViewModel getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
+        return SubscriberViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
     }
 
     @GetMapping("/get/users")
@@ -76,13 +89,19 @@ public class AdminRestController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/get/subscribers")
+    public List<SubscriberViewModel> getAllSubscribers() {
+        return subscriberService.getAll().stream().map(SubscriberViewModel::fromModel).
+                collect(Collectors.toList());
+    }
+
     @GetMapping("/account")
     public AdminViewModel getAccount(Authentication authentication) {
         return AdminViewModel.fromModel(adminService.loadByUsername(authentication.getName()));
     }
 
-    @PutMapping("/account")
-    public ResponseEntity updateAccount(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult,Authentication authentication) {
+    @PutMapping("/account/update")
+    public ResponseEntity updateAccount(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult, Authentication authentication) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
@@ -109,6 +128,86 @@ public class AdminRestController {
         return ResponseEntity.ok("Account updated!");
     }
 
+    @PutMapping("/update/subscriber")
+    public ResponseEntity updateSubscriber(@RequestParam() String phoneNumber, @Valid @RequestBody SubscriberDto subscriberDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+
+            return ResponseEntity.badRequest().body(message);
+        }
+        try {
+            Subscriber subscriber = subscriberService.getByNumber(phoneNumber);
+            if (subscriber == null) {
+                return ResponseEntity.badRequest().body("Subscriber was not found!");
+            }
+            subscriber.setPhone(subscriberDto.getPhone());
+            subscriber.setFirstName(subscriberDto.getFirstName());
+            subscriber.setLastName(subscriberDto.getLastName());
+
+            if (subscriberDto.getAddress() != null && subscriber.getAddress() == null) {
+                Address address = addressService.create(subscriberDto.getAddress());
+                subscriber.setAddress(address);
+            } else if (subscriberDto.getAddress() != null && subscriber.getAddress() != null) {
+                subscriberDto.getAddress().setId(subscriber.getAddress().getId());
+                addressService.update(subscriberDto.getAddress());
+            }
+            if (!subscriberService.update(subscriber)) {
+                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+            }
+
+        } catch (SQLException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Something went wrong! Please try again later!");
+        }
+
+        return ResponseEntity.ok("Subscriber updated successfully!");
+    }
+
+    @PutMapping("/update/client")
+    public ResponseEntity updateClient(@RequestParam("username") String username, @Valid @RequestBody ClientDto clientDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+
+            return ResponseEntity.badRequest().body(message);
+        }
+        try {
+            Client client = clientService.loadByUsername(username);
+            if (client == null) {
+                return ResponseEntity.badRequest().body("Client was not found!");
+            }
+            client.setUsername(clientDto.getUsername());
+            client.setEik(clientDto.getEik());
+            if (clientDto.getPassword() != null) {
+                if (clientDto.getPassword().length() < 6) {
+                    return ResponseEntity.badRequest().body("Password must be at least 6 characters");
+                } else if (clientDto.getPassword().length() > 100) {
+                    return ResponseEntity.badRequest().body("Password must be less than 100 characters");
+                }
+                client.setPassword(passwordEncoder.encode(clientDto.getPassword()));
+            }
+            if (clientDto.getDetails() != null && client.getDetails() == null) {
+                ClientDetail details = clientDetailService.create(clientDto.getDetails());
+                client.setDetails(details);
+            } else if (clientDto.getDetails() != null && client.getDetails() != null) {
+                clientDto.getDetails().setId(client.getDetails().getId());
+                clientDetailService.update(clientDto.getDetails());
+            }
+
+            if (!clientService.update(client)) {
+                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+            }
+        } catch (SQLException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Please try again later!");
+        }
+
+        return ResponseEntity.ok("Subscriber updated successfully!");
+    }
+
     @PostMapping("/register/admin")
     public ResponseEntity<?> registerAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -116,7 +215,7 @@ public class AdminRestController {
             String message = error.getDefaultMessage();
             return ResponseEntity.badRequest().body(message);
         }
-        if(adminDto.getPassword() == null) {
+        if (adminDto.getPassword() == null) {
             return ResponseEntity.badRequest().body("Password can not be empty!");
         }
         try {
@@ -146,7 +245,7 @@ public class AdminRestController {
             String message = error.getDefaultMessage();
             return ResponseEntity.badRequest().body(message);
         }
-        if(clientDto.getPassword() == null) {
+        if (clientDto.getPassword() == null) {
             return ResponseEntity.badRequest().body("Password can not be empty!");
         }
         try {
@@ -169,8 +268,55 @@ public class AdminRestController {
         return ResponseEntity.ok("Successful registration!");
     }
 
-    @DeleteMapping("/user/delete")
-    public boolean deleteUserByUsername(@RequestParam() String username) {
-        return appUserService.deleteByUsername(username);
+    @PostMapping("/create/subscriber")
+    public ResponseEntity<?> createSubscriber(@Valid @RequestBody SubscriberDto subscriberDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+            return ResponseEntity.badRequest().body(message);
+        }
+        try {
+            Subscriber subscriber = new Subscriber();
+            subscriber.setFirstName(subscriberDto.getFirstName());
+            subscriber.setLastName(subscriberDto.getLastName());
+            subscriber.setPhone(subscriberDto.getPhone());
+            subscriber.setEgn(subscriberDto.getEgn());
+
+            if (subscriberDto.getAddress() != null) {
+                Address address = addressService.create(subscriberDto.getAddress());
+                if (address == null) {
+                    return ResponseEntity.badRequest().body("Invalid address");
+                }
+                subscriber.setAddress(address);
+            }
+
+            if (!subscriberService.create(subscriber)) {
+                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+            }
+        } catch (SQLException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Please try again later!");
+        }
+
+        return ResponseEntity.ok("Subscriber created!");
+    }
+
+    @DeleteMapping("/delete/user")
+    public ResponseEntity<?> deleteUserByUsername(@RequestParam() String username) {
+        if (appUserService.deleteByUsername(username)) {
+            return ResponseEntity.ok("User deleted!");
+        }
+
+        return ResponseEntity.badRequest().body("User not found!");
+    }
+
+    @DeleteMapping("/delete/subscriber")
+    public ResponseEntity<?> deleteByNumber(@RequestParam("phoneNumber") String phoneNumber) {
+        if (subscriberService.deleteByNumber(phoneNumber)) {
+            return ResponseEntity.ok("Subscriber was successfully deleted");
+        }
+
+        return ResponseEntity.badRequest().body("Subscriber not found!");
     }
 }

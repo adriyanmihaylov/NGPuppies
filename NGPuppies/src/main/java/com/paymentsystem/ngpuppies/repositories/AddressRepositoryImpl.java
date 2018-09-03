@@ -14,20 +14,34 @@ public class AddressRepositoryImpl implements AddressRepository {
     }
 
     @Override
-    public boolean create(Address address) {
+    public Address create(Address address) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.save(address);
-            System.out.println("Address was created: " + address);
             session.getTransaction().commit();
 
-            return true;
+            return address;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Address was not created");
         }
 
-        return false;
+        return null;
+    }
+
+    @Override
+    public boolean update(Address address) {
+       try(Session session = sessionFactory.openSession()) {
+           session.beginTransaction();
+           session.update(address);
+           session.getTransaction().commit();
+           System.out.println("Address ID: " + address.getId() + "updated!");
+           return true;
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+
+       return false;
     }
 
     @Override

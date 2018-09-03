@@ -12,12 +12,17 @@ public class AddressServiceImpl implements AddressService {
     private AddressRepository addressRepository;
 
     @Override
-    public boolean create(Address address) {
+    public Address create(Address address) {
         return addressRepository.create(address);
     }
 
     @Override
     public boolean deleteById(int id) {
         return addressRepository.delete(id);
+    }
+
+    @Override
+    public boolean update(Address address) {
+        return addressRepository.update(address);
     }
 }

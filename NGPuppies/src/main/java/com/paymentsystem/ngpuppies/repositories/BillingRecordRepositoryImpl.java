@@ -8,7 +8,6 @@ import com.paymentsystem.ngpuppies.repositories.base.BillingRecordRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.propertyeditors.CurrencyEditor;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -75,7 +74,7 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
     }
     @Override
     public boolean create(BillingRecord billingRecordToBeCreated) {
-        String phoneNumber = billingRecordToBeCreated.getSubscriber().getPhoneNumber();
+        String phoneNumber = billingRecordToBeCreated.getSubscriber().getPhone();
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
             List<Currency> currencies = session.createQuery(String.format("from Currency c where c.name = '%s'", billingRecordToBeCreated.getCurrency().getName())).list();
@@ -109,7 +108,7 @@ public class BillingRecordRepositoryImpl implements BillingRecordRepository {
 
     @Override
     public boolean update(BillingRecord updatedBillingRecord) {
-        String phoneNumber = updatedBillingRecord.getSubscriber().getPhoneNumber();
+        String phoneNumber = updatedBillingRecord.getSubscriber().getPhone();
         String currencyName = updatedBillingRecord.getCurrency().getName();
         String offeredServiceName = updatedBillingRecord.getOfferedService().getName();
 
