@@ -124,6 +124,7 @@ public class AdminRestController {
 
             if (adminDto.getPassword() != null) {
                 admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
+                admin.setLastPasswordResetDate(new Date());
             }
 
             if (!adminService.update(admin)) {
@@ -198,6 +199,7 @@ public class AdminRestController {
                     return ResponseEntity.badRequest().body("Password must be less than 100 characters");
                 }
                 client.setPassword(passwordEncoder.encode(clientDto.getPassword()));
+                client.setLastPasswordResetDate(new Date());
             }
             if (clientDto.getDetails() != null && client.getDetails() == null) {
                 details = clientDto.getDetails();
