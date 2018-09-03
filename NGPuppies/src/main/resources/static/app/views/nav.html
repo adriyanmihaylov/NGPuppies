@@ -26,10 +26,10 @@
 				<a class="nav-link disabled" ui-sref="register">Register</a>
 			</li>
 			<li class="nav-item" ng-if="role == 'ROLE_ADMIN'">
-				<a class="nav-link disabled" href="#">Add Bill</a>
+				<a class="nav-link disabled" ui-sref="addBill">Add Bill</a>
 			</li>
 			<li class="nav-item" ng-if="role == 'ROLE_CLIENT'">
-				<a class="nav-link disabled" href="#">Pay Bills</a>
+				<a class="nav-link disabled" ui-sref="payBill">Pay Bills</a>
 			</li>
 		</ul>
 	</div>

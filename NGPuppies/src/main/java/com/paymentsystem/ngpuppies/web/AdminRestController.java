@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}")
 public class AdminRestController {
 

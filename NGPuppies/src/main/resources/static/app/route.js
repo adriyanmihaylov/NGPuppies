@@ -69,7 +69,16 @@ angular.module('NGPuppies').config(function($stateProvider,$urlRouterProvider,$l
 			}
 		}
 
-	});
+	}).state('addBill', {
+        parent: 'nav',
+        url: '/bill',
+        views: {
+            'content@': {
+                templateUrl: 'app/views/add-bill.html',
+                controller: 'addBillController'
+            }
+        }
+    });
         $locationProvider.html5Mode({
 			enabled: true,
 			requireBase: true

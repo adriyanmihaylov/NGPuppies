@@ -4,7 +4,7 @@ angular.module('NGPuppies')
 	var edit = false;
 	$scope.buttonText = 'Create';
 	var init = function() {
-		$http.get('api/admin/all').success(function(res) {
+		$http.get('api/get/admins').success(function(res) {
 			$scope.admins = res;
 			$scope.userForm.$setPristine();
 			$scope.message='';
