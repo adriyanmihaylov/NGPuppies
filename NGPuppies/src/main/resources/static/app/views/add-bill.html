@@ -7,22 +7,22 @@
                 </div>
                 <!--end of col-->
                 <div class="col">
-                    <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search subscriber by phone number">
+                    <input class="form-control form-control-lg form-control-borderless" type="search" id="phoneNumber" placeholder="Search subscriber by phone number">
                 </div>
                 <!--end of col-->
                 <div class="col-auto">
-                    <button class="btn btn-lg btn-success" type="submit">Search</button>
+                    <button class="btn btn-lg btn-success" type="submit" ng-click = "search()">Search</button>
                 </div>
                 <!--end of col-->
             </div>
         </form>
     </div>
-    <div class="row">
+    <div class="row" id="subscriber" style="display: none; margin-top: 50px">
 
         <div class="col">
             <div class="">
                 <div class="">
-                    <h3 class="">Sheena Shrestha</h3>
+                    <h3 class=""> {{name}}</h3>
                 </div>
                 <div class="">
                     <div class="row">
@@ -32,46 +32,55 @@
                                 <table class="table table-user-information">
                                     <tbody>
                                     <tr>
-                                        <td>Department:</td>
-                                        <td>Programming</td>
+                                        <td>EGN:</td>
+                                        <td>{{egn}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Hire date:</td>
-                                        <td>06/23/2013</td>
+                                        <td>Address:</td>
+                                        <td>{{address}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Date of Birth</td>
-                                        <td>01/24/1988</td>
+                                        <td>Bank</td>
+                                        <td>{{bank}}</td>
                                     </tr>
 
                                     <tr>
                                     </tr><tr>
-                                        <td>Gender</td>
-                                        <td>Female</td>
+                                        <td>Phone Number</td>
+                                        <td>{{phoneNumber}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Home Address</td>
-                                        <td>Kathmandu,Nepal</td>
+                                        <td>Last Billing Record</td>
+                                        <td>{{bill}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td><a href="mailto:info@support.com">info@support.com</a></td>
-                                    </tr>
-                                    <tr><td>Phone Number</td>
-                                        <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
-                                        </td>
-
-                                    </tr>
-
                                     </tbody>
                                 </table>
-
+                                <p id="billingRecord">Billing records</p>
+                                <table class="table table-sm table-dark" id="billingRecords">
+                                    <thead>
+                                    <tr >
+                                        <th scope="col">#</th>
+                                        <th scope="col">Service</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Start Date</th>
+                                        <th scope="col">End Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat = " record in records">
+                                        <th scope="row">{{record.id}}</th>
+                                        <td>{{record.service.name}}</td>
+                                        <td>{{record.amount}}</td>
+                                        <td>{{record.startDate}}</td>
+                                        <td>{{record.endDate}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                                 <a href="#" class="btn btn-primary">My Sales Performance</a>
                                 <a href="#" class="btn btn-primary">Team Sales Performance</a>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -20,12 +20,7 @@ angular.module('NGPuppies')
 		$scope.appAdmin = appAdmin;
 		$scope.message='';
 		$scope.buttonText = 'Update';
-        // $http.get('api/admin/update').success(function(res) {
-			// $scope.message = "Successful update"
-        //
-        // }).error(function(error) {
-        //     $scope.message = error.message;
-        // });
+
 	};
 	$scope.initAddAdmin = function() {
 		edit = false;
@@ -34,21 +29,28 @@ angular.module('NGPuppies')
 		$scope.message='';
 		$scope.buttonText = 'Create';
 	};
-	$scope.deleteUser = function(appAdmin) {
-		console.log(this);
-		$http.delete('api/admin/delete'+ $scope.username).success(function(res) {
+	$scope.deleteUser = function(admin) {
+		$http.delete('api/delete/user?username='+ admin.credentials.username).success(function(res) {
 			$scope.deleteMessage ="Success!";
 			init();
 		}).error(function(error) {
 			$scope.deleteMessage = error.message;
 		});
 	};
-	var editUser = function(){
-		$http.put('api/admins', $scope.appAdmin).success(function(res) {
+	var editUser = function(user){
+        var updateFormData = {username : $scope.appAdmin.credentials.username, password : $scope.appAdmin.credentials.password,
+							email : $scope.appAdmin.email};
+        $http({
+            url : 'api/account/update',
+            method : "PUT",
+            data: JSON.stringify(updateFormData),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).success(function(res) {
 			$scope.appAdmin = null;
 			$scope.confirmPassword = null;
-			$scope.userForm.$setPristine();
-			$scope.message = "Editting Success";
+			// $scope.userForm.$setPristine();
+            $scope.message = "Success";
 			init();
 		}).error(function(error) {
 			$scope.message =error.message;

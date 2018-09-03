@@ -125,7 +125,7 @@ public class AdminRestController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Please try again later!");
         }
-        return ResponseEntity.ok("Account updated!");
+        return (ResponseEntity) ResponseEntity.ok();
     }
 
     @PutMapping("/update/subscriber")
@@ -305,7 +305,7 @@ public class AdminRestController {
     @DeleteMapping("/delete/user")
     public ResponseEntity<?> deleteUserByUsername(@RequestParam() String username) {
         if (appUserService.deleteByUsername(username)) {
-            return ResponseEntity.ok("User deleted!");
+            return (ResponseEntity<?>) ResponseEntity.ok();
         }
 
         return ResponseEntity.badRequest().body("User not found!");
@@ -319,4 +319,5 @@ public class AdminRestController {
 
         return ResponseEntity.badRequest().body("Subscriber not found!");
     }
+
 }
