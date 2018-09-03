@@ -4,7 +4,7 @@
 //import com.fasterxml.classmate.AnnotationConfiguration;
 //import com.paymentsystem.ngpuppies.models.BillingRecord;
 //import com.paymentsystem.ngpuppies.models.Currency;
-//import com.paymentsystem.ngpuppies.models.OfferedService;
+//import com.paymentsystem.ngpuppies.models.OfferedServices;
 //import com.paymentsystem.ngpuppies.models.Subscriber;
 //import com.paymentsystem.ngpuppies.repositories.BillingRecordRepositoryImpl;
 //import org.hibernate.Session;
@@ -29,7 +29,7 @@
 ////        // setup the session factory
 ////    return  new Configuration()
 ////               .addAnnotatedClass(BillingRecord.class)
-////                .addAnnotatedClass(OfferedService.class)
+////                .addAnnotatedClass(OfferedServices.class)
 ////               .setProperty("hibernate.dialect",
 ////                "org.hibernate.dialect.H2Dialect")
 //////               .setProperty("hibernate.connection.url", "jdbc:h2:mem")
@@ -39,7 +39,7 @@
 //    @Test
 //    public void returnsHerosWithMatchingType() throws ParseException {
 //        // create the objects needed for testing
-//        OfferedService offeredService = new OfferedService("Television");
+//        OfferedServices offeredService = new OfferedServices("Television");
 //        Currency currency = new Currency("BGN");
 //        Subscriber subscriber = new Subscriber("01234564", "Yani",
 //                "Drenchev", "465132","DSK");

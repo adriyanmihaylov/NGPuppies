@@ -20,6 +20,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public Admin loadByEmail(String email) {
+        return adminRepository.loadByEmail(email);
+    }
+
+    @Override
     public Admin loadByUsername(String username) {
         return adminRepository.loadByUsername(username);
     }

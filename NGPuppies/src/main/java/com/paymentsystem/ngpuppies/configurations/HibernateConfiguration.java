@@ -2,7 +2,7 @@ package com.paymentsystem.ngpuppies.configurations;
 
 import com.paymentsystem.ngpuppies.models.*;
 import com.paymentsystem.ngpuppies.models.users.Admin;
-import com.paymentsystem.ngpuppies.models.users.AppUser;
+import com.paymentsystem.ngpuppies.models.users.User;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import org.hibernate.SessionFactory;
@@ -24,7 +24,7 @@ public class HibernateConfiguration {
 
         return new org.hibernate.cfg.Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(AppUser.class)
+                .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Admin.class)
                 .addAnnotatedClass(Client.class)
                 .addAnnotatedClass(Authority.class)
@@ -32,7 +32,7 @@ public class HibernateConfiguration {
                 .addAnnotatedClass(BillingRecord.class)
                 .addAnnotatedClass(ClientDetail.class)
                 .addAnnotatedClass(Currency.class)
-                .addAnnotatedClass(OfferedService.class)
+                .addAnnotatedClass(OfferedServices.class)
                 .addAnnotatedClass(Subscriber.class)
                 .buildSessionFactory();
     }

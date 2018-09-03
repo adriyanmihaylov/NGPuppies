@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.security;
 
-import com.paymentsystem.ngpuppies.models.users.AppUser;
+import com.paymentsystem.ngpuppies.models.users.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;
@@ -67,10 +67,10 @@ public class JwtTokenUtil implements Serializable {
         return false;
     }
 
-    public String generateToken(AppUser appUser) {
+    public String generateToken(User user) {
         Map<String,Object> claims = new HashMap<>();
-        claims.put("role", appUser.getAuthorities());
-        return doGenerateToken(claims, String.valueOf(appUser.getId()));
+        claims.put("role", user.getAuthorities());
+        return doGenerateToken(claims, String.valueOf(user.getId()));
     }
 
     private String doGenerateToken(Map<String,Object> claims, String subject) {
@@ -106,14 +106,14 @@ public class JwtTokenUtil implements Serializable {
             .compact();
     }
 
-    public Boolean validateToken(String token, AppUser appUser) {
+    public Boolean validateToken(String token, User user) {
         final Integer id = getIdFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
 
         return (
-                id == appUser.getId()
+                id == user.getId()
                         && !isTokenExpired(token)
-                        && !isCreatedBeforeLastPasswordReset(created, appUser.getLastPasswordResetDate())
+                        && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())
         );
     }
 

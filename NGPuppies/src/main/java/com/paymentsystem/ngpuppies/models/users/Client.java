@@ -1,14 +1,16 @@
 package com.paymentsystem.ngpuppies.models.users;
 
 import com.paymentsystem.ngpuppies.models.ClientDetail;
+import com.paymentsystem.ngpuppies.validator.base.ValidEik;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @DiscriminatorValue("CLIENT")
-public class Client extends AppUser {
+public class Client extends User {
 
+    @ValidEik
     @Column(name = "ClientEik")
     private String eik;
 

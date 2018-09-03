@@ -8,12 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
-
     private Pattern pattern;
     private Matcher matcher;
-/**
- * resource https://howtodoinjava.com/regex/java-regex-validate-email-address/
- */
+
     private static final String EMAIL_PATTERN = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
     @Override

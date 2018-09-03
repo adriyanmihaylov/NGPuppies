@@ -23,21 +23,23 @@ public class SubscriberViewModel {
 
 
     public static SubscriberViewModel fromModel(Subscriber subscriber) {
-        SubscriberViewModel vm = new SubscriberViewModel();
+        if (subscriber != null) {
+            SubscriberViewModel vm = new SubscriberViewModel();
+            vm.id = subscriber.getId();
+            vm.phoneNumber = subscriber.getPhone();
+            vm.firstName = subscriber.getFirstName();
+            vm.EGN = subscriber.getEgn();
+            vm.address = subscriber.getAddress();
+            vm.client = ClientViewModel.fromModel(subscriber.getClient());
 
-        vm.id = subscriber.getId();
-        vm.phoneNumber = subscriber.getPhone();
-        vm.firstName = subscriber.getFirstName();
-        vm.EGN = subscriber.getEgn();
-        vm.address = subscriber.getAddress();
-        vm.client = ClientViewModel.fromModel(subscriber.getClient());
+            vm.billingRecordList = subscriber.getBillingRecords()
+                    .stream()
+                    .map(BillingRecordSimpleViewModel::fromModel)
+                    .collect(Collectors.toSet());
 
-        vm.billingRecordList = subscriber.getBillingRecords()
-                .stream()
-                .map(BillingRecordSimpleViewModel::fromModel)
-                .collect(Collectors.toSet());
+            return vm;
+        }
 
-        return vm;
+        return null;
     }
-
 }

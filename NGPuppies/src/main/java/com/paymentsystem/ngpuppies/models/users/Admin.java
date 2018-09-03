@@ -1,13 +1,16 @@
 package com.paymentsystem.ngpuppies.models.users;
 
+import com.paymentsystem.ngpuppies.validator.base.ValidEmail;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("ADMIN")
-public class Admin extends AppUser {
+public class Admin extends User {
 
+    @ValidEmail
     @Column(name = "AdminEmail")
     private String email;
 

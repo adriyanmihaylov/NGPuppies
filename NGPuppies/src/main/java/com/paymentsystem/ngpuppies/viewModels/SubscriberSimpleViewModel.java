@@ -19,12 +19,14 @@ public class SubscriberSimpleViewModel {
     public static SubscriberSimpleViewModel fromModel(Subscriber subscriber) {
         SubscriberSimpleViewModel vm = new SubscriberSimpleViewModel();
 
-        vm.id = subscriber.getId();
-        vm.phoneNumber = subscriber.getPhone();
-        vm.firstName = subscriber.getFirstName();
-        vm.EGN = subscriber.getEgn();
-        vm.address = subscriber.getAddress();
-        vm.client = ClientViewModel.fromModel(subscriber.getClient());
+        if(subscriber != null) {
+            vm.id = subscriber.getId();
+            vm.phoneNumber = subscriber.getPhone();
+            vm.firstName = subscriber.getFirstName();
+            vm.EGN = subscriber.getEgn();
+            vm.address = subscriber.getAddress();
+            vm.client = ClientViewModel.fromModel(subscriber.getClient());
+        }
 
         return vm;
     }

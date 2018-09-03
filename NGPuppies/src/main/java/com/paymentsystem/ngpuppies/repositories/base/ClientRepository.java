@@ -7,7 +7,7 @@ import java.util.List;
 public interface ClientRepository {
     List<Client> getAll();
 
-    Client getByEik(String eik);
+    Client loadByEik(String eik);
 
     Client loadByUsername(String username);
 
