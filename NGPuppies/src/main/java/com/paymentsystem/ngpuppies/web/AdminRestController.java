@@ -124,6 +124,7 @@ public class AdminRestController {
 
             if (adminDto.getPassword() != null) {
                 admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
+                admin.setLastPasswordResetDate(new Date());
             }
 
             if (!adminService.update(admin)) {
