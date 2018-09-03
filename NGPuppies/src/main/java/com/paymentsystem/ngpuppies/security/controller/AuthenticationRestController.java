@@ -1,11 +1,10 @@
 package com.paymentsystem.ngpuppies.security.controller;
 
-import com.paymentsystem.ngpuppies.models.users.AppUser;
+import com.paymentsystem.ngpuppies.models.users.User;
 import com.paymentsystem.ngpuppies.security.JwtAuthenticationRequest;
 import com.paymentsystem.ngpuppies.security.JwtTokenUtil;
-import com.paymentsystem.ngpuppies.services.base.AppUserService;
+import com.paymentsystem.ngpuppies.services.base.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +31,7 @@ public class AuthenticationRestController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    AppUserService appUserService;
+    UserService userService;
 
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
@@ -41,8 +39,8 @@ public class AuthenticationRestController {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
         // Reload password post-security so we can generate the token
-        final AppUser appUser = (AppUser) appUserService.loadUserByUsername(authenticationRequest.getUsername());
-        final String token = jwtTokenUtil.generateToken(appUser);
+        final User user = (User) userService.loadUserByUsername(authenticationRequest.getUsername());
+        final String token = jwtTokenUtil.generateToken(user);
 
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
@@ -55,7 +53,7 @@ public class AuthenticationRestController {
         String authToken = request.getHeader(tokenHeader);
         final String token = authToken.substring(7);
         Integer id = jwtTokenUtil.getIdFromToken(token);
-        AppUser user = appUserService.loadById(id);
+        User user = userService.loadById(id);
         if (jwtTokenUtil.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
             return ResponseEntity.ok(refreshedToken);

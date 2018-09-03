@@ -13,12 +13,17 @@ public class ClientDetailServiceImpl implements ClientDetailService {
     private ClientDetailRepository clientDetailRepository;
 
     @Override
-    public ClientDetail create(ClientDetail clientDetail) {
+    public boolean create(ClientDetail clientDetail) {
         return clientDetailRepository.create(clientDetail);
     }
 
     @Override
     public boolean update(ClientDetail clientDetail) {
         return clientDetailRepository.update(clientDetail);
+    }
+
+    @Override
+    public boolean delete(ClientDetail clientDetail) {
+        return clientDetailRepository.delete(clientDetail);
     }
 }

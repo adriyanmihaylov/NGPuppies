@@ -2,10 +2,16 @@ package com.paymentsystem.ngpuppies.repositories.base;
 
 import com.paymentsystem.ngpuppies.models.Address;
 
-public interface AddressRepository {
-    Address create(Address address);
+import java.util.List;
 
-    boolean delete(int id);
+public interface AddressRepository {
+    List<Address> getAll();
+
+    Address getById(int id);
+
+    boolean create(Address address);
 
     boolean update(Address address);
+
+    boolean delete(Address address);
 }

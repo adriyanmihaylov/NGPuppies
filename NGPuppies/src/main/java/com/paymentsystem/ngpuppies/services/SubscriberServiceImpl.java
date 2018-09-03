@@ -23,13 +23,13 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
     @Override
-    public boolean deleteByNumber(String phoneNumber) {
-        return subscriberRepository.deleteByNumber(phoneNumber);
+    public boolean update(Subscriber updatedSubscriber) throws Exception {
+        return subscriberRepository.update(updatedSubscriber);
     }
 
     @Override
-    public boolean update(Subscriber updatedSubscriber) throws Exception {
-        return subscriberRepository.update(updatedSubscriber);
+    public boolean delete(Subscriber subscriber) {
+        return subscriberRepository.delete(subscriber);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.viewModels;
 
-import com.paymentsystem.ngpuppies.models.users.AppUser;
+import com.paymentsystem.ngpuppies.models.users.User;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 
 public class UserViewModel {
@@ -11,7 +11,7 @@ public class UserViewModel {
     public AuthorityName authority;
 
 
-    public static UserViewModel fromModel(AppUser user) {
+    public static UserViewModel fromModel(User user) {
         UserViewModel userViewModel = new UserViewModel();
         if (user != null) {
             userViewModel.id = user.getId();

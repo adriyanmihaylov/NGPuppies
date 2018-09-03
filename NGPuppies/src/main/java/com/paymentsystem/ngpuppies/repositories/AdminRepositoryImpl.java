@@ -21,9 +21,6 @@ public class AdminRepositoryImpl implements AdminRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Override
     public List<Admin> getAll() {
         List<Admin> admins = new ArrayList<>();
@@ -57,11 +54,11 @@ public class AdminRepositoryImpl implements AdminRepository {
     }
 
     @Override
-    public Admin getByEmail(String email) {
+    public Admin loadByEmail(String email) {
         Admin admin = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            String query = String.format("FROM Admin a WHERE a.email = '%s'", email);
+            String query = String.format("FROM Admin WHERE email = '%s'", email);
             List<Admin> allAdmins = session.createQuery(query).list();
             session.getTransaction().commit();
 
@@ -79,8 +76,7 @@ public class AdminRepositoryImpl implements AdminRepository {
     public boolean create(Admin admin) throws Exception {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-            admin.setEnabled(false);
+            admin.setEnabled(Boolean.FALSE);
             session.save(admin);
             session.getTransaction().commit();
             System.out.println("CREATED ADMIN Id: " + admin.getId() + " username:" + admin.getUsername());
@@ -100,7 +96,8 @@ public class AdminRepositoryImpl implements AdminRepository {
                     errorMessage = "Email is present";
                     break;
                 default:
-                    throw new Exception("Something went wrong when registering admin: " + admin.getUsername());
+                    System.out.println("Something went wrong in the database on admin CREATE!");
+                    throw new Exception();
             }
 
             throw new SQLException(errorMessage, e);
@@ -134,7 +131,8 @@ public class AdminRepositoryImpl implements AdminRepository {
                         errorMessage = "Email is present";
                         break;
                     default:
-                        throw new Exception("Something went wrong when updating admin ID" + admin.getId());
+                        System.out.println("Something went wrong in the database on admin UPDATE!");
+                        throw new Exception();
                 }
 
                 throw new SQLException(errorMessage, e);

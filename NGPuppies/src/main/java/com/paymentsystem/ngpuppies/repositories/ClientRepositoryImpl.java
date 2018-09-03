@@ -1,6 +1,5 @@
 package com.paymentsystem.ngpuppies.repositories;
 
-import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
 import org.hibernate.JDBCException;
@@ -19,9 +18,6 @@ import java.util.List;
 public class ClientRepositoryImpl implements ClientRepository {
     @Autowired
     private SessionFactory sessionFactory;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     public List<Client> getAll() {
         List<Client> clients = new ArrayList<>();
@@ -55,7 +51,7 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public Client getByEik(String eik) {
+    public Client loadByEik(String eik) {
         Client client = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -76,7 +72,6 @@ public class ClientRepositoryImpl implements ClientRepository {
     public boolean create(Client client) throws Exception {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            client.setPassword(passwordEncoder.encode(client.getPassword()));
             client.setEnabled(Boolean.TRUE);
             session.save(client);
             session.getTransaction().commit();
@@ -97,7 +92,8 @@ public class ClientRepositoryImpl implements ClientRepository {
                     errorMessage = "Eik is present";
                     break;
                 default:
-                    throw new Exception("Something went wrong when registering client: " + client.getUsername());
+                    System.out.println("Something went wrong in the database on client CREATE!");
+                    throw new Exception();
             }
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
@@ -128,7 +124,8 @@ public class ClientRepositoryImpl implements ClientRepository {
                     errorMessage = "Eik is present";
                     break;
                 default:
-                    throw new Exception("Something went wrong when updating client ID" + client.getId());
+                    System.out.println("Something went wrong in the database on client UPDATE!");
+                    throw new Exception();
             }
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {

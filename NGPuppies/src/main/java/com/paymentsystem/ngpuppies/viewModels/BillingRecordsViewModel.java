@@ -2,10 +2,9 @@ package com.paymentsystem.ngpuppies.viewModels;
 
 import com.paymentsystem.ngpuppies.models.BillingRecord;
 import com.paymentsystem.ngpuppies.models.Currency;
-import com.paymentsystem.ngpuppies.models.OfferedService;
-import com.paymentsystem.ngpuppies.models.Subscriber;
+import com.paymentsystem.ngpuppies.models.OfferedServices;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class BillingRecordsViewModel {
     public int id;
@@ -16,7 +15,7 @@ public class BillingRecordsViewModel {
 
     public double amount;
 
-    public OfferedService service;
+    public OfferedServices service;
 
     public Currency currency;
 
@@ -25,15 +24,18 @@ public class BillingRecordsViewModel {
     public SubscriberSimpleViewModel subscriber;
 
     public static BillingRecordsViewModel fromModel(BillingRecord billingRecord) {
-        BillingRecordsViewModel bm = new BillingRecordsViewModel();
-        bm.id = billingRecord.getId();
-        bm.startDate = billingRecord.getStartDate();
-        bm.endDate = billingRecord.getEndDate();
-        bm.amount = billingRecord.getAmount();
-        bm.service = billingRecord.getOfferedService();
-        bm.currency = billingRecord.getCurrency();
-        bm.status = billingRecord.isPayed();
-        bm.subscriber = SubscriberSimpleViewModel.fromModel(billingRecord.getSubscriber());
-        return bm;
+        BillingRecordsViewModel vm = new BillingRecordsViewModel();
+
+        if (billingRecord != null) {
+            vm.id = billingRecord.getId();
+            vm.startDate = billingRecord.getStartDate();
+            vm.endDate = billingRecord.getEndDate();
+            vm.amount = billingRecord.getAmount();
+            vm.service = billingRecord.getOfferedServices();
+            vm.currency = billingRecord.getCurrency();
+            vm.status = billingRecord.isPayed();
+            vm.subscriber = SubscriberSimpleViewModel.fromModel(billingRecord.getSubscriber());
+        }
+        return vm;
     }
 }

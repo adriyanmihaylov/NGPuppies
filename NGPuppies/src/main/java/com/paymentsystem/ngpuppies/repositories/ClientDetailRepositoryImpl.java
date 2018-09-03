@@ -13,19 +13,19 @@ public class ClientDetailRepositoryImpl implements ClientDetailRepository {
     private SessionFactory sessionFactory;
 
     @Override
-    public ClientDetail create(ClientDetail clientDetail) {
+    public boolean create(ClientDetail clientDetail) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.save(clientDetail);
             session.getTransaction().commit();
 
-            return clientDetail;
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Client was not created");
         }
 
-        return null;
+        return false;
     }
 
     @Override
@@ -35,6 +35,21 @@ public class ClientDetailRepositoryImpl implements ClientDetailRepository {
             session.update(clientDetail);
             session.getTransaction().commit();
             System.out.println("Client ID: " + clientDetail.getId() + "updated!");
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean delete(ClientDetail clientDetail) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.delete(clientDetail);
+            session.getTransaction().commit();
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();

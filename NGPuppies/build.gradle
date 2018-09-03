@@ -37,5 +37,4 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.0.7.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.9.RELEASE'
     compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.0.12.Final'
-
 }
