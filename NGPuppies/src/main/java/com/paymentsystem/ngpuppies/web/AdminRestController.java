@@ -55,6 +55,28 @@ public class AdminRestController {
 
     private final DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
 
+    @GetMapping("/service/all")
+    public ResponseEntity<List<OfferedServiceSimpleViewModel>> getAllServices() {
+        List<OfferedServiceSimpleViewModel> viewModels = offeredServicesService.getAll().stream()
+                .map(OfferedServiceSimpleViewModel::fromModel)
+                .collect(Collectors.toList());
+        if (viewModels != null) {
+            return new ResponseEntity<>(viewModels, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/service={service}")
+    public ResponseEntity<OfferedServiceViewModel> getAllSubscribersOfService(@PathVariable("service") String serviceName) {
+        OfferedServiceViewModel viewModel = OfferedServiceViewModel.fromModel(offeredServicesService.getByName(serviceName));
+
+        if (viewModel != null) {
+            return new ResponseEntity<>(viewModel, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
     @GetMapping("/user")
     public ResponseEntity<UserViewModel> getUserByUsername(@RequestParam("username") String username) {
         UserViewModel viewModel = UserViewModel.fromModel((User) userService.loadUserByUsername(username));
@@ -86,14 +108,38 @@ public class AdminRestController {
     }
 
     @GetMapping("/subscriber")
-    public ResponseEntity<SubscriberSimpleViewModel> getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
-        SubscriberSimpleViewModel viewModel = SubscriberSimpleViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
+    public ResponseEntity<SubscriberViewModel> getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
+        SubscriberViewModel viewModel = SubscriberViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
 
         if (viewModel != null) {
             return new ResponseEntity<>(viewModel, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("subscriber={phone}/new/service={name}")
+    public ResponseEntity<String> addNewServiceToSubscriber(@PathVariable("phone") String subscriberPhone,
+                                                            @PathVariable("name") String serviceName) {
+        try {
+
+            Subscriber subscriber = subscriberService.getByNumber(subscriberPhone);
+            if (subscriber == null) {
+                return new ResponseEntity<>("Subscriber not found", HttpStatus.BAD_REQUEST);
+            }
+            OfferedServices offeredServices = offeredServicesService.getByName(serviceName);
+            if (offeredServices == null) {
+                return new ResponseEntity<>("Service not found", HttpStatus.BAD_REQUEST);
+            }
+            subscriber.getSubscriberServices().add(offeredServices);
+            if (subscriberService.update(subscriber)) {
+                return new ResponseEntity<>("Service successfully added", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("The subscriber already has the selected service!", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        return new ResponseEntity<>("Something went wrong!Please try again later", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("/get/users")
@@ -136,9 +182,9 @@ public class AdminRestController {
     }
 
     @GetMapping("/get/subscribers")
-    public ResponseEntity<List<SubscriberSimpleViewModel>> getAllSubscribers() {
-        List<SubscriberSimpleViewModel> viewModels = subscriberService.getAll().stream()
-                .map(SubscriberSimpleViewModel::fromModel)
+    public ResponseEntity<List<SubscriberViewModel>> getAllSubscribers() {
+        List<SubscriberViewModel> viewModels = subscriberService.getAll().stream()
+                .map(SubscriberViewModel::fromModel)
                 .collect(Collectors.toList());
 
         if (viewModels != null) {

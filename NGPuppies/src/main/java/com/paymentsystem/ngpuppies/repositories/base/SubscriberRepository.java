@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.repositories.base;
 
+import com.paymentsystem.ngpuppies.models.OfferedServices;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
 import java.util.List;

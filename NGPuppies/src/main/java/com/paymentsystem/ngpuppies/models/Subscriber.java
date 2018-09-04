@@ -5,10 +5,13 @@ import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.validator.base.ValidEgn;
 import com.paymentsystem.ngpuppies.validator.base.ValidName;
 import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="subscribers")
@@ -54,6 +57,14 @@ public class Subscriber {
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Invoice> invoices;
 
+    @ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @JoinTable(name = "subscriber_services",
+            joinColumns = { @JoinColumn(name = "SubscriberID") },
+            inverseJoinColumns = { @JoinColumn(name = "OfferedServiceID") }
+    )
+    @Fetch(FetchMode.SELECT)
+    private Set<OfferedServices> subscriberServices;
+
     public Subscriber(){
     }
 
@@ -69,9 +80,10 @@ public class Subscriber {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+
 
     public String getPhone() {
         return phone;
@@ -132,5 +144,13 @@ public class Subscriber {
 
     public void setInvoices(List<Invoice> invoices) {
         this.invoices = invoices;
+    }
+
+    public Set<OfferedServices> getSubscriberServices() {
+        return subscriberServices;
+    }
+
+    public void setSubscriberServices(Set<OfferedServices> subscriberServices) {
+        this.subscriberServices = subscriberServices;
     }
 }

@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.Address;
+import com.paymentsystem.ngpuppies.models.OfferedServices;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import org.hibernate.JDBCException;

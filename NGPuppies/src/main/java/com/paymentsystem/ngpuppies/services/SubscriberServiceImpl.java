@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.services;
 
+import com.paymentsystem.ngpuppies.models.OfferedServices;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
@@ -55,6 +56,6 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     public Double getSubscriberAverageSumOfPaidInvoices(Integer subscriberId, String fromDate, String toDate) {
-        return subscriberRepository.getSubscriberAverageInvoiceSumPaid(subscriberId,fromDate,toDate);
+        return subscriberRepository.getSubscriberAverageInvoiceSumPaid(subscriberId, fromDate, toDate);
     }
 }
