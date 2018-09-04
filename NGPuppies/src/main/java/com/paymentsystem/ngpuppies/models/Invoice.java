@@ -4,11 +4,12 @@ package com.paymentsystem.ngpuppies.models;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
 @Table(name = "billing_records")
-public class BillingRecord {
+public class Invoice {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,9 @@ public class BillingRecord {
     @Column(name = "Amount")
     private double amount;
 
+    @Column(name = "BGNAmount")
+    private double BGNAmount;
+
     @OneToOne
     @JoinColumn(name = "OfferedServiceID")
     private OfferedServices offeredServices;
@@ -37,10 +41,12 @@ public class BillingRecord {
     @JoinColumn(name = "SubscriberID")
     private Subscriber subscriber;
 
-    @Column(name = "Payed")
-    private boolean payed;
+    @DateTimeFormat(pattern = "YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "PayedDate")
+    private Date payedDate;
 
-    public BillingRecord() {
+    public Invoice() {
 
     }
 
@@ -100,11 +106,19 @@ public class BillingRecord {
         this.subscriber = subscriber;
     }
 
-    public boolean isPayed() {
-        return payed;
+    public Date getPayedDate() {
+        return payedDate;
     }
 
-    public void setPayed(boolean payed) {
-        this.payed = payed;
+    public void setPayedDate(Date payedDate) {
+        this.payedDate = payedDate;
+    }
+
+    public double getBGNAmount() {
+        return BGNAmount;
+    }
+
+    public void setBGNAmount(double BGNAmount) {
+        this.BGNAmount = BGNAmount;
     }
 }

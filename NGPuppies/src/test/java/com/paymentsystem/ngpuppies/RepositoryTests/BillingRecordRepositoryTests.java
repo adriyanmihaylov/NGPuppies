@@ -2,7 +2,7 @@
 //
 //
 //import com.fasterxml.classmate.AnnotationConfiguration;
-//import com.paymentsystem.ngpuppies.models.BillingRecord;
+//import com.paymentsystem.ngpuppies.models.Invoice;
 //import com.paymentsystem.ngpuppies.models.Currency;
 //import com.paymentsystem.ngpuppies.models.OfferedServices;
 //import com.paymentsystem.ngpuppies.models.Subscriber;
@@ -28,7 +28,7 @@
 ////    public SessionFactory createFactory() {
 ////        // setup the session factory
 ////    return  new Configuration()
-////               .addAnnotatedClass(BillingRecord.class)
+////               .addAnnotatedClass(Invoice.class)
 ////                .addAnnotatedClass(OfferedServices.class)
 ////               .setProperty("hibernate.dialect",
 ////                "org.hibernate.dialect.H2Dialect")
@@ -46,7 +46,7 @@
 ////        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 ////        java.util.Date yourDate = sdf.parse("1992-07-26");
 //        java.sql.Date sqlDatre = new java.sql.Date(200118);
-//        BillingRecord newBillingRecord = new BillingRecord(sqlDatre, sqlDatre, 5000,offeredService, currency, subscriber);
+//        Invoice newBillingRecord = new Invoice(sqlDatre, sqlDatre, 5000,offeredService, currency, subscriber);
 //        session.beginTransaction();
 //        session.save(offeredService);
 //        session.save(currency);
@@ -55,7 +55,7 @@
 //        session.getTransaction().commit();
 //        session.close();
 //        BillingRecordRepositoryImpl heroRepository = new BillingRecordRepositoryImpl(sessionFactory);
-//        List<BillingRecord> records = heroRepository.getAll();
+//        List<Invoice> records = heroRepository.getAll();
 //        Assert.assertNotNull(records);
 //
 //    }

@@ -3,6 +3,8 @@ package com.paymentsystem.ngpuppies.viewModels;
 import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
+import java.util.Map;
+
 public class SubscriberSimpleViewModel {
     public int id;
 
@@ -14,20 +16,20 @@ public class SubscriberSimpleViewModel {
 
     public Address address;
 
-    public ClientViewModel client;
+    public String client;
 
     public static SubscriberSimpleViewModel fromModel(Subscriber subscriber) {
-        SubscriberSimpleViewModel vm = new SubscriberSimpleViewModel();
+        SubscriberSimpleViewModel viewModel = new SubscriberSimpleViewModel();
 
         if(subscriber != null) {
-            vm.id = subscriber.getId();
-            vm.phoneNumber = subscriber.getPhone();
-            vm.firstName = subscriber.getFirstName();
-            vm.EGN = subscriber.getEgn();
-            vm.address = subscriber.getAddress();
-            vm.client = ClientViewModel.fromModel(subscriber.getClient());
+            viewModel.id = subscriber.getId();
+            viewModel.phoneNumber = subscriber.getPhone();
+            viewModel.firstName = subscriber.getFirstName();
+            viewModel.EGN = subscriber.getEgn();
+            viewModel.address = subscriber.getAddress();
+            viewModel.client = subscriber.getClient().getUsername();
         }
 
-        return vm;
+        return viewModel;
     }
 }
