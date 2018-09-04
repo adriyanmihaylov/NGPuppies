@@ -17,12 +17,12 @@
             </div>
         </form>
     </div>
-    <div class="row" id="subscriber" style="display: none; margin-top: 50px">
+    <div class="col-12 col-md-10 col-lg-8" id="subscriber" style="display: none; margin-top: 50px">
 
         <div class="col">
             <div class="">
                 <div class="">
-                    <h3 class=""> {{name}}</h3>
+                    <h3 class=""> {{name}} <button type="button" ng-click = "addBill()"class="btn btn-success">Add Bill</button></h3>
                 </div>
                 <div class="">
                     <div class="row">
@@ -55,34 +55,33 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <p id="billingRecord">Billing records</p>
-                                <table class="table table-sm table-dark" id="billingRecords">
-                                    <thead>
-                                    <tr >
-                                        <th scope="col">#</th>
-                                        <th scope="col">Service</th>
-                                        <th scope="col">Amount</th>
-                                        <th scope="col">Start Date</th>
-                                        <th scope="col">End Date</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat = " record in records">
-                                        <th scope="row">{{record.id}}</th>
-                                        <td>{{record.service.name}}</td>
-                                        <td>{{record.amount}}</td>
-                                        <td>{{record.startDate}}</td>
-                                        <td>{{record.endDate}}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="btn btn-primary">My Sales Performance</a>
-                                <a href="#" class="btn btn-primary">Team Sales Performance</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <p id="billingRecord">Billing records <button type="button" ng-click = "save()"class="btn btn-success">Save</button></p>
+        <table class="table table-sm table-dark" id="billingRecords">
+            <thead>
+            <tr >
+                <th scope="col">#</th>
+                <th scope="col">Service</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+            </tr>
+            </thead>
+            <tbody id="records">
+            <tr ng-repeat = " record in records">
+                <th scope="row">{{record.id}}</th>
+                <td>{{record.service.name}}</td>
+                <td>{{record.amount}}</td>
+                <td>{{record.startDate}}</td>
+                <td>{{record.endDate}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+
 </div>

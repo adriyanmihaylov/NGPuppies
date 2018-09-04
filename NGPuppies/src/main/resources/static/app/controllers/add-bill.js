@@ -7,6 +7,7 @@ app.controller('addBillController', function($http, $scope) {
             // $(".tab").addClass("active"); // instead of this do the below
             $(this).removeClass("btn-default").addClass("btn-primary");
         });
+
     });
     $scope.search = function () {
         var phoneNumber = $("#phoneNumber").val();
@@ -41,6 +42,19 @@ app.controller('addBillController', function($http, $scope) {
             $("#subscriber").css("display","none");
             $("#content").append($("<h1>No such subscriber</h1>"));
         });
-
+    }
+    $scope.addBill = function () {
+        var $row = $("<tr></tr>");
+        var $col1 = $("<td>new</td>")
+        var $col2 = $("<td><input type='text' style='width: 100px'></td>");
+        var $col3 = $("<td><input type='text'style='width: 100px'></td>");
+        var $col4 = $("<td><input type='text'style='width: 100px'></td>");
+        var $col5 = $("<td><input type='text'style='width: 100px'></td>");
+        $row.append($col1)
+        $row.append($col2)
+        $row.append($col3)
+        $row.append($col4)
+        $row.append($col5)
+        $("#records").append($row);
     }
 });
