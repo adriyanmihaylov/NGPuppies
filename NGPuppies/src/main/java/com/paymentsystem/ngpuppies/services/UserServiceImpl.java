@@ -1,8 +1,8 @@
 package com.paymentsystem.ngpuppies.services;
 
-import com.paymentsystem.ngpuppies.models.users.AppUser;
-import com.paymentsystem.ngpuppies.repositories.base.AppUserRepository;
-import com.paymentsystem.ngpuppies.services.base.AppUserService;
+import com.paymentsystem.ngpuppies.models.users.User;
+import com.paymentsystem.ngpuppies.repositories.base.UserRepository;
+import com.paymentsystem.ngpuppies.services.base.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,33 +12,33 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AppUserServiceImpl implements AppUserService, UserDetailsService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
-    private AppUserRepository appUserRepository;
+    private UserRepository userRepository;
 
     @Override
-    public AppUser loadById(Integer id) {
-        return appUserRepository.loadById(id);
+    public User loadById(Integer id) {
+        return userRepository.loadById(id);
     }
 
     @Override
-    public List<AppUser> getAll() {
-        return appUserRepository.getAll();
+    public List<User> getAll() {
+        return userRepository.getAll();
     }
 
     @Override
-    public boolean deleteByUsername(String username) {
-        return appUserRepository.deleteByUsername(username);
+    public boolean delete(User user) {
+        return userRepository.delete(user);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser user = appUserRepository.loadByUsername(username);
+        User user = userRepository.loadByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
         }
 
-        return appUserRepository.loadByUsername(username);
+        return userRepository.loadByUsername(username);
     }
 }

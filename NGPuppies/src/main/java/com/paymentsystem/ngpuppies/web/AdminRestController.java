@@ -1,9 +1,8 @@
 package com.paymentsystem.ngpuppies.web;
 
-import com.paymentsystem.ngpuppies.models.Address;
-import com.paymentsystem.ngpuppies.models.ClientDetail;
-import com.paymentsystem.ngpuppies.models.Subscriber;
+import com.paymentsystem.ngpuppies.models.*;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.AdminDto;
+import com.paymentsystem.ngpuppies.models.datatransferobjects.BillingRecordDto;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.ClientDto;
 import com.paymentsystem.ngpuppies.models.datatransferobjects.SubscriberDto;
 import com.paymentsystem.ngpuppies.models.users.*;
@@ -23,16 +22,18 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-//@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}")
 public class AdminRestController {
-
     @Autowired
-    private AppUserService appUserService;
+    private UserService userService;
     @Autowired
     private AdminService adminService;
     @Autowired
@@ -46,11 +47,19 @@ public class AdminRestController {
     @Autowired
     private ClientDetailService clientDetailService;
     @Autowired
+    private BillingService billingService;
+    @Autowired
+    private CurrencyService currencyService;
+    @Autowired
+    private OfferedServicesService offeredServicesService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    private final DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
 
     @GetMapping("/user")
     public UserViewModel getUserByUsername(@RequestParam("username") String username) {
-        return UserViewModel.fromModel((AppUser) appUserService.loadUserByUsername(username));
+        return UserViewModel.fromModel((User) userService.loadUserByUsername(username));
     }
 
     @GetMapping("/admin")
@@ -70,7 +79,7 @@ public class AdminRestController {
 
     @GetMapping("/get/users")
     public List<UserViewModel> getAllUsers() {
-        return appUserService.getAll().stream()
+        return userService.getAll().stream()
                 .map(UserViewModel::fromModel)
                 .collect(Collectors.toList());
     }
@@ -115,6 +124,7 @@ public class AdminRestController {
 
             if (adminDto.getPassword() != null) {
                 admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
+                admin.setLastPasswordResetDate(new Date());
             }
 
             if (!adminService.update(admin)) {
@@ -125,7 +135,7 @@ public class AdminRestController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Please try again later!");
         }
-        return (ResponseEntity) ResponseEntity.ok();
+        return ResponseEntity.ok("Account updated!");
     }
 
     @PutMapping("/update/subscriber")
@@ -146,7 +156,8 @@ public class AdminRestController {
             subscriber.setLastName(subscriberDto.getLastName());
 
             if (subscriberDto.getAddress() != null && subscriber.getAddress() == null) {
-                Address address = addressService.create(subscriberDto.getAddress());
+                Address address = subscriberDto.getAddress();
+                addressService.create(subscriberDto.getAddress());
                 subscriber.setAddress(address);
             } else if (subscriberDto.getAddress() != null && subscriber.getAddress() != null) {
                 subscriberDto.getAddress().setId(subscriber.getAddress().getId());
@@ -173,6 +184,7 @@ public class AdminRestController {
 
             return ResponseEntity.badRequest().body(message);
         }
+        ClientDetail details = null;
         try {
             Client client = clientService.loadByUsername(username);
             if (client == null) {
@@ -187,9 +199,14 @@ public class AdminRestController {
                     return ResponseEntity.badRequest().body("Password must be less than 100 characters");
                 }
                 client.setPassword(passwordEncoder.encode(clientDto.getPassword()));
+                client.setLastPasswordResetDate(new Date());
             }
             if (clientDto.getDetails() != null && client.getDetails() == null) {
-                ClientDetail details = clientDetailService.create(clientDto.getDetails());
+                details = clientDto.getDetails();
+                if (!clientDetailService.create(details)) {
+                    return ResponseEntity.badRequest().body("Some error happened when saving details!");
+                }
+
                 client.setDetails(details);
             } else if (clientDto.getDetails() != null && client.getDetails() != null) {
                 clientDto.getDetails().setId(client.getDetails().getId());
@@ -197,6 +214,9 @@ public class AdminRestController {
             }
 
             if (!clientService.update(client)) {
+                if (details != null) {
+                    clientDetailService.delete(details);
+                }
                 return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
             }
         } catch (SQLException e) {
@@ -206,6 +226,11 @@ public class AdminRestController {
         }
 
         return ResponseEntity.ok("Subscriber updated successfully!");
+    }
+
+    @GetMapping("/register/admin")
+    public AdminDto registerAdmin() {
+        return new AdminDto();
     }
 
     @PostMapping("/register/admin")
@@ -221,7 +246,7 @@ public class AdminRestController {
         try {
             Admin admin = new Admin();
             admin.setUsername(adminDto.getUsername());
-            admin.setPassword(adminDto.getPassword());
+            admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
             admin.setEmail(adminDto.getEmail());
             Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
             admin.setAuthority(authority);
@@ -238,6 +263,11 @@ public class AdminRestController {
         return ResponseEntity.ok("Successful registration!");
     }
 
+    @GetMapping("/register/client")
+    public ClientDto registerClient() {
+        return new ClientDto();
+    }
+
     @PostMapping("/register/client")
     public ResponseEntity<?> registerClient(@Valid @RequestBody ClientDto clientDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -251,7 +281,7 @@ public class AdminRestController {
         try {
             Client client = new Client();
             client.setUsername(clientDto.getUsername());
-            client.setPassword(clientDto.getPassword());
+            client.setPassword(passwordEncoder.encode(clientDto.getPassword()));
             client.setEik(clientDto.getEik());
             Authority authority = authorityService.getByName(AuthorityName.ROLE_CLIENT);
             client.setAuthority(authority);
@@ -266,6 +296,14 @@ public class AdminRestController {
         }
 
         return ResponseEntity.ok("Successful registration!");
+    }
+
+    @GetMapping("/create/subscriber")
+    public SubscriberDto createSubscriber() {
+        SubscriberDto subscriberDto = new SubscriberDto();
+        subscriberDto.setAddress(new Address());
+
+        return subscriberDto;
     }
 
     @PostMapping("/create/subscriber")
@@ -283,10 +321,8 @@ public class AdminRestController {
             subscriber.setEgn(subscriberDto.getEgn());
 
             if (subscriberDto.getAddress() != null) {
-                Address address = addressService.create(subscriberDto.getAddress());
-                if (address == null) {
-                    return ResponseEntity.badRequest().body("Invalid address");
-                }
+                Address address = subscriberDto.getAddress();
+                addressService.create(subscriberDto.getAddress());
                 subscriber.setAddress(address);
             }
 
@@ -304,20 +340,69 @@ public class AdminRestController {
 
     @DeleteMapping("/delete/user")
     public ResponseEntity<?> deleteUserByUsername(@RequestParam() String username) {
-        if (appUserService.deleteByUsername(username)) {
-            return (ResponseEntity<?>) ResponseEntity.ok();
+        User user = (User) userService.loadUserByUsername(username);
+        if (userService.delete(user)) {
+            return ResponseEntity.ok("User deleted!");
         }
 
         return ResponseEntity.badRequest().body("User not found!");
     }
 
     @DeleteMapping("/delete/subscriber")
-    public ResponseEntity<?> deleteByNumber(@RequestParam("phoneNumber") String phoneNumber) {
-        if (subscriberService.deleteByNumber(phoneNumber)) {
+    public ResponseEntity<?> deleteByNumber(@RequestParam("number") String phoneNumber) {
+        Subscriber subscriber = subscriberService.getByNumber(phoneNumber);
+
+        if (subscriberService.delete(subscriber)) {
             return ResponseEntity.ok("Subscriber was successfully deleted");
         }
 
         return ResponseEntity.badRequest().body("Subscriber not found!");
     }
 
+    @GetMapping("/generate/bill")
+    public BillingRecordDto createBill() {
+        return new BillingRecordDto();
+    }
+
+    @PostMapping("/generate/bill")
+    public ResponseEntity<?> generateBill(@Valid @RequestBody BillingRecordDto billingRecordDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+            return ResponseEntity.badRequest().body(message);
+        }
+        try {
+
+            Subscriber subscriber = subscriberService.getByNumber(billingRecordDto.getSubscriberPhone());
+            if (subscriber == null) {
+                return ResponseEntity.badRequest().body("Subscriber phone not found!");
+            }
+
+            OfferedServices offeredServices = offeredServicesService.getByName(billingRecordDto.getService().toUpperCase());
+            if(offeredServices == null) {
+                return ResponseEntity.badRequest().body("Not a valid service!");
+            }
+
+            Currency currency = currencyService.getByName(billingRecordDto.getCurrency().toUpperCase());
+            if (currency == null) {
+                return ResponseEntity.badRequest().body("Currency not found!");
+            }
+
+            BillingRecord billingRecord = new BillingRecord();
+            billingRecord.setSubscriber(subscriber);
+            billingRecord.setCurrency(currency);
+            Date startDate = dateFormat.parse(billingRecordDto.getStartDate());
+            Date endDate = dateFormat.parse(billingRecordDto.getEndDate());
+            billingRecord.setStartDate(startDate);
+            billingRecord.setEndDate(endDate);
+            billingRecord.setAmount(Double.parseDouble(billingRecordDto.getAmount()));
+            billingRecord.setOfferedServices(offeredServices);
+
+            billingService.create(billingRecord);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+        }
+        return ResponseEntity.ok("Bill successfully added!");
+    }
 }

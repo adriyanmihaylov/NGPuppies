@@ -10,9 +10,9 @@ public interface SubscriberRepository {
 
     Subscriber getByNumber(String phoneNumber);
 
-    boolean deleteByNumber(String phoneNumber);
+    boolean create(Subscriber subscriber) throws Exception;
 
     boolean update(Subscriber updatedSubscriber) throws Exception;
 
-    boolean create(Subscriber subscriber) throws Exception;
+    boolean delete(Subscriber subscriber);
 }

@@ -7,6 +7,8 @@ import java.util.List;
 public interface AdminService {
     List<Admin> getAll();
 
+    Admin loadByEmail(String email);
+
     Admin loadByUsername(String username);
 
     boolean create(Admin admin) throws Exception;

@@ -1,8 +1,10 @@
 package com.paymentsystem.ngpuppies.models;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "billing_records")
@@ -12,9 +14,11 @@ public class BillingRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Column(name = "StartDate")
     private Date startDate;
 
+    @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Column(name = "EndDate")
     private Date endDate;
 
@@ -23,7 +27,7 @@ public class BillingRecord {
 
     @OneToOne
     @JoinColumn(name = "OfferedServiceID")
-    private OfferedService offeredService;
+    private OfferedServices offeredServices;
 
     @OneToOne
     @JoinColumn(name = "CurrencyID")
@@ -38,17 +42,6 @@ public class BillingRecord {
 
     public BillingRecord() {
 
-    }
-
-
-    public BillingRecord(Date startDate, Date endDate, double amount,
-                         OfferedService offeredService, Currency currency, Subscriber subscriber) {
-        setStartDate(startDate);
-        setEndDate(endDate);
-        setAmount(amount);
-        setOfferedService(offeredService);
-        setCurrency(currency);
-        setSubscriber(subscriber);
     }
 
     public int getId() {
@@ -83,12 +76,12 @@ public class BillingRecord {
         this.amount = amount;
     }
 
-    public OfferedService getOfferedService() {
-        return offeredService;
+    public OfferedServices getOfferedServices() {
+        return offeredServices;
     }
 
-    public void setOfferedService(OfferedService offeredService) {
-        this.offeredService = offeredService;
+    public void setOfferedServices(OfferedServices offeredServices) {
+        this.offeredServices = offeredServices;
     }
 
     public Currency getCurrency() {

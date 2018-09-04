@@ -7,15 +7,13 @@ import java.util.List;
 public interface BillingService {
     List<BillingRecord> getAll();
 
-    BillingRecord getBySubscriber(String phoneNumber);
+    List<BillingRecord> getAllBillingMethodsOfSubscriberByPhoneNumber(String phoneNumber);
 
-    String deleteBySubscriber(String phoneNumber);
+    boolean create(BillingRecord billingRecord);
 
-    String create(BillingRecord billingRecordToBeCreated);
-
-    String update(BillingRecord updatedBillingRecord);
+    boolean update(BillingRecord billingRecord);
 
     List<BillingRecord> getByDate(String startDate, String endDate);
 
-    List<BillingRecord> searchBills(Boolean payed);
+    List<BillingRecord> searchBills(Boolean isPayed);
 }

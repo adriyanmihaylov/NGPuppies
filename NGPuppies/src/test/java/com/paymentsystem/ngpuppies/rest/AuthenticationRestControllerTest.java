@@ -4,10 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.security.*;
 import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
-import com.paymentsystem.ngpuppies.services.AppUserServiceImpl;
+import com.paymentsystem.ngpuppies.services.UserServiceImpl;
 import com.paymentsystem.ngpuppies.services.ClientServiceImpl;
-import com.paymentsystem.ngpuppies.services.base.AdminService;
-import com.paymentsystem.ngpuppies.services.base.ClientService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,7 +52,7 @@ public class AuthenticationRestControllerTest {
     private AdminServiceImpl adminService;
 
     @MockBean
-    private AppUserServiceImpl appUserService;
+    private UserServiceImpl appUserService;
 
     @MockBean
     private Client client;

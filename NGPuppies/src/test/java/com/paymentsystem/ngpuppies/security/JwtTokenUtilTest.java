@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.security;
 
-import com.paymentsystem.ngpuppies.models.users.AppUser;
+import com.paymentsystem.ngpuppies.models.users.User;
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.assertj.core.util.DateUtil;
@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Date;
@@ -118,7 +117,7 @@ public class JwtTokenUtilTest {
     public void canValidateToken() throws Exception {
         when(clockMock.now())
             .thenReturn(DateUtil.now());
-        AppUser userDetails = mock(AppUser.class);
+        User userDetails = mock(User.class);
         when(userDetails.getUsername()).thenReturn(TEST_USERNAME);
 
         String token = createToken();

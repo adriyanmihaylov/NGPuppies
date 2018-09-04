@@ -18,36 +18,18 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
-    public BillingRecord getBySubscriber(String phoneNumber) {
-        return recordRepository.getBySubscriber(phoneNumber);
+    public List<BillingRecord> getAllBillingMethodsOfSubscriberByPhoneNumber(String phoneNumber) {
+        return recordRepository.getAllBillingMethodsOfSubscriberByPhoneNumber(phoneNumber);
     }
 
     @Override
-    public String deleteBySubscriber(String phoneNumber) {
-        if (recordRepository.deleteBySubscriber(phoneNumber)) {
-            return "Success";
-        } else {
-            return "Fail";
-        }
+    public boolean create(BillingRecord billingRecord) {
+        return recordRepository.create(billingRecord);
     }
 
     @Override
-
-    public String create(BillingRecord billingRecordToBeCreated) {
-        if (recordRepository.create(billingRecordToBeCreated)) {
-            return "Success";
-        } else {
-            return "Something went wrong";
-        }
-    }
-
-    @Override
-    public String update(BillingRecord updatedBillingRecord) {
-        if (recordRepository.update(updatedBillingRecord)) {
-            return "Success";
-        } else {
-            return "Something went wrong";
-        }
+    public boolean update(BillingRecord billingRecord) {
+        return recordRepository.update(billingRecord);
     }
 
     @Override

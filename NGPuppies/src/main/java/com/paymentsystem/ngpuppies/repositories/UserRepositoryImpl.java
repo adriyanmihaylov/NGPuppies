@@ -1,28 +1,26 @@
 package com.paymentsystem.ngpuppies.repositories;
 
-import com.paymentsystem.ngpuppies.models.users.AppUser;
-import com.paymentsystem.ngpuppies.repositories.base.AppUserRepository;
+import com.paymentsystem.ngpuppies.models.users.User;
+import com.paymentsystem.ngpuppies.repositories.base.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AppUserRepositoryImpl implements AppUserRepository {
+public class UserRepositoryImpl implements UserRepository {
+    @Autowired
     private SessionFactory sessionFactory;
 
-    public AppUserRepositoryImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
     @Override
-    public AppUser loadById(Integer id) {
-        AppUser user = null;
-        try(Session session = sessionFactory.openSession()) {
+    public User loadById(Integer id) {
+        User user = null;
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            user = session.get(AppUser.class,id);
+            user = session.get(User.class, id);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -31,40 +29,39 @@ public class AppUserRepositoryImpl implements AppUserRepository {
     }
 
     @Override
-    public List<AppUser> getAll() {
-        List<AppUser> appUsers = new ArrayList<>();
+    public List<User> getAll() {
+        List<User> users = new ArrayList<>();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            appUsers = session.createQuery("FROM AppUser").list();
+            users = session.createQuery("FROM User").list();
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return appUsers;
+        return users;
     }
 
     @Override
-    public AppUser loadByUsername(String username) {
-        AppUser appUser = null;
+    public User loadByUsername(String username) {
+        User user = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            String query = String.format("FROM AppUser WHERE username = '%s'", username);
-            List<AppUser> allUsers = session.createQuery(query).list();
+            String query = String.format("FROM User WHERE username = '%s'", username);
+            List<User> allUsers = session.createQuery(query).list();
             session.getTransaction().commit();
 
             if (!allUsers.isEmpty()) {
-                appUser = allUsers.get(0);
+                user = allUsers.get(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return appUser;
+        return user;
     }
 
     @Override
-    public boolean deleteByUsername(String username) {
-        AppUser user = loadByUsername(username);
+    public boolean delete(User user) {
         if (user != null) {
             try (Session session = sessionFactory.openSession()) {
                 session.beginTransaction();
@@ -78,7 +75,7 @@ public class AppUserRepositoryImpl implements AppUserRepository {
             }
         }
 
-        System.out.println("User with username: " + username + " wasn't found!");
+        System.out.println("User with username: " + user.getUsername() + " wasn't found!");
         return false;
     }
 }

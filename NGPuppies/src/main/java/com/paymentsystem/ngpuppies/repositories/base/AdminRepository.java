@@ -8,7 +8,7 @@ import java.util.List;
 public interface AdminRepository {
     List<Admin> getAll();
 
-    Admin getByEmail(String email);
+    Admin loadByEmail(String email);
 
     Admin loadByUsername(String username);
 

@@ -6,23 +6,35 @@ import com.paymentsystem.ngpuppies.services.base.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
     @Override
-    public Address create(Address address) {
-        return addressRepository.create(address);
+    public List<Address> getAll() {
+        return addressRepository.getAll();
     }
 
     @Override
-    public boolean deleteById(int id) {
-        return addressRepository.delete(id);
+    public Address getById(int id) {
+        return addressRepository.getById(id);
+    }
+
+    @Override
+    public boolean create(Address address) {
+        return addressRepository.create(address);
     }
 
     @Override
     public boolean update(Address address) {
         return addressRepository.update(address);
+    }
+
+    @Override
+    public boolean delete(Address address) {
+        return false;
     }
 }
