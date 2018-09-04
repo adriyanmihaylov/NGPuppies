@@ -23,7 +23,7 @@ angular.module('NGPuppies')
                 url: '/api/register/admin',
                 method: "POST",
                 data: JSON.stringify(create),
-                contentType: "application/json; charset=utf-8",
+                // contentType: "application/json; charset=utf-8",
                 dataType: "json"
             }).success(function (res) {
                 $scope.appAdmin = null;
@@ -32,9 +32,9 @@ angular.module('NGPuppies')
                 $scope.username = null;
                 $scope.email = null;
                 $scope.register.$setPristine();
-                $scope.message = "Registration successfull !";
+                $scope.message =res.responseText;
             }).error(function (error) {
-                $scope.message = error;
+                $scope.message = error.responseText;
             });
         } else if ($option == "Client") {
             $http({
@@ -52,7 +52,7 @@ angular.module('NGPuppies')
                 $scope.register.$setPristine();
                 $scope.message = "Registration successfull !";
             }).error(function (error) {
-                $scope.message = error;
+                $scope.message = res.response;
             });
 
         }

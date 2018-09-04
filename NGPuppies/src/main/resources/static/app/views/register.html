@@ -1,5 +1,5 @@
 
-<<<<<<< HEAD
+
 <form ng-submit="submit()" name="register" novalidate>
 	<div class="form-group row" ng-class="{ 'has-error': register.name.$invalid && register.name.$dirty }">
 		<label for="inputEmail3" class="col-sm-2 col-form-label">Username</label>
@@ -27,28 +27,6 @@
 		</div>
 	</div>
 	<div id="Client" style="display: none">
-=======
-					<div class="form-group"
-						ng-class="{ 'has-error': register.name.$invalid && register.name.$dirty }">
-						<label for="name">Name:</label> <input type="text" required
-							class="form-control" ng-model="user.name" id="name"
-							name="name">
-					</div>
-
-					<div class="form-group"
-						ng-class="{ 'has-error': register.username.$invalid && register.username.$dirty }">
-						<label for="username">Username:</label> <input type="text"
-							required class="form-control" ng-model="user.username"
-							id="username" name="username">
-					</div>
-
-					<div class="form-group"
-						ng-class="{ 'has-error': register.password.$invalid && register.password.$dirty }">
-						<label for="pwd">Password:</label> <input type="password" required
-							class="form-control" id="pwd" ng-model="user.password"
-							name="password">
-					</div>
->>>>>>> 6a28b1ea4e5550800d56b95eb19045d90feb4198
 
 		<div class="form-group row">
 			<label for="clientEik" class="col-sm-2 col-form-label">Eik</label>
@@ -64,12 +42,11 @@
 		</div>
 	</div>
 
-<<<<<<< HEAD
+
 	<div class="form-group row">
 		<label class="col-sm-2 col-form-label" for="optionSelect">Preference</label>
 		<div class="col-sm-3">
 			<select class="custom-select" ng-model="select" ng-change="changeFunc()" id="optionSelect">
-				<option>Choose..</option>
 				<option>Admin</option>
 				<option>Client</option>
 			</select>
@@ -80,20 +57,12 @@
 		<div class="col-sm-3">
 			<button type="submit"
 					class="btn btn-primary">Register</button>
-=======
 					<div class="alert alert-warning margin-top-5"
-						ng-show="confirmPassword != user.password ">Password Not
-						Matching</div>
-
-					<button type="submit" class="btn btn-default"
-						ng-disabled="register.$invalid || (confirmPassword != user.password)">Register</button>
-					<button class="btn btn-default" ui-sref="login">Login</button>
+						ng-show=>Password Not Matching</div>
 					<div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
 				</form>
 			</div>
->>>>>>> 6a28b1ea4e5550800d56b95eb19045d90feb4198
 		</div>
 	</div>
-	<div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
 </form>
 

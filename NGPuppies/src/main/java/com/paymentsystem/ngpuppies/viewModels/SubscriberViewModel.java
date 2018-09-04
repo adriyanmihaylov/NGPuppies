@@ -12,7 +12,7 @@ public class SubscriberViewModel {
     public String phoneNumber;
 
     public String firstName;
-
+    public String lastName;
     public String EGN;
 
     public Address address;
@@ -28,6 +28,7 @@ public class SubscriberViewModel {
             vm.id = subscriber.getId();
             vm.phoneNumber = subscriber.getPhone();
             vm.firstName = subscriber.getFirstName();
+            vm.lastName = subscriber.getLastName();
             vm.EGN = subscriber.getEgn();
             vm.address = subscriber.getAddress();
             vm.client = ClientViewModel.fromModel(subscriber.getClient());

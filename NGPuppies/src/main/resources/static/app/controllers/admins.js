@@ -9,7 +9,6 @@ angular.module('NGPuppies')
 			$scope.userForm.$setPristine();
 			$scope.message='';
 			$scope.appAdmin = null;
-			$scope.buttonText = 'Create';
 			
 		}).error(function(error) {
 			$scope.message = error.message;
@@ -19,15 +18,7 @@ angular.module('NGPuppies')
 		edit = true;
 		$scope.appAdmin = appAdmin;
 		$scope.message='';
-		$scope.buttonText = 'Update';
 
-	};
-	$scope.initAddAdmin = function() {
-		edit = false;
-		$scope.appAdmin = null;
-		$scope.userForm.$setPristine();
-		$scope.message='';
-		$scope.buttonText = 'Create';
 	};
 	$scope.deleteUser = function(admin) {
 		$http.delete('api/delete/user?username='+ admin.credentials.username).success(function(res) {
