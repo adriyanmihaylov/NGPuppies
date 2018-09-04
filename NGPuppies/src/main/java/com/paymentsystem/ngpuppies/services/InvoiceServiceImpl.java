@@ -18,11 +18,6 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> getAllInvoicesOfSubscriberByPhoneNumber(String phoneNumber, boolean isPayed) {
-        return invoiceRepository.getAllInvoicesOfSubscriberByPhoneNumber(phoneNumber,isPayed);
-    }
-
-    @Override
     public List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(Integer subscriberId) {
         return invoiceRepository.getAllInvoicesOfSubscriberBySubscriberId(subscriberId);
     }
@@ -65,5 +60,10 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public List<Invoice> getTenMostRecentInvoices(Integer clientId) {
         return invoiceRepository.getTenMostRecentInvoices(clientId);
+    }
+
+    @Override
+    public Invoice getSubscriberLargestPaidInvoice(Integer subscriberId, String fromDate, String endDate) {
+        return invoiceRepository.getSubscriberLargestPaidInvoice(subscriberId,fromDate,endDate);
     }
 }

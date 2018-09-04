@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.services.base;
 
+import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
 import java.util.List;
@@ -18,5 +19,5 @@ public interface SubscriberService {
 
     Map<Subscriber, Double> getTopTenSubscribers(Integer clientId);
 
-    Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate);
+    Double getSubscriberAverageSumOfPaidInvoices(Integer subscriberId, String fromDate, String toDate);
 }

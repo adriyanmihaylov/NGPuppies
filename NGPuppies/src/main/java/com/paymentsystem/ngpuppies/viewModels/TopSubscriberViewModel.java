@@ -1,6 +1,5 @@
 package com.paymentsystem.ngpuppies.viewModels;
 
-import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
 public class TopSubscriberViewModel {

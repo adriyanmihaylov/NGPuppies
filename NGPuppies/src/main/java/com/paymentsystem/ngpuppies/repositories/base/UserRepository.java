@@ -5,7 +5,6 @@ import com.paymentsystem.ngpuppies.models.users.User;
 import java.util.List;
 
 public interface UserRepository {
-
     User loadById(Integer id);
 
     User loadByUsername(String username);

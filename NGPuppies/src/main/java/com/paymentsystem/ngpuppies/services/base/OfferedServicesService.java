@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface OfferedServicesService {
-
     List<OfferedServices> getAll();
 
     OfferedServices getByName(String name);

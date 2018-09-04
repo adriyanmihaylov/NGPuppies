@@ -6,6 +6,7 @@ import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,11 +42,19 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     public Map<Subscriber, Double> getTopTenSubscribers(Integer clientId) {
-        return subscriberRepository.getTopTenSubscribers(clientId);
+        Object[] result = subscriberRepository.getTopTenSubscribers(clientId);
+
+        Map<Subscriber, Double> subscribers = new HashMap<>();
+        for (Object object : result) {
+            Object[] keyValueSet = (Object[]) object;
+            subscribers.put((Subscriber) keyValueSet[0], (Double) keyValueSet[1]);
+        }
+
+        return subscribers;
     }
 
     @Override
-    public Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate) {
+    public Double getSubscriberAverageSumOfPaidInvoices(Integer subscriberId, String fromDate, String toDate) {
         return subscriberRepository.getSubscriberAverageInvoiceSumPaid(subscriberId,fromDate,toDate);
     }
 }

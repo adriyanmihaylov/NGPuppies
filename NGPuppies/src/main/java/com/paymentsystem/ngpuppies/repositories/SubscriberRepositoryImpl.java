@@ -1,6 +1,5 @@
 package com.paymentsystem.ngpuppies.repositories;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import org.hibernate.JDBCException;
@@ -13,9 +12,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.PersistenceException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class SubscriberRepositoryImpl implements SubscriberRepository {
@@ -134,7 +131,7 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
     }
 
     @Override
-    public Map<Subscriber, Double> getTopTenSubscribers(Integer clientId) {
+    public Object[] getTopTenSubscribers(Integer clientId) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             String query = String.format(
@@ -145,22 +142,17 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
                             " AND i.payedDate IS NOT NULL " +
                             " GROUP BY s" +
                             " ORDER BY totalAmount DESC", clientId);
-            Object[] resultSet = session.createQuery(query).setMaxResults(10).list().toArray();
+            Object[] result = session.createQuery(query).setMaxResults(10).list().toArray();
             session.getTransaction().commit();
-
-            Map<Subscriber,Double> result = new HashMap<>();
-            for (Object o: resultSet) {
-                Object[] res = (Object[]) o;
-                result.put((Subscriber) res[0], (Double) res[1]);
-            }
 
             return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return new HashMap<>();
+        return null;
     }
+
     @Override
     public Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate) {
         try (Session session = sessionFactory.openSession()) {
@@ -169,7 +161,7 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
                             " FROM Subscriber s" +
                             " JOIN Invoice i ON s.id=i.subscriber.id" +
                             " WHERE s.id=%s" +
-                            " AND i.payedDate >= '%s' and i.payedDate <= '%s'", subscriberId,fromDate,toDate);
+                            " AND i.payedDate >= '%s' and i.payedDate <= '%s'", subscriberId, fromDate, toDate);
             List<Double> avgAmount = session.createQuery(query).list();
             if (avgAmount.size() > 0) {
                 return avgAmount.get(0);
