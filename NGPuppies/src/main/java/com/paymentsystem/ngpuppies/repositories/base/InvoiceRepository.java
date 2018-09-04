@@ -7,8 +7,6 @@ import java.util.List;
 public interface InvoiceRepository {
     List<Invoice> getAll();
 
-    List<Invoice> getAllInvoicesOfSubscriberByPhoneNumber(String phoneNumber, boolean isPayed);
-
     boolean create(Invoice invoice);
 
     boolean update(List<Invoice> invoices);
@@ -26,4 +24,6 @@ public interface InvoiceRepository {
     List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(Integer subscriberId);
 
     List<Invoice> getTenMostRecentInvoices(Integer clientId);
+
+    Invoice getSubscriberLargestPaidInvoice(Integer subscriberId, String fromDate, String endDate);
 }

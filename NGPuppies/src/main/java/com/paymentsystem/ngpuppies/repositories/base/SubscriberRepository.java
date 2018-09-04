@@ -16,7 +16,7 @@ public interface SubscriberRepository {
 
     boolean delete(Subscriber subscriber);
 
-    Map<Subscriber, Double> getTopTenSubscribers(Integer clientId);
+    Object[] getTopTenSubscribers(Integer clientId);
 
     Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate);
 }

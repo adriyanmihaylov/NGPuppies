@@ -4,7 +4,6 @@ import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
-import com.paymentsystem.ngpuppies.services.base.ClientService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import com.paymentsystem.ngpuppies.validator.DateValidator;
 import com.paymentsystem.ngpuppies.viewModels.InvoiceSimpleViewModel;
@@ -23,12 +22,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("${common.basepath}/client")
+@RequestMapping("${common.basepath}")
 @PreAuthorize("hasRole('ROLE_CLIENT')")
 public class ClientRestController {
-
-    @Autowired
-    private ClientService clientService;
 
     @Autowired
     private SubscriberService subscriberService;
@@ -54,27 +50,6 @@ public class ClientRestController {
             e.printStackTrace();
         }
         return null;
-    }
-
-    @GetMapping("/subscriber={phone}/average")
-    public Double getSubscriberAverageInvoiceSumPaid(@PathVariable("phone") String subscriberPhone,
-                                                     @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
-                                                     @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
-                                                     Authentication authentication) {
-        try {
-            if (!DATE_VALIDATOR.validateDate(fromDate) || !DATE_VALIDATOR.validateDate(endDate)) {
-                return 0D;
-            }
-
-            SubscriberSimpleViewModel subscriber = getSubscriberOfCurrentClient(subscriberPhone,authentication);
-            if(subscriber != null) {
-                return subscriberService.getSubscriberAverageInvoiceSumPaid(subscriber.id,fromDate,endDate);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return 0D;
     }
 
     @GetMapping("/invoices/unpaid")
@@ -155,6 +130,47 @@ public class ClientRestController {
         return new ArrayList<>();
     }
 
+    @GetMapping("/subscriber={phone}/average")
+    public Double getSubscriberAverageSumOfPaidInvoices(@PathVariable("phone") String subscriberPhone,
+                                                        @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
+                                                        @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
+                                                        Authentication authentication) {
+        try {
+            if (!DATE_VALIDATOR.validateDate(fromDate) || !DATE_VALIDATOR.validateDate(endDate)) {
+                return 0D;
+            }
+
+            SubscriberSimpleViewModel subscriber = getSubscriberOfCurrentClient(subscriberPhone,authentication);
+            if(subscriber != null) {
+                return subscriberService.getSubscriberAverageSumOfPaidInvoices(subscriber.id,fromDate,endDate);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0D;
+    }
+    @GetMapping("/subscriber={phone}/invoices/max")
+    public InvoiceSimpleViewModel getSubscriberLargestPaidInvoice(@PathVariable("phone") String subscriberPhone,
+                                                                  @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
+                                                                  @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
+                                                                  Authentication authentication) {
+        try {
+            if (!DATE_VALIDATOR.validateDate(fromDate) || !DATE_VALIDATOR.validateDate(endDate)) {
+                return null;
+            }
+
+            SubscriberSimpleViewModel subscriber = getSubscriberOfCurrentClient(subscriberPhone, authentication);
+            if (subscriber != null) {
+                return InvoiceSimpleViewModel.fromModel(invoiceService.getSubscriberLargestPaidInvoice(subscriber.id, fromDate, endDate));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     @PutMapping("/pay/invoice")
     public ResponseEntity<?> payInvoices(@RequestParam("id") List<Integer> invoicesIds, Authentication authentication) {
         try {
@@ -191,13 +207,13 @@ public class ClientRestController {
     public List<TopSubscriberViewModel> getTenTopSubscribersWithBiggestBillsPayed(Authentication authentication) {
         try {
             Client client = (Client) authentication.getPrincipal();
-            Map<Subscriber, Double> subscribers = subscriberService.getTopTenSubscribers(client.getId());
-            List<TopSubscriberViewModel> result = new ArrayList<>();
+            Map<Subscriber, Double> result = subscriberService.getTopTenSubscribers(client.getId());
+            List<TopSubscriberViewModel> subscriberViewModels = new ArrayList<>();
 
-            for(Map.Entry<Subscriber,Double> entry : subscribers.entrySet()) {
-                result.add(TopSubscriberViewModel.fromModel(entry.getKey(), entry.getValue()));
+            for(Map.Entry<Subscriber,Double> entry : result.entrySet()) {
+                subscriberViewModels.add(TopSubscriberViewModel.fromModel(entry.getKey(), entry.getValue()));
             }
-            return result;
+            return subscriberViewModels;
 
         } catch (Exception e) {
             e.printStackTrace();

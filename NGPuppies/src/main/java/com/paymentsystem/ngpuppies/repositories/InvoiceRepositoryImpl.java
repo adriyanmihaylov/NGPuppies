@@ -38,27 +38,6 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> getAllInvoicesOfSubscriberByPhoneNumber(String phoneNumber, boolean isPayed) {
-        List<Invoice> allRecords;
-        try (Session session = sessionFactory.openSession()) {
-            Transaction tx = session.beginTransaction();
-            String status = isPayed ? "NOT NULL" : "NULL";
-            String query = String.format("From Invoice i where i.subscriber.phoneNumber = '%s'" +
-                    " AND payedDate IS %s", phoneNumber, status);
-
-            allRecords = session.createQuery(query).list();
-            tx.commit();
-
-            return allRecords;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Something went wrong");
-        }
-        return new ArrayList<>();
-    }
-
-    @Override
     public boolean create(Invoice invoice) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -102,6 +81,50 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
+    public boolean payInvoices(List<Invoice> allInvoices) {
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            for (Invoice invoice : allInvoices) {
+                invoice.setPayedDate(new Date());
+                session.update(invoice);
+            }
+
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
+
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public Invoice getSubscriberLargestPaidInvoice(Integer subscriberId, String fromDate, String endDate) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            String query = String.format("FROM Invoice i" +
+                    " WHERE i.subscriber.id=%s" +
+                    " AND i.payedDate >= '%s' and i.payedDate <= '%s'" +
+                    " ORDER BY i.subscriber.BGNAmount DESC", subscriberId, fromDate, endDate);
+            List<Invoice> invoices = session.createQuery(query).setMaxResults(1).list();
+            session.getTransaction().commit();
+
+            if (invoices.size() > 0) {
+                return invoices.get(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
     public List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId) {
         try (Session session = sessionFactory.openSession()) {
             String query = String.format("FROM Invoice b " +
@@ -138,29 +161,6 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
         }
 
         return new ArrayList<>();
-    }
-
-    @Override
-    public boolean payInvoices(List<Invoice> allInvoices) {
-        Session session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
-            for (Invoice invoice : allInvoices) {
-                invoice.setPayedDate(new Date());
-                session.update(invoice);
-            }
-
-            session.getTransaction().commit();
-            session.close();
-            return true;
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            session.close();
-
-            e.printStackTrace();
-        }
-
-        return false;
     }
 
     @Override
@@ -238,3 +238,23 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
         return new ArrayList<>();
     }
 }
+
+//    public List<Invoice> getAllInvoicesOfSubscriberByPhoneNumber(String phoneNumber, boolean isPayed) {
+//        List<Invoice> allRecords;
+//        try (Session session = sessionFactory.openSession()) {
+//            Transaction tx = session.beginTransaction();
+//            String status = isPayed ? "NOT NULL" : "NULL";
+//            String query = String.format("From Invoice i where i.subscriber.phoneNumber = '%s'" +
+//                    " AND payedDate IS %s", phoneNumber, status);
+//
+//            allRecords = session.createQuery(query).list();
+//            tx.commit();
+//
+//            return allRecords;
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.out.println("Something went wrong");
+//        }
+//        return new ArrayList<>();
+//    }
