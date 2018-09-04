@@ -1,9 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.models.SubscriberTwo;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import org.hibernate.JDBCException;
 import org.hibernate.Session;
@@ -140,16 +138,23 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             String query = String.format(
-                    "SELECT s FROM ( SELECT SUM(i.BGNAmount) as totalAmount" +
+                    "SELECT s, SUM(i.BGNAmount) as totalAmount" +
                             " FROM Subscriber s" +
                             " JOIN Invoice i ON s.id = i.subscriber.id" +
                             " WHERE s.client.id=%s" +
                             " AND i.payedDate IS NOT NULL " +
-                            " GROUP BY s)" +
+                            " GROUP BY s" +
                             " ORDER BY totalAmount DESC", clientId);
-            List<Subscriber> subscribers =  session.createQuery(query).setMaxResults(10).list();
+            Object[] resultSet = session.createQuery(query).setMaxResults(10).list().toArray();
             session.getTransaction().commit();
 
+            Map<Subscriber,Double> result = new HashMap<>();
+            for (Object o: resultSet) {
+                Object[] res = (Object[]) o;
+                result.put((Subscriber) res[0], (Double) res[1]);
+            }
+
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
         }

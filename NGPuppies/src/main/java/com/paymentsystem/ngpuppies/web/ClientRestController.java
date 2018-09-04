@@ -196,15 +196,14 @@ public class ClientRestController {
     public List<SubscriberViewModel> getTenTopSubscribersWithBiggestBillsPayed(Authentication authentication) {
         try {
             Client client = (Client) authentication.getPrincipal();
-            List<Object> subscribers = Collections.singletonList(subscriberService.getTopTenSubscribers(client.getId()));
-            if (subscribers != null) {
-                List<SubscriberViewModel> result = new ArrayList<>();
+            Map<Subscriber, Double> subscribers = subscriberService.getTopTenSubscribers(client.getId());
+            List<SubscriberViewModel> result = new ArrayList<>();
 
-                for (Object object : subscribers) {
-                    System.out.println(object.toString());
-                }
-                return result;
+            for(Map.Entry<Subscriber,Double> entry : subscribers.entrySet()) {
+                result.add(SubscriberViewModel.fromModel(entry.getKey(), entry.getValue()));
             }
+            return result;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
