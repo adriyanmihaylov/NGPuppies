@@ -44,17 +44,16 @@ public class ClientDetailRepositoryImpl implements ClientDetailRepository {
     }
 
     @Override
-    public boolean delete(ClientDetail clientDetail) {
+    public ClientDetail getById(Integer id) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.delete(clientDetail);
+            ClientDetail clientDetail = session.get(ClientDetail.class, id);
             session.getTransaction().commit();
 
-            return true;
+            return clientDetail;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return false;
+        return null;
     }
 }

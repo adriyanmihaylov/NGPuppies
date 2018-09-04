@@ -7,5 +7,5 @@ public interface ClientDetailService {
 
     boolean update(ClientDetail clientDetail);
 
-    boolean delete(ClientDetail clientDetail);
+    ClientDetail getById(Integer id);
 }

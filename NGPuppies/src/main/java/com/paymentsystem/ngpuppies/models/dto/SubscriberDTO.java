@@ -5,6 +5,7 @@ import com.paymentsystem.ngpuppies.validator.base.ValidEgn;
 import com.paymentsystem.ngpuppies.validator.base.ValidName;
 import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class SubscriberDTO {
@@ -28,7 +29,10 @@ public class SubscriberDTO {
     @ValidEgn
     private String egn;
 
+    @NotNull(message = "Please enter address!")
     private Address address;
+
+    private String client;
 
     public SubscriberDTO() {
 
@@ -72,5 +76,13 @@ public class SubscriberDTO {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
     }
 }

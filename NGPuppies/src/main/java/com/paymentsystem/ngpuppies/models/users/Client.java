@@ -19,25 +19,18 @@ public class Client extends User {
     private ClientDetail details;
 
     public Client() {
-        Date today = new Date();
-        super.setEnabled(false);
-        super.setLastPasswordResetDate(today);
-        super.setAuthority(new Authority(AuthorityName.ROLE_CLIENT));
     }
-
-    public Client(String username, String password, String eik) {
-        super(username,password,AuthorityName.ROLE_CLIENT);
+    public Client(String username, String password, String eik,Authority authority) {
+        super(username,password,authority);
         setEik(eik);
+        setEnabled(Boolean.TRUE);
+        setLastPasswordResetDate(new Date());
 
     }
 
-    public Client(String username, String password,String eik, ClientDetail details) {
-        this(username,password,eik);
-        setDetails(details);
-        Date today = new Date();
-        super.setEnabled(false);
-        super.setLastPasswordResetDate(today);
-        setEik(eik);
+    public Client(String username, String password, String eik,Authority authority,ClientDetail clientDetail) {
+        this(username, password, eik, authority);
+        setDetails(clientDetail);
     }
 
     public String getEik() {

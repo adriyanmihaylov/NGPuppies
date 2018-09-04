@@ -48,11 +48,10 @@ public class User implements UserDetails {
 
     }
 
-    User(String username, String password,
-         AuthorityName authorityName) {
+    User(String username, String password,Authority authority) {
         setUsername(username);
         setPassword(password);
-        setAuthority(new Authority(authorityName));
+        setAuthority(authority);
     }
 
     public int getId() {

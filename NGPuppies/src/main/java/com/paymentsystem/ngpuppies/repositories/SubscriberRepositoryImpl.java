@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.repositories;
 
+import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import org.hibernate.JDBCException;
@@ -51,14 +52,25 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
 
     @Override
     public boolean create(Subscriber subscriber) throws Exception {
-        try (Session session = sessionFactory.openSession()) {
-            subscriber.setPhone(subscriber.getPhone());
-            session.beginTransaction();
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            Address address = subscriber.getAddress();
+
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.save(address);
             session.save(subscriber);
-            session.getTransaction().commit();
+            transaction.commit();
+            session.close();
 
             return true;
         } catch (JDBCException e) {
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
             String message = e.getSQLException().toString().toLowerCase();
 
             String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
@@ -76,7 +88,16 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
             }
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
             e.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
         }
 
         return false;
@@ -84,13 +105,26 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
 
     @Override
     public boolean update(Subscriber subscriber) throws Exception {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            Address address = subscriber.getAddress();
+
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.update(address);
             session.update(subscriber);
-            session.getTransaction().commit();
+            transaction.commit();
+            session.close();
+
             System.out.printf("UPDATED: SUBSCRIBER  Id: %d Phone: %s\n", subscriber.getId(), subscriber.getPhone());
             return true;
         } catch (PersistenceException e) {
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
             String message = e.getCause().getCause().toString().toLowerCase();
             String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
             String errorMessage;
@@ -108,7 +142,16 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
 
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
             e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
 
         return false;
