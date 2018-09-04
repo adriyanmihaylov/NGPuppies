@@ -14,16 +14,12 @@ public class ClientDetail {
     @Column(name = "Description")
     private String description;
 
-    @Column(name = "FriendlyName")
-    private String friendlyName;
-
     public ClientDetail() {
 
     }
 
-    public ClientDetail(String description, String friendlyName) {
+    public ClientDetail(String description) {
         setDescription(description);
-        setFriendlyName(friendlyName);
     }
 
     public int getId() {
@@ -40,13 +36,5 @@ public class ClientDetail {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getFriendlyName() {
-        return friendlyName;
-    }
-
-    public void setFriendlyName(String friendlyName) {
-        this.friendlyName = friendlyName;
     }
 }

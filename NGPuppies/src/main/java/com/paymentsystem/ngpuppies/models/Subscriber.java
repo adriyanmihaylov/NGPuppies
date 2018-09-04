@@ -57,6 +57,14 @@ public class Subscriber {
     public Subscriber(){
     }
 
+    public Subscriber(String firstName, String lastName,String phoneNumber,String egn,Address address) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setPhone(phoneNumber);
+        setEgn(egn);
+        setAddress(address);
+    }
+
     public Integer getId() {
         return id;
     }

@@ -5,6 +5,7 @@ import com.paymentsystem.ngpuppies.validator.base.ValidEmail;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.util.Date;
 
 @Entity
 @DiscriminatorValue("ADMIN")
@@ -17,11 +18,11 @@ public class Admin extends User {
     public Admin() {
     }
 
-    public Admin(String username, String password, String email) {
-        super(username, password,AuthorityName.ROLE_ADMIN);
-        java.util.Date today = new java.util.Date();
+    public Admin(String username, String password, String email,Authority authority) {
+        super(username, password, authority);
+        Date today = new Date();
         super.setLastPasswordResetDate(today);
-        super.setEnabled(false);
+        super.setEnabled(Boolean.FALSE);
         setEmail(email);
     }
 

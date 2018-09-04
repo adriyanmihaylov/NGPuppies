@@ -4,6 +4,7 @@ import com.paymentsystem.ngpuppies.models.ClientDetail;
 import com.paymentsystem.ngpuppies.validator.base.ValidEik;
 import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class ClientDTO {
@@ -23,6 +24,7 @@ public class ClientDTO {
     @ValidEik
     private String eik;
 
+    @NotNull(message = "Please enter client details!")
     private ClientDetail details;
 
     public ClientDTO() {
