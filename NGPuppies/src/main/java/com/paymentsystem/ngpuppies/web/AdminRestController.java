@@ -181,40 +181,26 @@ public class AdminRestController {
 
             return ResponseEntity.badRequest().body(message);
         }
-        ClientDetail details = null;
         try {
             Client client = clientService.loadByUsername(username);
             if (client == null) {
                 return ResponseEntity.badRequest().body("Client was not found!");
             }
+
             client.setUsername(clientDto.getUsername());
             client.setEik(clientDto.getEik());
+
             if (clientDto.getPassword() != null) {
-                if (clientDto.getPassword().length() < 6) {
-                    return ResponseEntity.badRequest().body("Password must be at least 6 characters");
-                } else if (clientDto.getPassword().length() > 100) {
-                    return ResponseEntity.badRequest().body("Password must be less than 100 characters");
-                }
                 client.setPassword(passwordEncoder.encode(clientDto.getPassword()));
                 client.setLastPasswordResetDate(new Date());
             }
-            if (clientDto.getDetails() != null && client.getDetails() == null) {
-                details = clientDto.getDetails();
-                if (!clientDetailService.create(details)) {
-                    return ResponseEntity.badRequest().body("Some error happened when saving details!");
-                }
-
-                client.setDetails(details);
-            } else if (clientDto.getDetails() != null && client.getDetails() != null) {
-                clientDto.getDetails().setId(client.getDetails().getId());
-                clientDetailService.update(clientDto.getDetails());
-            }
 
             if (!clientService.update(client)) {
-                if (details != null) {
-                    clientDetailService.delete(details);
-                }
                 return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+            } else {
+                if (updateOrCreateClientDetails(clientDto.getDetails(), client)) {
+                    clientService.update(client);
+                }
             }
         } catch (SQLException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -222,7 +208,7 @@ public class AdminRestController {
             return ResponseEntity.badRequest().body("Please try again later!");
         }
 
-        return ResponseEntity.ok("Subscriber updated successfully!");
+        return ResponseEntity.ok("Client updated successfully!");
     }
 
     @GetMapping("/register/admin")
@@ -376,7 +362,7 @@ public class AdminRestController {
             }
 
             OfferedServices offeredServices = offeredServicesService.getByName(invoiceDTO.getService().toUpperCase());
-            if(offeredServices == null) {
+            if (offeredServices == null) {
                 return ResponseEntity.badRequest().body("Not a valid service!");
             }
 
@@ -401,5 +387,19 @@ public class AdminRestController {
             return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
         }
         return ResponseEntity.ok("Invoice successfully added!");
+    }
+
+    private boolean updateOrCreateClientDetails(ClientDetail newDetails, Client client) {
+        if (newDetails != null && client.getDetails() != null) {
+            int id =client.getDetails().getId();
+            client.setDetails(newDetails);
+            client.getDetails().setId(id);
+            return clientDetailService.update(client.getDetails());
+        } else if (newDetails != null) {
+            client.setDetails(newDetails);
+            return clientDetailService.create(client.getDetails());
+        }
+
+        return false;
     }
 }
