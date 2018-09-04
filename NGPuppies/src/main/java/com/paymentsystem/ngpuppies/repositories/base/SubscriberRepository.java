@@ -2,8 +2,8 @@ package com.paymentsystem.ngpuppies.repositories.base;
 
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public interface SubscriberRepository {
     List<Subscriber> getAll();
@@ -15,4 +15,8 @@ public interface SubscriberRepository {
     boolean update(Subscriber updatedSubscriber) throws Exception;
 
     boolean delete(Subscriber subscriber);
+
+    Map<Subscriber, Double> getTopTenSubscribers(Integer clientId);
+
+    Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate);
 }

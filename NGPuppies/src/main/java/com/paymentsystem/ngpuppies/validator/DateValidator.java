@@ -21,13 +21,13 @@ public class DateValidator implements ConstraintValidator<ValidDate, String> {
         return (validateDate(date));
     }
 
-    private boolean validateDate(String egn) {
-        if(egn == null) {
+    public boolean validateDate(String date) {
+        if (date == null) {
             return false;
         }
 
         pattern = Pattern.compile(DATE_PATTERN);
-        matcher = pattern.matcher(egn);
+        matcher = pattern.matcher(date);
         return matcher.matches();
     }
 }

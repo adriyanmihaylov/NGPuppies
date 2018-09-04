@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.validator.base.ValidEgn;
 import com.paymentsystem.ngpuppies.validator.base.ValidName;
@@ -15,7 +16,7 @@ public class Subscriber {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ValidPhone
     @Column(name = "PhoneNumber")
@@ -49,14 +50,14 @@ public class Subscriber {
     @JoinColumn(name = "ClientID")
     private Client client;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private List<BillingRecord> billingRecords;
+    private List<Invoice> invoices;
 
     public Subscriber(){
-
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -117,11 +118,11 @@ public class Subscriber {
         return String.format("Name: %s, EGN: %s, PhoneNumber: %s", getFirstName(), getEgn(), getPhone());
     }
 
-    public List<BillingRecord> getBillingRecords() {
-        return billingRecords;
+    public List<Invoice> getInvoices() {
+        return invoices;
     }
 
-    public void setBillingRecords(List<BillingRecord> billingRecords) {
-        this.billingRecords = billingRecords;
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
     }
 }

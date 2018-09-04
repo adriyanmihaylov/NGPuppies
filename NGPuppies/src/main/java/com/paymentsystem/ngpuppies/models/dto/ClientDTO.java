@@ -1,14 +1,12 @@
-package com.paymentsystem.ngpuppies.models.datatransferobjects;
+package com.paymentsystem.ngpuppies.models.dto;
 
-import com.paymentsystem.ngpuppies.validator.base.ValidEmail;
+import com.paymentsystem.ngpuppies.models.ClientDetail;
+import com.paymentsystem.ngpuppies.validator.base.ValidEik;
 import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class AdminDto {
+public class ClientDTO {
     @ValidUsername
     @Size.List({
             @Size(min = 5, message = "Username must be at least 5 characters"),
@@ -16,18 +14,18 @@ public class AdminDto {
     })
     private String username;
 
-//    @NotNull(message = "Password can not be empty!")
     @Size.List({
             @Size(min = 6, message = "Password must be at least 6 characters"),
             @Size(max = 100, message = "Password must be less than 100 characters")
     })
     private String password;
 
-    @ValidEmail
-    private String email;
+    @ValidEik
+    private String eik;
 
-    public AdminDto() {
+    private ClientDetail details;
 
+    public ClientDTO() {
     }
 
     public String getUsername() {
@@ -46,11 +44,19 @@ public class AdminDto {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEik() {
+        return eik;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEik(String eik) {
+        this.eik = eik;
+    }
+
+    public ClientDetail getDetails() {
+        return details;
+    }
+
+    public void setDetails(ClientDetail details) {
+        this.details = details;
     }
 }

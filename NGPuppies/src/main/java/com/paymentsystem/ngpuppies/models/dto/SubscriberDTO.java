@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.models.datatransferobjects;
+package com.paymentsystem.ngpuppies.models.dto;
 
 import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.validator.base.ValidEgn;
@@ -7,7 +7,7 @@ import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
 
 import javax.validation.constraints.Size;
 
-public class SubscriberDto {
+public class SubscriberDTO {
     @ValidPhone
     private String phone;
 
@@ -30,7 +30,7 @@ public class SubscriberDto {
 
     private Address address;
 
-    public SubscriberDto() {
+    public SubscriberDTO() {
 
     }
 

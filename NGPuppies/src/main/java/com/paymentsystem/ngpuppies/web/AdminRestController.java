@@ -1,16 +1,13 @@
 package com.paymentsystem.ngpuppies.web;
 
 import com.paymentsystem.ngpuppies.models.*;
-import com.paymentsystem.ngpuppies.models.datatransferobjects.AdminDto;
-import com.paymentsystem.ngpuppies.models.datatransferobjects.BillingRecordDto;
-import com.paymentsystem.ngpuppies.models.datatransferobjects.ClientDto;
-import com.paymentsystem.ngpuppies.models.datatransferobjects.SubscriberDto;
+import com.paymentsystem.ngpuppies.models.dto.AdminDTO;
+import com.paymentsystem.ngpuppies.models.dto.InvoiceDTO;
+import com.paymentsystem.ngpuppies.models.dto.ClientDTO;
+import com.paymentsystem.ngpuppies.models.dto.SubscriberDTO;
 import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.services.base.*;
-import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
-import com.paymentsystem.ngpuppies.viewModels.ClientViewModel;
-import com.paymentsystem.ngpuppies.viewModels.SubscriberViewModel;
-import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
+import com.paymentsystem.ngpuppies.viewModels.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,7 +44,7 @@ public class AdminRestController {
     @Autowired
     private ClientDetailService clientDetailService;
     @Autowired
-    private BillingService billingService;
+    private InvoiceService invoiceService;
     @Autowired
     private CurrencyService currencyService;
     @Autowired
@@ -73,8 +70,8 @@ public class AdminRestController {
     }
 
     @GetMapping("/subscriber")
-    public SubscriberViewModel getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
-        return SubscriberViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
+    public SubscriberSimpleViewModel getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
+        return SubscriberSimpleViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
     }
 
     @GetMapping("/get/users")
@@ -99,8 +96,8 @@ public class AdminRestController {
     }
 
     @GetMapping("/get/subscribers")
-    public List<SubscriberViewModel> getAllSubscribers() {
-        return subscriberService.getAll().stream().map(SubscriberViewModel::fromModel).
+    public List<SubscriberSimpleViewModel> getAllSubscribers() {
+        return subscriberService.getAll().stream().map(SubscriberSimpleViewModel::fromModel).
                 collect(Collectors.toList());
     }
 
@@ -110,7 +107,7 @@ public class AdminRestController {
     }
 
     @PutMapping("/account/update")
-    public ResponseEntity updateAccount(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult, Authentication authentication) {
+    public ResponseEntity updateAccount(@Valid @RequestBody AdminDTO adminDTO, BindingResult bindingResult, Authentication authentication) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
@@ -119,11 +116,11 @@ public class AdminRestController {
         }
         try {
             Admin admin = (Admin) authentication.getPrincipal();
-            admin.setUsername(adminDto.getUsername());
-            admin.setEmail(adminDto.getEmail());
+            admin.setUsername(adminDTO.getUsername());
+            admin.setEmail(adminDTO.getEmail());
 
-            if (adminDto.getPassword() != null) {
-                admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
+            if (adminDTO.getPassword() != null) {
+                admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
                 admin.setLastPasswordResetDate(new Date());
             }
 
@@ -139,7 +136,7 @@ public class AdminRestController {
     }
 
     @PutMapping("/update/subscriber")
-    public ResponseEntity updateSubscriber(@RequestParam() String phoneNumber, @Valid @RequestBody SubscriberDto subscriberDto, BindingResult bindingResult) {
+    public ResponseEntity updateSubscriber(@RequestParam() String phoneNumber, @Valid @RequestBody SubscriberDTO subscriberDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
@@ -151,17 +148,17 @@ public class AdminRestController {
             if (subscriber == null) {
                 return ResponseEntity.badRequest().body("Subscriber was not found!");
             }
-            subscriber.setPhone(subscriberDto.getPhone());
-            subscriber.setFirstName(subscriberDto.getFirstName());
-            subscriber.setLastName(subscriberDto.getLastName());
+            subscriber.setPhone(subscriberDTO.getPhone());
+            subscriber.setFirstName(subscriberDTO.getFirstName());
+            subscriber.setLastName(subscriberDTO.getLastName());
 
-            if (subscriberDto.getAddress() != null && subscriber.getAddress() == null) {
-                Address address = subscriberDto.getAddress();
-                addressService.create(subscriberDto.getAddress());
+            if (subscriberDTO.getAddress() != null && subscriber.getAddress() == null) {
+                Address address = subscriberDTO.getAddress();
+                addressService.create(subscriberDTO.getAddress());
                 subscriber.setAddress(address);
-            } else if (subscriberDto.getAddress() != null && subscriber.getAddress() != null) {
-                subscriberDto.getAddress().setId(subscriber.getAddress().getId());
-                addressService.update(subscriberDto.getAddress());
+            } else if (subscriberDTO.getAddress() != null && subscriber.getAddress() != null) {
+                subscriberDTO.getAddress().setId(subscriber.getAddress().getId());
+                addressService.update(subscriberDTO.getAddress());
             }
             if (!subscriberService.update(subscriber)) {
                 return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
@@ -177,7 +174,7 @@ public class AdminRestController {
     }
 
     @PutMapping("/update/client")
-    public ResponseEntity updateClient(@RequestParam("username") String username, @Valid @RequestBody ClientDto clientDto, BindingResult bindingResult) {
+    public ResponseEntity updateClient(@RequestParam("username") String username, @Valid @RequestBody ClientDTO clientDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
@@ -229,25 +226,25 @@ public class AdminRestController {
     }
 
     @GetMapping("/register/admin")
-    public AdminDto registerAdmin() {
-        return new AdminDto();
+    public AdminDTO registerAdmin() {
+        return new AdminDTO();
     }
 
     @PostMapping("/register/admin")
-    public ResponseEntity<?> registerAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) {
+    public ResponseEntity<?> registerAdmin(@Valid @RequestBody AdminDTO adminDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
             return ResponseEntity.badRequest().body(message);
         }
-        if (adminDto.getPassword() == null) {
+        if (adminDTO.getPassword() == null) {
             return ResponseEntity.badRequest().body("Password can not be empty!");
         }
         try {
             Admin admin = new Admin();
-            admin.setUsername(adminDto.getUsername());
-            admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
-            admin.setEmail(adminDto.getEmail());
+            admin.setUsername(adminDTO.getUsername());
+            admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
+            admin.setEmail(adminDTO.getEmail());
             Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
             admin.setAuthority(authority);
 
@@ -264,12 +261,12 @@ public class AdminRestController {
     }
 
     @GetMapping("/register/client")
-    public ClientDto registerClient() {
-        return new ClientDto();
+    public ClientDTO registerClient() {
+        return new ClientDTO();
     }
 
     @PostMapping("/register/client")
-    public ResponseEntity<?> registerClient(@Valid @RequestBody ClientDto clientDto, BindingResult bindingResult) {
+    public ResponseEntity<?> registerClient(@Valid @RequestBody ClientDTO clientDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
@@ -299,15 +296,15 @@ public class AdminRestController {
     }
 
     @GetMapping("/create/subscriber")
-    public SubscriberDto createSubscriber() {
-        SubscriberDto subscriberDto = new SubscriberDto();
-        subscriberDto.setAddress(new Address());
+    public SubscriberDTO createSubscriber() {
+        SubscriberDTO subscriberDTO = new SubscriberDTO();
+        subscriberDTO.setAddress(new Address());
 
-        return subscriberDto;
+        return subscriberDTO;
     }
 
     @PostMapping("/create/subscriber")
-    public ResponseEntity<?> createSubscriber(@Valid @RequestBody SubscriberDto subscriberDto, BindingResult bindingResult) {
+    public ResponseEntity<?> createSubscriber(@Valid @RequestBody SubscriberDTO subscriberDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
@@ -315,14 +312,14 @@ public class AdminRestController {
         }
         try {
             Subscriber subscriber = new Subscriber();
-            subscriber.setFirstName(subscriberDto.getFirstName());
-            subscriber.setLastName(subscriberDto.getLastName());
-            subscriber.setPhone(subscriberDto.getPhone());
-            subscriber.setEgn(subscriberDto.getEgn());
+            subscriber.setFirstName(subscriberDTO.getFirstName());
+            subscriber.setLastName(subscriberDTO.getLastName());
+            subscriber.setPhone(subscriberDTO.getPhone());
+            subscriber.setEgn(subscriberDTO.getEgn());
 
-            if (subscriberDto.getAddress() != null) {
-                Address address = subscriberDto.getAddress();
-                addressService.create(subscriberDto.getAddress());
+            if (subscriberDTO.getAddress() != null) {
+                Address address = subscriberDTO.getAddress();
+                addressService.create(subscriberDTO.getAddress());
                 subscriber.setAddress(address);
             }
 
@@ -359,13 +356,13 @@ public class AdminRestController {
         return ResponseEntity.badRequest().body("Subscriber not found!");
     }
 
-    @GetMapping("/generate/bill")
-    public BillingRecordDto createBill() {
-        return new BillingRecordDto();
+    @GetMapping("/generate/invoice")
+    public InvoiceDTO createInvoice() {
+        return new InvoiceDTO();
     }
 
-    @PostMapping("/generate/bill")
-    public ResponseEntity<?> generateBill(@Valid @RequestBody BillingRecordDto billingRecordDto, BindingResult bindingResult) {
+    @PostMapping("/generate/invoice")
+    public ResponseEntity<?> createInvoice(@Valid @RequestBody InvoiceDTO invoiceDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
@@ -373,36 +370,36 @@ public class AdminRestController {
         }
         try {
 
-            Subscriber subscriber = subscriberService.getByNumber(billingRecordDto.getSubscriberPhone());
+            Subscriber subscriber = subscriberService.getByNumber(invoiceDTO.getSubscriberPhone());
             if (subscriber == null) {
                 return ResponseEntity.badRequest().body("Subscriber phone not found!");
             }
 
-            OfferedServices offeredServices = offeredServicesService.getByName(billingRecordDto.getService().toUpperCase());
+            OfferedServices offeredServices = offeredServicesService.getByName(invoiceDTO.getService().toUpperCase());
             if(offeredServices == null) {
                 return ResponseEntity.badRequest().body("Not a valid service!");
             }
 
-            Currency currency = currencyService.getByName(billingRecordDto.getCurrency().toUpperCase());
+            Currency currency = currencyService.getByName(invoiceDTO.getCurrency().toUpperCase());
             if (currency == null) {
                 return ResponseEntity.badRequest().body("Currency not found!");
             }
 
-            BillingRecord billingRecord = new BillingRecord();
-            billingRecord.setSubscriber(subscriber);
-            billingRecord.setCurrency(currency);
-            Date startDate = dateFormat.parse(billingRecordDto.getStartDate());
-            Date endDate = dateFormat.parse(billingRecordDto.getEndDate());
-            billingRecord.setStartDate(startDate);
-            billingRecord.setEndDate(endDate);
-            billingRecord.setAmount(Double.parseDouble(billingRecordDto.getAmount()));
-            billingRecord.setOfferedServices(offeredServices);
+            Invoice invoice = new Invoice();
+            invoice.setSubscriber(subscriber);
+            invoice.setCurrency(currency);
+            Date startDate = dateFormat.parse(invoiceDTO.getStartDate());
+            Date endDate = dateFormat.parse(invoiceDTO.getEndDate());
+            invoice.setStartDate(startDate);
+            invoice.setEndDate(endDate);
+            invoice.setAmount(Double.parseDouble(invoiceDTO.getAmount()));
+            invoice.setOfferedServices(offeredServices);
 
-            billingService.create(billingRecord);
+            invoiceService.create(invoice);
 
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
         }
-        return ResponseEntity.ok("Bill successfully added!");
+        return ResponseEntity.ok("Invoice successfully added!");
     }
 }

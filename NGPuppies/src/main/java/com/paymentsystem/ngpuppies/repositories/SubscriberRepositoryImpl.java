@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.repositories;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import org.hibernate.JDBCException;
@@ -10,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceException;
-import javax.persistence.Query;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Repository
 public class SubscriberRepositoryImpl implements SubscriberRepository {
     @Autowired
@@ -128,5 +131,53 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
         }
 
         return false;
+    }
+
+    @Override
+    public Map<Subscriber, Double> getTopTenSubscribers(Integer clientId) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            String query = String.format(
+                    "SELECT s, SUM(i.BGNAmount) as totalAmount" +
+                            " FROM Subscriber s" +
+                            " JOIN Invoice i ON s.id = i.subscriber.id" +
+                            " WHERE s.client.id=%s" +
+                            " AND i.payedDate IS NOT NULL " +
+                            " GROUP BY s" +
+                            " ORDER BY totalAmount DESC", clientId);
+            Object[] resultSet = session.createQuery(query).setMaxResults(10).list().toArray();
+            session.getTransaction().commit();
+
+            Map<Subscriber,Double> result = new HashMap<>();
+            for (Object o: resultSet) {
+                Object[] res = (Object[]) o;
+                result.put((Subscriber) res[0], (Double) res[1]);
+            }
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new HashMap<>();
+    }
+    @Override
+    public Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate) {
+        try (Session session = sessionFactory.openSession()) {
+            String query = String.format(
+                    "SELECT avg(i.BGNAmount)" +
+                            " FROM Subscriber s" +
+                            " JOIN Invoice i ON s.id=i.subscriber.id" +
+                            " WHERE s.id=%s" +
+                            " AND i.payedDate >= '%s' and i.payedDate <= '%s'", subscriberId,fromDate,toDate);
+            List<Double> avgAmount = session.createQuery(query).list();
+            if (avgAmount.size() > 0) {
+                return avgAmount.get(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0D;
     }
 }

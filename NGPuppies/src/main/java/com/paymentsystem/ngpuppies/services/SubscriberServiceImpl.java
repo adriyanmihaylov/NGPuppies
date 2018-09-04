@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class SubscriberServiceImpl implements SubscriberService {
     @Autowired
@@ -23,6 +25,11 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
     @Override
+    public boolean create(Subscriber subscriber) throws Exception {
+        return subscriberRepository.create(subscriber);
+    }
+
+    @Override
     public boolean update(Subscriber updatedSubscriber) throws Exception {
         return subscriberRepository.update(updatedSubscriber);
     }
@@ -33,7 +40,12 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
     @Override
-    public boolean create(Subscriber subscriber) throws Exception {
-        return subscriberRepository.create(subscriber);
+    public Map<Subscriber, Double> getTopTenSubscribers(Integer clientId) {
+        return subscriberRepository.getTopTenSubscribers(clientId);
+    }
+
+    @Override
+    public Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate) {
+        return subscriberRepository.getSubscriberAverageInvoiceSumPaid(subscriberId,fromDate,toDate);
     }
 }

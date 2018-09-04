@@ -3,6 +3,7 @@ package com.paymentsystem.ngpuppies.viewModels;
 import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,25 +18,22 @@ public class SubscriberViewModel {
 
     public Address address;
 
-    public ClientViewModel client;
+    public String client;
 
-    public Set<BillingRecordSimpleViewModel> billingRecordList;
+    public double totalAmount;
 
 
-    public static SubscriberViewModel fromModel(Subscriber subscriber) {
+    public static SubscriberViewModel fromModel(Subscriber subscriber,Double totalAmount) {
+        SubscriberViewModel vm = new SubscriberViewModel();
+
         if (subscriber != null) {
-            SubscriberViewModel vm = new SubscriberViewModel();
             vm.id = subscriber.getId();
             vm.phoneNumber = subscriber.getPhone();
             vm.firstName = subscriber.getFirstName();
             vm.EGN = subscriber.getEgn();
             vm.address = subscriber.getAddress();
-            vm.client = ClientViewModel.fromModel(subscriber.getClient());
-
-            vm.billingRecordList = subscriber.getBillingRecords()
-                    .stream()
-                    .map(BillingRecordSimpleViewModel::fromModel)
-                    .collect(Collectors.toSet());
+            vm.client = subscriber.getClient().getUsername();
+            vm.totalAmount = totalAmount;
 
             return vm;
         }
