@@ -20,10 +20,10 @@
 				<a class="nav-link" ui-sref="home">NGPuppies</a>
 			</li>
 			<li class="nav-item" ng-if="role == 'ROLE_ADMIN'">
-				<a class="nav-link" ui-sref="admins">Admins <span class="sr-only">(current)</span></a>
+				<a class="nav-link" ui-sref="admins">Admins </a>
 			</li>
 			<li class="nav-item" ng-if="role == 'ROLE_ADMIN'">
-				<a class="nav-link" ui-sref="Clients">Admins <span class="sr-only">(current)</span></a>
+				<a class="nav-link" ui-sref="clients">Clients</a>
 			</li>
 			<li class="nav-item" ng-if="role == 'ROLE_ADMIN'">
 				<a class="nav-link disabled" ui-sref="register">Register</a>
@@ -33,6 +33,9 @@
 			</li>
 			<li class="nav-item" ng-if="role == 'ROLE_CLIENT'">
 				<a class="nav-link disabled" ui-sref="payBill">Pay Bills</a>
+			</li>
+			<li class="nav-item">
+				<a ng-click="logout()"  class="nav-link disabled" >Logout</a>
 			</li>
 		</ul>
 	</div>
