@@ -1,17 +1,15 @@
 package com.paymentsystem.ngpuppies.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.users.Client;
-import com.paymentsystem.ngpuppies.services.SubscriberServiceImpl;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
 import com.paymentsystem.ngpuppies.services.base.ClientService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import com.paymentsystem.ngpuppies.validator.DateValidator;
 import com.paymentsystem.ngpuppies.viewModels.InvoiceSimpleViewModel;
 import com.paymentsystem.ngpuppies.viewModels.SubscriberSimpleViewModel;
-import com.paymentsystem.ngpuppies.viewModels.SubscriberViewModel;
+import com.paymentsystem.ngpuppies.viewModels.TopSubscriberViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -193,14 +188,14 @@ public class ClientRestController {
     }
 
     @GetMapping("/subscriber/top10")
-    public List<SubscriberViewModel> getTenTopSubscribersWithBiggestBillsPayed(Authentication authentication) {
+    public List<TopSubscriberViewModel> getTenTopSubscribersWithBiggestBillsPayed(Authentication authentication) {
         try {
             Client client = (Client) authentication.getPrincipal();
             Map<Subscriber, Double> subscribers = subscriberService.getTopTenSubscribers(client.getId());
-            List<SubscriberViewModel> result = new ArrayList<>();
+            List<TopSubscriberViewModel> result = new ArrayList<>();
 
             for(Map.Entry<Subscriber,Double> entry : subscribers.entrySet()) {
-                result.add(SubscriberViewModel.fromModel(entry.getKey(), entry.getValue()));
+                result.add(TopSubscriberViewModel.fromModel(entry.getKey(), entry.getValue()));
             }
             return result;
 
