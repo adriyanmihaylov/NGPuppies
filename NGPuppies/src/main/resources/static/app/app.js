@@ -7,7 +7,7 @@ app.run(function(AuthService, $rootScope,$state,$timeout) {
                 event.preventDefault();
                 $state.go('login');
             }
-        }
+        } 
         if (toState.data && toState.data.role) {
             if (toState.data.role !== AuthService.role) {
                 event.preventDefault();
@@ -19,15 +19,10 @@ app.run(function(AuthService, $rootScope,$state,$timeout) {
     function getToken() {
         if (localStorage.getItem('token') !== null) {
             AuthService.setToken(localStorage.getItem('token'));
-
-            event.preventDefault();
-
-            //TODO fix that - $emit & $broadcast doesn't work because NavController is loaded after this one
-            $timeout(function () {
+            $timeout( function(){
                 $rootScope.$broadcast('LoginSuccessful');
-            }, 500);
+            }, 500 );
         }
-
-        getToken();
     }
-})
+    getToken();
+});

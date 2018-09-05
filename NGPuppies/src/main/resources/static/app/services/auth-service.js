@@ -16,7 +16,7 @@ app.service('AuthService', function($rootScope,$http) {
             if(this.expiration > new Date()) {
                 $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
                 this.isTokenExpired = false;
-                this.username = decodedJwtData.sub;
+                this.username = "username";
                 this.isAuthenticated = true;
                 this.role = decodedJwtData.role[0].authority;
                 $rootScope.$broadcast('LoginSuccessful');
