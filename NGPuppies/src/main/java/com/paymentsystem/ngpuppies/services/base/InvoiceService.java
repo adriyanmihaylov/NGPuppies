@@ -5,11 +5,16 @@ import com.paymentsystem.ngpuppies.models.Invoice;
 import java.util.List;
 
 public interface InvoiceService {
+
+    Invoice getById(Integer id);
+
     List<Invoice> getAll();
 
     boolean create(Invoice invoice);
 
     boolean update(List<Invoice> invoice);
+
+    boolean delete(Invoice invoice);
 
     boolean payInvoices(List<Invoice> allInvoices);
 

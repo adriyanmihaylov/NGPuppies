@@ -37,6 +37,20 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
+    public Invoice getById(Integer id) {
+        Invoice invoice = null;
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            invoice = session.get(Invoice.class, id);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return invoice;
+    }
+
+    @Override
     public boolean create(Invoice invoice) {
         Session session = null;
         Transaction transaction = null;
@@ -89,6 +103,19 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean delete(Invoice invoice) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.delete(invoice);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean payInvoices(List<Invoice> allInvoices) {

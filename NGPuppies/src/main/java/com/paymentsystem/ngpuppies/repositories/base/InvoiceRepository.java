@@ -7,9 +7,13 @@ import java.util.List;
 public interface InvoiceRepository {
     List<Invoice> getAll();
 
+    Invoice getById(Integer id);
+
     boolean create(Invoice invoices);
 
     boolean update(List<Invoice> invoices);
+
+    boolean delete(Invoice invoice);
 
     boolean payInvoices(List<Invoice> allInvoices);
 

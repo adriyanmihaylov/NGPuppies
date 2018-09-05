@@ -6,7 +6,7 @@ import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import com.paymentsystem.ngpuppies.validator.DateValidator;
-import com.paymentsystem.ngpuppies.viewModels.InvoiceSimpleViewModel;
+import com.paymentsystem.ngpuppies.viewModels.InvoiceViewModel;
 import com.paymentsystem.ngpuppies.viewModels.SubscriberViewModel;
 import com.paymentsystem.ngpuppies.viewModels.TopSubscriberViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +17,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -61,13 +55,13 @@ public class ClientRestController {
     }
 
     @GetMapping("/invoices/unpaid")
-    public List<InvoiceSimpleViewModel> getAllUnpaidInvoices(Authentication authentication) {
+    public List<InvoiceViewModel> getAllUnpaidInvoices(Authentication authentication) {
         try {
             Client client = (Client) authentication.getPrincipal();
-            List<InvoiceSimpleViewModel> allUnpaidInvoicesOfCurrentClient =
+            List<InvoiceViewModel> allUnpaidInvoicesOfCurrentClient =
                     invoiceService.geAllUnpaidInvoicesOfAllClientSubscribers(client.getId())
                             .stream()
-                            .map(InvoiceSimpleViewModel::fromModel)
+                            .map(InvoiceViewModel::fromModel)
                             .collect(Collectors.toList());
 
             return allUnpaidInvoicesOfCurrentClient;
@@ -77,15 +71,15 @@ public class ClientRestController {
     }
 
     @GetMapping("/subscriber/{phone}/invoices")
-    public List<InvoiceSimpleViewModel> getAllInvoicesOfSubscriber(@PathVariable("phone") String phoneNumber,
-                                                                   Authentication authentication) {
+    public List<InvoiceViewModel> getAllInvoicesOfSubscriber(@PathVariable("phone") String phoneNumber,
+                                                             Authentication authentication) {
         try {
             SubscriberViewModel subscriber = getSubscriberOfCurrentlyLoggedClient(phoneNumber, authentication);
 
             if (subscriber != null) {
                 return invoiceService.getAllInvoicesOfSubscriberBySubscriberId(subscriber.id)
                         .stream()
-                        .map(InvoiceSimpleViewModel::fromModel)
+                        .map(InvoiceViewModel::fromModel)
                         .collect(Collectors.toList());
             }
         } catch (Exception e) {
@@ -96,15 +90,15 @@ public class ClientRestController {
     }
 
     @GetMapping("/subscriber/{phone}/invoices/unpaid")
-    public List<InvoiceSimpleViewModel> getAllUnpaidInvoicesOfSubscriber(@PathVariable("phone") String phoneNumber,
-                                                                         Authentication authentication) {
+    public List<InvoiceViewModel> getAllUnpaidInvoicesOfSubscriber(@PathVariable("phone") String phoneNumber,
+                                                                   Authentication authentication) {
         try {
             SubscriberViewModel subscriber = getSubscriberOfCurrentlyLoggedClient(phoneNumber, authentication);
 
             if (subscriber != null) {
                 return invoiceService.getAllUnpaidInvoicesOfSubscriberInDescOrder(subscriber.id)
                         .stream()
-                        .map(InvoiceSimpleViewModel::fromModel)
+                        .map(InvoiceViewModel::fromModel)
                         .collect(Collectors.toList());
             }
         } catch (Exception e) {
@@ -115,10 +109,10 @@ public class ClientRestController {
     }
 
     @GetMapping("/subscriber/{phone}/invoices/paid")
-    public ResponseEntity<List<InvoiceSimpleViewModel>> getSubscriberPaidInvoices(@PathVariable("phone") String subscriberPhone,
-                                                                                  @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
-                                                                                  @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
-                                                                                  Authentication authentication) {
+    public ResponseEntity<List<InvoiceViewModel>> getSubscriberPaidInvoices(@PathVariable("phone") String subscriberPhone,
+                                                                            @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
+                                                                            @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
+                                                                            Authentication authentication) {
         try {
             if (!validateDate(fromDate,endDate)) {
                 return new ResponseEntity("Invalid date", HttpStatus.BAD_REQUEST);
@@ -126,13 +120,13 @@ public class ClientRestController {
             SubscriberViewModel subscriber = getSubscriberOfCurrentlyLoggedClient(subscriberPhone, authentication);
             if (subscriber != null) {
                 List<Invoice> allPayedInvoices = invoiceService.getAllPaidInvoicesOfSubscriberInDescOrder(subscriber.id, fromDate, endDate);
-                List<InvoiceSimpleViewModel> invoiceSimpleViewModels = new ArrayList<>();
+                List<InvoiceViewModel> invoiceViewModels = new ArrayList<>();
                 if (allPayedInvoices != null) {
-                    invoiceSimpleViewModels = allPayedInvoices.stream()
-                            .map(InvoiceSimpleViewModel::fromModel)
+                    invoiceViewModels = allPayedInvoices.stream()
+                            .map(InvoiceViewModel::fromModel)
                             .collect(Collectors.toList());
                 }
-                return new ResponseEntity<>(invoiceSimpleViewModels, HttpStatus.OK);
+                return new ResponseEntity<>(invoiceViewModels, HttpStatus.OK);
             }
             return new ResponseEntity("Subscriber not found", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -163,10 +157,10 @@ public class ClientRestController {
     }
 
     @GetMapping("/subscriber/{phone}/invoices/max")
-    public InvoiceSimpleViewModel getSubscriberLargestPaidInvoice(@PathVariable("phone") String subscriberPhone,
-                                                                  @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
-                                                                  @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
-                                                                  Authentication authentication) {
+    public InvoiceViewModel getSubscriberLargestPaidInvoice(@PathVariable("phone") String subscriberPhone,
+                                                            @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
+                                                            @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
+                                                            Authentication authentication) {
         try {
             if (!validateDate(fromDate,endDate)) {
                 return null;
@@ -174,7 +168,7 @@ public class ClientRestController {
 
             SubscriberViewModel subscriber = getSubscriberOfCurrentlyLoggedClient(subscriberPhone, authentication);
             if (subscriber != null) {
-                return InvoiceSimpleViewModel.fromModel(invoiceService.getSubscriberLargestPaidInvoice(subscriber.id, fromDate, endDate));
+                return InvoiceViewModel.fromModel(invoiceService.getSubscriberLargestPaidInvoice(subscriber.id, fromDate, endDate));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -200,12 +194,12 @@ public class ClientRestController {
     }
 
     @GetMapping("/invoice/last10")
-    public List<InvoiceSimpleViewModel> getLastTenPayedInvoices(Authentication authentication) {
+    public List<InvoiceViewModel> getLastTenPayedInvoices(Authentication authentication) {
         try {
             Client client = (Client) authentication.getPrincipal();
             return invoiceService.getTenMostRecentInvoices(client.getId())
                     .stream()
-                    .map(InvoiceSimpleViewModel::fromModel)
+                    .map(InvoiceViewModel::fromModel)
                     .collect(Collectors.toList());
 
         } catch (Exception e) {

@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AmountMoneyValidator implements ConstraintValidator<ValidMoneyAmount, String> {
+public class MoneyAmountValidator implements ConstraintValidator<ValidMoneyAmount, String> {
 
     private Pattern pattern;
     private Matcher matcher;

@@ -7,6 +7,8 @@ import com.paymentsystem.ngpuppies.services.base.CurrencyService;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
 import com.paymentsystem.ngpuppies.services.base.OfferedServicesService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
+import com.paymentsystem.ngpuppies.validator.PhoneValidator;
+import com.paymentsystem.ngpuppies.viewModels.InvoiceViewModel;
 import com.paymentsystem.ngpuppies.web.ResponseHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -34,13 +37,11 @@ public class AdminInvoiceController {
     @Autowired
     private OfferedServicesService offeredServicesService;
     @Autowired
-    private CurrencyService currencyService;
-    @Autowired
     private SubscriberService subscriberService;
-    @Autowired
-    private ResponseHandler responseHandler;
 
     private final DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+
+    private PhoneValidator phoneValidator = new PhoneValidator();
 
     @GetMapping("/generate")
     @ResponseBody
@@ -104,6 +105,32 @@ public class AdminInvoiceController {
             return new ResponseEntity<>(failedInvoices, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(failedInvoices, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}/{phone}/delete")
+    public ResponseEntity<?> deleteInvoice(@PathVariable("id") Integer id,@PathVariable("phone") String subscriberPhoneNumber) {
+        if (id != null && phoneValidator.validate(subscriberPhoneNumber)) {
+            Invoice invoice = invoiceService.getById(id);
+            if (invoice != null) {
+                if (subscriberPhoneNumber.equals(invoice.getSubscriber().getPhone())) {
+                    if (invoiceService.delete(invoice)) {
+                        return new ResponseEntity<>(new Response("Invoice deleted!"), HttpStatus.OK);
+                    }
+                }
+            }
+        }
+        return new ResponseEntity<>(new Response("Invalid input!"), HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/{id}/unpaid")
+    public List<InvoiceViewModel> getAllUnpaidInvoicesOfSubscriberInDescOrder(@PathVariable("id") Integer subscriberId) {
+        if (subscriberId != null) {
+            return invoiceService.getAllUnpaidInvoicesOfSubscriberInDescOrder(subscriberId).stream()
+                    .map(InvoiceViewModel::fromModel)
+                    .collect(Collectors.toList());
+        }
+
+        return new ArrayList<>();
     }
 
     private boolean dateValidator(String fromDate, String toDate) {
