@@ -17,8 +17,9 @@ angular.module('NGPuppies')
             $scope.message = "Password incorrect";
             return;
         }
-        var create = {username: $scope.username, password: $scope.password, email: $scope.email};
+
         if ($option == "Admin") {
+            var create = {username: $scope.username, password: $scope.password, email: $scope.email};
             $http({
                 url: '/api/register/admin',
                 method: "POST",
@@ -37,6 +38,9 @@ angular.module('NGPuppies')
                 $scope.message = error.responseText;
             });
         } else if ($option == "Client") {
+            var create = {username: $scope.username, password: $scope.password, eik: $scope.eik, details: null
+
+            };
             $http({
                 url: '/api/register/client',
                 method: "POST",

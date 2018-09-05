@@ -12,9 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.sql.SQLException;
-
 @RestController
 @RequestMapping("${common.basepath}/clients")
 @PreAuthorize("hasRole('ROLE_CLIENT')")

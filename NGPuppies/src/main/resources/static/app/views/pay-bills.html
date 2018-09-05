@@ -1,0 +1,53 @@
+<div class="row justify-content-center ng-scope">
+<div class="col-12 col-md-10 col-lg-8">
+    <form class="card card-sm ng-pristine ng-valid">
+        <div class="card-body row no-gutters align-items-center">
+            <div class="col-auto">
+                <i class="fas fa-search h4 text-body"></i>
+            </div>
+            <!--end of col-->
+            <div class="col">
+                <input class="form-control form-control-lg form-control-borderless" type="search" id="phoneNumber" placeholder="Search subscriber by phone number">
+            </div>
+            <!--end of col-->
+            <div class="col-auto">
+                <button class="btn btn-lg btn-success" type="submit" ng-click = "search()">Search</button>
+            </div>
+            <!--end of col-->
+        </div>
+    </form>
+    <h1> Bills for {{subscriber}} </h1>
+    <table  class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Currency</th>
+            <th scope="col">Service</th>
+            <th scope="col">Payed status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="invoice in invoices">
+            <th scope="row">{{invoice.id}}</th>
+            <td>{{invoice.amount}}</td>
+            <td>{{invoice.service.name}}</td>
+            <td>{{invoice.currency.name}}</td>
+            <td>{{invoice.currency.payed}}</td>
+            <td><button type="button" class="btn btn-info btn-sm"
+                        ng-click="initEdit(admin)">
+                Edit
+                <span class="glyphicon glyphicon-edit"></span>
+            </button></td>
+            <td>
+                <button type="button" class="btn btn-info btn-sm"
+                        ng-click="deleteUser(admin)">
+                    Delete
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>

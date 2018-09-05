@@ -25,4 +25,14 @@ app.service('AuthService', function($rootScope,$http) {
             }
         }
     }
+    this.getAuthority = function (token) {
+
+        if (token !== null) {
+            var jwtData = token.split('.')[1];
+            var decodedJwtJsonData = window.atob(jwtData);
+            var decodedJwtData = JSON.parse(decodedJwtJsonData);
+
+        }
+        return decodedJwtData.role[0].authority;
+    }
 });
