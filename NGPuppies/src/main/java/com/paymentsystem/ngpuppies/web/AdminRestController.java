@@ -1,17 +1,15 @@
 package com.paymentsystem.ngpuppies.web;
 
 import com.paymentsystem.ngpuppies.models.*;
-import com.paymentsystem.ngpuppies.models.datatransferobjects.AdminDto;
-import com.paymentsystem.ngpuppies.models.datatransferobjects.BillingRecordDto;
-import com.paymentsystem.ngpuppies.models.datatransferobjects.ClientDto;
-import com.paymentsystem.ngpuppies.models.datatransferobjects.SubscriberDto;
+import com.paymentsystem.ngpuppies.models.dto.AdminDTO;
+import com.paymentsystem.ngpuppies.models.dto.InvoiceDTO;
+import com.paymentsystem.ngpuppies.models.dto.ClientDTO;
+import com.paymentsystem.ngpuppies.models.dto.SubscriberDTO;
 import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.services.base.*;
-import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
-import com.paymentsystem.ngpuppies.viewModels.ClientViewModel;
-import com.paymentsystem.ngpuppies.viewModels.SubscriberViewModel;
-import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
+import com.paymentsystem.ngpuppies.viewModels.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -47,7 +45,7 @@ public class AdminRestController {
     @Autowired
     private ClientDetailService clientDetailService;
     @Autowired
-    private BillingService billingService;
+    private InvoiceService invoiceService;
     @Autowired
     private CurrencyService currencyService;
     @Autowired
@@ -57,315 +55,469 @@ public class AdminRestController {
 
     private final DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
 
+    @GetMapping("/service/all")
+    public ResponseEntity<List<OfferedServiceSimpleViewModel>> getAllServices() {
+        List<OfferedServiceSimpleViewModel> viewModels = offeredServicesService.getAll().stream()
+                .map(OfferedServiceSimpleViewModel::fromModel)
+                .collect(Collectors.toList());
+        if (viewModels != null) {
+            return new ResponseEntity<>(viewModels, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/service={service}")
+    public ResponseEntity<OfferedServiceViewModel> getAllSubscribersOfService(@PathVariable("service") String serviceName) {
+        OfferedServiceViewModel viewModel = OfferedServiceViewModel.fromModel(offeredServicesService.getByName(serviceName));
+
+        if (viewModel != null) {
+            return new ResponseEntity<>(viewModel, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
     @GetMapping("/user")
-    public UserViewModel getUserByUsername(@RequestParam("username") String username) {
-        return UserViewModel.fromModel((User) userService.loadUserByUsername(username));
+    public ResponseEntity<UserViewModel> getUserByUsername(@RequestParam("username") String username) {
+        UserViewModel viewModel = UserViewModel.fromModel((User) userService.loadUserByUsername(username));
+        if (viewModel != null) {
+            return new ResponseEntity<>(viewModel, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/admin")
-    public AdminViewModel getAdminByUsername(@RequestParam("username") String username) {
-        return AdminViewModel.fromModel(adminService.loadByUsername(username));
+    public ResponseEntity<AdminViewModel> getAdminByUsername(@RequestParam("username") String username) {
+        AdminViewModel viewModel = AdminViewModel.fromModel(adminService.loadByUsername(username));
+
+        if (viewModel != null) {
+            return new ResponseEntity<>(viewModel, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/client")
-    public ClientViewModel getClientByUsername(@RequestParam("username") String username) {
-        return ClientViewModel.fromModel(clientService.loadByUsername(username));
+    public ResponseEntity<ClientViewModel> getClientByUsername(@RequestParam("username") String username) {
+        ClientViewModel viewModel = ClientViewModel.fromModel(clientService.loadByUsername(username));
+        if (viewModel != null) {
+            return new ResponseEntity<>(viewModel, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/subscriber")
-    public SubscriberViewModel getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
-        return SubscriberViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
+    public ResponseEntity<SubscriberViewModel> getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
+        SubscriberViewModel viewModel = SubscriberViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
+
+        if (viewModel != null) {
+            return new ResponseEntity<>(viewModel, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("subscriber={phone}/new/service={name}")
+    public ResponseEntity<String> addNewServiceToSubscriber(@PathVariable("phone") String subscriberPhone,
+                                                            @PathVariable("name") String serviceName) {
+        try {
+
+            Subscriber subscriber = subscriberService.getByNumber(subscriberPhone);
+            if (subscriber == null) {
+                return new ResponseEntity<>("Subscriber not found", HttpStatus.BAD_REQUEST);
+            }
+            OfferedServices offeredServices = offeredServicesService.getByName(serviceName);
+            if (offeredServices == null) {
+                return new ResponseEntity<>("Service not found", HttpStatus.BAD_REQUEST);
+            }
+            subscriber.getSubscriberServices().add(offeredServices);
+            if (subscriberService.update(subscriber)) {
+                return new ResponseEntity<>("Service successfully added", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("The subscriber already has the selected service!", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        return new ResponseEntity<>("Something went wrong!Please try again later", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("/get/users")
-    public List<UserViewModel> getAllUsers() {
-        return userService.getAll().stream()
+    public ResponseEntity<List<UserViewModel>> getAllUsers() {
+        List<UserViewModel> viewModels = userService.getAll().stream()
                 .map(UserViewModel::fromModel)
                 .collect(Collectors.toList());
+
+        if (viewModels != null) {
+            return new ResponseEntity<>(viewModels, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/get/admins")
-    public List<AdminViewModel> getAllAdmins() {
-        return adminService.getAll().stream()
+    public ResponseEntity<List<AdminViewModel>> getAllAdmins() {
+        List<AdminViewModel> viewModels = adminService.getAll().stream()
                 .map(AdminViewModel::fromModel)
                 .collect(Collectors.toList());
+
+        if (viewModels != null) {
+            return new ResponseEntity<>(viewModels, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/get/clients")
-    public List<ClientViewModel> getAllClients() {
-        return clientService.getAll().stream()
+    public ResponseEntity<List<ClientViewModel>> getAllClients() {
+        List<ClientViewModel> viewModels = clientService.getAll().stream()
                 .map(ClientViewModel::fromModel)
                 .collect(Collectors.toList());
+
+        if (viewModels != null) {
+            return new ResponseEntity<>(viewModels, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/get/subscribers")
-    public List<SubscriberViewModel> getAllSubscribers() {
-        return subscriberService.getAll().stream().map(SubscriberViewModel::fromModel).
-                collect(Collectors.toList());
+    public ResponseEntity<List<SubscriberViewModel>> getAllSubscribers() {
+        List<SubscriberViewModel> viewModels = subscriberService.getAll().stream()
+                .map(SubscriberViewModel::fromModel)
+                .collect(Collectors.toList());
+
+        if (viewModels != null) {
+            return new ResponseEntity<>(viewModels, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/account")
-    public AdminViewModel getAccount(Authentication authentication) {
-        return AdminViewModel.fromModel(adminService.loadByUsername(authentication.getName()));
+    public ResponseEntity<AdminViewModel> getAccount(Authentication authentication) {
+        AdminViewModel viewModel = AdminViewModel.fromModel(adminService.loadByUsername(authentication.getName()));
+
+        if (viewModel != null) {
+            return new ResponseEntity<>(viewModel, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/account/update")
-    public ResponseEntity updateAccount(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult, Authentication authentication) {
+    public ResponseEntity<String> updateAccount(@Valid @RequestBody AdminDTO adminDTO,
+                                                BindingResult bindingResult,
+                                                Authentication authentication) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
 
-            return ResponseEntity.badRequest().body(message);
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         }
         try {
             Admin admin = (Admin) authentication.getPrincipal();
-            admin.setUsername(adminDto.getUsername());
-            admin.setEmail(adminDto.getEmail());
+            admin.setUsername(adminDTO.getUsername());
+            admin.setEmail(adminDTO.getEmail());
 
-            if (adminDto.getPassword() != null) {
-                admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
+            if (adminDTO.getPassword() != null) {
+                admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
                 admin.setLastPasswordResetDate(new Date());
             }
 
             if (!adminService.update(admin)) {
-                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+                return new ResponseEntity<>("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (SQLException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Please try again later!");
+            return new ResponseEntity<>("Please try again later", HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.ok("Account updated!");
     }
 
-    @PutMapping("/update/subscriber")
-    public ResponseEntity updateSubscriber(@RequestParam() String phoneNumber, @Valid @RequestBody SubscriberDto subscriberDto, BindingResult bindingResult) {
+    @GetMapping("/register/admin")
+    public AdminDTO registerAdmin() {
+        return new AdminDTO();
+    }
+
+    @PostMapping("/register/admin")
+    public ResponseEntity<String> registerAdmin(@Valid @RequestBody AdminDTO adminDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
+
+        if (adminDTO.getPassword() == null) {
+            return new ResponseEntity<>("Missing password!", HttpStatus.BAD_REQUEST);
+        }
+        try {
+            Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
+            Admin admin = new Admin(adminDTO.getUsername(), adminDTO.getPassword(), adminDTO.getEmail(), authority);
+
+            if (!adminService.create(admin)) {
+                return new ResponseEntity<>("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (SQLException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Please try again later", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("Successful registration!", HttpStatus.OK);
+    }
+
+
+    @PutMapping("/update/admin")
+    public ResponseEntity<String> updateAdmin(@RequestParam String username,
+                                              @Valid @RequestBody AdminDTO adminDTO,
+                                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
 
-            return ResponseEntity.badRequest().body(message);
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
+        try {
+            Admin admin = adminService.loadByUsername(username);
+            if (admin == null) {
+                return new ResponseEntity<>(adminDTO.getUsername() + " was not found!", HttpStatus.BAD_REQUEST);
+            }
+
+            admin.setUsername(adminDTO.getUsername());
+            admin.setEmail(adminDTO.getEmail());
+            if (adminDTO.getPassword() != null) {
+                admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
+                admin.setLastPasswordResetDate(new Date());
+            }
+
+            if (!adminService.update(admin)) {
+                return new ResponseEntity<>("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (SQLException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Please try again later", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("Successful update!", HttpStatus.OK);
+    }
+
+    @GetMapping("/register/client")
+    public ClientDTO registerClient() {
+        return new ClientDTO();
+    }
+
+    @PostMapping("/register/client")
+    public ResponseEntity<String> registerClient(@Valid @RequestBody ClientDTO clientDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
+
+        if (clientDto.getPassword() == null) {
+            return new ResponseEntity<>("Missing password", HttpStatus.BAD_REQUEST);
+        }
+        try {
+            Authority authority = authorityService.getByName(AuthorityName.ROLE_CLIENT);
+            Client client = new Client(clientDto.getUsername(),
+                    clientDto.getPassword(),
+                    clientDto.getEik(),
+                    authority,
+                    clientDto.getDetails());
+
+            if (!clientService.create(client)) {
+                return new ResponseEntity<>("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (SQLException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Please try again later", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("Successful registration!", HttpStatus.OK);
+    }
+
+    @GetMapping("/create/subscriber")
+    public SubscriberDTO createSubscriber() {
+        SubscriberDTO subscriberDTO = new SubscriberDTO();
+        subscriberDTO.setAddress(new Address());
+
+        return subscriberDTO;
+    }
+
+    @PostMapping("/create/subscriber")
+    public ResponseEntity<String> createSubscriber(@Valid @RequestBody SubscriberDTO subscriberDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
+        try {
+            Subscriber subscriber = new Subscriber(subscriberDTO.getFirstName(),
+                    subscriberDTO.getLastName(),
+                    subscriberDTO.getPhone(),
+                    subscriberDTO.getEgn(),
+                    subscriberDTO.getAddress());
+
+            if (subscriberDTO.getClient() != null) {
+                Client client = clientService.loadByUsername(subscriberDTO.getClient());
+                if (client == null) {
+                    return new ResponseEntity<>("Client not found", HttpStatus.BAD_REQUEST);
+                }
+
+                subscriber.setClient(client);
+            }
+
+            if (!subscriberService.create(subscriber)) {
+                return new ResponseEntity<>("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (SQLException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Please try again later", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("Subscriber created!", HttpStatus.OK);
+    }
+
+    @PutMapping("/update/subscriber")
+    public ResponseEntity<String> updateSubscriber(@RequestParam() String phoneNumber,
+                                                   @Valid @RequestBody SubscriberDTO subscriberDTO,
+                                                   BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         }
         try {
             Subscriber subscriber = subscriberService.getByNumber(phoneNumber);
             if (subscriber == null) {
-                return ResponseEntity.badRequest().body("Subscriber was not found!");
+                return new ResponseEntity<>("Subscriber not found!", HttpStatus.BAD_REQUEST);
             }
-            subscriber.setPhone(subscriberDto.getPhone());
-            subscriber.setFirstName(subscriberDto.getFirstName());
-            subscriber.setLastName(subscriberDto.getLastName());
+            subscriber.setPhone(subscriberDTO.getPhone());
+            subscriber.setFirstName(subscriberDTO.getFirstName());
+            subscriber.setLastName(subscriberDTO.getLastName());
 
-            if (subscriberDto.getAddress() != null && subscriber.getAddress() == null) {
-                Address address = subscriberDto.getAddress();
-                addressService.create(subscriberDto.getAddress());
+            if (subscriberDTO.getClient() != null) {
+                if (subscriber.getClient() != null && !subscriberDTO.getClient().equals(subscriber.getClient().getUsername())) {
+                    Client client = clientService.loadByUsername(subscriberDTO.getClient());
+                    if (client != null) {
+                        subscriber.setClient(client);
+                    } else {
+                        return new ResponseEntity<>("Client not found!", HttpStatus.BAD_REQUEST);
+                    }
+                }
+            }
+
+            Address address = addressService.getById(subscriberDTO.getAddress().getId());
+
+            if (address != null) {
                 subscriber.setAddress(address);
-            } else if (subscriberDto.getAddress() != null && subscriber.getAddress() != null) {
-                subscriberDto.getAddress().setId(subscriber.getAddress().getId());
-                addressService.update(subscriberDto.getAddress());
-            }
-            if (!subscriberService.update(subscriber)) {
-                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+            } else {
+                if (subscriber.getAddress() != null) {
+                    int id = subscriber.getAddress().getId();
+                    subscriber.setAddress(subscriberDTO.getAddress());
+                    subscriber.getAddress().setId(id);
+                } else {
+                    return new ResponseEntity<>("Please create the address first!", HttpStatus.BAD_REQUEST);
+                }
             }
 
+            if (!subscriberService.update(subscriber)) {
+                return new ResponseEntity<>("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (SQLException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Something went wrong! Please try again later!");
+            return new ResponseEntity<>("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return ResponseEntity.ok("Subscriber updated successfully!");
+        return new ResponseEntity<>("Subscriber updated!", HttpStatus.OK);
     }
 
+
     @PutMapping("/update/client")
-    public ResponseEntity updateClient(@RequestParam("username") String username, @Valid @RequestBody ClientDto clientDto, BindingResult bindingResult) {
+    public ResponseEntity<String> updateClient(@RequestParam() String username,
+                                               @Valid @RequestBody ClientDTO clientDto,
+                                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
 
-            return ResponseEntity.badRequest().body(message);
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         }
-        ClientDetail details = null;
         try {
             Client client = clientService.loadByUsername(username);
             if (client == null) {
-                return ResponseEntity.badRequest().body("Client was not found!");
+                return new ResponseEntity<>("Client not found!", HttpStatus.BAD_REQUEST);
             }
+
             client.setUsername(clientDto.getUsername());
             client.setEik(clientDto.getEik());
-            if (clientDto.getPassword() != null) {
-                if (clientDto.getPassword().length() < 6) {
-                    return ResponseEntity.badRequest().body("Password must be at least 6 characters");
-                } else if (clientDto.getPassword().length() > 100) {
-                    return ResponseEntity.badRequest().body("Password must be less than 100 characters");
+
+            if (clientDto.getDetails() != null) {
+                ClientDetail clientDetail = clientDetailService.getById(clientDto.getDetails().getId());
+
+                if (clientDetail != null) {
+                    client.setDetails(clientDetail);
+                } else {
+                    int id = client.getDetails().getId();
+                    client.setDetails(clientDto.getDetails());
+                    client.getDetails().setId(id);
+
                 }
+            }
+
+            if (clientDto.getPassword() != null) {
                 client.setPassword(passwordEncoder.encode(clientDto.getPassword()));
                 client.setLastPasswordResetDate(new Date());
             }
-            if (clientDto.getDetails() != null && client.getDetails() == null) {
-                details = clientDto.getDetails();
-                if (!clientDetailService.create(details)) {
-                    return ResponseEntity.badRequest().body("Some error happened when saving details!");
-                }
-
-                client.setDetails(details);
-            } else if (clientDto.getDetails() != null && client.getDetails() != null) {
-                clientDto.getDetails().setId(client.getDetails().getId());
-                clientDetailService.update(clientDto.getDetails());
-            }
-
             if (!clientService.update(client)) {
-                if (details != null) {
-                    clientDetailService.delete(details);
-                }
-                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+                return new ResponseEntity<>("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
             }
+
         } catch (SQLException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Please try again later!");
+            return new ResponseEntity<>("Please try again later", HttpStatus.BAD_REQUEST);
         }
 
-        return ResponseEntity.ok("Subscriber updated successfully!");
-    }
-
-    @GetMapping("/register/admin")
-    public AdminDto registerAdmin() {
-        return new AdminDto();
-    }
-
-    @PostMapping("/register/admin")
-    public ResponseEntity<?> registerAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-            return ResponseEntity.badRequest().body(message);
-        }
-        if (adminDto.getPassword() == null) {
-            return ResponseEntity.badRequest().body("Password can not be empty!");
-        }
-        try {
-            Admin admin = new Admin();
-            admin.setUsername(adminDto.getUsername());
-            admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
-            admin.setEmail(adminDto.getEmail());
-            Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
-            admin.setAuthority(authority);
-
-            if (!adminService.create(admin)) {
-                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
-            }
-        } catch (SQLException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Please try again later!");
-        }
-
-        return ResponseEntity.ok("Successful registration!");
-    }
-
-    @GetMapping("/register/client")
-    public ClientDto registerClient() {
-        return new ClientDto();
-    }
-
-    @PostMapping("/register/client")
-    public ResponseEntity<?> registerClient(@Valid @RequestBody ClientDto clientDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-            return ResponseEntity.badRequest().body(message);
-        }
-        if (clientDto.getPassword() == null) {
-            return ResponseEntity.badRequest().body("Password can not be empty!");
-        }
-        try {
-            Client client = new Client();
-            client.setUsername(clientDto.getUsername());
-            client.setPassword(passwordEncoder.encode(clientDto.getPassword()));
-            client.setEik(clientDto.getEik());
-            Authority authority = authorityService.getByName(AuthorityName.ROLE_CLIENT);
-            client.setAuthority(authority);
-
-            if (!clientService.create(client)) {
-                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
-            }
-        } catch (SQLException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Please try again later!");
-        }
-
-        return ResponseEntity.ok("Successful registration!");
-    }
-
-    @GetMapping("/create/subscriber")
-    public SubscriberDto createSubscriber() {
-        SubscriberDto subscriberDto = new SubscriberDto();
-        subscriberDto.setAddress(new Address());
-
-        return subscriberDto;
-    }
-
-    @PostMapping("/create/subscriber")
-    public ResponseEntity<?> createSubscriber(@Valid @RequestBody SubscriberDto subscriberDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-            return ResponseEntity.badRequest().body(message);
-        }
-        try {
-            Subscriber subscriber = new Subscriber();
-            subscriber.setFirstName(subscriberDto.getFirstName());
-            subscriber.setLastName(subscriberDto.getLastName());
-            subscriber.setPhone(subscriberDto.getPhone());
-            subscriber.setEgn(subscriberDto.getEgn());
-
-            if (subscriberDto.getAddress() != null) {
-                Address address = subscriberDto.getAddress();
-                addressService.create(subscriberDto.getAddress());
-                subscriber.setAddress(address);
-            }
-
-            if (!subscriberService.create(subscriber)) {
-                return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
-            }
-        } catch (SQLException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Please try again later!");
-        }
-
-        return ResponseEntity.ok("Subscriber created!");
+        return new ResponseEntity<>("Client updated!", HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/user")
-    public ResponseEntity<?> deleteUserByUsername(@RequestParam() String username) {
+    public ResponseEntity<String> deleteUserByUsername(@RequestParam() String username) {
         User user = (User) userService.loadUserByUsername(username);
-        if (userService.delete(user)) {
-            return ResponseEntity.ok("User deleted!");
-        }
+        if (!userService.delete(user)) {
+            return new ResponseEntity<>("User not found!", HttpStatus.BAD_REQUEST);
 
-        return ResponseEntity.badRequest().body("User not found!");
+        }
+        return new ResponseEntity<>("User " + username + " deleted successfully", HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/subscriber")
-    public ResponseEntity<?> deleteByNumber(@RequestParam("number") String phoneNumber) {
+    public ResponseEntity<String> deleteByNumber(@RequestParam("number") String phoneNumber) {
         Subscriber subscriber = subscriberService.getByNumber(phoneNumber);
 
         if (subscriberService.delete(subscriber)) {
-            return ResponseEntity.ok("Subscriber was successfully deleted");
+            return new ResponseEntity<>("Subscriber not found!", HttpStatus.BAD_REQUEST);
+
         }
 
-        return ResponseEntity.badRequest().body("Subscriber not found!");
+        return new ResponseEntity<>("Subscriber deleted successfully", HttpStatus.OK);
     }
 
-    @GetMapping("/generate/bill")
-    public BillingRecordDto createBill() {
-        return new BillingRecordDto();
+    @GetMapping("/generate/invoice")
+    public InvoiceDTO createInvoice() {
+        return new InvoiceDTO();
     }
 
-    @PostMapping("/generate/bill")
-    public ResponseEntity<?> generateBill(@Valid @RequestBody BillingRecordDto billingRecordDto, BindingResult bindingResult) {
+    @PostMapping("/generate/invoice")
+    public ResponseEntity<String> createInvoice(@Valid @RequestBody InvoiceDTO invoiceDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             FieldError error = bindingResult.getFieldErrors().get(0);
             String message = error.getDefaultMessage();
@@ -373,36 +525,39 @@ public class AdminRestController {
         }
         try {
 
-            Subscriber subscriber = subscriberService.getByNumber(billingRecordDto.getSubscriberPhone());
+            Subscriber subscriber = subscriberService.getByNumber(invoiceDTO.getSubscriberPhone());
             if (subscriber == null) {
-                return ResponseEntity.badRequest().body("Subscriber phone not found!");
+                return new ResponseEntity<>("Subscriber phone not found!", HttpStatus.BAD_REQUEST);
             }
 
-            OfferedServices offeredServices = offeredServicesService.getByName(billingRecordDto.getService().toUpperCase());
-            if(offeredServices == null) {
-                return ResponseEntity.badRequest().body("Not a valid service!");
+            OfferedServices offeredServices = offeredServicesService.getByName(invoiceDTO.getService().toUpperCase());
+            if (offeredServices == null) {
+                return new ResponseEntity<>("Offered service not found!", HttpStatus.BAD_REQUEST);
             }
 
-            Currency currency = currencyService.getByName(billingRecordDto.getCurrency().toUpperCase());
+            Currency currency = currencyService.getByName(invoiceDTO.getCurrency().toUpperCase());
             if (currency == null) {
-                return ResponseEntity.badRequest().body("Currency not found!");
+                return new ResponseEntity<>("Currency not found!", HttpStatus.BAD_REQUEST);
             }
 
-            BillingRecord billingRecord = new BillingRecord();
-            billingRecord.setSubscriber(subscriber);
-            billingRecord.setCurrency(currency);
-            Date startDate = dateFormat.parse(billingRecordDto.getStartDate());
-            Date endDate = dateFormat.parse(billingRecordDto.getEndDate());
-            billingRecord.setStartDate(startDate);
-            billingRecord.setEndDate(endDate);
-            billingRecord.setAmount(Double.parseDouble(billingRecordDto.getAmount()));
-            billingRecord.setOfferedServices(offeredServices);
+            Invoice invoice = new Invoice();
+            invoice.setSubscriber(subscriber);
+            invoice.setCurrency(currency);
+            invoice.setStartDate(dateFormat.parse(invoiceDTO.getStartDate()));
+            invoice.setEndDate(dateFormat.parse(invoiceDTO.getEndDate()));
+            invoice.setAmount(Double.parseDouble(invoiceDTO.getAmount()));
+            invoice.setOfferedServices(offeredServices);
 
-            billingService.create(billingRecord);
+            invoiceService.create(invoice);
 
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+            return new ResponseEntity<>("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return ResponseEntity.ok("Bill successfully added!");
+        return new ResponseEntity<>("Invoice successfully added!", HttpStatus.OK);
+    }
+
+    @ExceptionHandler(SQLException.class)
+    public ResponseEntity<String> handleAuthenticationException(SQLException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

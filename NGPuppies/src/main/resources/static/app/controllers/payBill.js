@@ -6,8 +6,10 @@ angular.module('NGPuppies')
                 method: "GET",
                 dataType: "json"
             })
-        $scope.search = function () {
+            $scope.search = function () {
+
+            }
 
         }
-
     });
+

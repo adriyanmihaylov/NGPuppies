@@ -1,10 +1,11 @@
 package com.paymentsystem.ngpuppies.viewModels;
 
 import com.paymentsystem.ngpuppies.models.Address;
+import com.paymentsystem.ngpuppies.models.OfferedServices;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubscriberViewModel {
     public int id;
@@ -12,35 +13,33 @@ public class SubscriberViewModel {
     public String phoneNumber;
 
     public String firstName;
+
     public String lastName;
+
     public String EGN;
 
     public Address address;
 
-    public ClientViewModel client;
+    public String client;
 
-    public Set<BillingRecordSimpleViewModel> billingRecordList;
-
+    public List<String> services = new ArrayList<>();
 
     public static SubscriberViewModel fromModel(Subscriber subscriber) {
-        if (subscriber != null) {
-            SubscriberViewModel vm = new SubscriberViewModel();
-            vm.id = subscriber.getId();
-            vm.phoneNumber = subscriber.getPhone();
-            vm.firstName = subscriber.getFirstName();
-            vm.lastName = subscriber.getLastName();
-            vm.EGN = subscriber.getEgn();
-            vm.address = subscriber.getAddress();
-            vm.client = ClientViewModel.fromModel(subscriber.getClient());
+        SubscriberViewModel viewModel = new SubscriberViewModel();
 
-            vm.billingRecordList = subscriber.getBillingRecords()
-                    .stream()
-                    .map(BillingRecordSimpleViewModel::fromModel)
-                    .collect(Collectors.toSet());
-
-            return vm;
+        if(subscriber != null) {
+            viewModel.id = subscriber.getId();
+            viewModel.phoneNumber = subscriber.getPhone();
+            viewModel.firstName = subscriber.getFirstName();
+            viewModel.lastName = subscriber.getLastName();
+            viewModel.EGN = subscriber.getEgn();
+            viewModel.address = subscriber.getAddress();
+            viewModel.client = subscriber.getClient().getUsername();
+            for(OfferedServices offeredServices : subscriber.getSubscriberServices()) {
+                viewModel.services.add(offeredServices.getName());
+            }
         }
 
-        return null;
+        return viewModel;
     }
 }

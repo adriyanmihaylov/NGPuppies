@@ -39,6 +39,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
         }
 
-        return userRepository.loadByUsername(username);
+        return user;
     }
 }

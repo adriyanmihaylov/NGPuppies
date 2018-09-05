@@ -23,7 +23,8 @@ public class ClientDetailServiceImpl implements ClientDetailService {
     }
 
     @Override
-    public boolean delete(ClientDetail clientDetail) {
-        return clientDetailRepository.delete(clientDetail);
+    public ClientDetail getById(Integer id) {
+        return clientDetailRepository.getById(id);
     }
+
 }

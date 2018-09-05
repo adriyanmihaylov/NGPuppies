@@ -1,5 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories;
 
+import com.paymentsystem.ngpuppies.models.Address;
+import com.paymentsystem.ngpuppies.models.OfferedServices;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import org.hibernate.JDBCException;
@@ -10,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceException;
-import javax.persistence.Query;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 @Repository
 public class SubscriberRepositoryImpl implements SubscriberRepository {
     @Autowired
@@ -51,14 +53,25 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
 
     @Override
     public boolean create(Subscriber subscriber) throws Exception {
-        try (Session session = sessionFactory.openSession()) {
-            subscriber.setPhone(subscriber.getPhone());
-            session.beginTransaction();
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            Address address = subscriber.getAddress();
+
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.save(address);
             session.save(subscriber);
-            session.getTransaction().commit();
+            transaction.commit();
+            session.close();
 
             return true;
         } catch (JDBCException e) {
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
             String message = e.getSQLException().toString().toLowerCase();
 
             String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
@@ -76,7 +89,16 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
             }
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
             e.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
         }
 
         return false;
@@ -84,13 +106,26 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
 
     @Override
     public boolean update(Subscriber subscriber) throws Exception {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            Address address = subscriber.getAddress();
+
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.update(address);
             session.update(subscriber);
-            session.getTransaction().commit();
+            transaction.commit();
+            session.close();
+
             System.out.printf("UPDATED: SUBSCRIBER  Id: %d Phone: %s\n", subscriber.getId(), subscriber.getPhone());
             return true;
         } catch (PersistenceException e) {
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
             String message = e.getCause().getCause().toString().toLowerCase();
             String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
             String errorMessage;
@@ -108,7 +143,16 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
 
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
             e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
 
         return false;
@@ -128,5 +172,48 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
         }
 
         return false;
+    }
+
+    @Override
+    public Object[] getTopTenSubscribers(Integer clientId) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            String query = String.format(
+                    "SELECT s, SUM(i.BGNAmount) as totalAmount" +
+                            " FROM Subscriber s" +
+                            " JOIN Invoice i ON s.id = i.subscriber.id" +
+                            " WHERE s.client.id=%s" +
+                            " AND i.payedDate IS NOT NULL " +
+                            " GROUP BY s" +
+                            " ORDER BY totalAmount DESC", clientId);
+            Object[] result = session.createQuery(query).setMaxResults(10).list().toArray();
+            session.getTransaction().commit();
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate) {
+        try (Session session = sessionFactory.openSession()) {
+            String query = String.format(
+                    "SELECT avg(i.BGNAmount)" +
+                            " FROM Subscriber s" +
+                            " JOIN Invoice i ON s.id=i.subscriber.id" +
+                            " WHERE s.id=%s" +
+                            " AND i.payedDate >= '%s' and i.payedDate <= '%s'", subscriberId, fromDate, toDate);
+            List<Double> avgAmount = session.createQuery(query).list();
+            if (avgAmount.size() > 0) {
+                return avgAmount.get(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0D;
     }
 }

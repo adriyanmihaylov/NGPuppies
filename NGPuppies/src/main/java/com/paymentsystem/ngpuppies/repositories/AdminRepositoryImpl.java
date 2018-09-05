@@ -21,6 +21,9 @@ public class AdminRepositoryImpl implements AdminRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public List<Admin> getAll() {
         List<Admin> admins = new ArrayList<>();
@@ -76,6 +79,7 @@ public class AdminRepositoryImpl implements AdminRepository {
     public boolean create(Admin admin) throws Exception {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
+            admin.setPassword(passwordEncoder.encode(admin.getPassword()));
             admin.setEnabled(Boolean.FALSE);
             session.save(admin);
             session.getTransaction().commit();
@@ -96,7 +100,7 @@ public class AdminRepositoryImpl implements AdminRepository {
                     errorMessage = "Email is present";
                     break;
                 default:
-                    System.out.println("Something went wrong in the database on admin CREATE!");
+                    System.out.println("Something went wrong in the database method CREATE Admin!");
                     throw new Exception();
             }
 
@@ -131,7 +135,7 @@ public class AdminRepositoryImpl implements AdminRepository {
                         errorMessage = "Email is present";
                         break;
                     default:
-                        System.out.println("Something went wrong in the database on admin UPDATE!");
+                        System.out.println("Something went wrong in the database method UPDATE admin!");
                         throw new Exception();
                 }
 

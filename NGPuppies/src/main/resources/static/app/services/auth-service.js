@@ -2,7 +2,7 @@ app.service('AuthService', function($rootScope,$http) {
     this.username = null;
     this.isAuthenticated = false;
     this.role = null;
-    // this.isTokenExpired = true;
+    this.isTokenExpired = true;
 
 
     this.setToken = function(token) {
@@ -15,7 +15,7 @@ app.service('AuthService', function($rootScope,$http) {
 
             if(this.expiration > new Date()) {
                 $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-                // this.isTokenExpired = false;
+                this.isTokenExpired = false;
                 this.username = decodedJwtData.sub;
                 this.isAuthenticated = true;
                 this.role = decodedJwtData.role[0].authority;

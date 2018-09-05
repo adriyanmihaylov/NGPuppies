@@ -1,9 +1,9 @@
 //package com.paymentsystem.ngpuppies.ServiceTests;
 //
-//import com.paymentsystem.ngpuppies.models.BillingRecord;
-//import com.paymentsystem.ngpuppies.repositories.base.BillingRecordRepository;
-//import com.paymentsystem.ngpuppies.services.BillingServiceImpl;
-//import com.paymentsystem.ngpuppies.services.base.BillingService;
+//import com.paymentsystem.ngpuppies.models.Invoice;
+//import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
+//import com.paymentsystem.ngpuppies.services.BillingRecordServiceImpl;
+//import com.paymentsystem.ngpuppies.services.base.InvoiceService;
 //import org.junit.Assert;
 //import org.junit.Before;
 //import org.junit.Test;
@@ -19,29 +19,29 @@
 //@RunWith(MockitoJUnitRunner.class)
 //public class BillingServiceGetAllTests {
 //    @Mock
-//    private BillingRecordRepository recordMockRepository;
+//    private InvoiceRepository recordMockRepository;
 //
-//    private List<BillingRecord> records;
-//    private BillingServiceImpl service;
+//    private List<Invoice> records;
+//    private BillingRecordServiceImpl service;
 //
 //    @Before
 //    public void beforeTest() {
 //        records = new ArrayList<>();
 //        when(recordMockRepository.getAll()).thenReturn(records);
-//        service = new BillingServiceImpl(recordMockRepository);
+//        service = new BillingRecordServiceImpl(recordMockRepository);
 //    }
 //
 //    @Test
 //    public void getAllBillingRecords_returnListOfBillingRecords() {
 //        // Arrange
-//        records.add(new BillingRecord());
-//        records.add(new BillingRecord());
-//        records.add(new BillingRecord());
-//        records.add(new BillingRecord());
-//        records.add(new BillingRecord());
+//        records.add(new Invoice());
+//        records.add(new Invoice());
+//        records.add(new Invoice());
+//        records.add(new Invoice());
+//        records.add(new Invoice());
 //
 //        // Act
-//        List<BillingRecord> actualRestaurants = service.getAll();
+//        List<Invoice> actualRestaurants = service.getAll();
 //
 //        // Assert
 //
@@ -49,7 +49,7 @@
 //    }
 //    @Test
 //    public void getALlBillingRecords_whenNoRecords_ReturnEmptyList(){
-//        List<BillingRecord> records = service.getAll();
+//        List<Invoice> records = service.getAll();
 //        int actualResult = records.size();
 //        int expectedResult = 0;
 //        Assert.assertEquals(actualResult,expectedResult);

@@ -1,12 +1,10 @@
-package com.paymentsystem.ngpuppies.models.datatransferobjects;
+package com.paymentsystem.ngpuppies.models.dto;
 
 import com.paymentsystem.ngpuppies.validator.base.ValidMoneyAmount;
 import com.paymentsystem.ngpuppies.validator.base.ValidDate;
 import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
 
-import java.sql.Date;
-
-public class BillingRecordDto {
+public class InvoiceDTO {
 
     @ValidPhone
     private String subscriberPhone;
@@ -24,7 +22,7 @@ public class BillingRecordDto {
 
     private String currency;
 
-    public BillingRecordDto() {
+    public InvoiceDTO() {
 
     }
 

@@ -29,11 +29,11 @@ public class HibernateConfiguration {
                 .addAnnotatedClass(Client.class)
                 .addAnnotatedClass(Authority.class)
                 .addAnnotatedClass(Address.class)
-                .addAnnotatedClass(BillingRecord.class)
+                .addAnnotatedClass(Invoice.class)
                 .addAnnotatedClass(ClientDetail.class)
                 .addAnnotatedClass(Currency.class)
-                .addAnnotatedClass(OfferedServices.class)
                 .addAnnotatedClass(Subscriber.class)
+                .addAnnotatedClass(OfferedServices.class)
                 .buildSessionFactory();
     }
 }
