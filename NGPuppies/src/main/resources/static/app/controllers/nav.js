@@ -1,6 +1,6 @@
 angular.module('NGPuppies')
     .controller('NavController', function($http, $scope, AuthService, $state, $rootScope,$window) {
-        $scope.$on('LoginSuccessful', function() {
+        $rootScope.$on('LoginSuccessful', function() {
             $scope.username = AuthService.username;
             $scope.isAuthenticated = AuthService.isAuthenticated;
             $scope.role = AuthService.role;
@@ -11,6 +11,7 @@ angular.module('NGPuppies')
             AuthService.isAuthenticated = false;
             AuthService.role = null;
             $window.localStorage.clear();
+            $http.defaults.headers.common['Authorization'] = null;
             $scope.isAuthenticated = false;
             $scope.role = null;
         });

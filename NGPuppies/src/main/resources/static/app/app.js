@@ -2,12 +2,13 @@ var app = angular.module('NGPuppies', [ 'ui.router' ]);
 
 app.run(function(AuthService, $rootScope,$state,$timeout) {
     $rootScope.$on('$stateChangeStart', function (event, toState) {
+        console.log("stateChangeStart()");
         if (!AuthService.isAuthenticated) {
             if (toState.name !== 'login') {
                 event.preventDefault();
                 $state.go('login');
             }
-        } 
+        }
         if (toState.data && toState.data.role) {
             if (toState.data.role !== AuthService.role) {
                 event.preventDefault();
@@ -17,11 +18,12 @@ app.run(function(AuthService, $rootScope,$state,$timeout) {
     });
 
     function getToken() {
+        console.log("getToken()");
         if (localStorage.getItem('token') !== null) {
             AuthService.setToken(localStorage.getItem('token'));
-            $timeout( function(){
+            $timeout(function () {
                 $rootScope.$broadcast('LoginSuccessful');
-            }, 500 );
+            }, 500);
         }
     }
     getToken();

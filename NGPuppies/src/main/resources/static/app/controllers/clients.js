@@ -4,7 +4,7 @@ angular.module('NGPuppies')
         var edit = false;
         $scope.buttonText = 'Create';
         var init = function() {
-            $http.get('api/get/clients').success(function(res) {
+            $http.get('api/client/all').success(function(res) {
                 $scope.admins = res;
                 $scope.userForm.$setPristine();
                 $scope.message='';
@@ -21,19 +21,20 @@ angular.module('NGPuppies')
 
         };
         $scope.deleteUser = function(admin) {
-            $http.delete('api/delete/user?username='+ admin.credentials.username).success(function(res) {
+            $http.delete('api/user/delete?username='+ admin.credentials.username).success(function(res) {
                 $scope.deleteMessage ="Success!";
                 init();
             }).error(function(error) {
                 $scope.deleteMessage = error.message;
             });
         };
-        var editUser = function(user){
+        var editUser = function(){
             console.log($scope.appAdmin.eik);
             var updateFormData = {username : $scope.appAdmin.credentials.username, password : $scope.appAdmin.credentials.password,
                 eik : $scope.appAdmin.eik, details : null};
+            var url = 'api/client/' + $scope.appAdmin.credentials.username + "/update";
             $http({
-                url : 'api/update/client?username=' +  $scope.appAdmin.credentials.username,
+                url : url,
                 method : "PUT",
                 data: JSON.stringify(updateFormData),
                 contentType: "application/json; charset=utf-8",
