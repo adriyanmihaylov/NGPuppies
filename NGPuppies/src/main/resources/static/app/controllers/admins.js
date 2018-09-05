@@ -1,6 +1,6 @@
 angular.module('NGPuppies')
 // Creating the Angular Controller
-.controller('UsersController', function($http, $scope, AuthService) {
+.controller('UsersController', function($scope,$http, AuthService) {
 	var edit = false;
 	$scope.buttonText = 'Create';
 	var init = function() {
@@ -16,48 +16,41 @@ angular.module('NGPuppies')
 	};
 	$scope.initEdit = function(appAdmin) {
 		edit = true;
-		$scope.appAdmin = appAdmin;
+		$scope.oldUsername = appAdmin.credentials.username;
+		$scope.username = appAdmin.credentials.username;
+        $scope.authority = appAdmin.credentials.authority;
+		$scope.email = appAdmin.email;
 		$scope.message='';
 
 	};
 	$scope.deleteUser = function(admin) {
-		$http.delete('api/delete/user?username='+ admin.credentials.username).success(function(res) {
+		$http.delete('api/delete/user?username=' + admin.username).success(function(res) {
 			$scope.deleteMessage ="Success!";
 			init();
 		}).error(function(error) {
 			$scope.deleteMessage = error.message;
 		});
 	};
-	var editUser = function(user){
-        var updateFormData = {username : $scope.appAdmin.credentials.username, password : $scope.appAdmin.credentials.password,
-							email : $scope.appAdmin.email};
-        $http({
-            url : 'api/account/update',
-            method : "PUT",
-            data: JSON.stringify(updateFormData),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json"
-        }).success(function(res) {
-			$scope.appAdmin = null;
-			$scope.confirmPassword = null;
-			// $scope.userForm.$setPristine();
-            $scope.message = "Success";
-			init();
-		}).error(function(error) {
-			$scope.message =error.message;
-		});
-	};
-	var addUser = function(){
-		$http.post('api/admins', $scope.appAdmin).success(function(res) {
-			$scope.appAdmin = null;
-			$scope.confirmPassword = null;
-			$scope.userForm.$setPristine();
-			$scope.message = "User Created";
-			init();
-		}).error(function(error) {
-			$scope.message = error.message;
-		});
-	};
+	var editUser = function() {
+        var url = "api/update/admin?username=" + $scope.oldUsername;
+        var adminDTO = {username: $scope.username, password: $scope.password, email: $scope.email};
+        $http.put(url,adminDTO).success(function(res) {
+			console.log("Success");
+        }).error(function(error) {
+        	console.log("Error");
+        });
+    };
+	// var addUser = function(){
+	// 	$http.post('api/admins', $scope.appAdmin).success(function(res) {
+	// 		$scope.appAdmin = null;
+	// 		$scope.confirmPassword = null;
+	// 		$scope.userForm.$setPristine();
+	// 		$scope.message = "User Created";
+	// 		init();
+	// 	}).error(function(error) {
+	// 		$scope.message = error.message;
+	// 	});
+	// };
 	$scope.submit = function() {
 		if(edit){
 			editUser();

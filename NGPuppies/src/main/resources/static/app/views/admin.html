@@ -9,19 +9,19 @@
 						<div class="form-group"
 							ng-class="{ 'has-error': userForm.username.$invalid && userForm.username.$dirty }">
 							<label for="username">Username:</label> <input type="text"
-								required class="form-control" ng-model="appAdmin.credentials.username"
+								required class="form-control" ng-model="username"
 								id="username" name="username">
 						</div>
 						<div class="form-group"
 							 ng-class="{ 'has-error': userForm.authority.$invalid && userForm.authority.$dirty }">
 							<label for="username">Role:</label>
-							<input type="text" required class="form-control" ng-model="appAdmin.credentials.authority"
+							<input type="text" required class="form-control" ng-model="authority"
 								   id="role" name="role">
 						</div>
 						<div class="form-group"
 							 ng-class="{ 'has-error': userForm.authority.$invalid && userForm.authority.$dirty }">
 							<label for="username">Email:</label>
-							<input type="text" required class="form-control" ng-model="appAdmin.email"
+							<input type="text" required class="form-control" ng-model="email"
 								   id="email" name="email">
 						</div>
 
@@ -29,13 +29,12 @@
 							ng-class="{ 'has-error': userForm.password.$invalid && userForm.password.$dirty }">
 							<label for="pwd">Password:</label> <input type="password"
 								required class="form-control" id="pwd"
-								ng-model="appAdmin.credentials.password" name="password">
+								ng-model="password" name="password">
 						</div>
 
 						<div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
 
-						<button type="submit" class="btn btn-default"
-							ng-disabled="userForm.$invalid" ng-click="editUser(user)">Update</button>
+						<button type="submit" class="btn btn-default" ng-click="editUser()">Update</button>
 
 					</form>
 				</div>
