@@ -35,6 +35,7 @@ public class SubscriberViewModel {
             viewModel.EGN = subscriber.getEgn();
             viewModel.address = subscriber.getAddress();
             viewModel.client = subscriber.getClient().getUsername();
+
             for(OfferedServices offeredServices : subscriber.getSubscriberServices()) {
                 viewModel.services.add(offeredServices.getName());
             }

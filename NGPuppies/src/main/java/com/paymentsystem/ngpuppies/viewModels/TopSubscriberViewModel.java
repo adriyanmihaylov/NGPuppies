@@ -8,7 +8,7 @@ public class TopSubscriberViewModel {
     public String phoneNumber;
 
     public String firstName;
-
+    public String lastName;
     public double totalAmount;
 
 
@@ -20,7 +20,7 @@ public class TopSubscriberViewModel {
             vm.phoneNumber = subscriber.getPhone();
             vm.firstName = subscriber.getFirstName();
             vm.totalAmount = totalAmount;
-
+            vm.lastName = subscriber.getLastName();
             return vm;
         }
 

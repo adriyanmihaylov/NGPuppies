@@ -96,7 +96,17 @@ angular.module('NGPuppies').config(function($stateProvider,$urlRouterProvider,$l
                 controller : 'payBillController'
             }
         }
-    });
+    })
+        .state('reports', {
+            parent : 'nav',
+            url : '/reports',
+            views : {
+                'content@' : {
+                    templateUrl : 'app/views/reports.html',
+                    controller : 'reportsCotroller'
+                }
+            }
+        });
         $locationProvider.html5Mode({
 			enabled: true,
 			requireBase: true
