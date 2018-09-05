@@ -5,6 +5,7 @@ import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.User;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.Client;
+import com.paymentsystem.ngpuppies.web.ResponseHandler;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,11 @@ public class HibernateConfiguration {
     @Bean
     public MethodValidationPostProcessor methodValidationPostProcessor() {
         return new MethodValidationPostProcessor();
+    }
+
+    @Bean
+    public ResponseHandler responseHandler() {
+        return new ResponseHandler();
     }
 
     @Bean

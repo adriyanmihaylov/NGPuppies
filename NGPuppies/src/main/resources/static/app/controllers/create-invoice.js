@@ -11,7 +11,7 @@ app.controller('addBillController', function($http, $scope) {
     });
     var init = function (phoneNumber) {
         $http({
-            url: '/api/subscriber?phoneNumber=' + phoneNumber,
+            url: '/api/subscriber?phone=' + phoneNumber,
             method: "GET",
             dataType: "json"
         }).success(function (res) {
@@ -62,7 +62,7 @@ app.controller('addBillController', function($http, $scope) {
             currency : $scope.currency
         };
         $http({
-            url : '/api/generate/bill',
+            url : '/api/invoice/generate',
             method : "POST",
             data: JSON.stringify(invoiceData),
             contentType: "application/json; charset=utf-8",

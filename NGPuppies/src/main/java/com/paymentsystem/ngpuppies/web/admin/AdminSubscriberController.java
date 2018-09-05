@@ -36,11 +36,11 @@ public class AdminSubscriberController {
     private ClientService clientService;
     @Autowired
     private AddressService addressService;
-
+    @Autowired
     private ResponseHandler responseHandler;
 
-    @GetMapping("/")
-    public ResponseEntity<SubscriberViewModel> getByNumber(@RequestParam("phoneNumber") String phoneNumber) {
+    @GetMapping("")
+    public ResponseEntity<SubscriberViewModel> getByNumber(@RequestParam("phone") String phoneNumber) {
         SubscriberViewModel viewModel = SubscriberViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
 
         if (viewModel != null) {

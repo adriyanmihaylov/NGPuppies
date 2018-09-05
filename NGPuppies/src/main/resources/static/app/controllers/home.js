@@ -5,14 +5,14 @@ angular.module('NGPuppies')
 	$scope.isAuthenticated = AuthService.isAuthenticated
 	$scope.role = AuthService.role;
     var init = function () {
-        $http.get('api/get/users').success(function(res) {
+        $http.get('api/user/all').success(function(res) {
             $scope.users = res;
         }).error(function(error) {
             $scope.message = error.message;
         });
     };
     $scope.deleteUser = function (user) {
-            $http.delete('api/delete/user?username='+ user.username).success(function(res) {
+            $http.delete('api/user/delete?username='+ user.username).success(function(res) {
                 $scope.Deletemessage ="Success!";
                 init();
             }).error(function(error) {

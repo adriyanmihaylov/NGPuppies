@@ -7,6 +7,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 public class ResponseHandler {
+
+    public ResponseHandler() {
+
+    }
     public ResponseEntity<Response> returnResponse(String message, HttpStatus status) {
         return new ResponseEntity<>(new Response(message), status);
     }

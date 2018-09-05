@@ -26,8 +26,9 @@ import java.util.stream.Collectors;
 public class AdminOfferedServiceController {
     @Autowired
     private OfferedServicesService offeredServicesService;
-
+    @Autowired
     private ResponseHandler responseHandler;
+
 
     @GetMapping("/all")
     public ResponseEntity<List<OfferedServiceSimpleViewModel>> getAllServices() {

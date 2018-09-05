@@ -21,7 +21,7 @@ angular.module('NGPuppies')
         if ($option == "Admin") {
             var create = {username: $scope.username, password: $scope.password, email: $scope.email};
             $http({
-                url: '/api/register/admin',
+                url: '/api/admin/register',
                 method: "POST",
                 data: JSON.stringify(create),
                 // contentType: "application/json; charset=utf-8",
@@ -42,7 +42,7 @@ angular.module('NGPuppies')
 
             };
             $http({
-                url: '/api/register/client',
+                url: '/api/client/register',
                 method: "POST",
                 data: JSON.stringify(create),
                 contentType: "application/json; charset=utf-8",

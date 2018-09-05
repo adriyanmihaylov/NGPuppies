@@ -35,7 +35,7 @@ public class AdminUsersController {
     private AdminService adminService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    @Autowired
     private ResponseHandler responseHandler;
 
     @GetMapping("/account")

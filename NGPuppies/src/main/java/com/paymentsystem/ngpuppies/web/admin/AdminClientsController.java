@@ -39,7 +39,7 @@ public class AdminClientsController {
     private ClientDetailService clientDetailService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    @Autowired
     private ResponseHandler responseHandler;
 
     @GetMapping("/{username}")
@@ -100,7 +100,7 @@ public class AdminClientsController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Response> updateClient(@RequestParam() String username,
+    public ResponseEntity<Response> updateClient(@RequestParam("username") String username,
                                                  @Valid @RequestBody ClientDTO clientDto,
                                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

@@ -32,7 +32,7 @@ public class AdminAdministratorsController {
     private AuthorityService authorityService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    @Autowired
     private ResponseHandler responseHandler;
 
     @GetMapping("/{username}")

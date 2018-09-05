@@ -32,7 +32,7 @@ public class AdminInvoiceController {
     private CurrencyService currencyService;
     @Autowired
     private SubscriberService subscriberService;
-
+    @Autowired
     private ResponseHandler responseHandler;
 
     private final DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");

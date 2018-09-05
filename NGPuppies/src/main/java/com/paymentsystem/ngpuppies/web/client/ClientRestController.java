@@ -104,7 +104,7 @@ public class ClientRestController {
         return new ArrayList<>();
     }
 
-    @GetMapping("/subscriber={phone}/invoices/paid")
+    @GetMapping("/subscriber/{phone}/invoices/paid")
     public List<InvoiceSimpleViewModel> getSubscriberPayedInvoices(@PathVariable("phone") String subscriberPhone,
                                                                    @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
                                                                    @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
