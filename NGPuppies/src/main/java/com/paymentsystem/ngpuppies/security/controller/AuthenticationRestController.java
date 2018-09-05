@@ -64,7 +64,7 @@ public class AuthenticationRestController {
 
     @ExceptionHandler({AuthenticationException.class})
     public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     /**
