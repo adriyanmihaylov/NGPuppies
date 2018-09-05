@@ -58,4 +58,19 @@ public class OfferedServices {
     public void setSubscribers(Set<Subscriber> subscribers) {
         this.subscribers = subscribers;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof OfferedServices))
+            return false;
+        OfferedServices otherService = (OfferedServices) obj;
+        return this.getName().equals(otherService.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+
 }

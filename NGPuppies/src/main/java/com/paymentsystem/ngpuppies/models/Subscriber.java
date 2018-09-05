@@ -45,6 +45,10 @@ public class Subscriber {
     @Column(name = "EGN")
     private String egn;
 
+
+    @Column(name ="TotalAmountPaid")
+    private Double totalAmount;
+
     @OneToOne(orphanRemoval = true, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "AddressID")
     private Address address;
@@ -64,6 +68,7 @@ public class Subscriber {
     )
     @Fetch(FetchMode.SELECT)
     private Set<OfferedServices> subscriberServices;
+
 
     public Subscriber(){
     }
@@ -152,5 +157,13 @@ public class Subscriber {
 
     public void setSubscriberServices(Set<OfferedServices> subscriberServices) {
         this.subscriberServices = subscriberServices;
+    }
+
+    public Double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
     }
 }

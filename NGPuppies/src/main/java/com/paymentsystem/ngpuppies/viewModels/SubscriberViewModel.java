@@ -18,6 +18,8 @@ public class SubscriberViewModel {
 
     public String EGN;
 
+    public double totalAmountPaid;
+
     public Address address;
 
     public String client;
@@ -33,6 +35,7 @@ public class SubscriberViewModel {
             viewModel.firstName = subscriber.getFirstName();
             viewModel.lastName = subscriber.getLastName();
             viewModel.EGN = subscriber.getEgn();
+            viewModel.totalAmountPaid = subscriber.getTotalAmount();
             viewModel.address = subscriber.getAddress();
             viewModel.client = subscriber.getClient().getUsername();
 

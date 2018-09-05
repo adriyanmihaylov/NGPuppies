@@ -55,7 +55,7 @@
         <tbody>
         <tr ng-repeat="invoice in invoices" ng-if = "invoice.status === 'Not paid'" bgcolor="red">
             <th scope="row"></th>
-            <td>{{invoice.amount}}</td>
+            <td>{{invoice.amountBGN}}</td>
             <td>{{invoice.currency}}</td>
             <td>{{invoice.service}}</td>
             <td>{{invoice.status}}</td>
@@ -67,7 +67,7 @@
         </tr>
         <tr ng-repeat="invoice in invoices" ng-if = "invoice.status !== 'Not paid'">
             <th scope="row"></th>
-            <td>{{invoice.amount}}</td>
+            <td>{{invoice.amountBGN}}</td>
             <td>{{invoice.currency}}</td>
             <td>{{invoice.service}}</td>
             <td>{{invoice.status}}</td>

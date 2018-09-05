@@ -1,6 +1,5 @@
 package com.paymentsystem.ngpuppies.services;
 
-import com.paymentsystem.ngpuppies.models.OfferedServices;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
@@ -41,9 +40,13 @@ public class SubscriberServiceImpl implements SubscriberService {
         return subscriberRepository.delete(subscriber);
     }
 
+    public List<Subscriber> getTenAllTimeSubscribersWithBiggestBillsPaid(Integer clientId) {
+        return subscriberRepository.getTenAllTimeSubscribersWithBiggestBillsPaid(clientId);
+    }
+
     @Override
-    public Map<Subscriber, Double> getTopTenSubscribers(Integer clientId) {
-        Object[] result = subscriberRepository.getTopTenSubscribers(clientId);
+    public Map<Subscriber, Double> getSubscriberWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate) {
+        Object[] result = subscriberRepository.getSubscriberWithBiggestAmountPaid(clientId,fromDate,toDate);
 
         Map<Subscriber, Double> subscribers = new HashMap<>();
         for (Object object : result) {
@@ -56,6 +59,12 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     public Double getSubscriberAverageSumOfPaidInvoices(Integer subscriberId, String fromDate, String toDate) {
-        return subscriberRepository.getSubscriberAverageInvoiceSumPaid(subscriberId, fromDate, toDate);
+        double amount = subscriberRepository.getSubscriberAverageInvoiceSumPaid(subscriberId, fromDate, toDate);
+
+        if (amount != 0) {
+            amount = Math.round(amount * 100) / 100;
+        }
+
+        return amount;
     }
 }

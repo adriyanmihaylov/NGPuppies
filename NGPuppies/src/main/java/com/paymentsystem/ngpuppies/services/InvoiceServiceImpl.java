@@ -49,7 +49,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(Integer subscriberId, String fromDate, String endDate) {
-        return invoiceRepository.getAllPaidInvoicesOfSubscriberInDescOrder(subscriberId,fromDate,endDate);
+        return invoiceRepository.getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(subscriberId,fromDate,endDate);
     }
 
     @Override
@@ -64,6 +64,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public Invoice getSubscriberLargestPaidInvoice(Integer subscriberId, String fromDate, String endDate) {
-        return invoiceRepository.getSubscriberLargestPaidInvoice(subscriberId,fromDate,endDate);
+        return invoiceRepository.getSubscriberLargestPaidInvoiceForPeriodOfTime(subscriberId,fromDate,endDate);
     }
 }

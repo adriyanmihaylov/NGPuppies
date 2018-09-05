@@ -1,7 +1,5 @@
 package com.paymentsystem.ngpuppies.services.base;
 
-import com.paymentsystem.ngpuppies.models.Invoice;
-import com.paymentsystem.ngpuppies.models.OfferedServices;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
 import java.util.List;
@@ -18,7 +16,9 @@ public interface SubscriberService {
 
     boolean delete(Subscriber subscriber);
 
-    Map<Subscriber, Double> getTopTenSubscribers(Integer clientId);
+    List<Subscriber> getTenAllTimeSubscribersWithBiggestBillsPaid(Integer clientId);
+
+    Map<Subscriber, Double> getSubscriberWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate);
 
     Double getSubscriberAverageSumOfPaidInvoices(Integer subscriberId, String fromDate, String toDate);
 }

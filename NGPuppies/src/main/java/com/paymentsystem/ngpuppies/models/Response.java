@@ -4,6 +4,10 @@ package com.paymentsystem.ngpuppies.models;
 public class Response {
     public String message;
 
+    public Response() {
+
+    }
+
     public Response(String message) {
         setMessage(message);
     }

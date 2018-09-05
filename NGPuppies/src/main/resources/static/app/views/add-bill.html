@@ -58,9 +58,9 @@
                         </div>
                         <div class="col-md-6 col-lg-6 " align="center">
                             <div class="form-group row">
-                                <label for="amount" class="col-sm-6 col-form-label">Amount</label>
+                                <label for="amountBGN" class="col-sm-6 col-form-label">Amount</label>
                                 <div class="col-sm-6">
-                                    <input type="number" ng-model = "money" class="form-control" id="amount" placeholder="150">
+                                    <input type="number" ng-model = "money" class="form-control" id="amountBGN" placeholder="150">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -118,7 +118,7 @@
                                 <tr ng-repeat = " record in records">
                                     <th scope="row">{{record.id}}</th>
                                     <td>{{record.service.name}}</td>
-                                    <td>{{record.amount}}</td>
+                                    <td>{{record.amountBGN}}</td>
                                     <td>{{record.startDate}}</td>
                                     <td>{{record.endDate}}</td>
                                     <td>{{record.payed}}</td>

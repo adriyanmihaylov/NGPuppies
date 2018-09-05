@@ -17,7 +17,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -33,7 +39,7 @@ public class ClientRestController {
     @Autowired
     private InvoiceService invoiceService;
 
-    private final DateValidator DATE_VALIDATOR = new DateValidator();
+    private DateValidator dateValidator = new DateValidator();
 
     @GetMapping("/subscriber/{phone}")
     public SubscriberViewModel getSubscriberOfCurrentlyLoggedClient(@PathVariable("phone") String phoneNumber,
@@ -110,11 +116,11 @@ public class ClientRestController {
 
     @GetMapping("/subscriber/{phone}/invoices/paid")
     public ResponseEntity<List<InvoiceSimpleViewModel>> getSubscriberPaidInvoices(@PathVariable("phone") String subscriberPhone,
-                                                                  @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
-                                                                  @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
-                                                                  Authentication authentication) {
+                                                                                  @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
+                                                                                  @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
+                                                                                  Authentication authentication) {
         try {
-            if (!DATE_VALIDATOR.validateDate(fromDate) || !DATE_VALIDATOR.validateDate(endDate)) {
+            if (!validateDate(fromDate,endDate)) {
                 return new ResponseEntity("Invalid date", HttpStatus.BAD_REQUEST);
             }
             SubscriberViewModel subscriber = getSubscriberOfCurrentlyLoggedClient(subscriberPhone, authentication);
@@ -135,19 +141,19 @@ public class ClientRestController {
         }
     }
 
-    @GetMapping("/subscriber={phone}/average")
+    @GetMapping("/subscriber/{phone}/average")
     public Double getSubscriberAverageSumOfPaidInvoices(@PathVariable("phone") String subscriberPhone,
                                                         @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
                                                         @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
                                                         Authentication authentication) {
         try {
-            if (!DATE_VALIDATOR.validateDate(fromDate) || !DATE_VALIDATOR.validateDate(endDate)) {
+            if (!validateDate(fromDate,endDate)) {
                 return 0D;
             }
 
-            SubscriberViewModel subscriber = getSubscriberOfCurrentlyLoggedClient(subscriberPhone,authentication);
-            if(subscriber != null) {
-                return subscriberService.getSubscriberAverageSumOfPaidInvoices(subscriber.id,fromDate,endDate);
+            SubscriberViewModel subscriber = getSubscriberOfCurrentlyLoggedClient(subscriberPhone, authentication);
+            if (subscriber != null) {
+                return subscriberService.getSubscriberAverageSumOfPaidInvoices(subscriber.id, fromDate, endDate);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,13 +161,14 @@ public class ClientRestController {
 
         return 0D;
     }
-    @GetMapping("/subscriber={phone}/invoices/max")
+
+    @GetMapping("/subscriber/{phone}/invoices/max")
     public InvoiceSimpleViewModel getSubscriberLargestPaidInvoice(@PathVariable("phone") String subscriberPhone,
                                                                   @RequestParam("from") @DateTimeFormat(pattern = "YYYY-MM-DD") String fromDate,
                                                                   @RequestParam("to") @DateTimeFormat(pattern = "YYYY-MM-DD") String endDate,
                                                                   Authentication authentication) {
         try {
-            if (!DATE_VALIDATOR.validateDate(fromDate) || !DATE_VALIDATOR.validateDate(endDate)) {
+            if (!validateDate(fromDate,endDate)) {
                 return null;
             }
 
@@ -176,8 +183,8 @@ public class ClientRestController {
         return null;
     }
 
-    @PutMapping("/pay/invoice")
-    public ResponseEntity<?> payInvoices(@RequestParam("id") List<Integer> invoicesIds, Authentication authentication) {
+    @PutMapping("/invoice/pay")
+    public ResponseEntity<?> payInvoices(@RequestBody() List<Integer> invoicesIds, Authentication authentication) {
         try {
             Client client = (Client) authentication.getPrincipal();
             List<Invoice> allInvoices = invoiceService.getInvoicesByIdAndClientId(invoicesIds, client.getId());
@@ -209,16 +216,14 @@ public class ClientRestController {
     }
 
     @GetMapping("/subscriber/top10")
-    public List<TopSubscriberViewModel> getTenTopSubscribersWithBiggestBillsPayed(Authentication authentication) {
+    public List<TopSubscriberViewModel> getTenAllTimeSubscribersWithBiggestBillsPaid(Authentication authentication) {
         try {
             Client client = (Client) authentication.getPrincipal();
-            Map<Subscriber, Double> result = subscriberService.getTopTenSubscribers(client.getId());
-            List<TopSubscriberViewModel> subscriberViewModels = new ArrayList<>();
+            List<Subscriber> subscribers = subscriberService.getTenAllTimeSubscribersWithBiggestBillsPaid(client.getId());
 
-            for(Map.Entry<Subscriber,Double> entry : result.entrySet()) {
-                subscriberViewModels.add(TopSubscriberViewModel.fromModel(entry.getKey(), entry.getValue()));
-            }
-            return subscriberViewModels;
+            return subscribers.stream()
+                    .map(TopSubscriberViewModel::fromModel)
+                    .collect(Collectors.toList());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -227,8 +232,14 @@ public class ClientRestController {
         return null;
     }
 
-    @GetMapping("client/subscriber/all")
-    public List<Subscriber> getAllSubscribers(Authentication authentication) {
-        return new ArrayList<>();
+    private boolean validateDate(String start, String end) {
+        if (dateValidator.validateDate(start) && dateValidator.validateDate(end)) {
+            if (start.equals(end)) {
+                return true;
+            }
+            return LocalDate.parse(start)
+                    .isBefore(LocalDate.parse(end));
+        }
+        return false;
     }
 }
