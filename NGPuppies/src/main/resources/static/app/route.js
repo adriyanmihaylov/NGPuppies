@@ -87,16 +87,7 @@ angular.module('NGPuppies').config(function($stateProvider,$urlRouterProvider,$l
                     controller: 'clients'
                 }
             }
-    }).state('homeClient', {
-            parent : 'nav',
-            url : '/client',
-            views : {
-                'content@' : {
-                    templateUrl : 'app/views/clientHome.html',
-                    controller : 'clientHomeController'
-                }
-            }
-        }).state('payBill', {
+    }).state('payBill', {
         parent : 'nav',
         url : '/payBill',
         views : {

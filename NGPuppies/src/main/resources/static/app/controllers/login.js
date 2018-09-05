@@ -19,12 +19,7 @@ app.controller('LoginController', function($http, $scope, $state, AuthService, $
 			if (result.token) {
 				AuthService.setToken(result.token);
                	localStorage.setItem('token',result.token);
-                var authority = AuthService.getAuthority(localStorage.getItem('token'));
-                if(authority == "ROLE_ADMIN") {
                     $state.go('home');
-                }else{
-                    $state.go('homeClient');
-                }
 
 			} else {
 				// if the token is not present in the response then the
