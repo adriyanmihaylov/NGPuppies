@@ -3,7 +3,8 @@ package com.paymentsystem.ngpuppies.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,11 @@ public class OfferedServices {
     @Column(name = "Id")
     private int id;
 
+    @NotNull(message = "Please enter service name!")
+    @Size.List({
+            @Size(min = 3, message = "Service name must be at least 3 characters"),
+            @Size(max = 50, message = "Service name must be less than 50 characters")
+    })
     @Column(name = "Name")
     private String name;
 
