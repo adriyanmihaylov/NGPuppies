@@ -66,15 +66,28 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
 
     @Override
     public boolean update(List<Invoice> invoices) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
             for (Invoice invoice : invoices) {
                 session.update(invoice);
             }
-            session.getTransaction().commit();
+            transaction.commit();
+            session.close();
             return true;
         } catch (Exception e) {
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
             e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
 
         return false;
@@ -82,22 +95,30 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
 
     @Override
     public boolean payInvoices(List<Invoice> allInvoices) {
-        Session session = sessionFactory.openSession();
+        Session session = null;
+        Transaction transaction = null;
         try {
-            session.beginTransaction();
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
             for (Invoice invoice : allInvoices) {
                 invoice.setPayedDate(new Date());
                 session.update(invoice);
             }
 
-            session.getTransaction().commit();
+            transaction.commit();
             session.close();
             return true;
         } catch (Exception e) {
-            session.getTransaction().rollback();
-            session.close();
-
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
             e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
 
         return false;

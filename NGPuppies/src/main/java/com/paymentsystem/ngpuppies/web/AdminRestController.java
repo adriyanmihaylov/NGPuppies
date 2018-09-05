@@ -1,10 +1,7 @@
 package com.paymentsystem.ngpuppies.web;
 
 import com.paymentsystem.ngpuppies.models.*;
-import com.paymentsystem.ngpuppies.models.dto.AdminDTO;
-import com.paymentsystem.ngpuppies.models.dto.InvoiceDTO;
-import com.paymentsystem.ngpuppies.models.dto.ClientDTO;
-import com.paymentsystem.ngpuppies.models.dto.SubscriberDTO;
+import com.paymentsystem.ngpuppies.models.dto.*;
 import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.services.base.*;
 import com.paymentsystem.ngpuppies.viewModels.*;
@@ -18,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -66,6 +64,26 @@ public class AdminRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping("/service/new")
+    public ResponseEntity<String> createNewService(@Valid @RequestBody OfferedServiceDTO serviceDTO,BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return bindingResultHandler(bindingResult);
+        }
+        if (serviceDTO.getName() == null) {
+            return new ResponseEntity<>("Please enter service name", HttpStatus.BAD_REQUEST);
+        }
+        try {
+            OfferedServices newService = new OfferedServices(serviceDTO.getName().toUpperCase());
+            offeredServicesService.create(newService);
+        } catch (SQLException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        } catch (InternalError e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>("Service added successfully", HttpStatus.OK);
+    }
+
     @GetMapping("/service={service}")
     public ResponseEntity<OfferedServiceViewModel> getAllSubscribersOfService(@PathVariable("service") String serviceName) {
         OfferedServiceViewModel viewModel = OfferedServiceViewModel.fromModel(offeredServicesService.getByName(serviceName));
@@ -75,7 +93,6 @@ public class AdminRestController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
     @GetMapping("/user")
     public ResponseEntity<UserViewModel> getUserByUsername(@RequestParam("username") String username) {
@@ -210,10 +227,7 @@ public class AdminRestController {
                                                 BindingResult bindingResult,
                                                 Authentication authentication) {
         if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return bindingResultHandler(bindingResult);
         }
         try {
             Admin admin = (Admin) authentication.getPrincipal();
@@ -244,9 +258,7 @@ public class AdminRestController {
     @PostMapping("/register/admin")
     public ResponseEntity<String> registerAdmin(@Valid @RequestBody AdminDTO adminDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return bindingResultHandler(bindingResult);
         }
 
         if (adminDTO.getPassword() == null) {
@@ -274,10 +286,7 @@ public class AdminRestController {
                                               @Valid @RequestBody AdminDTO adminDTO,
                                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return bindingResultHandler(bindingResult);
         }
         try {
             Admin admin = adminService.loadByUsername(username);
@@ -312,9 +321,7 @@ public class AdminRestController {
     @PostMapping("/register/client")
     public ResponseEntity<String> registerClient(@Valid @RequestBody ClientDTO clientDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return bindingResultHandler(bindingResult);
         }
 
         if (clientDto.getPassword() == null) {
@@ -351,9 +358,7 @@ public class AdminRestController {
     @PostMapping("/create/subscriber")
     public ResponseEntity<String> createSubscriber(@Valid @RequestBody SubscriberDTO subscriberDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return bindingResultHandler(bindingResult);
         }
         try {
             Subscriber subscriber = new Subscriber(subscriberDTO.getFirstName(),
@@ -388,10 +393,7 @@ public class AdminRestController {
                                                    @Valid @RequestBody SubscriberDTO subscriberDTO,
                                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return bindingResultHandler(bindingResult);
         }
         try {
             Subscriber subscriber = subscriberService.getByNumber(phoneNumber);
@@ -445,10 +447,7 @@ public class AdminRestController {
                                                @Valid @RequestBody ClientDTO clientDto,
                                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return bindingResultHandler(bindingResult);
         }
         try {
             Client client = clientService.loadByUsername(username);
@@ -519,9 +518,7 @@ public class AdminRestController {
     @PostMapping("/generate/invoice")
     public ResponseEntity<String> createInvoice(@Valid @RequestBody InvoiceDTO invoiceDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            FieldError error = bindingResult.getFieldErrors().get(0);
-            String message = error.getDefaultMessage();
-            return ResponseEntity.badRequest().body(message);
+            return bindingResultHandler(bindingResult);
         }
         try {
 
@@ -556,8 +553,9 @@ public class AdminRestController {
         return new ResponseEntity<>("Invoice successfully added!", HttpStatus.OK);
     }
 
-    @ExceptionHandler(SQLException.class)
-    public ResponseEntity<String> handleAuthenticationException(SQLException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> bindingResultHandler(BindingResult bindingResult) {
+        FieldError error = bindingResult.getFieldErrors().get(0);
+        String message = error.getDefaultMessage();
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 }
