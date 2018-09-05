@@ -7,7 +7,7 @@ app.run(function(AuthService, $rootScope,$state,$timeout) {
                 event.preventDefault();
                 $state.go('login');
             }
-        } 
+        }
         if (toState.data && toState.data.role) {
             if (toState.data.role !== AuthService.role) {
                 event.preventDefault();
