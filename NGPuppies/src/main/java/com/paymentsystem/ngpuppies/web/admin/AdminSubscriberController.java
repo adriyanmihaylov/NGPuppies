@@ -14,7 +14,6 @@ import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import com.paymentsystem.ngpuppies.models.viewModels.SubscriberViewModel;
 import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
 import com.paymentsystem.ngpuppies.validator.base.ValidServiceName;
-import com.paymentsystem.ngpuppies.web.ResponseHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +40,6 @@ public class AdminSubscriberController {
     private ClientService clientService;
     @Autowired
     private AddressService addressService;
-    @Autowired
-    private ResponseHandler responseHandler;
 
     @GetMapping("")
     public ResponseEntity<SubscriberViewModel> getByNumber(@RequestParam("phone") @ValidPhone String phoneNumber) {
@@ -76,21 +73,21 @@ public class AdminSubscriberController {
 
             Subscriber subscriber = subscriberService.getSubscriberByPhone(subscriberPhone);
             if (subscriber == null) {
-                return responseHandler.returnResponse("Subscriber not found", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Subscriber not found"), HttpStatus.BAD_REQUEST);
             }
             OfferedServices offeredServices = offeredServicesService.getByName(serviceName);
             if (offeredServices == null) {
-                return responseHandler.returnResponse("Service not found", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Service not found"), HttpStatus.BAD_REQUEST);
             }
             subscriber.getSubscriberServices().add(offeredServices);
             if (subscriberService.update(subscriber)) {
-                return responseHandler.returnResponse("Service successfully added", HttpStatus.OK);
+                return new ResponseEntity<>(new Response("Service successfully added"), HttpStatus.OK);
             }
         } catch (Exception e) {
-            return responseHandler.returnResponse("The subscriber already has the selected service!", HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(new Response("The subscriber already has the selected service!"), HttpStatus.NOT_ACCEPTABLE);
         }
 
-        return responseHandler.returnResponse("Something went wrong!Please try again later", HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new Response("Something went wrong!Please try again later"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("/create")
@@ -114,22 +111,22 @@ public class AdminSubscriberController {
             if (subscriberDTO.getClient() != null) {
                 Client client = clientService.loadByUsername(subscriberDTO.getClient());
                 if (client == null) {
-                    return responseHandler.returnResponse("Client not found", HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>(new Response("Client not found"), HttpStatus.BAD_REQUEST);
                 }
 
                 subscriber.setClient(client);
             }
 
             if (!subscriberService.create(subscriber)) {
-                return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (SQLException e) {
-            return responseHandler.returnResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return responseHandler.returnResponse("Please try again later", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
         }
 
-        return responseHandler.returnResponse("Subscriber created!", HttpStatus.OK);
+        return new ResponseEntity<>(new Response("Subscriber created!"), HttpStatus.OK);
     }
 
     @PutMapping("/{phone}/update")
@@ -139,7 +136,7 @@ public class AdminSubscriberController {
         try {
             Subscriber subscriber = subscriberService.getSubscriberByPhone(phoneNumber);
             if (subscriber == null) {
-                return responseHandler.returnResponse("Subscriber not found!", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Subscriber not found!"), HttpStatus.BAD_REQUEST);
             }
             subscriber.setPhone(subscriberDTO.getPhone());
             subscriber.setFirstName(subscriberDTO.getFirstName());
@@ -151,7 +148,7 @@ public class AdminSubscriberController {
                     if (client != null) {
                         subscriber.setClient(client);
                     } else {
-                        return responseHandler.returnResponse("Client not found!", HttpStatus.BAD_REQUEST);
+                        return new ResponseEntity<>(new Response("Client not found!"), HttpStatus.BAD_REQUEST);
                     }
                 }
             }
@@ -166,20 +163,20 @@ public class AdminSubscriberController {
                     subscriber.setAddress(subscriberDTO.getAddress());
                     subscriber.getAddress().setId(id);
                 } else {
-                    return responseHandler.returnResponse("Please create the address first!", HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>(new Response("Please create the address first!"), HttpStatus.BAD_REQUEST);
                 }
             }
 
             if (!subscriberService.update(subscriber)) {
-                return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (SQLException e) {
-            return responseHandler.returnResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return responseHandler.returnResponse("Subscriber updated!", HttpStatus.OK);
+        return new ResponseEntity<>(new Response("Subscriber updated!"), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
@@ -188,12 +185,12 @@ public class AdminSubscriberController {
 
         if (subscriber != null) {
             if (subscriberService.delete(subscriber)) {
-                return responseHandler.returnResponse("Subscriber deleted successfully", HttpStatus.OK);
+                return new ResponseEntity<>(new Response("Subscriber deleted successfully"), HttpStatus.OK);
 
             }
-            return responseHandler.returnResponse("Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new Response("Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return responseHandler.returnResponse("Subscriber not found!", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new Response("Subscriber not found!"), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/{service}/all")

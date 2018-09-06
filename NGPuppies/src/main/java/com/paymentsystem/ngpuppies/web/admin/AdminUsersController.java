@@ -5,7 +5,6 @@ import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.services.base.*;
 import com.paymentsystem.ngpuppies.models.viewModels.*;
 import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
-import com.paymentsystem.ngpuppies.web.ResponseHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +32,6 @@ public class AdminUsersController {
     private AdminService adminService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private ResponseHandler responseHandler;
 
     @GetMapping("/account")
     public ResponseEntity<AdminViewModel> getAccount(Authentication authentication) {
@@ -54,7 +51,7 @@ public class AdminUsersController {
         try {
             Admin admin = (Admin) authentication.getPrincipal();
             if (!adminDTO.getUsername().equals(admin.getUsername())) {
-                return responseHandler.returnResponse("Invalid credentials! ", HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>(new Response("Invalid credentials!"), HttpStatus.UNAUTHORIZED);
             }
             admin.setUsername(adminDTO.getUsername());
             admin.setEmail(adminDTO.getEmail());
@@ -65,14 +62,14 @@ public class AdminUsersController {
             }
 
             if (!adminService.update(admin)) {
-                return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (SQLException e) {
-            return responseHandler.returnResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return responseHandler.returnResponse("Please try again later", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
         }
-        return responseHandler.returnResponse("Account updated", HttpStatus.OK);
+        return new ResponseEntity<>(new Response("Account updated"), HttpStatus.OK);
     }
 
     @GetMapping("/user")
@@ -102,11 +99,11 @@ public class AdminUsersController {
         User user = (User) userService.loadUserByUsername(username);
         if (user != null) {
             if (userService.delete(user)) {
-                return responseHandler.returnResponse("User " + username + " deleted successfully", HttpStatus.OK);
+                return new ResponseEntity<>(new Response("User " + username + " deleted successfully"), HttpStatus.OK);
 
             }
-            return responseHandler.returnResponse("Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new Response("Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return responseHandler.returnResponse("User not found!", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new Response("User not found!"), HttpStatus.BAD_REQUEST);
     }
 }

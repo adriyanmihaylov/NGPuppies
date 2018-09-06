@@ -11,7 +11,6 @@ import com.paymentsystem.ngpuppies.services.base.ClientDetailService;
 import com.paymentsystem.ngpuppies.services.base.ClientService;
 import com.paymentsystem.ngpuppies.models.viewModels.ClientViewModel;
 import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
-import com.paymentsystem.ngpuppies.web.ResponseHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +39,6 @@ public class AdminClientsController {
     private ClientDetailService clientDetailService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private ResponseHandler responseHandler;
 
     @GetMapping("/{username}")
     public ResponseEntity<ClientViewModel> getClientByUsername(@PathVariable("username") @ValidUsername String username) {
@@ -75,7 +72,7 @@ public class AdminClientsController {
     public ResponseEntity<Response> registerClient(@RequestBody @Valid ClientDTO clientDto,
                                                    BindingResult bindingResult) {
         if (clientDto.getPassword() == null) {
-            return responseHandler.returnResponse("Missing password", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response("Missing password"), HttpStatus.BAD_REQUEST);
         }
         try {
             Authority authority = authorityService.getByName(AuthorityName.ROLE_CLIENT);
@@ -86,25 +83,25 @@ public class AdminClientsController {
                     clientDto.getDetails());
 
             if (!clientService.create(client)) {
-                return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (SQLException e) {
-            return responseHandler.returnResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return responseHandler.returnResponse("Please try again later", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
         }
 
-        return responseHandler.returnResponse("Successful registration!", HttpStatus.OK);
+        return new ResponseEntity<>(new Response("Successful registration!"), HttpStatus.OK);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Response> updateClient(@RequestParam("username") @ValidUsername String username,
-                                                 @RequestBody @Valid  ClientDTO clientDto,
+                                                 @RequestBody @Valid ClientDTO clientDto,
                                                  BindingResult bindingResult) {
         try {
             Client client = clientService.loadByUsername(username);
             if (client == null) {
-                return responseHandler.returnResponse("Client not found!", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Client not found!"), HttpStatus.BAD_REQUEST);
             }
 
             client.setUsername(clientDto.getUsername());
@@ -128,16 +125,15 @@ public class AdminClientsController {
                 client.setLastPasswordResetDate(new Date());
             }
             if (!clientService.update(client)) {
-                return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
         } catch (SQLException e) {
-            return responseHandler.returnResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return responseHandler.returnResponse("Please try again later", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
         }
 
-        return responseHandler.returnResponse("Client updated!", HttpStatus.OK);
+        return new ResponseEntity<>(new Response("Client updated!"), HttpStatus.OK);
     }
-
 }
