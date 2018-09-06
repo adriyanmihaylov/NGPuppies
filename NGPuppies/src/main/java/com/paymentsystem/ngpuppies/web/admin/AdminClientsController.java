@@ -26,10 +26,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Validated
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/client")
-@Validated
 public class AdminClientsController {
     @Autowired
     private ClientService clientService;
@@ -108,15 +108,14 @@ public class AdminClientsController {
             client.setEik(clientDto.getEik());
 
             if (clientDto.getDetails() != null) {
-                ClientDetail clientDetail = clientDetailService.getById(clientDto.getDetails().getId());
+                ClientDetail clientDetail = client.getDetails();
 
                 if (clientDetail != null) {
-                    client.setDetails(clientDetail);
-                } else {
-                    int id = client.getDetails().getId();
+                    int id = clientDetail.getId();
                     client.setDetails(clientDto.getDetails());
                     client.getDetails().setId(id);
-
+                } else {
+                    client.setDetails(clientDto.getDetails());
                 }
             }
 
@@ -131,6 +130,7 @@ public class AdminClientsController {
         } catch (SQLException e) {
             return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
         }
 

@@ -136,10 +136,13 @@ public class ClientRepositoryImpl implements ClientRepository {
         Transaction transaction = null;
         try {
             ClientDetail detail = client.getDetails();
-
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.update(detail);
+            if(detail == null || detail.getId() == 0 ) {
+                session.save(detail);
+            } else {
+                session.update(detail);
+            }
             session.update(client);
             transaction.commit();
             session.close();

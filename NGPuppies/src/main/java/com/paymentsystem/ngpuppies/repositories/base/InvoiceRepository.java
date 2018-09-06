@@ -1,8 +1,11 @@
 package com.paymentsystem.ngpuppies.repositories.base;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
+import com.paymentsystem.ngpuppies.models.dto.InvoicePayDTO;
+import com.paymentsystem.ngpuppies.models.dto.ValidList;
 
 import java.util.List;
+import java.util.Set;
 
 public interface InvoiceRepository {
     List<Invoice> getAll();
@@ -15,11 +18,11 @@ public interface InvoiceRepository {
 
     boolean delete(Invoice invoice);
 
-    boolean payInvoices(List<Invoice> allInvoices);
+    boolean payInvoice(Invoice Invoice);
 
     List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId);
 
-    List<Invoice> getInvoicesByIdAndClientId(List<Integer> invoices, Integer id);
+    Set<Invoice> getInvoicesByIdAndClientId(List<InvoicePayDTO> invoices, Integer id);
 
     List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(Integer subscriber, String fromDate, String endDate);
 

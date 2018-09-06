@@ -27,10 +27,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Validated
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/subscriber")
-@Validated()
 public class AdminSubscriberController {
     @Autowired
     private SubscriberService subscriberService;

@@ -1,24 +1,22 @@
 package com.paymentsystem.ngpuppies.repositories;
 
+import com.paymentsystem.ngpuppies.models.Currency;
 import com.paymentsystem.ngpuppies.models.Invoice;
+import com.paymentsystem.ngpuppies.models.dto.InvoicePayDTO;
 import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class InvoiceRepositoryImpl implements InvoiceRepository {
     @Autowired
     private SessionFactory sessionFactory;
-
-    private final double EUR_TO_BGN_FIXING = 1.955;
-    private final double USD_TO_BGN_FIXING = 1.689;
 
     @Override
     public List<Invoice> getAll() {
@@ -118,17 +116,14 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
         }
     }
 
-    public boolean payInvoices(List<Invoice> allInvoices) {
+    public boolean payInvoice(Invoice invoice) {
         Session session = null;
         Transaction transaction = null;
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            for (Invoice invoice : allInvoices) {
-                invoice.setPayedDate(new Date());
-                session.update(invoice);
-            }
-
+            session.update(invoice.getSubscriber());
+            session.update(invoice);
             transaction.commit();
             session.close();
             return true;
@@ -186,13 +181,13 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> getInvoicesByIdAndClientId(List<Integer> invoicesId, Integer clientId) {
-        List<Invoice> allInvoices = new ArrayList<>();
+    public Set<Invoice> getInvoicesByIdAndClientId(List<InvoicePayDTO> invoicePayDTOS, Integer clientId) {
+        Set<Invoice> allInvoices = new HashSet<>();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            for (Integer id : invoicesId) {
+            for (InvoicePayDTO invoicePayDTO : invoicePayDTOS) {
                 String query = String.format("FROM Invoice i " +
-                        "WHERE i.id=%s AND i.subscriber.client.id = %s", id, clientId);
+                        "WHERE i.id=%s AND i.subscriber.client.id = %s", invoicePayDTO.getId(), clientId);
                 List<Invoice> invoices = session.createQuery(query).list();
                 if (invoices.size() > 0) {
                     allInvoices.addAll(invoices);
@@ -205,7 +200,7 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
             e.printStackTrace();
         }
 
-        return new ArrayList<>();
+        return new HashSet<>();
     }
 
     @Override

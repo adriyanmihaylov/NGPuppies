@@ -2,6 +2,8 @@ package com.paymentsystem.ngpuppies.web.client;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
+import com.paymentsystem.ngpuppies.models.dto.InvoicePayDTO;
+import com.paymentsystem.ngpuppies.models.dto.ValidList;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
@@ -12,21 +14,25 @@ import com.paymentsystem.ngpuppies.validator.base.ValidDate;
 import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+@Validated
 @RestController
 @RequestMapping("${common.basepath}/client")
 @PreAuthorize("hasRole('ROLE_CLIENT')")
-@Validated
 public class ClientRestController {
 
     @Autowired
@@ -150,20 +156,30 @@ public class ClientRestController {
         return null;
     }
 
-    @PutMapping("/invoice/pay")
-    public ResponseEntity<?> payInvoices(@RequestBody() List<Integer> invoicesIds, Authentication authentication) {
-        try {
-            Client client = (Client) authentication.getPrincipal();
-            List<Invoice> allInvoices = invoiceService.getInvoicesByIdAndClientId(invoicesIds, client.getId());
-
-            if (allInvoices.size() > 0 && invoiceService.payInvoices(allInvoices)) {
-                return ResponseEntity.ok("Invoices were payed!");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Something went wrong! Please try again later!");
+    @GetMapping("/invoice/pay")
+    public ValidList<InvoicePayDTO> getInvoicePayModel() {
+        ValidList<InvoicePayDTO> invoicePayDTOValidList = new ValidList<>();
+        for (int i = 0; i < 2; i++) {
+            invoicePayDTOValidList.add(new InvoicePayDTO());
         }
 
-        return ResponseEntity.badRequest().body("Bills were not updated!");
+        return invoicePayDTOValidList;
+    }
+
+    @PutMapping("/invoice/pay")
+    @ResponseBody
+    public ResponseEntity<?> payInvoices(@RequestBody() @Valid ValidList<InvoicePayDTO> invoicePayDTOList,
+                                         Authentication authentication,BindingResult bindingResult) {
+        List<InvoicePayDTO> unpaidInvoices = new ArrayList<>();
+        try {
+            Client client = (Client) authentication.getPrincipal();
+            unpaidInvoices = invoiceService.payInvoices(invoicePayDTOList.getList(), client.getId());
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(unpaidInvoices, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(unpaidInvoices, HttpStatus.OK);
     }
 
     @GetMapping("/invoice/last10")

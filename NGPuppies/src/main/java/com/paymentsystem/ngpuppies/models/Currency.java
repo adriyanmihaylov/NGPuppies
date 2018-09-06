@@ -13,6 +13,9 @@ public class Currency {
     @Column(name = "Name")
     private String name;
 
+    @Column(name = "CurrencyToBGN")
+    private double fixing;
+
     public Currency() {
 
     }
@@ -35,5 +38,13 @@ public class Currency {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double getFixing() {
+        return fixing;
+    }
+
+    public void setFixing(double fixing) {
+        this.fixing = fixing;
     }
 }
