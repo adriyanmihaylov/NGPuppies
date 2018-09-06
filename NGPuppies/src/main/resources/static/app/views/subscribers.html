@@ -1,0 +1,95 @@
+<div class="row justify-content-center ng-scope">
+    <div class="col-10 col-md-10 col-lg-8">
+        <form class="card card-sm ng-pristine ng-valid">
+            <div class="card-body row no-gutters align-items-center">
+                <div class="col">
+                    <input type="tel" placeholder="Phone Number" class="form-control"  ng-model = "subscriberPhone">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn btn-success" type="submit" ng-click = "search(subscriberPhone)">View</button>
+                </div>
+            </div>
+            <div class="alert alert-dismissible alert-danger" ng-show="error">
+                <strong>Oh snap!</strong> Change the number and try submitting again.
+            </div>
+        </form>
+    </div>
+
+    <div class="row" style="margin-top: 50px" ng-model="subscriber" ng-if = "subscriber != null">
+        <div class="card border-info mb-3" style="width: 20rem;  margin-right: 10px;">
+            <div class="card-header">Subscribed services</div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr class="table-primary" ng-repeat = "service in subscriber.services">
+                        <th scope="row">{{service}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card border-info mb-3" style="width: 20rem;  margin-right: 10px;">
+            <div class="card-header">Payment Report</div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label for="startDate" class="col-4 col-form-label">Start Date</label>
+                    <div class="col-8">
+                        <input class="form-control"  type="date"  id="startDate">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="endDate" class="col-4 col-form-label">End Date</label>
+                    <div class="col-8">
+                        <input class="form-control" type="date" id="endDate">
+                    </div>
+                </div>
+                <div ng-model = "money" ng-if = "money!=null && money!==''">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr class="table-primary">
+                            <th scope="row">Average payed</th>
+                            <td>{{average}}</td>
+                            <td>BGN</td>
+                        </tr>
+                        <tr class="table-primary">
+                            <th scope="row">Biggest payment</th>
+                            <td>{{maximum}}</td>
+                            <td>BGN</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 ng-if = "money===null">No payments for this period</h3>
+                <button class="btn btn btn-success" type="submit" ng-click = "report(subscriber.phoneNumber)">Rerport</button>
+            </div>
+        </div>
+        <div class="card border-info mb-3" style="width: 20rem;">
+            <div class="card-header">Personal information </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr class="table-primary">
+                        <th scope="row">First Name</th>
+                        <td>{{subscriber.firstName}}</td>
+                    </tr>
+                    <tr class="table-primary">
+                        <th scope="row">Last Name</th>
+                        <td>{{subscriber.lastName}}</td>
+                    </tr>
+                    <tr class="table-primary">
+                        <th scope="row">EGN</th>
+                        <td>{{subscriber.EGN}}</td>
+                    </tr>
+                    <tr class="table-primary">
+                        <th scope="row">Phone Number</th>
+                        <td>{{subscriber.phoneNumber}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+    </div>
+
+</div>
+</div>

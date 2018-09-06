@@ -2,11 +2,12 @@ angular.module('NGPuppies')
 // Creating the Angular Controller
     .controller('clients', function($http, $scope, AuthService) {
         var edit = false;
+        var oldUsername = "";
+        $scope.error = null;
         $scope.buttonText = 'Create';
         var init = function() {
             $http.get('api/client/all').success(function(res) {
-                $scope.admins = res;
-                $scope.userForm.$setPristine();
+                $scope.clients = res;
                 $scope.message='';
                 $scope.appAdmin = null;
 
@@ -14,25 +15,48 @@ angular.module('NGPuppies')
                 $scope.message = error.message;
             });
         };
-        $scope.initEdit = function(appAdmin) {
+        $scope.initEdit = function(client) {
+            $scope.error = null;
             edit = true;
-            $scope.appAdmin = appAdmin;
+            oldUsername = client.username;
+            $scope.username = client.username;
+            $scope.eik = client.eik;
+            if (client.details.description===null){
+                $scope.description = "No description";
+            } else {
+                $scope.description = client.details.description;
+            }
             $scope.message='';
 
         };
-        $scope.deleteUser = function(admin) {
-            $http.delete('api/user/delete?username='+ admin.credentials.username).success(function(res) {
-                $scope.deleteMessage ="Success!";
+        $scope.deleteUser = function(client) {
+            $scope.error = null;
+            $http.delete('api/user/'+ client.username + "/delete").success(function(res) {
+                $scope.deleteMessage = res.message;
                 init();
             }).error(function(error) {
                 $scope.deleteMessage = error.message;
             });
         };
-        var editUser = function(){
-            console.log($scope.appAdmin.eik);
-            var updateFormData = {username : $scope.appAdmin.credentials.username, password : $scope.appAdmin.credentials.password,
-                eik : $scope.appAdmin.eik, details : null};
-            var url = 'api/client/' + $scope.appAdmin.credentials.username + "/update";
+        $scope.update = function(){
+            $scope.error = null;
+            var password;
+            var description;
+            var username = $("#username").val();
+            if ($("#password").val() === "") {
+                password = null;
+            }else{
+                password = $("#password").val();
+            }
+
+            if ($("#description").val() === "") {
+                description = null;
+            }else{
+                description = $("#description").val();
+            }
+            var updateFormData = {username : username, password : password,
+                eik : $scope.eik, details : {description: description}};
+            var url = 'api/client/update?username='+ oldUsername;
             $http({
                 url : url,
                 method : "PUT",
@@ -40,21 +64,21 @@ angular.module('NGPuppies')
                 contentType: "application/json; charset=utf-8",
                 dataType: "json"
             }).success(function(res) {
-                $scope.appAdmin = null;
+                $scope.error = null;
                 $scope.confirmPassword = null;
-                // $scope.userForm.$setPristine();
-                $scope.message = "Success";
+                $scope.eik = null;
+                $scope.username = null;
+                $scope.description = null;
+                $scope.updated = res.message;
                 init();
             }).error(function(error) {
-                $scope.message =error.message;
+                $scope.error =error.message;
             });
         };
-        $scope.submit = function() {
-            if(edit){
-                editUser();
-            }else{
-                addUser();
-            }
+
+        $scope.reset = function(){
+            $scope.error = null;
+            $scope.updated = null;
         };
         init();
 

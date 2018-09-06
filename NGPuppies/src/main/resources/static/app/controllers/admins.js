@@ -1,54 +1,52 @@
 angular.module('NGPuppies')
 // Creating the Angular Controller
 .controller('UsersController', function($scope,$http,$timeout, AuthService) {
+    $scope.error = null;
+    $scope.success = null;
+	var oldUsername="";
 	var edit = false;
 	$scope.buttonText = 'Create';
 	var init = function() {
 		$http.get('api/admin/all').success(function(res) {
 			$scope.admins = res;
-			$scope.userForm.$setPristine();
-            $timeout( function() {
-                $scope.message = '';
-            },1000);
 			$scope.username = null;
             $scope.email = null;
             $scope.password = null;
 			
 		}).error(function(error) {
-			$scope.message = error.message;
+			$scope.error = error.message;
 		});
 	};
 	$scope.initEdit = function(Admin) {
 		edit = true;
-		$scope.oldUsername = Admin.credentials.username;
-		$scope.username = Admin.credentials.username;
-        $scope.authority = Admin.credentials.authority;
+		oldUsername = Admin.username;
+		$scope.username = Admin.username;
 		$scope.email = Admin.email;
-		$scope.message='';
+		$scope.success=null;
 	};
 	$scope.deleteUser = function(admin) {
-		$http.delete('api/user/delete?username=' + admin.username).success(function(res) {
-			$scope.deleteMessage ="Success!";
+		$http.delete('api/user/' + admin.username+"/delete").success(function(res) {
+			$scope.deleteMessage =res.message;
 			init();
 		}).error(function(error) {
 			$scope.deleteMessage = error.message;
 		});
 	};
-	function updateAdmin() {
-        var url = "api/admin/update?username=" + $scope.oldUsername;
+	$scope.update = function() {
+        var url = "api/admin/update?username=" + oldUsername;
         var adminDTO = {username: $scope.username, password: $scope.password, email: $scope.email};
         $http.put(url,adminDTO).success(function(result) {
-        	$scope.message = $scope.oldUsername + " updated!";
+        	$scope.success = oldUsername + " updated!";
         	init();
         }).error(function(error) {
-        	$scope.message = error.message;
+        	$scope.error = error.message;
         });
     };
-	$scope.submit = function() {
-        if (edit) {
-            updateAdmin();
-        }
-    };
+	$scope.reset = function(){
+        $scope.error = null;
+        $scope.success = null;
+        $scope.deleteMessage = null;
+	};
 	init();
 
 });

@@ -18,12 +18,12 @@ app.controller('addBillController', function($http, $scope) {
             $scope.name = res.firstName + " " + res.lastName;
             $scope.egn = res.EGN;
             if (res.address != null && res.address != undefined) {
-                $scope.address = res.address;
+                $scope.address = res.address.city;
             } else {
                 $scope.address = "Not Presented";
             }
-            if (res.client.credentials.username != null && res.client.credentials.username !== undefined) {
-                $scope.bank = res.client.credentials.username;
+            if (res.client != null && res.client !== undefined) {
+                $scope.bank = res.client;
             } else {
                 $scope.bank = "Not Presented";
             }
