@@ -23,10 +23,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Validated
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/admin")
-@Validated
 public class AdminAdministratorsController {
     @Autowired
     private AdminService adminService;

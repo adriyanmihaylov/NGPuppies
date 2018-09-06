@@ -1,8 +1,11 @@
 package com.paymentsystem.ngpuppies.services.base;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
+import com.paymentsystem.ngpuppies.models.dto.InvoicePayDTO;
+import com.paymentsystem.ngpuppies.models.dto.ValidList;
 
 import java.util.List;
+import java.util.Set;
 
 public interface InvoiceService {
 
@@ -16,13 +19,11 @@ public interface InvoiceService {
 
     boolean delete(Invoice invoice);
 
-    boolean payInvoices(List<Invoice> allInvoices);
-
     List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(Integer subscriberId);
 
     List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId);
 
-    List<Invoice> getInvoicesByIdAndClientId(List<Integer> invoices, Integer id);
+    Set<Invoice> getInvoicesByIdAndClientId(List<InvoicePayDTO> invoices, Integer id);
 
     List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(Integer subscriberId, String fromDate, String endDate);
 
@@ -31,4 +32,6 @@ public interface InvoiceService {
     List<Invoice> getTenMostRecentInvoices(Integer clientId);
 
     Invoice getSubscriberLargestPaidInvoice(Integer subscriberId, String fromDate, String endDate);
+
+    List<InvoicePayDTO> payInvoices(List<InvoicePayDTO> invoices, Integer clientId);
 }

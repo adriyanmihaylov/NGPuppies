@@ -17,7 +17,7 @@ public class OfferedServices {
 
     @NotNull(message = "Please enter service name!")
     @Size.List({
-            @Size(min = 3, message = "Service name must be at least 3 characters"),
+            @Size(min = 2, message = "Service name must be at least 3 characters"),
             @Size(max = 50, message = "Service name must be less than 50 characters")
     })
     @Column(name = "Name")

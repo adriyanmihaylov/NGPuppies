@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Validated
 @RestController
 @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CLIENT')")
 @RequestMapping("${common.basepath}")
-@Validated
 public class GeneralController {
     @Autowired
     private SubscriberService subscriberService;

@@ -19,11 +19,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Validated
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/service")
-@Validated
 public class AdminOfferedServiceController {
     @Autowired
     private OfferedServicesService offeredServicesService;
