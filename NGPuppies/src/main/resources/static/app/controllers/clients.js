@@ -31,7 +31,7 @@ angular.module('NGPuppies')
         };
         $scope.deleteUser = function(client) {
             $scope.error = null;
-            $http.delete('api/user/delete?username='+ client.username).success(function(res) {
+            $http.delete('api/user/'+ client.username + "/delete").success(function(res) {
                 $scope.deleteMessage = res.message;
                 init();
             }).error(function(error) {

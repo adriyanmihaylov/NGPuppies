@@ -1,68 +1,51 @@
+<div class="row justify-content-center">
 
+<div class="col-8">
+<form ng-submit="submit()">
 
-<form ng-submit="submit()" name="register" novalidate>
-	<div class="form-group row" ng-class="{ 'has-error': register.name.$invalid && register.name.$dirty }">
-		<label for="inputEmail3" class="col-sm-2 col-form-label">Username</label>
-		<div class="col-sm-3">
-			<input type="text" class="form-control" id="inputEmail3" placeholder="Username" ng-model="username">
+	<fieldset>
+		<legend>Register a new user</legend>
+		<div class="form-group">
+			<label for="username">Username</label>
+			<input type="text" class="form-control" ng-model = "username"  id="username" ng-change="reset()"  placeholder="Username">
 		</div>
-	</div>
-	<div class="form-group row">
-		<label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-		<div class="col-sm-3" ng-class="{ 'has-error': register.password.$invalid && register.password.$dirty }">
-			<input type="password" class="form-control" id="inputPassword3" placeholder="Password" ng-model="password">
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" class="form-control" ng-model = "password" ng-change="reset()"  id="password"  placeholder="Password">
 		</div>
-	</div>
-	<div class="form-group row">
-		<label for="confirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
-		<div class="col-sm-3" ng-class="{ 'has-error': register.confirmPassword.$invalid && register.confirmPassword.$dirty }">
-			<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password"
-				   ng-model="confirmPassword">
+		<div class="form-group">
+			<label for="confirmPassword">Password</label>
+			<input type="password" class="form-control" ng-change="reset()" ng-model = "confirmPassword"  id="confirmPassword"  placeholder="Confirm password">
 		</div>
-	</div>
-	<div class="form-group row" id="admin" style="display:none">
-		<label for="adminEmail" class="col-sm-2 col-form-label">Email</label>
-		<div class="col-sm-3">
-			<input type="email" class="form-control" id="adminEmail" placeholder="admin@email.com" ng-model="email">
-		</div>
-	</div>
-	<div id="Client" style="display: none">
-
-		<div class="form-group row">
-			<label for="clientEik" class="col-sm-2 col-form-label">Eik</label>
-			<div class="col-sm-3">
-				<input type="text" class="form-control" id="clientEik" placeholder="203026854" ng-model="eik">
+		<div id="client" style="display: none">
+			<div class="form-group">
+				<label for="eik">EIK</label>
+				<input type="text" class="form-control" id="eik" ng-change="reset()"  placeholder="Eik" ng-model = "eik" >
+			</div>
+			<div class="form-group">
+				<label for="description">Description</label>
+				<input type="text" class="form-control"  ng-change="reset()" ng-model = "description"  id="description"  placeholder="Short description">
 			</div>
 		</div>
-		<div class="form-group row">
-			<label for="clienName" class="col-sm-2 col-form-label">Name</label>
-			<div class="col-sm-3">
-				<input type="text" class="form-control" id="clienName" placeholder="Client" ng-model="details">
-			</div>
+		<div class="form-group" id="admin" style="display: none">
+			<label for="email">Email address</label>
+			<input type="email"  ng-change="reset()"  class="form-control" ng-model = "email"  id="email" aria-describedby="emailHelp" placeholder="Enter email">
 		</div>
-	</div>
-
-
-	<div class="form-group row">
-		<label class="col-sm-2 col-form-label" for="optionSelect">Preference</label>
-		<div class="col-sm-3">
-			<select class="custom-select" ng-model="select" ng-change="changeFunc()" id="optionSelect">
+		<div class="form-group">
+			<label for="optionSelect">Role</label>
+			<select class="form-control" id="optionSelect">
 				<option>Admin</option>
 				<option>Client</option>
 			</select>
 		</div>
-	</div>
-
-	<div class="form-group row">
-		<div class="col-sm-3">
-			<button type="submit"
-					class="btn btn-primary">Register</button>
-					<div class="alert alert-warning margin-top-5"
-						ng-show=>Password Not Matching</div>
-					<div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
-				</form>
-			</div>
+		<button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+		<div class="alert alert-dismissible alert-danger" ng-show="error">
+			<strong>{{error}}</strong>
 		</div>
-	</div>
+		<div class="alert alert-dismissible alert-success" ng-show = "success">
+			<strong>{{success}}</strong>
+		</div>
+	</fieldset>
 </form>
-
+</div>
+</div>
