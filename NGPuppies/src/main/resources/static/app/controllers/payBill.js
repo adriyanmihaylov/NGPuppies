@@ -3,6 +3,8 @@ angular.module('NGPuppies')
         $scope.cases = function () {
             if($scope.invoiceType === "Payed Invoices"){
                 $("#dates").css("display","");
+            }else{
+                $("#dates").css("display","none");
             }
         };
 
@@ -10,13 +12,12 @@ angular.module('NGPuppies')
             var startDate = $("#startDate").val();
             var endDate = $("#endDate").val();
             $http({
-                url: '/api/subscriber/' + phoneNumber + '/invoices/paid?from=' + startDate +"&to=" + endDate,
+                url: '/api/subscriber= + phoneNumber + '/invoices/paid?from=' + startDate +"&to=" + endDate,
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
                 $scope.subscriber = "Paid invoices for: " + $scope.phoneNumber;
                 $scope.invoices = result;
-                console.log(result);
                 $("#invoiceDitails").css("display","");
             }).error(function (err) {
                 $scope.message = err.message;
@@ -25,7 +26,7 @@ angular.module('NGPuppies')
 
         var initNotPayed = function (phoneNumber) {
             $http({
-                url: '/api/subscriber/' + phoneNumber + '/invoices/unpaid',
+                url: '/api/subscriber=' + phoneNumber + '/invoices/unpaid',
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
@@ -40,7 +41,7 @@ angular.module('NGPuppies')
 
         var initAll = function (phoneNumber) {
             $http({
-                url: '/api/subscriber/' + phoneNumber + '/invoices',
+                url: '/api/subscriber=' + phoneNumber + '/invoices',
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
@@ -61,9 +62,10 @@ angular.module('NGPuppies')
                     dataType: "json"
                 }).success(function (result) {
                     $scope.message = "Successful payment"
+                    initAll(invoice.subscriberPhone);
                 }).error(function (err) {
                     $scope.message = err.message;
-                    init(invoice.subscriberPhone);
+
                 })
             };
 

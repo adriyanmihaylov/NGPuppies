@@ -1,43 +1,10 @@
-<html>
-<head>
-    <style>
-    </style>
-</head>
-
-<body id="LoginForm">
-    <div class="container">
-        <div class="login-form">
-            <div class="main-div">
-                <div class="panel">
-                    <h2>Login</h2>
-                    <!-- <p>Please enter your username and password</p> -->
-                </div>
-                <form id="Login" ng-submit="login()">
-
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="username" placeholder="Username"
-                        ng-model="username">
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <input type="password" class="form-control" id="password" placeholder="Password"
-                        ng-model="password">
-
-                    </div>
-
-            
-            <button type="submit" class="btn btn-primary">Login</button>
-            <div class="alert alert-warning" role="alert" ng-show="message">
-                {{message}}
-              </div>
-            </form>
-        </div>
-        </div>
-    </div>
-
-
-</body>
-
-</html>
+<div id="login">
+<div class="login">
+    <h1>Login</h1>
+    <form method="post">
+        <input type="text" name="u" ng-model="username" placeholder="Username" required="required" />
+        <input type="password" name="p" placeholder="Password" ng-model="password" required="required" />
+        <button type="submit" class="btn btn-primary btn-block btn-large" ng-click = "login()">Let me in.</button>
+    </form>
+</div>
+</div>

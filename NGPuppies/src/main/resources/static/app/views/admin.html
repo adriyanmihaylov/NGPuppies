@@ -1,49 +1,27 @@
 <div class="row">
-	<div class="col-sm-6 ">
-		<div class="panel panel-default">
-			<div class="panel-heading">User</div>
-			<div class="panel-body">
-				<div class="col-md-12">
-					<form ng-submit="submit()" name="userForm" novalidate>
-
-						<div class="form-group"
-							ng-class="{ 'has-error': userForm.username.$invalid && userForm.username.$dirty }">
-							<label for="username">Username:</label> <input type="text"
-								required class="form-control" ng-model="username"
-								id="username" name="username">
-						</div>
-						<div class="form-group"
-							 ng-class="{ 'has-error': userForm.authority.$invalid && userForm.authority.$dirty }">
-							<label for="username">Email:</label>
-							<input type="text" required class="form-control" ng-model="email"
-								   id="email" name="email">
-						</div>
-
-						<div class="form-group"
-							ng-class="{ 'has-error': userForm.password.$invalid && userForm.password.$dirty }">
-							<label for="pwd">Password:</label> <input type="password"
-								required class="form-control" id="pwd"
-								ng-model="password" name="password">
-						</div>
-
-						<div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
-
-						<button type="submit" class="btn btn-default" ng-click="updateAdmin()">Update</button>
-
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="col-sm-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				Admins
-			</div>
-			<div class="panel-body">
+		<form>
+			<fieldset>
+				<legend>Egit User</legend>
+				<div class="form-group">
+					<label for="email">Email address</label>
+					<input type="email" ng-model = "email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
 
-				<div class="alert alert-info margin-top-5" ng-show="deleteMessage">{{deleteMessage}}</div>
-				<table  class="table table-striped table-dark">
+
+				</div>
+				<div class="form-group">
+					<label for="username">Username</label>
+					<input type="text"  ng-model = "username" class="form-control" id="username" placeholder="Password">
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password"  ng-model = "password" class="form-control" id="password" placeholder="Password">
+				</div>
+			</fieldset>
+		</form>
+		</div>
+	<div class="col-sm-6">
+				<table  class="table table-hover">
 					<thead>
 						<tr>
 							<th scope="col">#</th>
@@ -53,17 +31,18 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="admin in admins">
+						<tr ng-repeat="admin in admins" class="table-primary">
 							<th scope="row">{{admin.credentials.id}}</th>
 							<td>{{admin.credentials.username}}</td>
 							<td>{{admin.email}}</td>
-							<td><button type="button" class="btn btn-info btn-sm"
+							<td>
+								<button type="button" class="btn btn-primary"
 									ng-click="initEdit(admin)">
 								Edit
 									<span class="glyphicon glyphicon-edit"></span>
 								</button></td>
 							<td>
-								<button type="button" class="btn btn-info btn-sm"
+								<button type="button" class="btn btn-primary"
 									ng-click="deleteUser(admin)">
 									Delete
 									<span class="glyphicon glyphicon-trash"></span>
@@ -74,5 +53,6 @@
 				</table>
 			</div>
 		</div>
-	</div>
-</div>
+
+
+

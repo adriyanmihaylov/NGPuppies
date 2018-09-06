@@ -13,13 +13,16 @@ angular.module('NGPuppies')
     };
     $scope.deleteUser = function (user) {
             $http.delete('api/user/delete?username='+ user.username).success(function(res) {
-                $scope.Deletemessage ="Success!";
                 init();
+            }).success(function () {
+                $scope.success = "Successful delete!";
+
             }).error(function(error) {
-                $scope.deleteMessage = error.message;
+                $scope.message = "Something went wrong";
+                $scope.deletemessage = error.message;
             });
 
-    }
+    };
     $(document).ready(function () {
         init();
 
