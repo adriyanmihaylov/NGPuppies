@@ -12,7 +12,7 @@ angular.module('NGPuppies')
             var startDate = $("#startDate").val();
             var endDate = $("#endDate").val();
             $http({
-                url: '/api/subscriber= ' + phoneNumber + '/invoices/paid?from=' + startDate +"&to=" + endDate,
+                url: '/api/client/subscriber= ' + phoneNumber + '/invoices/paid?from=' + startDate +"&to=" + endDate,
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
@@ -26,7 +26,7 @@ angular.module('NGPuppies')
 
         var initNotPayed = function (phoneNumber) {
             $http({
-                url: '/api/subscriber=' + phoneNumber + '/invoices/unpaid',
+                url: '/api/client/subscriber=' + phoneNumber + '/invoices/unpaid',
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
@@ -41,7 +41,7 @@ angular.module('NGPuppies')
 
         var initAll = function (phoneNumber) {
             $http({
-                url: '/api/subscriber=' + phoneNumber + '/invoices',
+                url: '/api/client/subscriber=' + phoneNumber + '/invoices',
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
@@ -57,7 +57,7 @@ angular.module('NGPuppies')
 
         $scope.initPay = function (invoice) {
                 $http({
-                    url: '/api/pay/invoice?id=' + invoice.id,
+                    url: '/api/client/pay/invoice?id=' + invoice.id,
                     method: "PUT",
                     dataType: "json"
                 }).success(function (result) {

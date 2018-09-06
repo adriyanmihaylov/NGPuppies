@@ -3,7 +3,7 @@ angular.module('NGPuppies')
     .controller('reportsCotroller', function($http, $scope) {
         var initRecent = function () {
             $http({
-                url: '/api/invoice/last10',
+                url: '/api/client/invoice/last10',
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
@@ -19,7 +19,7 @@ angular.module('NGPuppies')
         };
         var initTop10 = function () {
             $http({
-                url: '/api/subscriber/top10',
+                url: '/api/client/subscriber/top10',
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {

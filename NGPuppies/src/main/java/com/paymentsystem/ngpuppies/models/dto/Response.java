@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.models;
+package com.paymentsystem.ngpuppies.models.dto;
 
 
 public class Response {

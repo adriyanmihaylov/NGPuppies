@@ -1,55 +1,41 @@
 <div class="row">
-    <div class="col-sm-6 ">
-        <div class="panel panel-default">
-            <div class="panel-heading">Client</div>
-            <div class="panel-body">
-                <div class="col-md-12">
-                    <form ng-submit="submit()" name="userForm" novalidate>
-
-                        <div class="form-group"
-                             ng-class="{ 'has-error': userForm.username.$invalid && userForm.username.$dirty }">
-                            <label for="username">Username:</label> <input type="text"
-                                                                           required class="form-control" ng-model="appAdmin.credentials.username"
-                                                                           id="username" name="username">
-                        </div>
-                        <div class="form-group"
-                             ng-class="{ 'has-error': userForm.authority.$invalid && userForm.authority.$dirty }">
-                            <label for="username">Role:</label>
-                            <input type="text" required class="form-control" ng-model="appAdmin.credentials.authority"
-                                   id="role" name="role">
-                        </div>
-                        <div class="form-group">
-                            <label for="username">Eik:</label>
-                            <input type="text" required class="form-control" ng-model="appAdmin.eik"
-                                   id="eik" name="eik">
-                        </div>
-
-                        <div class="form-group"
-                             ng-class="{ 'has-error': userForm.password.$invalid && userForm.password.$dirty }">
-                            <label for="pwd">Password:</label> <input type="password"
-                                                                      required class="form-control" id="pwd"
-                                                                      ng-model="appAdmin.credentials.password" name="password">
-                        </div>
-
-                        <div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
-
-                        <button type="submit" class="btn btn-default"
-                                ng-disabled="userForm.$invalid" ng-click="editUser(user)">Update</button>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Admins
-            </div>
-            <div class="panel-body">
+        <form>
+            <fieldset>
+                <legend>Edit Client</legend>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="email" ng-change="reset()" ng-model = "username" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username">
 
-                <div class="alert alert-info margin-top-5" ng-show="deleteMessage">{{deleteMessage}}</div>
-                <table  class="table table-striped table-dark">
+                </div>
+                <div class="form-group">
+                    <label for="eik">Eik</label>
+                    <input type="text" ng-change="reset()"  ng-model = "eik" class="form-control" id="EIK" placeholder="eik">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" ng-change="reset()"  ng-model = "description" class="form-control" id="description" placeholder="description">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" ng-change="reset()"  ng-model = "password" class="form-control" id="password" placeholder="Password">
+                </div>
+                <div class="alert alert-dismissible alert-danger" ng-show="error">
+                    <strong>{{error}}</strong>
+                </div>
+                <div class="alert alert-dismissible alert-success" ng-show = "updated">
+                    <strong>{{updated}}</strong>
+                </div>
+                <button type="button" class="btn btn-primary btn-lg btn-block" ng-click = "update()">Update</button>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="alert alert-dismissible alert-success" ng-show = "deleteMessage">
+            <strong>{{deleteMessage}}</strong>
+        </div>
+                <table  class="table table-hover">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -60,27 +46,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="admin in admins">
-                        <th scope="row">{{admin.credentials.id}}</th>
-                        <td>{{admin.credentials.username}}</td>
-                        <td>{{admin.credentials.authority}}</td>
-                        <td>{{admin.eik}}</td>
-                        <td><button type="button" class="btn btn-info btn-sm"
-                                    ng-click="initEdit(admin)">
-                            Edit
-                            <span class="glyphicon glyphicon-edit"></span>
+                    <tr ng-repeat="client in clients" class="table-primary">
+                        <th scope="row"></th>
+                        <td>{{client.username}}</td>
+                        <td>{{client.authority}}</td>
+                        <td>{{client.eik}}</td>
+                        <td><button type="button" class="btn btn-primary"
+                                    ng-click="initEdit(client)"> Edit
                         </button></td>
                         <td>
-                            <button type="button" class="btn btn-info btn-sm"
-                                    ng-click="deleteUser(admin)">
-                                Delete
-                                <span class="glyphicon glyphicon-trash"></span>
+                            <button type="button" class="btn btn-primary"
+                                    ng-click="deleteUser(client)"> Delete
                             </button>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
     </div>
 </div>

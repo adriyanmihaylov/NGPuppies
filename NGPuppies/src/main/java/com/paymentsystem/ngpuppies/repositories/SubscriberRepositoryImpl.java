@@ -174,6 +174,25 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
     }
 
     @Override
+    public List<Subscriber> getSubscribersByService(Integer serviceId) {
+        List<Subscriber> subscribers = new ArrayList<>();
+        try (Session session = sessionFactory.openSession()) {
+            String query = String.format(
+                    "SELECT s FROM Subscriber s" +
+                            " JOIN s.subscriberServices srv" +
+                            " WHERE srv.id=%s", serviceId);
+            session.beginTransaction();
+            subscribers = session.createQuery(query).list();
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return subscribers;
+    }
+
+    @Override
     public List<Subscriber> getTenAllTimeSubscribersWithBiggestBillsPaid(Integer clientId) {
         try (Session session = sessionFactory.openSession()) {
             String query = String.format(

@@ -1,19 +1,20 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
-import com.paymentsystem.ngpuppies.models.Response;
+import com.paymentsystem.ngpuppies.models.dto.Response;
 import com.paymentsystem.ngpuppies.models.dto.AdminDTO;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.services.base.*;
-import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
-import com.paymentsystem.ngpuppies.web.ResponseHandler;
+import com.paymentsystem.ngpuppies.models.viewModels.AdminViewModel;
+import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/admin")
+@Validated
 public class AdminAdministratorsController {
     @Autowired
     private AdminService adminService;
@@ -32,11 +34,9 @@ public class AdminAdministratorsController {
     private AuthorityService authorityService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private ResponseHandler responseHandler;
 
     @GetMapping("/{username}")
-    public ResponseEntity<AdminViewModel> getAdminByUsername(@PathVariable("username") String username) {
+    public ResponseEntity<AdminViewModel> getAdminByUsername(@PathVariable("username") @ValidUsername String username) {
         AdminViewModel viewModel = AdminViewModel.fromModel(adminService.loadByUsername(username));
 
         if (viewModel != null) {
@@ -65,42 +65,36 @@ public class AdminAdministratorsController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Response> registerAdmin(@Valid @RequestBody AdminDTO adminDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return responseHandler.bindingResultHandler(bindingResult);
-        }
-
+    public ResponseEntity<Response> registerAdmin(@RequestBody @Valid AdminDTO adminDTO,
+                                                  BindingResult bindingResult) {
         if (adminDTO.getPassword() == null) {
-            return responseHandler.returnResponse("Missing password!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response("Missing password!"), HttpStatus.BAD_REQUEST);
         }
         try {
             Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
             Admin admin = new Admin(adminDTO.getUsername(), adminDTO.getPassword(), adminDTO.getEmail(), authority);
 
             if (!adminService.create(admin)) {
-                return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (SQLException e) {
-            return responseHandler.returnResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return responseHandler.returnResponse("Please try again later", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
         }
 
-        return responseHandler.returnResponse("Successful registration!", HttpStatus.OK);
+        return new ResponseEntity<>(new Response("Successful registration!"), HttpStatus.OK);
     }
 
 
     @PutMapping("/update")
-    public ResponseEntity<Response> updateAdmin(@RequestParam String username,
-                                                @Valid @RequestBody AdminDTO adminDTO,
+    public ResponseEntity<Response> updateAdmin(@RequestParam @ValidUsername String username,
+                                                @RequestBody @Valid AdminDTO adminDTO,
                                                 BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return responseHandler.bindingResultHandler(bindingResult);
-        }
         try {
             Admin admin = adminService.loadByUsername(username);
             if (admin == null) {
-                return responseHandler.returnResponse(adminDTO.getUsername() + " was not found!", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response(adminDTO.getUsername() + " was not found!"), HttpStatus.BAD_REQUEST);
             }
 
             admin.setUsername(adminDTO.getUsername());
@@ -111,14 +105,14 @@ public class AdminAdministratorsController {
             }
 
             if (!adminService.update(admin)) {
-                return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (SQLException e) {
-            return responseHandler.returnResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return responseHandler.returnResponse("Please try again later", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
         }
 
-        return responseHandler.returnResponse("Successful update!", HttpStatus.OK);
+        return new ResponseEntity<>(new Response("Successful update!"), HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.services;
 
+import com.paymentsystem.ngpuppies.models.OfferedServices;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
@@ -21,7 +22,7 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
     @Override
-    public Subscriber getByNumber(String phoneNumber) {
+    public Subscriber getSubscriberByPhone(String phoneNumber) {
         return subscriberRepository.getByNumber(phoneNumber);
     }
 
@@ -46,7 +47,7 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     public Map<Subscriber, Double> getSubscriberWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate) {
-        Object[] result = subscriberRepository.getSubscriberWithBiggestAmountPaid(clientId,fromDate,toDate);
+        Object[] result = subscriberRepository.getSubscriberWithBiggestAmountPaid(clientId, fromDate, toDate);
 
         Map<Subscriber, Double> subscribers = new HashMap<>();
         for (Object object : result) {
@@ -66,5 +67,10 @@ public class SubscriberServiceImpl implements SubscriberService {
         }
 
         return amount;
+    }
+
+    @Override
+    public List<Subscriber> getSubscribersByService(Integer serviceId)  {
+        return subscriberRepository.getSubscribersByService(serviceId);
     }
 }

@@ -2,21 +2,24 @@ package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.OfferedServices;
-import com.paymentsystem.ngpuppies.models.Response;
+import com.paymentsystem.ngpuppies.models.dto.Response;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.dto.SubscriberDTO;
 import com.paymentsystem.ngpuppies.models.users.Client;
+import com.paymentsystem.ngpuppies.models.viewModels.SubscriberSimpleViewModel;
 import com.paymentsystem.ngpuppies.services.base.AddressService;
 import com.paymentsystem.ngpuppies.services.base.ClientService;
 import com.paymentsystem.ngpuppies.services.base.OfferedServicesService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
-import com.paymentsystem.ngpuppies.viewModels.SubscriberViewModel;
-import com.paymentsystem.ngpuppies.web.ResponseHandler;
+import com.paymentsystem.ngpuppies.models.viewModels.SubscriberViewModel;
+import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
+import com.paymentsystem.ngpuppies.validator.base.ValidServiceName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,6 +30,7 @@ import java.util.stream.Collectors;
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/subscriber")
+@Validated()
 public class AdminSubscriberController {
     @Autowired
     private SubscriberService subscriberService;
@@ -36,17 +40,16 @@ public class AdminSubscriberController {
     private ClientService clientService;
     @Autowired
     private AddressService addressService;
-    @Autowired
-    private ResponseHandler responseHandler;
 
     @GetMapping("")
-    public ResponseEntity<SubscriberViewModel> getByNumber(@RequestParam("phone") String phoneNumber) {
-        SubscriberViewModel viewModel = SubscriberViewModel.fromModel(subscriberService.getByNumber(phoneNumber));
+    public ResponseEntity<SubscriberViewModel> getByNumber(@RequestParam("phone") @ValidPhone String phoneNumber) {
+        Subscriber subscriber = subscriberService.getSubscriberByPhone(phoneNumber);
 
-        if (viewModel != null) {
+        if (subscriber != null) {
+            SubscriberViewModel viewModel = SubscriberViewModel.fromModel(subscriber);
+
             return new ResponseEntity<>(viewModel, HttpStatus.OK);
         }
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -63,28 +66,28 @@ public class AdminSubscriberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{phone}/new/service/{name}")
-    public ResponseEntity<Response> addNewServiceToSubscriber(@PathVariable("phone") String subscriberPhone,
-                                                              @PathVariable("name") String serviceName) {
+    @PutMapping("/{phone}/service/")
+    public ResponseEntity<Response> addNewServiceToSubscriber(@PathVariable("phone") @ValidPhone  String subscriberPhone,
+                                                              @RequestParam() @ValidServiceName String serviceName) {
         try {
 
-            Subscriber subscriber = subscriberService.getByNumber(subscriberPhone);
+            Subscriber subscriber = subscriberService.getSubscriberByPhone(subscriberPhone);
             if (subscriber == null) {
-                return responseHandler.returnResponse("Subscriber not found", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Subscriber not found"), HttpStatus.BAD_REQUEST);
             }
             OfferedServices offeredServices = offeredServicesService.getByName(serviceName);
             if (offeredServices == null) {
-                return responseHandler.returnResponse("Service not found", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Service not found"), HttpStatus.BAD_REQUEST);
             }
             subscriber.getSubscriberServices().add(offeredServices);
             if (subscriberService.update(subscriber)) {
-                return responseHandler.returnResponse("Service successfully added", HttpStatus.OK);
+                return new ResponseEntity<>(new Response("Service successfully added"), HttpStatus.OK);
             }
         } catch (Exception e) {
-            return responseHandler.returnResponse("The subscriber already has the selected service!", HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(new Response("The subscriber already has the selected service!"), HttpStatus.NOT_ACCEPTABLE);
         }
 
-        return responseHandler.returnResponse("Something went wrong!Please try again later", HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new Response("Something went wrong!Please try again later"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("/create")
@@ -96,10 +99,8 @@ public class AdminSubscriberController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Response> createSubscriber(@Valid @RequestBody SubscriberDTO subscriberDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return responseHandler.bindingResultHandler(bindingResult);
-        }
+    public ResponseEntity<Response> createSubscriber(@RequestBody @Valid SubscriberDTO subscriberDTO,
+                                                     BindingResult bindingResult) {
         try {
             Subscriber subscriber = new Subscriber(subscriberDTO.getFirstName(),
                     subscriberDTO.getLastName(),
@@ -110,35 +111,32 @@ public class AdminSubscriberController {
             if (subscriberDTO.getClient() != null) {
                 Client client = clientService.loadByUsername(subscriberDTO.getClient());
                 if (client == null) {
-                    return responseHandler.returnResponse("Client not found", HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>(new Response("Client not found"), HttpStatus.BAD_REQUEST);
                 }
 
                 subscriber.setClient(client);
             }
 
             if (!subscriberService.create(subscriber)) {
-                return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (SQLException e) {
-            return responseHandler.returnResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return responseHandler.returnResponse("Please try again later", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
         }
 
-        return responseHandler.returnResponse("Subscriber created!", HttpStatus.OK);
+        return new ResponseEntity<>(new Response("Subscriber created!"), HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Response> updateSubscriber(@RequestParam() String phoneNumber,
-                                                     @Valid @RequestBody SubscriberDTO subscriberDTO,
+    @PutMapping("/{phone}/update")
+    public ResponseEntity<Response> updateSubscriber(@PathVariable("phone") @ValidPhone String phoneNumber,
+                                                     @RequestBody @Valid SubscriberDTO subscriberDTO,
                                                      BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return responseHandler.bindingResultHandler(bindingResult);
-        }
         try {
-            Subscriber subscriber = subscriberService.getByNumber(phoneNumber);
+            Subscriber subscriber = subscriberService.getSubscriberByPhone(phoneNumber);
             if (subscriber == null) {
-                return responseHandler.returnResponse("Subscriber not found!", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Subscriber not found!"), HttpStatus.BAD_REQUEST);
             }
             subscriber.setPhone(subscriberDTO.getPhone());
             subscriber.setFirstName(subscriberDTO.getFirstName());
@@ -150,7 +148,7 @@ public class AdminSubscriberController {
                     if (client != null) {
                         subscriber.setClient(client);
                     } else {
-                        return responseHandler.returnResponse("Client not found!", HttpStatus.BAD_REQUEST);
+                        return new ResponseEntity<>(new Response("Client not found!"), HttpStatus.BAD_REQUEST);
                     }
                 }
             }
@@ -165,33 +163,52 @@ public class AdminSubscriberController {
                     subscriber.setAddress(subscriberDTO.getAddress());
                     subscriber.getAddress().setId(id);
                 } else {
-                    return responseHandler.returnResponse("Please create the address first!", HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>(new Response("Please create the address first!"), HttpStatus.BAD_REQUEST);
                 }
             }
 
             if (!subscriberService.update(subscriber)) {
-                return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (SQLException e) {
-            return responseHandler.returnResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return responseHandler.returnResponse("Subscriber updated!", HttpStatus.OK);
+        return new ResponseEntity<>(new Response("Subscriber updated!"), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Response> deleteByNumber(@RequestParam("number") String phoneNumber) {
-        Subscriber subscriber = subscriberService.getByNumber(phoneNumber);
+    public ResponseEntity<Response> deleteByNumber(@RequestParam("number") @ValidPhone String phoneNumber) {
+        Subscriber subscriber = subscriberService.getSubscriberByPhone(phoneNumber);
 
         if (subscriber != null) {
             if (subscriberService.delete(subscriber)) {
-                return responseHandler.returnResponse("Subscriber deleted successfully", HttpStatus.OK);
+                return new ResponseEntity<>(new Response("Subscriber deleted successfully"), HttpStatus.OK);
 
             }
-            return responseHandler.returnResponse("Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new Response("Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return responseHandler.returnResponse("Subscriber not found!", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new Response("Subscriber not found!"), HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/{service}/all")
+    public ResponseEntity<List<SubscriberSimpleViewModel>> getAllSubscribersOfService(@PathVariable("service") @ValidServiceName String serviceName) {
+        OfferedServices offeredServices = offeredServicesService.getByName(serviceName);
+        if(offeredServices != null) {
+            List<Subscriber> subscribers = subscriberService.getSubscribersByService(offeredServices.getId());
+
+            if (subscribers != null) {
+                List<SubscriberSimpleViewModel> viewModels = subscribers
+                        .stream()
+                        .map(SubscriberSimpleViewModel::fromModel)
+                        .collect(Collectors.toList());
+
+                return new ResponseEntity<>(viewModels, HttpStatus.OK);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.viewModels;
+package com.paymentsystem.ngpuppies.models.viewModels;
 
 import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.OfferedServices;
@@ -10,7 +10,7 @@ import java.util.List;
 public class SubscriberViewModel {
     public int id;
 
-    public String phoneNumber;
+    public String phoneNumber = "(+359) ";
 
     public String firstName;
 
@@ -31,7 +31,7 @@ public class SubscriberViewModel {
 
         if(subscriber != null) {
             viewModel.id = subscriber.getId();
-            viewModel.phoneNumber = subscriber.getPhone();
+            viewModel.phoneNumber += subscriber.getPhone();
             viewModel.firstName = subscriber.getFirstName();
             viewModel.lastName = subscriber.getLastName();
             viewModel.EGN = subscriber.getEgn();

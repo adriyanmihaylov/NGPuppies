@@ -37,27 +37,20 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Amount</th>
+            <th scope="col">Currency</th>
             <th scope="col">Service</th>
-            <th scope="col">Status</th>
         </tr>
         </thead>
         <tbody>
         <tr class="table-danger" ng-repeat = "invoice in invoices">
             <th scope="row">#</th>
-            <td>{{invoice.amountBGN}}</td>
+            <td>{{invoice.amount}}</td>
             <td>BGN</td>
             <td>{{invoice.service}}</td>
-            <td>{{invoice.status}}</td>
         </tr>
 
 
 
         </tbody>
     </table>
-    <pagination
-            ng-model="currentPage"
-            total-items="invoices.length"
-            max-size="maxSize"
-            boundary-links="true">
-    </pagination>
 </div>

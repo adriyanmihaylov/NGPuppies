@@ -34,6 +34,8 @@ app.controller('LoginController', function($http, $scope, $state, AuthService, $
                 $scope.message = 'Authetication Failed !';
             });
         }
-        ;
+    };
+	$scope.change = function () {
+        $scope.message = null;
     }
 });

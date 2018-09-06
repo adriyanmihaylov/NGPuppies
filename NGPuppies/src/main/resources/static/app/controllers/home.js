@@ -31,7 +31,7 @@ angular.module('NGPuppies')
     }else{
         var initAll = function () {
             $http({
-                url: '/api/invoices/unpaid',
+                url: '/api/client/invoices/unpaid',
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {

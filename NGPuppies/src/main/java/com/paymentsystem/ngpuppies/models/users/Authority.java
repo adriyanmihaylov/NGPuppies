@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 public class Authority {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "Id")
     private int id;
 
     @Column(name = "Name", length = 50)

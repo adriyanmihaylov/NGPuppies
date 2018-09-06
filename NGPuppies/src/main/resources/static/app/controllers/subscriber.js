@@ -4,7 +4,7 @@ app.controller('subscribersController', function($http, $scope) {
     $scope.search = function (subscriberPhone) {
         $scope.subscriber = null;
         $http({
-            url: 'api/subscriber/' + subscriberPhone,
+            url: 'api/client/subscriber?phone=' + subscriberPhone,
             method: "GET",
             dataType: "json"
         }).success(function (result) {
@@ -20,11 +20,12 @@ app.controller('subscribersController', function($http, $scope) {
         })
     };
     $scope.report = function (subscriberPhone) {
+        var phone = subscriberPhone.substr(7);
         var startDate = $("#startDate").val();
         var endDate = $("#endDate").val();
         var isPayment = true;
         $http({
-            url: 'api/subscriber/' + subscriberPhone + '/average?from=' + startDate + "&to=" +endDate,
+            url: 'api/client/subscriber/' + phone + '/average?from=' + startDate + "&to=" +endDate,
             method: "GET",
             dataType: "json"
         }).success(function (result) {
@@ -38,7 +39,7 @@ app.controller('subscribersController', function($http, $scope) {
         }).error(function (err) {
         })
         $http({
-            url: 'api/subscriber/' + subscriberPhone + '/invoices/max?from=' + startDate + "&to="+endDate,
+            url: 'api/client/subscriber/' + phone + '/invoices/max?from=' + startDate + "&to="+endDate,
             method: "GET",
             dataType: "json"
         }).success(function (result) {

@@ -1,11 +1,10 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
-import com.paymentsystem.ngpuppies.models.*;
 import com.paymentsystem.ngpuppies.models.dto.*;
 import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.services.base.*;
-import com.paymentsystem.ngpuppies.viewModels.*;
-import com.paymentsystem.ngpuppies.web.ResponseHandler;
+import com.paymentsystem.ngpuppies.models.viewModels.*;
+import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +12,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +24,7 @@ import java.util.stream.Collectors;
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}")
+@Validated()
 public class AdminUsersController {
     @Autowired
     private UserService userService;
@@ -35,8 +32,6 @@ public class AdminUsersController {
     private AdminService adminService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private ResponseHandler responseHandler;
 
     @GetMapping("/account")
     public ResponseEntity<AdminViewModel> getAccount(Authentication authentication) {
@@ -51,15 +46,12 @@ public class AdminUsersController {
 
     @PutMapping("/account/update")
     public ResponseEntity<Response> updateAccount(@Valid @RequestBody AdminDTO adminDTO,
-                                                  BindingResult bindingResult,
-                                                  Authentication authentication) {
-        if (bindingResult.hasErrors()) {
-            return responseHandler.bindingResultHandler(bindingResult);
-        }
+                                                  Authentication authentication,
+                                                  BindingResult bindingResult) {
         try {
             Admin admin = (Admin) authentication.getPrincipal();
             if (!adminDTO.getUsername().equals(admin.getUsername())) {
-                return responseHandler.returnResponse("Invalid credentials! ", HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>(new Response("Invalid credentials!"), HttpStatus.UNAUTHORIZED);
             }
             admin.setUsername(adminDTO.getUsername());
             admin.setEmail(adminDTO.getEmail());
@@ -70,18 +62,18 @@ public class AdminUsersController {
             }
 
             if (!adminService.update(admin)) {
-                return responseHandler.returnResponse("Something went wrong! Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (SQLException e) {
-            return responseHandler.returnResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return responseHandler.returnResponse("Please try again later", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
         }
-        return responseHandler.returnResponse("Account updated", HttpStatus.OK);
+        return new ResponseEntity<>(new Response("Account updated"), HttpStatus.OK);
     }
 
     @GetMapping("/user")
-    public ResponseEntity<UserViewModel> getUserByUsername(@RequestParam("username") String username) {
+    public ResponseEntity<UserViewModel> getUserByUsername(@RequestParam("username") @ValidUsername String username) {
         UserViewModel viewModel = UserViewModel.fromModel((User) userService.loadUserByUsername(username));
         if (viewModel != null) {
             return new ResponseEntity<>(viewModel, HttpStatus.OK);
@@ -102,16 +94,16 @@ public class AdminUsersController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/user/delete")
-    public ResponseEntity<Response> deleteUserByUsername(@RequestParam() String username) {
+    @DeleteMapping("/user/{username}/delete")
+    public ResponseEntity<Response> deleteUserByUsername(@PathVariable("username") @ValidUsername String username) {
         User user = (User) userService.loadUserByUsername(username);
         if (user != null) {
             if (userService.delete(user)) {
-                return responseHandler.returnResponse("User " + username + " deleted successfully", HttpStatus.OK);
+                return new ResponseEntity<>(new Response("User " + username + " deleted successfully"), HttpStatus.OK);
 
             }
-            return responseHandler.returnResponse("Please try again later!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new Response("Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return responseHandler.returnResponse("User not found!", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new Response("User not found!"), HttpStatus.BAD_REQUEST);
     }
 }

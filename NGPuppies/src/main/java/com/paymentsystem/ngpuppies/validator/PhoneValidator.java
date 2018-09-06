@@ -11,7 +11,7 @@ public class PhoneValidator implements ConstraintValidator<ValidPhone, String> {
 
     private Pattern pattern;
     private Matcher matcher;
-    private static final String PHONE_PATTERN = "^([\\d]{9})$";
+    public static final String PHONE_PATTERN = "^([\\d]{9})$";
 
     @Override
     public void initialize(ValidPhone constraintAnnotation) {

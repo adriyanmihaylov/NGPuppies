@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.viewModels;
+package com.paymentsystem.ngpuppies.models.viewModels;
 
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
@@ -8,7 +8,9 @@ public class TopSubscriberViewModel {
     public String phoneNumber;
 
     public String firstName;
+
     public String lastName;
+
     public double totalAmount;
 
 
