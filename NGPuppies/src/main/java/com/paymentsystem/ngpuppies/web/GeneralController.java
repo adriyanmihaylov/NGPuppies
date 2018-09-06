@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
 @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CLIENT')")
 @RequestMapping("${common.basepath}/invoice")
 public class GeneralController {
-
+    
 }
