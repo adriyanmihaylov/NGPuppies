@@ -50,6 +50,14 @@ public class Invoice {
 
     }
 
+    public Invoice(Subscriber subscriber, Date fromDate, Date toDate, double amountBGN, OfferedServices offeredServices) {
+        setSubscriber(subscriber);
+        setStartDate(fromDate);
+        setEndDate(toDate);
+        setBGNAmount(amountBGN);
+        setOfferedServices(offeredServices);
+    }
+
     public int getId() {
         return id;
     }

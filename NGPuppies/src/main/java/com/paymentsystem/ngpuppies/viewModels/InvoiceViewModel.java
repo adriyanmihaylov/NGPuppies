@@ -2,8 +2,9 @@ package com.paymentsystem.ngpuppies.viewModels;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
 
-public class InvoiceSimpleViewModel {
+public class InvoiceViewModel {
     public int id;
+
     public String startDate;
 
     public String endDate;
@@ -12,26 +13,22 @@ public class InvoiceSimpleViewModel {
 
     public String service;
 
-    public String currency;
-
     public String status;
 
     public String subscriberPhone;
 
     public String subscriberName;
 
-
-    public static InvoiceSimpleViewModel fromModel(Invoice invoice) {
-        InvoiceSimpleViewModel viewModel = new InvoiceSimpleViewModel();
+    public static InvoiceViewModel fromModel(Invoice invoice) {
+        InvoiceViewModel viewModel = new InvoiceViewModel();
 
         if (invoice != null) {
             viewModel.id = invoice.getId();
             viewModel.startDate = invoice.getStartDate().toString().substring(0,10);
             viewModel.endDate = invoice.getEndDate().toString().substring(0,10);
-            viewModel.amount = invoice.getAmount();
+            viewModel.amount = invoice.getBGNAmount();
             viewModel.service = invoice.getOfferedServices().getName();
             viewModel.subscriberPhone = invoice.getSubscriber().getPhone();
-            viewModel.currency = invoice.getCurrency().getName();
             if(invoice.getPayedDate() != null) {
                 viewModel.status = "Paid on " + invoice.getPayedDate().toString().substring(0,10);
             } else {

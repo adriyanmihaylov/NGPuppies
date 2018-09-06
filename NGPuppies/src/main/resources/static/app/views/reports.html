@@ -29,7 +29,7 @@
                         <tbody>
                         <tr ng-repeat="invoice in invoices">
                             <th scope="row" ng-model = "a"></th>
-                            <td >{{invoice.amount}}</td>
+                            <td >{{invoice.amountBGN}}</td>
                             <td>{{invoice.currency}}</td>
                             <td>{{invoice.service}}</td>
                             <td>{{invoice.status}}</td>
@@ -56,7 +56,7 @@
                         <td>{{subscriber.firstName}}</td>
                         <td>{{subscriber.lastName}}</td>
                         <td>{{subscriber.phoneNumber}}</td>
-                        <td>{{subscriber.totalAmount}}</td>
+                        <td>{{subscriber.amountBGN}}</td>
                     </tr>
                     </tbody>
                 </table>

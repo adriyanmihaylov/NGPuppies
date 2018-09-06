@@ -64,12 +64,10 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
                 // It is not compelling necessary to load the use details from the database. You could also store the information
                 // in the token and read it from it. It's up to you ;)
-                User user = null;
                 try {
-                    user = userService.loadById(id);
+                   User user = userService.loadById(id);
 
                     // For simple validation it is completely sufficient to just check the token integrity.
-                    // You don't have to call the database compellingly.
                     if (jwtTokenUtil.validateToken(authToken, user)) {
                         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -85,7 +83,6 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
             chain.doFilter(request, response);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

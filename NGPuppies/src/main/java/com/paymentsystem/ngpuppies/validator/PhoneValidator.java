@@ -19,10 +19,10 @@ public class PhoneValidator implements ConstraintValidator<ValidPhone, String> {
 
     @Override
     public boolean isValid(String phoneNumber, ConstraintValidatorContext context) {
-        return (validatePhoneNumber(phoneNumber));
+        return (validate(phoneNumber));
     }
 
-    private boolean validatePhoneNumber(String phoneNumber) {
+    public boolean validate(String phoneNumber) {
         if(phoneNumber == null) {
             return false;
         }

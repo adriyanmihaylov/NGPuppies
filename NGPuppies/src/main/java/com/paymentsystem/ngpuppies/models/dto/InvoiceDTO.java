@@ -4,26 +4,39 @@ import com.paymentsystem.ngpuppies.validator.base.ValidMoneyAmount;
 import com.paymentsystem.ngpuppies.validator.base.ValidDate;
 import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
 
+import javax.validation.constraints.NotNull;
+
 public class InvoiceDTO {
 
+    @NotNull
     @ValidPhone
     private String subscriberPhone;
 
+    @NotNull
     @ValidDate
     private String startDate;
 
+    @NotNull
     @ValidDate
     private String endDate;
 
+    @NotNull
     @ValidMoneyAmount
-    private String amount;
+    private String amountBGN;
 
+    @NotNull
     private String service;
-
-    private String currency;
 
     public InvoiceDTO() {
 
+    }
+
+    public InvoiceDTO(String subscriberPhone,String startDate,String endDate,String amountBGN,String service) {
+        setSubscriberPhone(subscriberPhone);
+        setStartDate(startDate);
+        setEndDate(endDate);
+        setAmountBGN(amountBGN);
+        setService(service);
     }
 
     public String getSubscriberPhone() {
@@ -50,12 +63,12 @@ public class InvoiceDTO {
         this.endDate = endDate;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getAmountBGN() {
+        return amountBGN;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setAmountBGN(String amountBGN) {
+        this.amountBGN = amountBGN;
     }
 
     public String getService() {
@@ -64,13 +77,5 @@ public class InvoiceDTO {
 
     public void setService(String service) {
         this.service = service;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 }

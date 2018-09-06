@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.validator.base;
 
-import com.paymentsystem.ngpuppies.validator.AmountMoneyValidator;
+import com.paymentsystem.ngpuppies.validator.MoneyAmountValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = AmountMoneyValidator.class)
+@Constraint(validatedBy = MoneyAmountValidator.class)
 @Documented
 public @interface ValidMoneyAmount {
     String message() default "Invalid money format!";

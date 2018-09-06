@@ -13,6 +13,10 @@ public class InvoiceServiceImpl implements InvoiceService {
     private InvoiceRepository invoiceRepository;
 
     @Override
+    public Invoice getById(Integer id) {
+        return invoiceRepository.getById(id);
+    }
+    @Override
     public List<Invoice> getAll() {
         return invoiceRepository.getAll();
     }
@@ -33,13 +37,18 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public boolean delete(Invoice invoice) {
+        return invoiceRepository.delete(invoice);
+    }
+
+    @Override
     public List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId) {
         return invoiceRepository.geAllUnpaidInvoicesOfAllClientSubscribers(clientId);
     }
 
     @Override
-    public List<Invoice> getInvoicesByIdAndClientId(List<Integer> invoices, Integer id) {
-        return invoiceRepository.getInvoicesByIdAndClientId(invoices, id);
+    public List<Invoice> getInvoicesByIdAndClientId(List<Integer> invoices, Integer clientId) {
+        return invoiceRepository.getInvoicesByIdAndClientId(invoices, clientId);
     }
 
     @Override
@@ -49,7 +58,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(Integer subscriberId, String fromDate, String endDate) {
-        return invoiceRepository.getAllPaidInvoicesOfSubscriberInDescOrder(subscriberId,fromDate,endDate);
+        return invoiceRepository.getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(subscriberId,fromDate,endDate);
     }
 
     @Override
@@ -64,6 +73,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public Invoice getSubscriberLargestPaidInvoice(Integer subscriberId, String fromDate, String endDate) {
-        return invoiceRepository.getSubscriberLargestPaidInvoice(subscriberId,fromDate,endDate);
+        return invoiceRepository.getSubscriberLargestPaidInvoiceForPeriodOfTime(subscriberId,fromDate,endDate);
     }
 }

@@ -107,6 +107,10 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public Boolean validateToken(String token, User user) {
+        if(user == null) {
+            return false;
+        }
+
         final Integer id = getIdFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
 

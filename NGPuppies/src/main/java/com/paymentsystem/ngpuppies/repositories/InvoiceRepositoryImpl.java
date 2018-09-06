@@ -2,7 +2,6 @@ package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -38,27 +37,40 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public boolean create(Invoice invoice) {
+    public Invoice getById(Integer id) {
+        Invoice invoice = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            switch (invoice.getCurrency().getName()) {
-                case "EUR":
-                    invoice.setBGNAmount(invoice.getAmount() * EUR_TO_BGN_FIXING);
-                    break;
-                case "USD":
-                    invoice.setBGNAmount(invoice.getAmount() * USD_TO_BGN_FIXING);
-                    break;
-                default:
-                    invoice.setBGNAmount(invoice.getAmount());
-                    break;
-            }
-            session.save(invoice);
+            invoice = session.get(Invoice.class, id);
             session.getTransaction().commit();
-
-            System.out.println("Created new INVOICE! id: " + invoice.getId());
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        return invoice;
+    }
+
+    @Override
+    public boolean create(Invoice invoice) {
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.save(invoice);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
 
         return false;
@@ -94,6 +106,18 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
+    public boolean delete(Invoice invoice) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.delete(invoice);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean payInvoices(List<Invoice> allInvoices) {
         Session session = null;
         Transaction transaction = null;
@@ -125,13 +149,13 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public Invoice getSubscriberLargestPaidInvoice(Integer subscriberId, String fromDate, String endDate) {
+    public Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Integer subscriberId, String fromDate, String endDate) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             String query = String.format("FROM Invoice i" +
                     " WHERE i.subscriber.id=%s" +
                     " AND i.payedDate >= '%s' and i.payedDate <= '%s'" +
-                    " ORDER BY i.subscriber.BGNAmount DESC", subscriberId, fromDate, endDate);
+                    " ORDER BY i.BGNAmount DESC", subscriberId, fromDate, endDate);
             List<Invoice> invoices = session.createQuery(query).setMaxResults(1).list();
             session.getTransaction().commit();
 
@@ -185,7 +209,7 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(Integer subscriberId, String fromDate, String endDate) {
+    public List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(Integer subscriberId, String fromDate, String endDate) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             String query = String.format("FROM Invoice i" +

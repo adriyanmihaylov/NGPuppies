@@ -1,7 +1,6 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.Address;
-import com.paymentsystem.ngpuppies.models.OfferedServices;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import org.hibernate.JDBCException;
@@ -175,7 +174,25 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
     }
 
     @Override
-    public Object[] getTopTenSubscribers(Integer clientId) {
+    public List<Subscriber> getTenAllTimeSubscribersWithBiggestBillsPaid(Integer clientId) {
+        try (Session session = sessionFactory.openSession()) {
+            String query = String.format(
+                    " FROM Subscriber s" +
+                    " WHERE s.client.id=%s" +
+                    " ORDER BY s.totalAmount DESC", clientId);
+            session.beginTransaction();
+            List<Subscriber> subscribers = session.createQuery(query).list();
+            session.getTransaction().commit();
+
+            return subscribers;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
+    }
+    @Override
+    public Object[] getSubscriberWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             String query = String.format(
@@ -186,7 +203,7 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
                             " AND i.payedDate IS NOT NULL " +
                             " GROUP BY s" +
                             " ORDER BY totalAmount DESC", clientId);
-            Object[] result = session.createQuery(query).setMaxResults(10).list().toArray();
+            Object[] result = session.createQuery(query).setMaxResults(1).list().toArray();
             session.getTransaction().commit();
 
             return result;
@@ -208,7 +225,9 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
                             " AND i.payedDate >= '%s' and i.payedDate <= '%s'", subscriberId, fromDate, toDate);
             List<Double> avgAmount = session.createQuery(query).list();
             if (avgAmount.size() > 0) {
-                return avgAmount.get(0);
+                if (avgAmount.get(0) != null) {
+                    return avgAmount.get(0);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
