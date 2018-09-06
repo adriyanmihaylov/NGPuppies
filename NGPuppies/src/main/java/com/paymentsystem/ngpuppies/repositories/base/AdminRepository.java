@@ -12,7 +12,7 @@ public interface AdminRepository {
 
     Admin loadByUsername(String username);
 
-    boolean create(Admin admin) throws Exception;
+    boolean create(Admin admin) throws SQLException;
 
-    boolean update(Admin admin) throws Exception;
+    boolean update(Admin admin) throws SQLException;
 }

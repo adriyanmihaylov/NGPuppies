@@ -76,7 +76,7 @@ public class AdminRepositoryImpl implements AdminRepository {
     }
 
     @Override
-    public boolean create(Admin admin) throws Exception {
+    public boolean create(Admin admin) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             admin.setPassword(passwordEncoder.encode(admin.getPassword()));
@@ -91,19 +91,7 @@ public class AdminRepositoryImpl implements AdminRepository {
 
             String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
 
-            String errorMessage;
-            switch (key) {
-                case "username":
-                    errorMessage = "Username is present";
-                    break;
-                case "adminemail":
-                    errorMessage = "Email is present";
-                    break;
-                default:
-                    System.out.println("Something went wrong in the database method CREATE Admin!");
-                    throw new Exception();
-            }
-
+            String errorMessage = getDatabaseErrorMessage(e, key);
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +101,7 @@ public class AdminRepositoryImpl implements AdminRepository {
     }
 
     @Override
-    public boolean update(Admin admin) throws Exception {
+    public boolean update(Admin admin) throws SQLException {
         if (admin != null) {
             try (Session session = sessionFactory.openSession()) {
                 session.beginTransaction();
@@ -126,24 +114,28 @@ public class AdminRepositoryImpl implements AdminRepository {
 
                 String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
 
-                String errorMessage;
-                switch (key) {
-                    case "username":
-                        errorMessage = "Username is present";
-                        break;
-                    case "adminemail":
-                        errorMessage = "Email is present";
-                        break;
-                    default:
-                        System.out.println("Something went wrong in the database method UPDATE admin!");
-                        throw new Exception();
-                }
-
+                String errorMessage = getDatabaseErrorMessage(e, key);
                 throw new SQLException(errorMessage, e);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return false;
+    }
+
+    private String getDatabaseErrorMessage(PersistenceException e, String key) {
+        String errorMessage;
+        switch (key) {
+            case "username":
+                errorMessage = "Username is present";
+                break;
+            case "adminemail":
+                errorMessage = "Email is present";
+                break;
+            default:
+                errorMessage = "Something went wrong! Please try again later!";
+                e.printStackTrace();
+        }
+        return errorMessage;
     }
 }

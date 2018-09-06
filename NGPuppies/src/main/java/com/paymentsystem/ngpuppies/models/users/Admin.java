@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.models.users;
 
-import com.paymentsystem.ngpuppies.validator.base.ValidEmail;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidEmail;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;

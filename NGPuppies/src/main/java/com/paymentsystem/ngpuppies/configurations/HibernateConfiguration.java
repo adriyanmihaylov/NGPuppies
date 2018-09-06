@@ -8,15 +8,9 @@ import com.paymentsystem.ngpuppies.models.users.Client;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 @Configuration
 public class HibernateConfiguration {
-
-    @Bean
-    public MethodValidationPostProcessor methodValidationPostProcessor() {
-        return new MethodValidationPostProcessor();
-    }
 
     @Bean
     public SessionFactory createSessionFactory() {
@@ -33,7 +27,7 @@ public class HibernateConfiguration {
                 .addAnnotatedClass(ClientDetail.class)
                 .addAnnotatedClass(Currency.class)
                 .addAnnotatedClass(Subscriber.class)
-                .addAnnotatedClass(OfferedServices.class)
+                .addAnnotatedClass(TelecomServ.class)
                 .buildSessionFactory();
     }
 }

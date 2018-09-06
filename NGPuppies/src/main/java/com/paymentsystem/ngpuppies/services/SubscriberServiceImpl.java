@@ -1,12 +1,14 @@
 package com.paymentsystem.ngpuppies.services;
 
-import com.paymentsystem.ngpuppies.models.OfferedServices;
+import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.rmi.AlreadyBoundException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,19 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public boolean delete(Subscriber subscriber) {
         return subscriberRepository.delete(subscriber);
+    }
+
+    @Override
+    public boolean addServiceToSubscriber(Subscriber subscriber, TelecomServ telecomServ) throws AlreadyBoundException, SQLException {
+        if (subscriber.getSubscriberServices().contains(telecomServ)) {
+            throw new AlreadyBoundException("The subscriber is already using this service");
+        }
+        subscriber.getSubscriberServices().add(telecomServ);
+        if (subscriberRepository.update(subscriber)) {
+            return true;
+        }
+
+        return false;
     }
 
     public List<Subscriber> getTenAllTimeSubscribersWithBiggestBillsPaid(Integer clientId) {

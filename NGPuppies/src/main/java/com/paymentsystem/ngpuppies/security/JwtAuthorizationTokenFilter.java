@@ -22,8 +22,6 @@ import java.io.IOException;
 @Component
 public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private final JwtTokenUtil jwtTokenUtil;
     private final String tokenHeader;
     private UserService userService;
@@ -36,9 +34,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        logger.debug("processing authentication for '{}'", request.getRequestURL());
-
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
         final String requestHeader = request.getHeader(this.tokenHeader);
         Integer id = null;
         String authToken = null;
@@ -48,22 +44,15 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                 try {
                     id = jwtTokenUtil.getIdFromToken(authToken);
                 } catch (IllegalArgumentException e) {
-                    logger.error("An error occured during getting username from token");
-                    logger.warn(e.getMessage());
+                    // "An error occured during getting username from token"
                 } catch (ExpiredJwtException e) {
-                    logger.warn("The token is expired and not valid anymore");
-                    logger.warn(e.getMessage());
+                    //"The token is expired and not valid anymore"
                 }
-            } else {
-//                logger.warn("couldn't find bearer string, will ignore the header");
             }
 
-            logger.debug("Checking authentication for user '{}'", id);
             if (id != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                logger.debug("Security context was null, so authorizating user");
-
-                // It is not compelling necessary to load the use details from the database. You could also store the information
-                // in the token and read it from it. It's up to you ;)
+                // It is not compelling necessary to load the use details from the database.
+                // You could also store the information in the token and read it from it. It's up to you ;)
                 try {
                    User user = userService.loadById(id);
 
@@ -71,18 +60,17 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                     if (jwtTokenUtil.validateToken(authToken, user)) {
                         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        logger.info("Authorizated user '{}', setting security context", id);
+
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                     }
                 } catch (UsernameNotFoundException e) {
                     System.out.println("Token parsing error: " + e.getMessage());
                 }
-                // For simple validation it is completely sufficient to just check the token integrity.
-                // You don't have to call the database compellingly.
             }
 
             chain.doFilter(request, response);
         } catch (Exception e) {
+            //Username changed password while token is valid
         }
     }
 }

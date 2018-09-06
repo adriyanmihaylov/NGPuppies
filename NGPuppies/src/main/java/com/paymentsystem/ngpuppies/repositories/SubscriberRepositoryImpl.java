@@ -24,9 +24,9 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
     public List<Subscriber> getAll() {
         List<Subscriber> subscribers = new ArrayList<>();
         try (Session session = sessionFactory.openSession()) {
-            Transaction tx = session.beginTransaction();
+            session.beginTransaction();
             subscribers = session.createQuery("FROM Subscriber ").list();
-            tx.commit();
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,7 +104,7 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
     }
 
     @Override
-    public boolean update(Subscriber subscriber) throws Exception {
+    public boolean update(Subscriber subscriber) throws SQLException {
         Session session = null;
         Transaction transaction = null;
         try {
@@ -137,9 +137,10 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
                     errorMessage = "Egn is present";
                     break;
                 default:
-                    throw new Exception("Something went wrong when updating subscriber ID" + subscriber.getId());
+                    e.printStackTrace();
+                    errorMessage = "Something went wrong! Try again later!";
+                    break;
             }
-
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
             try {

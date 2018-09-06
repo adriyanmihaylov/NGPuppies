@@ -75,22 +75,20 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public boolean create(Client client) throws Exception {
+    public boolean create(Client client) throws SQLException {
         Session session = null;
         Transaction transaction = null;
         try {
-            ClientDetail detail = client.getDetails();
+            ClientDetail details = client.getDetails();
             client.setEnabled(Boolean.TRUE);
             client.setPassword(passwordEncoder.encode(client.getPassword()));
 
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.save(detail);
+            session.save(details);
             session.save(client);
             transaction.commit();
-            session.close();
 
-            System.out.println("CREATED CLIENT Id: " + client.getId() + " username:" + client.getUsername());
             return true;
         } catch (JDBCException e) {
             try {
@@ -100,19 +98,8 @@ public class ClientRepositoryImpl implements ClientRepository {
             }
             String message = e.getSQLException().toString().toLowerCase();
             String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
+            String errorMessage = getDatabaseErrorMessage(e, key);
 
-            String errorMessage;
-            switch (key) {
-                case "username":
-                    errorMessage = "Username is present";
-                    break;
-                case "clienteik":
-                    errorMessage = "Eik is present";
-                    break;
-                default:
-                    System.out.println("Something went wrong in the database method CREATE client!");
-                    throw new Exception();
-            }
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
             try {
@@ -131,23 +118,21 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public boolean update(Client client) throws Exception {
+    public boolean update(Client client) throws SQLException {
         Session session = null;
         Transaction transaction = null;
         try {
             ClientDetail detail = client.getDetails();
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            if(detail == null || detail.getId() == 0 ) {
+            if (detail == null || detail.getId() == 0) {
                 session.save(detail);
             } else {
                 session.update(detail);
             }
             session.update(client);
             transaction.commit();
-            session.close();
 
-            System.out.printf("UPDATED: CLIENT  Id: %d\n", client.getId());
             return true;
         } catch (PersistenceException e) {
             try {
@@ -155,22 +140,10 @@ public class ClientRepositoryImpl implements ClientRepository {
             } catch (RuntimeException exception) {
                 System.out.println("Couldn't roll back transaction!");
             }
-
             String message = e.getCause().getCause().toString().toLowerCase();
             String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
-            String errorMessage;
+            String errorMessage = getDatabaseErrorMessage(e, key);
 
-            switch (key) {
-                case "username":
-                    errorMessage = "Username is present";
-                    break;
-                case "clienteik":
-                    errorMessage = "Eik is present";
-                    break;
-                default:
-                    System.out.println("Something went wrong in the database on client UPDATE!");
-                    throw new Exception();
-            }
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
             try {
@@ -181,11 +154,27 @@ public class ClientRepositoryImpl implements ClientRepository {
 
             e.printStackTrace();
         } finally {
-            if(session != null) {
+            if (session != null) {
                 session.close();
             }
         }
 
         return false;
+    }
+
+    private String getDatabaseErrorMessage(PersistenceException e, String key) {
+        String errorMessage;
+        switch (key) {
+            case "username":
+                errorMessage = "Username is present";
+                break;
+            case "clienteik":
+                errorMessage = "Eik is present";
+                break;
+            default:
+                errorMessage = "Something went wrong! Please try again later!";
+                e.printStackTrace();
+        }
+        return errorMessage;
     }
 }

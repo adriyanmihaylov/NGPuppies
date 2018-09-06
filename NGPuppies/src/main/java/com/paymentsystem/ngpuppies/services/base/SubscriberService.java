@@ -1,8 +1,10 @@
 package com.paymentsystem.ngpuppies.services.base;
 
-import com.paymentsystem.ngpuppies.models.OfferedServices;
+import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
+import java.rmi.AlreadyBoundException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +18,8 @@ public interface SubscriberService {
     boolean update(Subscriber updatedSubscriber) throws Exception;
 
     boolean delete(Subscriber subscriber);
+
+    boolean addServiceToSubscriber(Subscriber subscriber,TelecomServ telecomServ) throws AlreadyBoundException, SQLException;
 
     List<Subscriber> getSubscribersByService(Integer serviceId);
 

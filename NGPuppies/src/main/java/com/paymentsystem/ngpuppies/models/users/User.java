@@ -1,14 +1,12 @@
 package com.paymentsystem.ngpuppies.models.users;
 
-import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -26,11 +24,11 @@ public class User implements UserDetails {
 
     @ValidUsername
     @Column(name = "Username")
-    @Size(min = 5, max = 50)
+    @Size(min = 6, max = 20)
     private String username;
 
     @Column(name = "Password")
-    @Size(min = 6, max = 100)
+    @Size(min = 6, max = 30)
     private String password;
 
     @OneToOne

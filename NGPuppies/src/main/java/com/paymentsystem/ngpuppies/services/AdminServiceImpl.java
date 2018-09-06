@@ -6,6 +6,7 @@ import com.paymentsystem.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -29,12 +30,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean create(Admin admin) throws Exception {
+    public boolean create(Admin admin) throws SQLException {
         return adminRepository.create(admin);
     }
 
     @Override
-    public boolean update(Admin admin) throws Exception {
+    public boolean update(Admin admin) throws SQLException {
         return adminRepository.update(admin);
     }
 }

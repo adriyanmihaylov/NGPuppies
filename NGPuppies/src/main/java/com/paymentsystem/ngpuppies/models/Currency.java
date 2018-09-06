@@ -13,7 +13,7 @@ public class Currency {
     @Column(name = "Name")
     private String name;
 
-    @Column(name = "CurrencyToBGN")
+    @Column(name = "FixingBGN")
     private double fixing;
 
     public Currency() {

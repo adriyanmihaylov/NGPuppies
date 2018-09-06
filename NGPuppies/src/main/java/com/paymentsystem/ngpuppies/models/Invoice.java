@@ -1,10 +1,11 @@
 package com.paymentsystem.ngpuppies.models;
 
 
+import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidMoneyAmount;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -31,7 +32,7 @@ public class Invoice {
 
     @OneToOne
     @JoinColumn(name = "OfferedServiceID")
-    private OfferedServices offeredServices;
+    private TelecomServ telecomServ;
 
     @OneToOne
     @JoinColumn(name = "CurrencyID")
@@ -50,12 +51,12 @@ public class Invoice {
 
     }
 
-    public Invoice(Subscriber subscriber, Date fromDate, Date toDate, double amountBGN, OfferedServices offeredServices) {
+    public Invoice(Subscriber subscriber, Date fromDate, Date toDate, double amountBGN, TelecomServ telecomServ) {
         setSubscriber(subscriber);
         setStartDate(fromDate);
         setEndDate(toDate);
         setBGNAmount(amountBGN);
-        setOfferedServices(offeredServices);
+        setTelecomServ(telecomServ);
     }
 
     public int getId() {
@@ -90,12 +91,12 @@ public class Invoice {
         this.amount = amount;
     }
 
-    public OfferedServices getOfferedServices() {
-        return offeredServices;
+    public TelecomServ getTelecomServ() {
+        return telecomServ;
     }
 
-    public void setOfferedServices(OfferedServices offeredServices) {
-        this.offeredServices = offeredServices;
+    public void setTelecomServ(TelecomServ telecomServ) {
+        this.telecomServ = telecomServ;
     }
 
     public Currency getCurrency() {

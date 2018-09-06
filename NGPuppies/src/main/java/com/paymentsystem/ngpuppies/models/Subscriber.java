@@ -2,9 +2,9 @@ package com.paymentsystem.ngpuppies.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paymentsystem.ngpuppies.models.users.Client;
-import com.paymentsystem.ngpuppies.validator.base.ValidEgn;
-import com.paymentsystem.ngpuppies.validator.base.ValidName;
-import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidEgn;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidName;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -67,18 +67,19 @@ public class Subscriber {
             joinColumns = { @JoinColumn(name = "SubscriberID") },
             inverseJoinColumns = { @JoinColumn(name = "OfferedServiceID") }
     )
-    private Set<OfferedServices> subscriberServices;
+    private Set<TelecomServ> subscriberServices;
 
 
     public Subscriber(){
     }
 
-    public Subscriber(String firstName, String lastName,String phoneNumber,String egn,Address address) {
+    public Subscriber(String firstName, String lastName,String phoneNumber,String egn,Address address,Double totalAmount) {
         setFirstName(firstName);
         setLastName(lastName);
         setPhone(phoneNumber);
         setEgn(egn);
         setAddress(address);
+        setTotalAmount(totalAmount);
     }
 
     public Integer getId() {
@@ -151,11 +152,11 @@ public class Subscriber {
         this.invoices = invoices;
     }
 
-    public Set<OfferedServices> getSubscriberServices() {
+    public Set<TelecomServ> getSubscriberServices() {
         return subscriberServices;
     }
 
-    public void setSubscriberServices(Set<OfferedServices> subscriberServices) {
+    public void setSubscriberServices(Set<TelecomServ> subscriberServices) {
         this.subscriberServices = subscriberServices;
     }
 
