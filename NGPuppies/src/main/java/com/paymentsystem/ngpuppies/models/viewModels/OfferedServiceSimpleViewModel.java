@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.viewModels;
+package com.paymentsystem.ngpuppies.models.viewModels;
 
 import com.paymentsystem.ngpuppies.models.OfferedServices;
 

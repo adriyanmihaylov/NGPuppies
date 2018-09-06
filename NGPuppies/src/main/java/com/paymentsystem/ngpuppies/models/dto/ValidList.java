@@ -3,15 +3,15 @@ package com.paymentsystem.ngpuppies.models.dto;
 import javax.validation.Valid;
 import java.util.*;
 
-public class ValidInvoiceList<E> {
-
+public class ValidList<E> {
     @Valid
     List<E> list;
 
-    public ValidInvoiceList() {
+    public ValidList() {
         list = new ArrayList<>();
     }
-    public ValidInvoiceList(List<E> list) {
+
+    public ValidList(List<E> list) {
         this.list = list;
     }
 

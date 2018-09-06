@@ -1,12 +1,13 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
-import com.paymentsystem.ngpuppies.models.Response;
+import com.paymentsystem.ngpuppies.models.dto.Response;
 import com.paymentsystem.ngpuppies.models.dto.AdminDTO;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.services.base.*;
-import com.paymentsystem.ngpuppies.viewModels.AdminViewModel;
+import com.paymentsystem.ngpuppies.models.viewModels.AdminViewModel;
+import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
 import com.paymentsystem.ngpuppies.web.ResponseHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/admin")
+@Validated
 public class AdminAdministratorsController {
     @Autowired
     private AdminService adminService;
@@ -36,7 +39,7 @@ public class AdminAdministratorsController {
     private ResponseHandler responseHandler;
 
     @GetMapping("/{username}")
-    public ResponseEntity<AdminViewModel> getAdminByUsername(@PathVariable("username") String username) {
+    public ResponseEntity<AdminViewModel> getAdminByUsername(@PathVariable("username") @ValidUsername String username) {
         AdminViewModel viewModel = AdminViewModel.fromModel(adminService.loadByUsername(username));
 
         if (viewModel != null) {
@@ -65,11 +68,8 @@ public class AdminAdministratorsController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Response> registerAdmin(@Valid @RequestBody AdminDTO adminDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return responseHandler.bindingResultHandler(bindingResult);
-        }
-
+    public ResponseEntity<Response> registerAdmin(@RequestBody @Valid AdminDTO adminDTO,
+                                                  BindingResult bindingResult) {
         if (adminDTO.getPassword() == null) {
             return responseHandler.returnResponse("Missing password!", HttpStatus.BAD_REQUEST);
         }
@@ -91,12 +91,9 @@ public class AdminAdministratorsController {
 
 
     @PutMapping("/update")
-    public ResponseEntity<Response> updateAdmin(@RequestParam String username,
-                                                @Valid @RequestBody AdminDTO adminDTO,
+    public ResponseEntity<Response> updateAdmin(@RequestParam @ValidUsername String username,
+                                                @RequestBody @Valid AdminDTO adminDTO,
                                                 BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return responseHandler.bindingResultHandler(bindingResult);
-        }
         try {
             Admin admin = adminService.loadByUsername(username);
             if (admin == null) {

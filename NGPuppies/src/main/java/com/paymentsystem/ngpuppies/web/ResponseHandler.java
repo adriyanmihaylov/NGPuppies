@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.web;
 
-import com.paymentsystem.ngpuppies.models.Response;
+import com.paymentsystem.ngpuppies.models.dto.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

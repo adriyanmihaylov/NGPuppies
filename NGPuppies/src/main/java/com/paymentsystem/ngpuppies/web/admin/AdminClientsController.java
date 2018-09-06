@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.models.ClientDetail;
-import com.paymentsystem.ngpuppies.models.Response;
+import com.paymentsystem.ngpuppies.models.dto.Response;
 import com.paymentsystem.ngpuppies.models.dto.ClientDTO;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
@@ -9,9 +9,8 @@ import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.base.AuthorityService;
 import com.paymentsystem.ngpuppies.services.base.ClientDetailService;
 import com.paymentsystem.ngpuppies.services.base.ClientService;
-import com.paymentsystem.ngpuppies.services.base.SubscriberService;
-import com.paymentsystem.ngpuppies.viewModels.ClientViewModel;
-import com.paymentsystem.ngpuppies.viewModels.UserViewModel;
+import com.paymentsystem.ngpuppies.models.viewModels.ClientViewModel;
+import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
 import com.paymentsystem.ngpuppies.web.ResponseHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/client")
+@Validated
 public class AdminClientsController {
     @Autowired
     private ClientService clientService;
@@ -43,7 +44,7 @@ public class AdminClientsController {
     private ResponseHandler responseHandler;
 
     @GetMapping("/{username}")
-    public ResponseEntity<ClientViewModel> getClientByUsername(@PathVariable("username") String username) {
+    public ResponseEntity<ClientViewModel> getClientByUsername(@PathVariable("username") @ValidUsername String username) {
         ClientViewModel viewModel = ClientViewModel.fromModel(clientService.loadByUsername(username));
         if (viewModel != null) {
             return new ResponseEntity<>(viewModel, HttpStatus.OK);
@@ -71,11 +72,8 @@ public class AdminClientsController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Response> registerClient(@Valid @RequestBody ClientDTO clientDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return responseHandler.bindingResultHandler(bindingResult);
-        }
-
+    public ResponseEntity<Response> registerClient(@RequestBody @Valid ClientDTO clientDto,
+                                                   BindingResult bindingResult) {
         if (clientDto.getPassword() == null) {
             return responseHandler.returnResponse("Missing password", HttpStatus.BAD_REQUEST);
         }
@@ -100,12 +98,9 @@ public class AdminClientsController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Response> updateClient(@RequestParam("username") String username,
-                                                 @Valid @RequestBody ClientDTO clientDto,
+    public ResponseEntity<Response> updateClient(@RequestParam("username") @ValidUsername String username,
+                                                 @RequestBody @Valid  ClientDTO clientDto,
                                                  BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return responseHandler.bindingResultHandler(bindingResult);
-        }
         try {
             Client client = clientService.loadByUsername(username);
             if (client == null) {

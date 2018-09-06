@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.validator.base;
 
-import com.paymentsystem.ngpuppies.validator.UsernameValidator;
+import com.paymentsystem.ngpuppies.validator.ServiceNameValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -13,10 +13,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({TYPE, FIELD,PARAMETER})
 @Retention(RUNTIME)
-@Constraint(validatedBy = UsernameValidator.class)
+@Constraint(validatedBy = ServiceNameValidator.class)
 @Documented
-public @interface ValidUsername {
-    String message() default "Invalid username!";
+public @interface ValidServiceName {
+    String message() default "Invalid service name";
 
     Class<?>[] groups() default {};
 

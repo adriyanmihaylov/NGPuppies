@@ -1,17 +1,18 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.models.OfferedServices;
-import com.paymentsystem.ngpuppies.models.Response;
+import com.paymentsystem.ngpuppies.models.dto.Response;
 import com.paymentsystem.ngpuppies.models.dto.OfferedServiceDTO;
 import com.paymentsystem.ngpuppies.services.base.OfferedServicesService;
-import com.paymentsystem.ngpuppies.viewModels.OfferedServiceSimpleViewModel;
-import com.paymentsystem.ngpuppies.viewModels.OfferedServiceViewModel;
+import com.paymentsystem.ngpuppies.models.viewModels.OfferedServiceSimpleViewModel;
+import com.paymentsystem.ngpuppies.models.viewModels.OfferedServiceViewModel;
 import com.paymentsystem.ngpuppies.web.ResponseHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/service")
+@Validated
 public class AdminOfferedServiceController {
     @Autowired
     private OfferedServicesService offeredServicesService;
@@ -42,10 +44,8 @@ public class AdminOfferedServiceController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Response> createNewService(@Valid @RequestBody OfferedServiceDTO serviceDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return responseHandler.bindingResultHandler(bindingResult);
-        }
+    public ResponseEntity<Response> createNewService(@Valid @RequestBody OfferedServiceDTO serviceDTO,
+                                                     BindingResult bindingResult) {
         if (serviceDTO.getName() == null) {
             return responseHandler.returnResponse("Please enter service name", HttpStatus.BAD_REQUEST);
         }

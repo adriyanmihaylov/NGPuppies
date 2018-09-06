@@ -61,12 +61,12 @@ public class Subscriber {
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Invoice> invoices;
 
+    @Fetch(FetchMode.SELECT)
     @ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinTable(name = "subscriber_services",
             joinColumns = { @JoinColumn(name = "SubscriberID") },
             inverseJoinColumns = { @JoinColumn(name = "OfferedServiceID") }
     )
-    @Fetch(FetchMode.SELECT)
     private Set<OfferedServices> subscriberServices;
 
 
