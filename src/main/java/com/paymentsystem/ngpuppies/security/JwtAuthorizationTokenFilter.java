@@ -1,6 +1,7 @@
-package com.paymentsystem.ngpuppies;
+package com.paymentsystem.ngpuppies.security;
 
 import com.paymentsystem.ngpuppies.models.users.User;
+import com.paymentsystem.ngpuppies.security.JwtTokenUtil;
 import com.paymentsystem.ngpuppies.services.base.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Value;

@@ -2,7 +2,7 @@ package com.paymentsystem.ngpuppies.web;
 
 import com.paymentsystem.ngpuppies.models.users.User;
 import com.paymentsystem.ngpuppies.security.JwtAuthenticationRequest;
-import com.paymentsystem.ngpuppies.JwtTokenUtil;
+import com.paymentsystem.ngpuppies.security.JwtTokenUtil;
 import com.paymentsystem.ngpuppies.services.base.UserService;
 import com.paymentsystem.ngpuppies.validation.exceptions.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
