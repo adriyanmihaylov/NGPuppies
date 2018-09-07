@@ -34,8 +34,6 @@ public class AdminClientsController {
     private ClientService clientService;
     @Autowired
     private AuthorityService authorityService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public ResponseEntity<ClientViewModel> getClientByUsername(@RequestParam("username") @ValidUsername String username) {
@@ -100,27 +98,7 @@ public class AdminClientsController {
                 return new ResponseEntity<>(new ResponseMessage("Client not found!"), HttpStatus.BAD_REQUEST);
             }
 
-            client.setUsername(clientDto.getUsername());
-            client.setEik(clientDto.getEik());
-
-            if (clientDto.getDetails() != null) {
-                ClientDetail clientDetail = client.getDetails();
-
-                if (clientDetail != null) {
-                    int id = clientDetail.getId();
-
-                    client.setDetails(clientDto.getDetails());
-                    client.getDetails().setId(id);
-                } else {
-                    client.setDetails(clientDto.getDetails());
-                }
-            }
-
-            if (clientDto.getPassword() != null) {
-                client.setPassword(passwordEncoder.encode(clientDto.getPassword()));
-                client.setLastPasswordResetDate(new Date());
-            }
-            if (clientService.update(client)) {
+            if (clientService.update(client,clientDto)) {
                 return new ResponseEntity<>(new ResponseMessage("Successful update!"), HttpStatus.OK);
             }
 

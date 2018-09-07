@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.services.base;
 
+import com.paymentsystem.ngpuppies.models.dto.ClientDTO;
 import com.paymentsystem.ngpuppies.models.users.Client;
 
 import java.sql.SQLException;
@@ -14,5 +15,5 @@ public interface ClientService {
 
     boolean create(Client client) throws SQLException;
 
-    boolean update(Client client) throws SQLException;
+    public boolean update(Client client, ClientDTO clientDTO) throws SQLException;
 }
