@@ -791,7 +791,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserServiceImplTest.delete_whenUserExists_shouldReturnTrue">
+  <component name="RunManager" selected="JUnit.UserServiceImplTest.loadById_whenIdIsPresent_returnUser">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -808,6 +808,29 @@
       <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
       <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.UserServiceImplTest" />
       <option name="METHOD_NAME" value="delete_whenUserExists_shouldReturnTrue" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="UserServiceImplTest.loadById_whenIdIsPresent_returnUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ngpuppies_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
+      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.UserServiceImplTest" />
+      <option name="METHOD_NAME" value="loadById_whenIdIsPresent_returnUser" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -863,9 +886,11 @@
     <list>
       <item itemvalue="Spring Boot.NGPuppiesApplication" />
       <item itemvalue="JUnit.UserServiceImplTest.delete_whenUserExists_shouldReturnTrue" />
+      <item itemvalue="JUnit.UserServiceImplTest.loadById_whenIdIsPresent_returnUser" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserServiceImplTest.loadById_whenIdIsPresent_returnUser" />
         <item itemvalue="JUnit.UserServiceImplTest.delete_whenUserExists_shouldReturnTrue" />
       </list>
     </recent_temporary>

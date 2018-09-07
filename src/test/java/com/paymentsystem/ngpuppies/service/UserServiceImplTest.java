@@ -69,7 +69,7 @@ public class UserServiceImplTest {
 
         User user = userService.loadById(VALID_USER_ID);
 
-        assertNull(user);
+        assertNotNull(user);
         verify(userRepository, Mockito.times(1)).loadById(Mockito.anyInt());
         verifyNoMoreInteractions(userRepository);
     }
@@ -123,7 +123,7 @@ public class UserServiceImplTest {
 
         boolean result = userService.delete(userMock);
 
-        Assert.assertFalse(result);
+        Assert.assertTrue(result);
     }
 
     
