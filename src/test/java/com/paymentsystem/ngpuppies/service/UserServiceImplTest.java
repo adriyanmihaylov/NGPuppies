@@ -123,7 +123,7 @@ public class UserServiceImplTest {
 
         boolean result = userService.delete(userMock);
 
-        Assert.assertTrue(result);
+        Assert.assertFalse(result);
     }
 
     
