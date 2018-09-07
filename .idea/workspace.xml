@@ -1,7 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="48e8b168-5d99-4f3a-96b0-e9e1dd30614e" name="Default" comment="" />
+    <list default="true" id="14faf7d8-ae1f-4c9e-9455-e75f7f693305" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/NGPuppies.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/.circleci/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.circleci/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/configurations/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/configurations/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/configurations/HibernateConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/configurations/HibernateConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/configurations/HttpToHttpsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/configurations/HttpToHttpsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/configurations/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/configurations/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/ClientDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/ClientDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/Currency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Currency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Invoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/Subscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Subscriber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/TelecomServ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/TelecomServ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/AdminDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/AdminDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/ClientDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/ClientDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/InvoiceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/InvoiceDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/InvoicePaymentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/InvoicePaymentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/ResponseMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/ResponseMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/SubscriberDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/SubscriberDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/TelecomServiceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/TelecomServiceDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/ValidList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/ValidList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/users/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/users/Authority.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/Authority.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/users/AuthorityName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/AuthorityName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/users/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/AdminViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/AdminViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/ClientViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/ClientViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/InvoiceViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/InvoiceViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/SubscriberSimpleViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/SubscriberSimpleViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/SubscriberViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/SubscriberViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TelecomServSimpleViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TelecomServSimpleViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TelecomServViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TelecomServViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TopSubscriberViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TopSubscriberViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/UserViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/UserViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/AddressRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/AddressRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/AdminRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/AdminRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/AuthorityRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/AuthorityRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientDetailRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientDetailRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/CurrencyRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/CurrencyRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/InvoiceRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/InvoiceRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/SubscriberRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/SubscriberRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/TelecomServRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/TelecomServRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AddressRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AddressRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AdminRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AdminRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AuthorityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AuthorityRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/ClientDetailRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/ClientDetailRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/ClientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/ClientRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/CurrencyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/CurrencyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/InvoiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/InvoiceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/SubscriberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/SubscriberRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/TelecomServRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/TelecomServRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationEntryPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/security/JwtTokenUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtTokenUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/AddressServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AddressServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/AdminServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AdminServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/CurrencyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/CurrencyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/TelecomServServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/TelecomServServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/AddressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/AddressService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/AuthorityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/AuthorityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientDetailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/CurrencyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/CurrencyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/InvoiceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/SubscriberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/SubscriberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/TelecomServService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/TelecomServService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidDate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidDate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEgn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEgn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEik.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEmail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidMoneyAmount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidMoneyAmount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidPhone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidPhone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidServiceName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidServiceName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidUsername.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidUsername.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/exceptions/AuthenticationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/exceptions/AuthenticationException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/exceptions/ConstraintViolationExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/exceptions/ConstraintViolationExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/DateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/DateValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EgnValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EgnValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EikValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EikValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EmailValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EmailValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/MoneyAmountValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/MoneyAmountValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/NameValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/NameValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/PhoneValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/PhoneValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/ServiceNameValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/ServiceNameValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/UsernameValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/UsernameValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/AuthenticationRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/AuthenticationRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/GeneralRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/GeneralRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/MethodProtectedRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/MethodProtectedRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminAdministratorsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminAdministratorsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminClientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminClientsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminInvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminInvoiceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminSubscriberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminSubscriberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminTelecomServController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminTelecomServController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminUsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminUsersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/client/ClientRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/client/ClientRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/keystore.p12" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/keystore.p12" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/access-denied.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/access-denied.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/admins.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/admins.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/clients.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/clients.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/create-invoice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/create-invoice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/nav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/page-not-found.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/page-not-found.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/payBill.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/payBill.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/reports.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/reports.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/subscriber.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/subscriber.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/services/auth-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/services/auth-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/access-denied.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/access-denied.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/add-bill.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/add-bill.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/clients.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/clients.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/navigation.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/navigation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/page-not-found.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/page-not-found.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/pay-bills.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/pay-bills.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/reports.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/reports.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/subscribers.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/subscribers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/css/card.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/img/backgrounds-blank-blue-953214.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/backgrounds-blank-blue-953214.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/NGPuppiesApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/NGPuppiesApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/RepositoryTests/BillingRecordRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/RepositoryTests/BillingRecordRepositoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/rest/AuthenticationRestControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/rest/AuthenticationRestControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/rest/MethodProtectedRestControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/rest/MethodProtectedRestControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/rest/UserRestControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/rest/UserRestControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/security/JwtTokenUtilTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/security/JwtTokenUtilTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/security/UserDetailsDummy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/security/UserDetailsDummy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/service/BillingServiceGetAllTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/BillingServiceGetAllTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceGetALL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceGetALL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/build/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -9,16 +179,48 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NGPuppies/build.gradle">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file leaf-file-name="NgpuppiesApplication.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/NgpuppiesApplication.java">
+      <file leaf-file-name="settings.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/settings.gradle">
           <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="NGPuppiesApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BillingServiceGetAllTests.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/BillingServiceGetAllTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="56" column="18" lean-forward="true" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserServiceImplTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -27,22 +229,456 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
+    <option name="myGradleHomes">
+      <map>
+        <entry key="$PROJECT_DIR$" value="C:\Users\adriy\.gradle\wrapper\dists\gradle-4.8.1-all\6fmj4nezasjg1b7kkmy10xgo2\gradle-4.8.1" />
+      </map>
+    </option>
+    <option name="myGradleVersions">
+      <map>
+        <entry key="$PROJECT_DIR$" value="4.8.1" />
+      </map>
+    </option>
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="ngpuppies" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="ngpuppies" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="availableTasks">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by root project 'ngpuppies'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="cleanEclipseClasspath" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of root project 'ngpuppies'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Cleans all Eclipse files." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="cleanEclipse" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in root project 'ngpuppies'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in root project 'ngpuppies'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="cleanEclipseProject" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Gradle wrapper files." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="wrapper" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles an executable jar archive containing the main classes and their dependencies." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="bootJar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates the Eclipse classpath file." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="eclipseClasspath" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of root project 'ngpuppies'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from root project 'ngpuppies'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="cleanEclipseJdt" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Initializes a new Gradle build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="init" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependency management declared in root project 'ngpuppies'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependencyManagement" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs this project as a Spring Boot application." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="bootRun" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in root project 'ngpuppies'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in root project 'ngpuppies'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates all Eclipse files." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="eclipse" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates the Eclipse JDT settings file." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="eclipseJdt" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates the Eclipse project file." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="eclipseProject" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of root project 'ngpuppies'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="modificationStamps">
+      <map>
+        <entry key="$PROJECT_DIR$/.gradle" value="0" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="384861307" />
+        <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" value="2077093676" />
+        <entry key="$PROJECT_DIR$/settings.gradle" value="499449528" />
+      </map>
+    </option>
+    <option name="projectBuildClasspath">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <ExternalProjectBuildClasspathPojo>
+              <option name="modulesBuildClasspath">
+                <map>
+                  <entry key="$PROJECT_DIR$">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-gradle-plugin/2.0.4.RELEASE/b18a052691327096ba583b11d5fc052123500db3/spring-boot-gradle-plugin-2.0.4.RELEASE.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-loader-tools/2.0.4.RELEASE/24a1d9eac0090e12d20678cfbf7299d81d63ea7/spring-boot-loader-tools-2.0.4.RELEASE.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.spring.gradle/dependency-management-plugin/1.0.6.RELEASE/c7118365d75bca698892b5df1e683b8d6d6b87bb/dependency-management-plugin-1.0.6.RELEASE.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.14/7b18320d668ab080758bf5383d6d8fcf750babce/commons-compress-1.14.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/5.0.8.RELEASE/dc39c49e3246cdf73d3786ac41119140aed3fa08/spring-core-5.0.8.RELEASE.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jcl/5.0.8.RELEASE/a1fa8fb560fb252321776e16bc9ac8201af4ef5e/spring-jcl-5.0.8.RELEASE.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="name" value="ngpuppies" />
+              <option name="projectBuildClasspath">
+                <list>
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/announce" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/antlr" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/base-services" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/base-services-groovy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/build-cache" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/build-cache-http" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/build-comparison" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/build-init" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/build-option" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/cli" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/code-quality" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/composite-builds" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/core" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/core-api" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/dependency-management" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/diagnostics" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/ear" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/ide" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/ide-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/ide-play" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/installation-beacon" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/internal-android-performance-testing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/internal-integ-testing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/internal-performance-testing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/internal-testing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/ivy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/jacoco" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/javascript" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/jvm-services" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/language-groovy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/language-java" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/language-jvm" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/language-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/language-scala" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/launcher" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/logging" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/maven" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/messaging" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/model-core" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/model-groovy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/osgi" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/persistent-cache" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/platform-base" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/platform-jvm" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/platform-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/platform-play" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/plugin-development" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/plugin-use" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/plugins" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/process-services" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/publish" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/reporting" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/resources" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/resources-gcs" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/resources-http" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/resources-s3" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/resources-sftp" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/scala" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/signing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/test-kit" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/testing-base" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/testing-junit-platform" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/testing-jvm" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/testing-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/tooling-api" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/tooling-api-builders" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/version-control" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/workers" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/src/wrapper" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/ant-1.9.11.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/ant-launcher-1.9.11.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-base-services-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-base-services-groovy-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-build-cache-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-build-option-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-cli-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-core-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-core-api-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-docs-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-installation-beacon-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-jvm-services-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-kotlin-dsl-0.17.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-kotlin-dsl-provider-plugins-0.17.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-kotlin-dsl-provider-spi-0.17.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-kotlin-dsl-tooling-builders-0.17.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-kotlin-dsl-tooling-models-0.17.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-launcher-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-logging-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-messaging-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-model-core-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-model-groovy-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-native-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-persistent-cache-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-process-services-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-resources-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-runtime-api-info-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-tooling-api-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/gradle-wrapper-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/groovy-all-2.4.12.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-announce-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-antlr-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-build-cache-http-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-build-comparison-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-build-init-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-code-quality-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-composite-builds-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-dependency-management-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-diagnostics-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-ear-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-ide-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-ide-native-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-ide-play-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-ivy-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-jacoco-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-javascript-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-language-groovy-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-language-java-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-language-jvm-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-language-native-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-language-scala-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-maven-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-osgi-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-platform-base-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-platform-jvm-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-platform-native-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-platform-play-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-plugin-development-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-plugin-use-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-plugins-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-publish-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-reporting-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-resources-gcs-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-resources-http-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-resources-s3-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-resources-sftp-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-scala-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-signing-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-test-kit-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-testing-base-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-testing-junit-platform-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-testing-jvm-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-testing-native-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-tooling-api-builders-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-version-control-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/gradle-workers-4.8.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.8.1-all/6fmj4nezasjg1b7kkmy10xgo2/gradle-4.8.1/lib/plugins/ivy-2.2.0.jar" />
+                  <option value="$PROJECT_DIR$/buildSrc/src/main/java" />
+                  <option value="$PROJECT_DIR$/buildSrc/src/main/groovy" />
+                </list>
+              </option>
+            </ExternalProjectBuildClasspathPojo>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="projectSyncType">
       <map>
-        <entry key="$PROJECT_DIR$/../../BlackCat/RealEstateApp/real-estate-app" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../BlackCat/SpringBlogSecurity/blog-social-login-with-spring-social" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../BlackCat/Testing" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../MyRealEstate/RealEstateSpringApp/real-estate-app" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../TEAMWORK/RealEstateApp" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../TEAMWORK/RealEstateApp/real-estate-app" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../Team/RealEstateSpringApp/RealEstateApp" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../Team/RealEstateSpringApp/RealEstateSpringApp/RealEstateApp" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../Telerik REPO/Alpha-Java-Mar-2018/5. Spring/restaurantsapp" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../Telerik REPO/Alpha-Java-Mar-2018/5. Spring/spring-hibernate-demo" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../Telerik REPO/Alpha-Java-Mar-2018/5. Spring/spring-jdbc-demo" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../masha/dogswithbenefits" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../BlackCat/RealEstateApp/real-estate-app" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../BlackCat/SpringBlogSecurity/blog-social-login-with-spring-social" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../BlackCat/Testing" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../ExtensionRepository/ExtensionRepository" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../JWT/GITLAB/spring-jwt-app" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../MyRealEstate/RealEstateSpringApp/real-estate-app" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/NGPuppies" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/NGPuppies/NGPuppies" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../Spider-Puppies" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../TEAMWORK/RealEstateApp" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../TEAMWORK/RealEstateApp/real-estate-app" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../Team/RealEstateSpringApp/RealEstateApp" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../Team/RealEstateSpringApp/RealEstateSpringApp/RealEstateApp" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../Telerik REPO/Alpha-Java-Mar-2018/5. Spring/restaurantsapp" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../Telerik REPO/Alpha-Java-Mar-2018/5. Spring/spring-hibernate-demo" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../Telerik REPO/Alpha-Java-Mar-2018/5. Spring/spring-jdbc-demo" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../masha/dogswithbenefits" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../springboot-auth-updated" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../springboot-auth-updated/spring-jwt-app" value="PREVIEW" />
         <entry key="G:/REPO/Alpha-Java-Mar-2018/5. Spring/restaurantsapp" value="PREVIEW" />
       </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java" />
+      </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -64,97 +700,81 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
+              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
+              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
+              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
+              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
+              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="paymentsystem" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="paymentsystem" type="462c0819:PsiDirectoryNode" />
               <item name="ngpuppies" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
+              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="NGPuppies" type="462c0819:PsiDirectoryNode" />
+              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ngpuppies" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ngpuppies" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.zeroturnaround.javarebel.idea.plugin.settings.startup.StartupConfigurable" />
@@ -171,9 +791,32 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.UserServiceImplTest.delete_whenUserExists_shouldReturnTrue">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="UserServiceImplTest.delete_whenUserExists_shouldReturnTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ngpuppies_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
+      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.UserServiceImplTest" />
+      <option name="METHOD_NAME" value="delete_whenUserExists_shouldReturnTrue" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -190,6 +833,10 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
+    </configuration>
+    <configuration name="NGPuppiesApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="ngpuppies_main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.paymentsystem.ngpuppies.NGPuppiesApplication" />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -213,56 +860,70 @@
       <properties />
       <listeners />
     </configuration>
+    <list>
+      <item itemvalue="Spring Boot.NGPuppiesApplication" />
+      <item itemvalue="JUnit.UserServiceImplTest.delete_whenUserExists_shouldReturnTrue" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.UserServiceImplTest.delete_whenUserExists_shouldReturnTrue" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="48e8b168-5d99-4f3a-96b0-e9e1dd30614e" name="Default" comment="" />
-      <created>1534311849344</created>
+      <changelist id="14faf7d8-ae1f-4c9e-9455-e75f7f693305" name="Default" comment="" />
+      <created>1536325967514</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1534311849344</updated>
-      <workItem from="1534311852346" duration="55000" />
+      <updated>1536325967514</updated>
+      <workItem from="1536325970947" duration="392000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55000" />
+    <option name="totallyTimeSpent" value="392000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info id="Image Layers" />
-      <window_info anchor="right" id="Capture Analysis" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="JRebel Console" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" />
-      <window_info anchor="bottom" id="JRebel Executor" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
-      <window_info id="JRebel" side_tool="true" />
+      <window_info anchor="bottom" id="Build" weight="0.1455898" />
       <window_info anchor="right" id="Database" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" />
-      <window_info anchor="right" id="Theme Preview" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info id="Image Layers" />
+      <window_info anchor="bottom" id="Java Enterprise" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32943678" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Spring" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info id="Persistence" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info anchor="right" id="Bean Validation" />
+      <window_info id="Web" side_tool="true" />
+      <window_info anchor="right" id="Gradle" />
+      <window_info anchor="right" id="Theme Preview" />
       <window_info id="Favorites" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
     </layout>
@@ -274,11 +935,32 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/NGPuppies/build.gradle">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/NgpuppiesApplication.java">
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/BillingServiceGetAllTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="56" column="18" lean-forward="true" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">
