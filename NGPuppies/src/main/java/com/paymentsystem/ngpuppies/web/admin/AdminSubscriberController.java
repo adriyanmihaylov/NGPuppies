@@ -184,7 +184,7 @@ public class AdminSubscriberController {
     public ResponseEntity<List<SubscriberSimpleViewModel>> getAllSubscribersOfService(@PathVariable("service") @ValidServiceName String serviceName) {
         TelecomServ telecomServ = telecomServService.getByName(serviceName);
         if (telecomServ != null) {
-            List<Subscriber> subscribers = subscriberService.getSubscribersByService(telecomServ.getId());
+            List<Subscriber> subscribers = subscriberService.getAllSubscribersByService(telecomServ.getId());
 
             if (subscribers != null) {
                 List<SubscriberSimpleViewModel> viewModels = subscribers

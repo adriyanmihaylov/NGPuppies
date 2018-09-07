@@ -29,12 +29,12 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
     @Override
-    public boolean create(Subscriber subscriber) throws Exception {
+    public boolean create(Subscriber subscriber) throws SQLException {
         return subscriberRepository.create(subscriber);
     }
 
     @Override
-    public boolean update(Subscriber updatedSubscriber) throws Exception {
+    public boolean update(Subscriber updatedSubscriber) throws SQLException {
         return subscriberRepository.update(updatedSubscriber);
     }
 
@@ -58,6 +58,11 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     public List<Subscriber> getTenAllTimeSubscribersWithBiggestBillsPaid(Integer clientId) {
         return subscriberRepository.getTenAllTimeSubscribersWithBiggestBillsPaid(clientId);
+    }
+
+    @Override
+    public Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate) {
+        return subscriberRepository.getSubscriberAverageInvoiceSumPaid(subscriberId, fromDate, toDate);
     }
 
     @Override
@@ -85,7 +90,7 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
     @Override
-    public List<Subscriber> getSubscribersByService(Integer serviceId)  {
-        return subscriberRepository.getSubscribersByService(serviceId);
+    public List<Subscriber> getAllSubscribersByService(Integer serviceId)  {
+        return subscriberRepository.getAllSubscribersByService(serviceId);
     }
 }

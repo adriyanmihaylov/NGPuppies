@@ -88,10 +88,9 @@ public class AdminRepositoryImpl implements AdminRepository {
             return true;
         } catch (JDBCException e) {
             String message = e.getSQLException().toString().toLowerCase();
-
             String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
-
             String errorMessage = getDatabaseErrorMessage(e, key);
+
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,10 +110,9 @@ public class AdminRepositoryImpl implements AdminRepository {
                 return true;
             } catch (PersistenceException e) {
                 String message = e.getCause().getCause().toString().toLowerCase();
-
                 String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
-
                 String errorMessage = getDatabaseErrorMessage(e, key);
+
                 throw new SQLException(errorMessage, e);
             } catch (Exception e) {
                 e.printStackTrace();

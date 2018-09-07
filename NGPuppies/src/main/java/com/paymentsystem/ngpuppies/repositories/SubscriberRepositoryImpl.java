@@ -51,7 +51,7 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
     }
 
     @Override
-    public boolean create(Subscriber subscriber) throws Exception {
+    public boolean create(Subscriber subscriber) throws SQLException {
         Session session = null;
         Transaction transaction = null;
         try {
@@ -75,17 +75,7 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
 
             String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
 
-            String errorMessage;
-            switch (key) {
-                case "phonenumber":
-                    errorMessage = "Phone number is present";
-                    break;
-                case "egn":
-                    errorMessage = "Egn is present";
-                    break;
-                default:
-                    throw new Exception("Something went wrong when creating new subscriber");
-            }
+            String errorMessage = getDatabaseErrorMessage(e, key);
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
             try {
@@ -127,20 +117,7 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
             }
             String message = e.getCause().getCause().toString().toLowerCase();
             String key = message.substring(message.lastIndexOf(" ") + 1).replace("'", "");
-            String errorMessage;
-
-            switch (key) {
-                case "phonenumber":
-                    errorMessage = "Phone number is present";
-                    break;
-                case "egn":
-                    errorMessage = "Egn is present";
-                    break;
-                default:
-                    e.printStackTrace();
-                    errorMessage = "Something went wrong! Try again later!";
-                    break;
-            }
+            String errorMessage = getDatabaseErrorMessage(e, key);
             throw new SQLException(errorMessage, e);
         } catch (Exception e) {
             try {
@@ -175,7 +152,7 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
     }
 
     @Override
-    public List<Subscriber> getSubscribersByService(Integer serviceId) {
+    public List<Subscriber> getAllSubscribersByService(Integer serviceId) {
         List<Subscriber> subscribers = new ArrayList<>();
         try (Session session = sessionFactory.openSession()) {
             String query = String.format(
@@ -254,5 +231,23 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
         }
 
         return 0D;
+    }
+
+
+    private String getDatabaseErrorMessage(PersistenceException e, String key) {
+        String errorMessage;
+        switch (key) {
+            case "phonenumber":
+                errorMessage = "Phone number is present";
+                break;
+            case "egn":
+                errorMessage = "Egn is present";
+                break;
+            default:
+                e.printStackTrace();
+                errorMessage = "Something went wrong! Try again later!";
+                break;
+        }
+        return errorMessage;
     }
 }
