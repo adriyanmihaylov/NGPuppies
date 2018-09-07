@@ -126,7 +126,7 @@ public class SubscriberServiceImplTest {
 
     @Test
     public void delete_whenSuccessful_returnTrue() throws SQLException {
-        when(subscribersRepository.update(mockedSubscriber)).thenReturn(true);
+        when(subscribersRepository.delete(mockedSubscriber)).thenReturn(true);
 
         Boolean isSuccessful = subscriberService.delete(mockedSubscriber);
 

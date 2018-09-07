@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="87c1b2e9-ab80-417f-b224-2228ec7d1fd9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="87c1b2e9-ab80-417f-b224-2228ec7d1fd9" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -27,8 +25,8 @@
       <file leaf-file-name="SubscriberServiceImplTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="200" lean-forward="true" selection-start-line="200" selection-end-line="200" />
+            <state relative-caret-position="1742">
+              <caret line="206" column="11" lean-forward="true" selection-start-line="206" selection-start-column="11" selection-end-line="206" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -69,7 +67,7 @@
       <file leaf-file-name="SubscriberServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
+            <state relative-caret-position="399">
               <caret line="72" selection-start-line="72" selection-end-line="72" />
               <folding>
                 <element signature="method#getTenAllTimeSubscribersWithBiggestBillsPaid#0;class#SubscriberServiceImpl#0" />
@@ -595,9 +593,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/InvoiceService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Subscriber.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/SubscriberRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/SubscriberService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceImplTest.java" />
       </list>
     </option>
@@ -863,11 +861,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime">
+  <component name="RunManager" selected="JUnit.SubscriberServiceImplTest.delete_whenSuccessful_returnTrue">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
-    <configuration name="SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberAlreadyHasService_shouldTrowException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SubscriberServiceImplTest.delete_whenSuccessful_returnTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ngpuppies_test" />
       <extension name="coverage">
         <pattern>
@@ -879,30 +877,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
       <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.SubscriberServiceImplTest" />
-      <option name="METHOD_NAME" value="addServiceToSubscriber_whenSubscriberAlreadyHasService_shouldTrowException" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberDoesNotHaveService_returnTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ngpuppies_test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
-      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.SubscriberServiceImplTest" />
-      <option name="METHOD_NAME" value="addServiceToSubscriber_whenSubscriberDoesNotHaveService_returnTrue" />
+      <option name="METHOD_NAME" value="delete_whenSuccessful_returnTrue" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -982,6 +957,29 @@
       </option>
       <patterns />
     </configuration>
+    <configuration name="SubscriberServiceImplTest.update_whenSuccessful_returnTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ngpuppies_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
+      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.SubscriberServiceImplTest" />
+      <option name="METHOD_NAME" value="update_whenSuccessful_returnTrue" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1026,19 +1024,19 @@
     </configuration>
     <list>
       <item itemvalue="Spring Boot.NGPuppiesApplication" />
-      <item itemvalue="JUnit.SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberDoesNotHaveService_returnTrue" />
-      <item itemvalue="JUnit.SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberAlreadyHasService_shouldTrowException" />
       <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" />
       <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" />
       <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" />
+      <item itemvalue="JUnit.SubscriberServiceImplTest.update_whenSuccessful_returnTrue" />
+      <item itemvalue="JUnit.SubscriberServiceImplTest.delete_whenSuccessful_returnTrue" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.SubscriberServiceImplTest.delete_whenSuccessful_returnTrue" />
+        <item itemvalue="JUnit.SubscriberServiceImplTest.update_whenSuccessful_returnTrue" />
         <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" />
         <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" />
         <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" />
-        <item itemvalue="JUnit.SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberAlreadyHasService_shouldTrowException" />
-        <item itemvalue="JUnit.SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberDoesNotHaveService_returnTrue" />
       </list>
     </recent_temporary>
   </component>
@@ -1054,20 +1052,11 @@
       <updated>1536342515939</updated>
       <workItem from="1536342518594" duration="3422000" />
       <workItem from="1536347688196" duration="37000" />
-      <workItem from="1536347742270" duration="5939000" />
+      <workItem from="1536347742270" duration="6244000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="SubscriberServiceImplTest_getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices - 2018.09.07 at 23h 31m 07s.xml">
-      <configuration name="SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="SubscriberServiceImplTest_getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices - 2018.09.07 at 23h 32m 24s.xml">
-      <configuration name="SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="SubscriberServiceImplTest_getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices - 2018.09.07 at 23h 35m 00s.xml">
-      <configuration name="SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="SubscriberServiceImplTest_getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices - 2018.09.07 at 23h 35m 15s.xml">
       <configuration name="SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" configurationId="JUnit" />
     </history-entry>
@@ -1089,9 +1078,18 @@
     <history-entry file="SubscriberServiceImplTest_getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime - 2018.09.07 at 23h 53m 39s.xml">
       <configuration name="SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime - 2018.09.07 at 23h 54m 49s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime - 2018.09.07 at 23h 56m 40s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime - 2018.09.07 at 23h 57m 59s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9398000" />
+    <option name="totallyTimeSpent" value="9703000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1107,7 +1105,7 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.25398514" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.25398514" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.32943678" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
@@ -1115,10 +1113,10 @@
       <window_info anchor="bottom" id="Java Enterprise" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21785335" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21785335" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20729166" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20729166" />
       <window_info anchor="right" id="Bean Validation" order="3" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="right" id="Gradle" order="3" />
@@ -1155,7 +1153,7 @@
           <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="16" />
+      <option name="time" value="17" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -1561,7 +1559,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
+        <state relative-caret-position="399">
           <caret line="72" selection-start-line="72" selection-end-line="72" />
           <folding>
             <element signature="method#getTenAllTimeSubscribersWithBiggestBillsPaid#0;class#SubscriberServiceImpl#0" />
@@ -1571,8 +1569,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="200" lean-forward="true" selection-start-line="200" selection-end-line="200" />
+        <state relative-caret-position="1742">
+          <caret line="206" column="11" lean-forward="true" selection-start-line="206" selection-start-column="11" selection-end-line="206" selection-end-column="11" />
         </state>
       </provider>
     </entry>
