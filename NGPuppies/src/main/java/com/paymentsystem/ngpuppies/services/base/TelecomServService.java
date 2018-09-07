@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface TelecomServService {
-    List<TelecomServ> getAll();
 
     TelecomServ getByName(String name);
+
+    List<TelecomServ> getAll();
 
     boolean create(TelecomServ telecomServ) throws SQLException;
 

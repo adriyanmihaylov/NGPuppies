@@ -64,7 +64,6 @@ public class AddressRepositoryImpl implements AddressRepository {
             session.beginTransaction();
             session.update(address);
             session.getTransaction().commit();
-            System.out.println("Address ID: " + address.getId() + "updated!");
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,8 +77,9 @@ public class AddressRepositoryImpl implements AddressRepository {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.delete(address);
-            System.out.println("Address was deleted");
             session.getTransaction().commit();
+
+            System.out.println("Address was deleted");
             return true;
         } catch (Exception e) {
             e.printStackTrace();

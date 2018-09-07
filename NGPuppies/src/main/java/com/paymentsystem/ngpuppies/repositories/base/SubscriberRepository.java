@@ -6,17 +6,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface SubscriberRepository {
-    List<Subscriber> getAll();
-
     Subscriber getByNumber(String phoneNumber);
 
-    boolean create(Subscriber subscriber) throws Exception;
+    List<Subscriber> getAll();
+
+    boolean create(Subscriber subscriber) throws SQLException;
 
     boolean update(Subscriber updatedSubscriber) throws SQLException;
 
     boolean delete(Subscriber subscriber);
 
-    List<Subscriber> getSubscribersByService(Integer serviceId) ;
+    List<Subscriber> getAllSubscribersByService(Integer serviceId) ;
 
     List<Subscriber> getTenAllTimeSubscribersWithBiggestBillsPaid(Integer clientId);
 
