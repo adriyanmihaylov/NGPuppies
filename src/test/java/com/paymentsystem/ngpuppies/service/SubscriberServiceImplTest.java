@@ -21,11 +21,10 @@ import java.rmi.AlreadyBoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class SubscriberServiceImplTest {
 
     @Mock
@@ -34,7 +33,7 @@ public class SubscriberServiceImplTest {
     @InjectMocks
     private SubscriberServiceImpl subscriberService;
 
-    private List<Subscriber> mockedSubscribersList;
+    private List<Subscriber> subscriberList;
 
     private Subscriber mockedSubscriber;
     private Client mockedClient;
@@ -44,7 +43,6 @@ public class SubscriberServiceImplTest {
     private static final String INVALID_PHONE_NUMBER = "899999999";
 
     private static final String VALID_EGN = "8412125487";
-    private static final String INVALID_EGN = "7070801035";
 
     private static final Integer VALID_CLIENT_ID = 1;
     private static final Integer VALID_SUBSCRIBER_ID = 1;
@@ -63,20 +61,20 @@ public class SubscriberServiceImplTest {
         mockedSubscriber.setClient(mockedClient);
         mockedSubscriber.setId(VALID_SUBSCRIBER_ID);
 
-        mockedSubscribersList = new ArrayList<>();
-        mockedSubscribersList.add(mockedSubscriber);
+        subscriberList = new ArrayList<>();
+        subscriberList.add(mockedSubscriber);
     }
 
     @Test
     public void getALlSubscribers_returnListOfSubscribers() {
         // Arrange
-        when(subscribersRepository.getAll()).thenReturn(mockedSubscribersList);
+        when(subscribersRepository.getAll()).thenReturn(subscriberList);
         // Act
 
         List<Subscriber> actualRestaurants = subscriberService.getAll();
 
         // Assert
-        Assert.assertEquals(actualRestaurants.size(), mockedSubscribersList.size());
+        Assert.assertEquals(actualRestaurants.size(), subscriberList.size());
     }
 
     @Test
@@ -135,20 +133,20 @@ public class SubscriberServiceImplTest {
 
     @Test
     public void getAllSubscribersByService_whenSuccessful_returnListSubscribers() throws SQLException {
-        when(subscribersRepository.getAllSubscribersByService(VALID_TELECOMSERV_ID)).thenReturn(mockedSubscribersList);
+        when(subscribersRepository.getAllSubscribersByService(VALID_TELECOMSERV_ID)).thenReturn(subscriberList);
 
         List<Subscriber> subscribers = subscriberService.getAllSubscribersByService(VALID_TELECOMSERV_ID);
 
-        Assert.assertEquals(subscribers.get(0), mockedSubscribersList.get(0));
+        Assert.assertEquals(subscribers.get(0), subscriberList.get(0));
     }
 
     @Test
     public void getTenAllTimeSubscribersWithBiggestBillsPaid_whenSubscribersPresent_returnListSubscribers() {
-        when(subscribersRepository.getTenAllTimeSubscribersWithBiggestBillsPaid(VALID_CLIENT_ID)).thenReturn(mockedSubscribersList);
+        when(subscribersRepository.getTenAllTimeSubscribersWithBiggestBillsPaid(VALID_CLIENT_ID)).thenReturn(subscriberList);
 
         List<Subscriber> subscribers = subscriberService.getTenAllTimeSubscribersWithBiggestBillsPaid(VALID_CLIENT_ID);
 
-        Assert.assertEquals(subscribers.get(0), mockedSubscribersList.get(0));
+        Assert.assertEquals(subscribers.get(0), subscriberList.get(0));
     }
 
     @Test
