@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.configurations;
 
-import com.paymentsystem.ngpuppies.security.JwtAuthenticationEntryPoint;
-import com.paymentsystem.ngpuppies.security.JwtAuthorizationTokenFilter;
+import com.paymentsystem.ngpuppies.JwtAuthenticationEntryPoint;
+import com.paymentsystem.ngpuppies.JwtAuthorizationTokenFilter;
 import com.paymentsystem.ngpuppies.services.base.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

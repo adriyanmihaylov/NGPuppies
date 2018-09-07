@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.web;
 
 import com.paymentsystem.ngpuppies.models.users.Admin;
-import com.paymentsystem.ngpuppies.security.JwtTokenUtil;
+import com.paymentsystem.ngpuppies.JwtTokenUtil;
 import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
 import com.paymentsystem.ngpuppies.models.viewModels.AdminViewModel;
 import org.springframework.beans.factory.annotation.Autowired;

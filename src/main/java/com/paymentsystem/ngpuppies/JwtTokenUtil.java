@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.security;
+package com.paymentsystem.ngpuppies;
 
 import com.paymentsystem.ngpuppies.models.users.User;
 import io.jsonwebtoken.Claims;
