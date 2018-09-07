@@ -4,14 +4,18 @@ import com.paymentsystem.ngpuppies.models.Currency;
 import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.TelecomServ;
+import com.paymentsystem.ngpuppies.models.dto.InvoiceDTO;
 import com.paymentsystem.ngpuppies.models.dto.InvoicePaymentDTO;
 import com.paymentsystem.ngpuppies.repositories.base.CurrencyRepository;
 import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
+import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import com.paymentsystem.ngpuppies.services.base.TelecomServService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.AssertTrue;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,20 +28,55 @@ public class InvoiceServiceImpl implements InvoiceService {
     private CurrencyRepository currencyRepository;
     @Autowired
     private TelecomServService telecomServService;
+    @Autowired
+    private SubscriberService subscriberService;
 
     @Override
     public Invoice getById(Integer id) {
         return invoiceRepository.getById(id);
     }
+
     @Override
     public List<Invoice> getAll() {
         return invoiceRepository.getAll();
     }
 
     @Override
-    public boolean create(Invoice invoice) {
-        return invoiceRepository.create(invoice);
+    public InvoiceDTO create(InvoiceDTO invoiceDTO) {
+
+        if (!validateDate(invoiceDTO.getStartDate(), invoiceDTO.getEndDate())) {
+            return invoiceDTO;
+        }
+
+        Subscriber subscriber = subscriberService.getSubscriberByPhone(invoiceDTO.getSubscriberPhone());
+        if (subscriber == null) {
+            return invoiceDTO;
+        }
+        TelecomServ telecomServ = telecomServService.getByName(invoiceDTO.getService());
+        if (telecomServ == null) {
+            return invoiceDTO;
+        }
+        if (!subscriber.getSubscriberServices().contains(telecomServ)) {
+            return invoiceDTO;
+        }
+
+        Invoice invoice = new Invoice(subscriber,
+                LocalDate.parse(invoiceDTO.getStartDate()),
+                LocalDate.parse(invoiceDTO.getEndDate()),
+                Double.parseDouble(invoiceDTO.getAmountBGN()),
+                telecomServ);
+
+        try {
+            if (!invoiceRepository.create(invoice)) {
+                return invoiceDTO;
+            }
+        } catch (Exception e) {
+            return invoiceDTO;
+        }
+        return null;
     }
+
+
 
     @Override
     public List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(Integer subscriberId) {
@@ -124,5 +163,12 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
 
         return invoiceRepository.getAllUnpaidInvoicesOfService(serviceName);
+    }
+    private boolean validateDate(String start, String end) {
+        if (start.equals(end)) {
+            return true;
+        }
+        return LocalDate.parse(start)
+                .isBefore(LocalDate.parse(end));
     }
 }

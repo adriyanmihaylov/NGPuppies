@@ -10,6 +10,7 @@ import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import com.paymentsystem.ngpuppies.models.viewModels.InvoiceViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidServiceName;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,12 +34,6 @@ import java.util.stream.Collectors;
 public class AdminInvoiceController {
     @Autowired
     private InvoiceService invoiceService;
-    @Autowired
-    private TelecomServService telecomServService;
-    @Autowired
-    private SubscriberService subscriberService;
-
-    private final DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
 
     @GetMapping("/generate")
     public ValidList<InvoiceDTO> createInvoice() {
@@ -54,41 +49,11 @@ public class AdminInvoiceController {
                                            BindingResult bindingResult) {
         List<InvoiceDTO> failedInvoices = new ArrayList<>();
         try {
-
             for (InvoiceDTO invoiceDTO : invoiceDTOList.getList()) {
+                InvoiceDTO failedInvoice = invoiceService.create(invoiceDTO);
 
-                if (!validateDate(invoiceDTO.getStartDate(), invoiceDTO.getEndDate())) {
-                    failedInvoices.add(invoiceDTO);
-                    continue;
-                }
-
-                Subscriber subscriber = subscriberService.getSubscriberByPhone(invoiceDTO.getSubscriberPhone());
-                if (subscriber == null) {
-                    failedInvoices.add(invoiceDTO);
-                    continue;
-                }
-                TelecomServ telecomServ = telecomServService.getByName(invoiceDTO.getService());
-                if (telecomServ == null) {
-                    failedInvoices.add(invoiceDTO);
-                    continue;
-                }
-                if (!subscriber.getSubscriberServices().contains(telecomServ)) {
-                    failedInvoices.add(invoiceDTO);
-                    continue;
-                }
-
-                Invoice invoice = new Invoice(subscriber,
-                        dateFormat.parse(invoiceDTO.getStartDate()),
-                        dateFormat.parse(invoiceDTO.getEndDate()),
-                        Double.parseDouble(invoiceDTO.getAmountBGN()),
-                        telecomServ);
-
-                try {
-                    if (!invoiceService.create(invoice)) {
-                        failedInvoices.add(invoiceDTO);
-                    }
-                } catch (Exception e) {
-                    failedInvoices.add(invoiceDTO);
+                if (failedInvoice != null) {
+                    failedInvoices.add(failedInvoice);
                 }
             }
         } catch (Exception e) {
@@ -98,19 +63,19 @@ public class AdminInvoiceController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteInvoice(@RequestParam("id") Integer id,
+    public ResponseEntity<?> deleteInvoice(@RequestParam("id") int id,
                                            @RequestParam("phone") @ValidPhone String subscriberPhone) {
-        if (id != null) {
-            Invoice invoice = invoiceService.getById(id);
-            if (invoice != null) {
-                if (subscriberPhone.equals(invoice.getSubscriber().getPhone())) {
-                    if (invoiceService.delete(invoice)) {
-                        return new ResponseEntity<>(new ResponseMessage("Invoice deleted!"), HttpStatus.OK);
-                    }
+        Invoice invoice = invoiceService.getById(id);
+
+        if (invoice != null) {
+            if (subscriberPhone.equals(invoice.getSubscriber().getPhone())) {
+                if (invoiceService.delete(invoice)) {
+                    return new ResponseEntity<>(new ResponseMessage("Invoice deleted!"), HttpStatus.OK);
                 }
             }
         }
-        return new ResponseEntity<>(new ResponseMessage("Invalid input!"), HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/unpaid/subscriber")
@@ -134,13 +99,5 @@ public class AdminInvoiceController {
                 .stream()
                 .map(InvoiceViewModel::fromModel)
                 .collect(Collectors.toList());
-    }
-
-    private boolean validateDate(String start, String end) {
-        if (start.equals(end)) {
-            return true;
-        }
-        return LocalDate.parse(start)
-                .isBefore(LocalDate.parse(end));
     }
 }
