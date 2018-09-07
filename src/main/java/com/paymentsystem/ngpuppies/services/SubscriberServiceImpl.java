@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.rmi.AlreadyBoundException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class SubscriberServiceImpl implements SubscriberService {
@@ -45,9 +43,14 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     public boolean addServiceToSubscriber(Subscriber subscriber, TelecomServ telecomServ) throws AlreadyBoundException, SQLException {
+        if(subscriber.getSubscriberServices() == null) {
+            subscriber.setSubscriberServices(new HashSet<>());
+        }
+
         if (subscriber.getSubscriberServices().contains(telecomServ)) {
             throw new AlreadyBoundException("The subscriber is already using this service");
         }
+
         subscriber.getSubscriberServices().add(telecomServ);
         if (subscriberRepository.update(subscriber)) {
             return true;
@@ -61,13 +64,8 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
     @Override
-    public Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate) {
-        return subscriberRepository.getSubscriberAverageInvoiceSumPaid(subscriberId, fromDate, toDate);
-    }
-
-    @Override
-    public Map<Subscriber, Double> getSubscriberWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate) {
-        Object[] result = subscriberRepository.getSubscriberWithBiggestAmountPaid(clientId, fromDate, toDate);
+    public Map<Subscriber, Double> getSubscriberOfClientWithBiggestAmountPaid(Integer subscriberId, String fromDate, String toDate) {
+        Object[] result = subscriberRepository.getSubscriberOfClientWithBiggestAmountPaid(subscriberId, fromDate, toDate);
 
         Map<Subscriber, Double> subscribers = new HashMap<>();
         for (Object object : result) {
@@ -80,13 +78,7 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     public Double getSubscriberAverageSumOfPaidInvoices(Integer subscriberId, String fromDate, String toDate) {
-        double amount = subscriberRepository.getSubscriberAverageInvoiceSumPaid(subscriberId, fromDate, toDate);
-
-        if (amount != 0) {
-            amount = Math.round(amount * 100) / 100;
-        }
-
-        return amount;
+        return subscriberRepository.getSubscriberAverageInvoiceSumPaid(subscriberId, fromDate, toDate);
     }
 
     @Override

@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="87c1b2e9-ab80-417f-b224-2228ec7d1fd9" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminClientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminClientsController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -26,122 +23,112 @@
     </projectState>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AdminInvoiceController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminInvoiceController.java">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="SubscriberServiceImplTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="66" column="102" selection-start-line="66" selection-start-column="102" selection-end-line="66" selection-end-column="102" />
+            <state relative-caret-position="501">
+              <caret line="200" lean-forward="true" selection-start-line="200" selection-end-line="200" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FrameworkMethod.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/org/junit/runners/model/FrameworkMethod.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
               <folding>
-                <element signature="method#createInvoice#0;class#AdminInvoiceController#0" />
-                <element signature="method#createInvoice#1;class#AdminInvoiceController#0" />
-                <element signature="method#deleteInvoice#0;class#AdminInvoiceController#0" />
+                <element signature="e#1657#1658#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdminSubscriberController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminSubscriberController.java">
+      <file leaf-file-name="BillingServiceGetAllTests.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/BillingServiceGetAllTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Subscriber.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Subscriber.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="569">
+              <caret line="178" column="1" selection-start-line="178" selection-start-column="1" selection-end-line="178" selection-end-column="1" />
+              <folding>
+                <element signature="method#addSubscriberServices#0;class#Subscriber#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SubscriberServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="501">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
+              <folding>
+                <element signature="method#getTenAllTimeSubscribersWithBiggestBillsPaid#0;class#SubscriberServiceImpl#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SubscriberRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/SubscriberRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="24" column="72" selection-start-line="24" selection-start-column="72" selection-end-line="24" selection-end-column="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SubscriberService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/SubscriberService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="408">
-              <caret line="91" column="13" selection-start-line="91" selection-start-column="13" selection-end-line="93" />
+              <caret line="30" column="69" selection-start-line="30" selection-start-column="69" selection-end-line="30" selection-end-column="69" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdminClientsController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminClientsController.java">
+      <file leaf-file-name="ReflectiveCallable.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/org/junit/internal/runners/model/ReflectiveCallable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
-              <folding>
-                <element signature="method#registerClient#1;class#AdminClientsController#0" />
-                <element signature="method#updateClient#0;class#AdminClientsController#0" />
-              </folding>
+            <state relative-caret-position="221">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CurrencyServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/CurrencyServiceImpl.java">
+      <file leaf-file-name="ParentRunner.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/org/junit/runners/ParentRunner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="225">
+              <caret line="327" selection-start-line="327" selection-end-line="327" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java">
+      <file leaf-file-name="Invoice.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Invoice.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="688">
-              <caret line="71" column="1" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientRepositoryImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientRepositoryImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
-              <folding>
-                <element signature="method#loadByUsername#0;class#ClientRepositoryImpl#0" />
-                <element signature="method#loadByEik#0;class#ClientRepositoryImpl#0" />
-                <element signature="method#create#0;class#ClientRepositoryImpl#0" />
-                <element signature="method#update#0;class#ClientRepositoryImpl#0" />
-                <element signature="method#getDatabaseErrorMessage#0;class#ClientRepositoryImpl#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientDetailServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InvoiceServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="75" selection-start-line="75" selection-end-line="75" />
-              <folding>
-                <element signature="e#2927#2928#0" expanded="true" />
-                <element signature="e#2984#2985#0" expanded="true" />
-                <element signature="e#3044#3045#0" expanded="true" />
-                <element signature="e#3100#3101#0" expanded="true" />
-                <element signature="e#3165#3166#0" expanded="true" />
-                <element signature="e#3228#3229#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InvoiceService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/InvoiceService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="15" column="52" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
+            <state relative-caret-position="677">
+              <caret line="83" selection-start-line="83" selection-end-line="83" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>average</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -600,13 +587,18 @@
         <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceGetALL.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Invoice.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/ValidList.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/InvoiceService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminInvoiceController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminClientsController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientRepositoryImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/InvoiceService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Subscriber.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/SubscriberRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/SubscriberService.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceImplTest.java" />
       </list>
     </option>
   </component>
@@ -626,10 +618,119 @@
     <option name="height" value="1000" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="PackagesPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="ngpuppies" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ngpuppies" type="eaaa3913:PackageViewModuleGroupNode" />
+            </path>
+            <path>
+              <item name="ngpuppies" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ngpuppies" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="ngpuppies_main" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="ngpuppies" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ngpuppies" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="ngpuppies_main" type="616d4139:PackageViewModuleNode" />
+              <item name="com.paymentsystem.ngpuppies" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="ngpuppies" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ngpuppies" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="ngpuppies_main" type="616d4139:PackageViewModuleNode" />
+              <item name="com.paymentsystem.ngpuppies" type="1f31426a:PackageElementNode" />
+              <item name="models" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="ngpuppies" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ngpuppies" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="ngpuppies_main" type="616d4139:PackageViewModuleNode" />
+              <item name="com.paymentsystem.ngpuppies" type="1f31426a:PackageElementNode" />
+              <item name="services" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="ngpuppies" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ngpuppies" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="ngpuppies_main" type="616d4139:PackageViewModuleNode" />
+              <item name="com.paymentsystem.ngpuppies" type="1f31426a:PackageElementNode" />
+              <item name="services" type="1f31426a:PackageElementNode" />
+              <item name="base" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="ngpuppies" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ngpuppies" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="ngpuppies_test" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="ngpuppies" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ngpuppies" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="ngpuppies_test" type="616d4139:PackageViewModuleNode" />
+              <item name="com.paymentsystem.ngpuppies" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="ngpuppies" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ngpuppies" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="ngpuppies_test" type="616d4139:PackageViewModuleNode" />
+              <item name="com.paymentsystem.ngpuppies" type="1f31426a:PackageElementNode" />
+              <item name="service" type="1f31426a:PackageElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Tests">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="ngpuppies" type="cbb8eebc:String" user="ngpuppies" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="ngpuppies" type="cbb8eebc:String" user="ngpuppies" />
+              <item name="ngpuppies_test" type="cbb8eebc:String" user="ngpuppies_test" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="ngpuppies" type="cbb8eebc:String" user="ngpuppies" />
+              <item name="ngpuppies_test" type="cbb8eebc:String" user="ngpuppies_test" />
+              <item name="src/test" type="cbb8eebc:String" user="src/test" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="ngpuppies" type="cbb8eebc:String" user="ngpuppies" />
+              <item name="ngpuppies_test" type="cbb8eebc:String" user="ngpuppies_test" />
+              <item name="src/test" type="cbb8eebc:String" user="src/test" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="ngpuppies" type="cbb8eebc:String" user="ngpuppies" />
+              <item name="ngpuppies_test" type="cbb8eebc:String" user="ngpuppies_test" />
+              <item name="src/test" type="cbb8eebc:String" user="src/test" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com/paymentsystem/ngpuppies" type="cbb8eebc:String" user="com/paymentsystem/ngpuppies" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="ngpuppies" type="cbb8eebc:String" user="ngpuppies" />
+              <item name="ngpuppies_test" type="cbb8eebc:String" user="ngpuppies_test" />
+              <item name="src/test" type="cbb8eebc:String" user="src/test" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com/paymentsystem/ngpuppies" type="cbb8eebc:String" user="com/paymentsystem/ngpuppies" />
+              <item name="service" type="cbb8eebc:String" user="service" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -736,9 +837,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -765,9 +863,124 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberAlreadyHasService_shouldTrowException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ngpuppies_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
+      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.SubscriberServiceImplTest" />
+      <option name="METHOD_NAME" value="addServiceToSubscriber_whenSubscriberAlreadyHasService_shouldTrowException" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberDoesNotHaveService_returnTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ngpuppies_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
+      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.SubscriberServiceImplTest" />
+      <option name="METHOD_NAME" value="addServiceToSubscriber_whenSubscriberDoesNotHaveService_returnTrue" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ngpuppies_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
+      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.SubscriberServiceImplTest" />
+      <option name="METHOD_NAME" value="getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ngpuppies_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
+      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.SubscriberServiceImplTest" />
+      <option name="METHOD_NAME" value="getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="SubscriberServiceImplTest.getSubscriberWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ngpuppies_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
+      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.SubscriberServiceImplTest" />
+      <option name="METHOD_NAME" value="getSubscriberWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -811,6 +1024,23 @@
       <properties />
       <listeners />
     </configuration>
+    <list>
+      <item itemvalue="Spring Boot.NGPuppiesApplication" />
+      <item itemvalue="JUnit.SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberDoesNotHaveService_returnTrue" />
+      <item itemvalue="JUnit.SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberAlreadyHasService_shouldTrowException" />
+      <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" />
+      <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" />
+      <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" />
+        <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" />
+        <item itemvalue="JUnit.SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" />
+        <item itemvalue="JUnit.SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberAlreadyHasService_shouldTrowException" />
+        <item itemvalue="JUnit.SubscriberServiceImplTest.addServiceToSubscriber_whenSubscriberDoesNotHaveService_returnTrue" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -823,50 +1053,84 @@
       <option name="presentableId" value="Default" />
       <updated>1536342515939</updated>
       <workItem from="1536342518594" duration="3422000" />
+      <workItem from="1536347688196" duration="37000" />
+      <workItem from="1536347742270" duration="5939000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="SubscriberServiceImplTest_getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices - 2018.09.07 at 23h 31m 07s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices - 2018.09.07 at 23h 32m 24s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices - 2018.09.07 at 23h 35m 00s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices - 2018.09.07 at 23h 35m 15s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime - 2018.09.07 at 23h 46m 37s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices - 2018.09.07 at 23h 49m 22s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberAverageSumOfPaidInvoices_whenSubscriberHasInvoices_shouldReturnAverageSumOfPaidInvoices" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime - 2018.09.07 at 23h 49m 22s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime - 2018.09.07 at 23h 50m 58s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime - 2018.09.07 at 23h 52m 45s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SubscriberServiceImplTest_getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime - 2018.09.07 at 23h 53m 39s.xml">
+      <configuration name="SubscriberServiceImplTest.getSubscriberOfClientWithBiggestAmountPaid_shouldReturnSubscriberAndTotalAmountForThePeriodOfTime" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3422000" />
+    <option name="totallyTimeSpent" value="9398000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info id="Capture Tool" />
-      <window_info id="Designer" />
-      <window_info anchor="bottom" id="Build" weight="0.3299435" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="3" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Designer" order="2" />
+      <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.18172157" />
+      <window_info id="UI Designer" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.25398514" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" weight="0.32943678" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info id="Image Layers" />
-      <window_info anchor="bottom" id="Java Enterprise" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.21785335" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Spring" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20729166" />
-      <window_info anchor="right" id="Bean Validation" />
-      <window_info id="Web" side_tool="true" />
-      <window_info anchor="right" id="Gradle" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32943678" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="bottom" id="Java Enterprise" order="7" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21785335" />
+      <window_info anchor="bottom" id="Spring" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20729166" />
+      <window_info anchor="right" id="Bean Validation" order="3" />
+      <window_info id="Web" order="2" side_tool="true" />
+      <window_info anchor="right" id="Gradle" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.3299435" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -884,39 +1148,143 @@
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java</url>
+          <line>67</line>
+          <properties />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="6" />
+      <option name="time" value="16" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientRepositoryImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceImplTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+        <state relative-caret-position="272">
+          <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#loadByUsername#0;class#ClientRepositoryImpl#0" />
+            <element signature="method#loadByEik#0;class#ClientRepositoryImpl#0" />
+            <element signature="method#create#0;class#ClientRepositoryImpl#0" />
+            <element signature="method#update#0;class#ClientRepositoryImpl#0" />
+            <element signature="method#getDatabaseErrorMessage#0;class#ClientRepositoryImpl#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/BillingServiceGetAllTests.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Invoice.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+          <folding>
+            <element signature="method#create#0;class#InvoiceServiceImpl#0" />
+            <element signature="method#payInvoices#0;class#InvoiceServiceImpl#0" />
+            <element signature="method#getAllUnpaidInvoicesOfService#0;class#InvoiceServiceImpl#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminInvoiceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="66" column="102" selection-start-line="66" selection-start-column="102" selection-end-line="66" selection-end-column="102" />
+          <folding>
+            <element signature="method#createInvoice#0;class#AdminInvoiceController#0" />
+            <element signature="method#createInvoice#1;class#AdminInvoiceController#0" />
+            <element signature="method#deleteInvoice#0;class#AdminInvoiceController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminClientsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="method#registerClient#1;class#AdminClientsController#0" />
+            <element signature="method#updateClient#0;class#AdminClientsController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/CurrencyServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="71" column="1" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientRepositoryImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
+          <folding>
+            <element signature="method#loadByUsername#0;class#ClientRepositoryImpl#0" />
+            <element signature="method#loadByEik#0;class#ClientRepositoryImpl#0" />
+            <element signature="method#create#0;class#ClientRepositoryImpl#0" />
+            <element signature="method#update#0;class#ClientRepositoryImpl#0" />
+            <element signature="method#getDatabaseErrorMessage#0;class#ClientRepositoryImpl#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/InvoiceService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="15" column="52" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminSubscriberController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1122">
-          <caret line="83" selection-start-line="83" selection-end-line="83" />
+          <caret line="91" column="13" selection-start-line="91" selection-start-column="13" selection-end-line="93" />
         </state>
       </provider>
     </entry>
@@ -931,41 +1299,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-          <folding>
-            <element signature="e#234#235#0" expanded="true" />
-            <element signature="e#274#275#0" expanded="true" />
-            <element signature="e#376#377#0" expanded="true" />
-            <element signature="e#403#404#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/InvoiceService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="15" column="52" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="75" selection-start-line="75" selection-end-line="75" />
-          <folding>
-            <element signature="e#2927#2928#0" expanded="true" />
-            <element signature="e#2984#2985#0" expanded="true" />
-            <element signature="e#3044#3045#0" expanded="true" />
-            <element signature="e#3100#3101#0" expanded="true" />
-            <element signature="e#3165#3166#0" expanded="true" />
-            <element signature="e#3228#3229#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -985,8 +1318,58 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="688">
+        <state relative-caret-position="850">
           <caret line="71" column="1" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminClientsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="method#registerClient#1;class#AdminClientsController#0" />
+            <element signature="method#updateClient#0;class#AdminClientsController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminAdministratorsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="91" column="84" selection-start-line="91" selection-start-column="84" selection-end-line="91" selection-end-column="84" />
+          <folding>
+            <element signature="method#updateAdmin#0;class#AdminAdministratorsController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminSubscriberController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="183" column="149" selection-start-line="183" selection-start-column="149" selection-end-line="183" selection-end-column="149" />
+          <folding>
+            <element signature="method#createSubscriber#1;class#AdminSubscriberController#0" />
+            <element signature="method#updateSubscriber#0;class#AdminSubscriberController#0" />
+            <element signature="method#deleteByNumber#0;class#AdminSubscriberController#0" />
+            <element signature="method#addNewServiceToSubscriber#0;class#AdminSubscriberController#0" />
+            <element signature="method#getAllSubscribersOfService#0;class#AdminSubscriberController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminInvoiceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="66" column="102" selection-start-line="66" selection-start-column="102" selection-end-line="66" selection-end-column="102" />
+          <folding>
+            <element signature="method#createInvoice#0;class#AdminInvoiceController#0" />
+            <element signature="method#createInvoice#1;class#AdminInvoiceController#0" />
+            <element signature="method#deleteInvoice#0;class#AdminInvoiceController#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1004,33 +1387,192 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminClientsController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="170">
+          <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
           <folding>
-            <element signature="method#registerClient#1;class#AdminClientsController#0" />
-            <element signature="method#updateClient#0;class#AdminClientsController#0" />
+            <element signature="method#create#0;class#InvoiceServiceImpl#0" />
+            <element signature="method#payInvoices#0;class#InvoiceServiceImpl#0" />
+            <element signature="method#getAllUnpaidInvoicesOfService#0;class#InvoiceServiceImpl#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminInvoiceController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/client/ClientRestController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="66" column="102" selection-start-line="66" selection-start-column="102" selection-end-line="66" selection-end-column="102" />
+        <state relative-caret-position="187">
+          <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/InvoiceService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/CurrencyService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientDetailService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/AuthorityService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/AdminService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/AddressService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/TelecomServService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="26" lean-forward="true" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/SubscriberRepositoryImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="51" column="79" lean-forward="true" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/java/util/LinkedList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="554" selection-start-line="554" selection-end-line="554" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Invoice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="677">
+          <caret line="83" selection-start-line="83" selection-end-line="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Subscriber.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="178" column="1" selection-start-line="178" selection-start-column="1" selection-end-line="178" selection-end-column="1" />
           <folding>
-            <element signature="method#createInvoice#0;class#AdminInvoiceController#0" />
-            <element signature="method#createInvoice#1;class#AdminInvoiceController#0" />
-            <element signature="method#deleteInvoice#0;class#AdminInvoiceController#0" />
+            <element signature="method#addSubscriberServices#0;class#Subscriber#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminSubscriberController.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/BillingServiceGetAllTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/org/junit/runners/model/FrameworkMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+          <folding>
+            <element signature="e#1657#1658#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/SubscriberRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="24" column="72" selection-start-line="24" selection-start-column="72" selection-end-line="24" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/SubscriberService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
-          <caret line="91" column="13" selection-start-line="91" selection-start-column="13" selection-end-line="93" />
+          <caret line="30" column="69" selection-start-line="30" selection-start-column="69" selection-end-line="30" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/org/junit/internal/runners/model/ReflectiveCallable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/org/junit/runners/ParentRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="327" selection-start-line="327" selection-end-line="327" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+          <folding>
+            <element signature="method#getTenAllTimeSubscribersWithBiggestBillsPaid#0;class#SubscriberServiceImpl#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="200" lean-forward="true" selection-start-line="200" selection-end-line="200" />
         </state>
       </provider>
     </entry>

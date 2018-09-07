@@ -13,7 +13,7 @@ public interface InvoiceService {
 
     List<Invoice> getAll();
 
-    public InvoiceDTO create(InvoiceDTO invoiceDTO);
+    InvoiceDTO create(InvoiceDTO invoiceDTO);
 
     boolean update(List<Invoice> invoice);
 

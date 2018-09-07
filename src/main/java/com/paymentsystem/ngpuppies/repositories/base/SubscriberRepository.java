@@ -22,5 +22,5 @@ public interface SubscriberRepository {
 
     Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate);
 
-    Object[] getSubscriberWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate);
+    Object[] getSubscriberOfClientWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate);
 }
