@@ -1,65 +1,78 @@
 
 
 app.controller('addBillController', function($http, $scope) {
-    $(document).ready(function () {
-        $(".btn-pref .btn").click(function () {
-            $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
-            // $(".tab").addClass("active"); // instead of this do the below
-            $(this).removeClass("btn-default").addClass("btn-primary");
+    var phone ;
+    var init = function (phoneNumber) {
+        $scope.errorService = null;
+        $scope.serviceSuccesss = null;
+        $scope.success = null;
+        $http({
+            url: '/api/service/all',
+            method: "GET",
+            dataType: "json"
+        }).success(function (res) {
+            $scope.telecomServices = res;
+        }).error(function (error) {
+            $scope.error = error.message;
         });
 
-    });
-    var init = function (phoneNumber) {
         $http({
             url: '/api/subscriber?phone=' + phoneNumber,
             method: "GET",
             dataType: "json"
         }).success(function (res) {
-            $scope.name = res.firstName + " " + res.lastName;
-            $scope.egn = res.EGN;
-            if (res.address != null && res.address != undefined) {
-                $scope.address = res.address.city;
-            } else {
-                $scope.address = "Not Presented";
+            if(res === ""){
+                message.error = "";
+                return;
             }
-            if (res.client != null && res.client !== undefined) {
-                $scope.bank = res.client;
-            } else {
-                $scope.bank = "Not Presented";
-            }
-            $scope.phoneNumber = res.phoneNumber;
-            $("#subscriber").css("display", "");
-            if (res.billingRecordList.length == 0) {
-                $("#billingRecords").css("display", "none");
-                $("#billingRecord").css("display", "none");
-                $scope.bill = "No billing records";
-            } else {
-                $scope.records = res.billingRecordList;
-                $("#billingRecords").css("display", "");
-            }
+            $scope.subscriber = res;
         }).error(function (error) {
-            $("#subscriber").css("display", "none");
-            $("#content").append($("<h1>No such subscriber</h1>"));
+            $scope.error = error.message;
         });
     };
 
     $scope.search = function () {
-        var phoneNumber = $("#phoneNumber").val();
-        init(phoneNumber);
-        };
+        phone = $("#phoneNumber").val();
+        init(phone);
+    };
 
-    $scope.addNewInvoice = function () {
-        var startDate =  $("#StartDate").val();
-        var endDate =  $("#endDate").val();
-        var phoneNumber = $scope.phoneNumber;
-        console.log($scope.money);
-        console.log(phoneNumber);
-        var invoiceData = {subscriberPhone : phoneNumber,
-            startDate : startDate,
-            endDate : endDate,
-            amount : $scope.money,
-            service : $scope.service,
-            currency : $scope.currency
+    $scope.addNewInvoice = function (invoice) {
+        if (typeof invoice === undefined) {
+            $scope.invoicesError = "Please enter invoice parameters";
+        }
+        if (typeof  invoice.amount === "undefined"){
+
+            $scope.invoicesError = "Please enter amount";
+            return;
+        }
+        if (typeof invoice.startDate === "undefined"){
+
+            $scope.invoicesError = "Please enter start date";
+            return;
+        }
+        if (typeof invoice.endDate === "undefined"){
+            $scope.invoicesError = "Please enter end date";
+            return;
+        }
+        if (typeof invoice.service === "undefined"){
+
+            $scope.invoicesError = "Please enter service";
+            return;
+        }
+        if (typeof invoice.currency === "undefined"){
+
+            $scope.invoicesError = "Please enter currency";
+            return;
+        }
+
+        var invoiceData = {"invoice" : {
+                subscriberPhone: phone,
+                startDate: invoice.startDate,
+                endDate: invoice.endDate,
+                amount: invoice.amount,
+                service: invoice.service,
+                currency: invoice.currency
+            }
         };
         $http({
             url : '/api/invoice/generate',
@@ -68,15 +81,40 @@ app.controller('addBillController', function($http, $scope) {
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).success(function (res) {
+            $scope.invoicesError = null;
             $scope.startDate = null;
             $scope.service = null;
             $scope.money = null;
             $scope.currency = null;
-            init(phoneNumber);
-            $scope.message = "Successful added";
+            $scope.invoiceSuccess = res.message;
+            init(phone);
+        }).error(function (error) {
+            $scope.invoiceSuccess = null;
+            $scope.invoicesError = error.message;
         });
-
-
-
+    };
+    $scope.newService = function (service) {
+        $http({
+            url : '/api/subscriber/' + phone + '/service?name=' + service,
+            method : "PUT",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).success(function () {
+            $scope.errorService = null;
+            $scope.service = null;
+            $scope.serviceSuccesss = "Successfully added";
+            init(phone);
+        }).error(function (error) {
+            $scope.serviceSuccesss = null;
+            $scope.errorService = error.message;
+        });
+    };
+    $scope.resetService=function () {
+        $scope.serviceSuccesss = null;
+        $scope.errorService = null;
+    };
+    $scope.invoiceReset = function () {
+        $scope.invoiceSuccess = null;
+        $scope.invoicesError = null;
     }
 });

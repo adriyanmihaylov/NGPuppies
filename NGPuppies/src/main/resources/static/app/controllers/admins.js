@@ -1,6 +1,6 @@
 angular.module('NGPuppies')
 // Creating the Angular Controller
-.controller('UsersController', function($scope,$http,$timeout, AuthService) {
+.controller('UsersController', function($scope,$http) {
     $scope.error = null;
     $scope.success = null;
 	var oldUsername="";

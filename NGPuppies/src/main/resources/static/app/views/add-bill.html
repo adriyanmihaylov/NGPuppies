@@ -5,130 +5,131 @@
                 <div class="col-auto">
                     <i class="fas fa-search h4 text-body"></i>
                 </div>
-                <!--end of col-->
+
                 <div class="col">
-                    <input class="form-control form-control-lg form-control-borderless" type="search" id="phoneNumber" placeholder="Search subscriber by phone number">
+                    <input class="form-control form-control form-control-borderless" type="search" id="phoneNumber" placeholder="Search subscriber by phone number">
                 </div>
                 <!--end of col-->
                 <div class="col-auto">
-                    <button class="btn btn-lg btn-success" type="submit" ng-click = "search()">Search</button>
+                    <button class="btn btn btn-success" type="submit" ng-click = "search()">Search</button>
                 </div>
-                <!--end of col-->
+                <div class="col-auto">
+                <div class="alert alert-dismissible alert-danger" ng-show="error">
+                    <strong>Oh snap!</strong> Change the number and try submitting again.
+                </div>
+                </div>
             </div>
         </form>
     </div>
-    <div class="col-12 col-md-10 col-lg-8" id="subscriber" style="display: none; margin-top: 50px">
 
-        <div class="col">
-                <div class="">
-                    <h3 class=""> {{name}} </h3>
+    <div class="row" style="margin-top: 50px" ng-model="subscriber" ng-if = "subscriber != null">
+        <div class="card border-info mb-3" style="width: 20rem;  margin-right: 10px;">
+            <div class="card-header">Subscribed services</div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr class="table-primary" ng-repeat = "service in subscriber.services">
+                        <th scope="row">{{service}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <label for="newService">New Service</label>
+                    <select class="form-control" id="newService"  ng-model ="service" ng-change = "resetService()">
+                        <option ng-repeat="service in telecomServices">{{service.service}}</option>
+                    </select>
                 </div>
-                <div class="">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-6 " align="center">
-                            <!--<img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>-->
-                            <div class="">
-                                <table class="table table-user-information">
-                                    <tbody>
-                                    <tr>
-                                        <td>EGN:</td>
-                                        <td>{{egn}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Address:</td>
-                                        <td>{{address}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bank</td>
-                                        <td ng-model = "bank">{{bank}}</td>
-                                    </tr>
-
-                                    <tr>
-                                    </tr><tr>
-                                        <td>Phone Number</td>
-                                        <td ng-model = "phoneNumber">{{phoneNumber}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Last Billing Record</td>
-                                        <td>{{bill}}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 " align="center">
-                            <div class="form-group row">
-                                <label for="amountBGN" class="col-sm-6 col-form-label">Amount</label>
-                                <div class="col-sm-6">
-                                    <input type="number" ng-model = "money" class="form-control" id="amountBGN" placeholder="150">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-6 col-form-label" for="Currency">Currency</label>
-                                <div class="col-sm-6">
-                                    <select class="custom-select" ng-model = "currency" id="Currency">
-                                        <option>BGN</option>
-                                        <option>EUR</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-6 col-form-label" for="Service">Service</label>
-                                <div class="col-sm-6">
-                                    <select class="custom-select" ng-model = "service" id="Service">
-                                        <option>TV</option>
-                                        <option>Phone</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="StartDate" class="col-sm-6 col-form-label">Start Date</label>
-                                <div class="col-sm-6">
-                                <input type="date" id="StartDate" ng-model = "startDate" name="StartDate"
-                                       value="2018-07-29"
-                                       min="2018-01-01" max="2018-12-31"/>
-                                </div>
-                            </div>
-                            <div class="form-group row" >
-                                <label for="EndDate" class="col-sm-6 col-form-label">End Date</label>
-                                <div class="col-sm-6 ">
-                                    <input type="date" ng-model = "endDate" id="endDate" name="EndDate"
-                                           value="2018-07-22"
-                                           min="2018-01-01" max="2018-12-31" />
-                                </div>
-                            </div>
-                            <div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
-                            <div class="form-group row">
-                                <button type="button" class="btn btn-success" ng-click="addNewInvoice()">Add New Invoice</button>
-                            </div>
-
-                        </div>
-                        <div class="col">
-                            <table class="table table-sm table-dark" id="billingRecords">
-                                <thead>
-                                <tr >
-                                    <th scope="col">#</th>
-                                    <th scope="col">Service</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Start Date</th>
-                                    <th scope="col">End Date</th>
-                                </tr>
-                                </thead>
-                                <tbody id="records">
-                                <tr ng-repeat = " record in records">
-                                    <th scope="row">{{record.id}}</th>
-                                    <td>{{record.service.name}}</td>
-                                    <td>{{record.amountBGN}}</td>
-                                    <td>{{record.startDate}}</td>
-                                    <td>{{record.endDate}}</td>
-                                    <td>{{record.payed}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="alert alert-dismissible alert-success" ng-show = "serviceSuccesss">
+                    <strong>{{serviceSuccesss}}</strong>
+                </div>
+                <div class="alert alert-dismissible alert-danger" ng-show="errorService">
+                    <strong>{{errorService}}</strong>
+                </div>
+                <button class="btn btn btn-success" type="submit" ng-click="newService(service)">Add New</button>
+            </div >
+        </div>
+        <div class="card border-info mb-3" style="width: 20rem;  margin-right: 10px;">
+            <div class="card-header">Add invoice</div>
+            <div class="card-body">
+                <form action="submit" ng-model = "invoice">
+                <div class="form-group row">
+                    <label for="startDate" class="col-4 col-form-label" >Start Date</label>
+                    <div class="col-8">
+                        <input class="form-control" ng-change = "invoiceReset()"  type="date"  id="startDate" ng-model ="invoice.startDate">
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="endDate" class="col-4 col-form-label" >End Date</label>
+                    <div class="col-8">
+                        <input class="form-control" ng-change = "invoiceReset()" type="date" id="endDate" ng-model ="invoice.endDate">
+                    </div>
+                </div>
+                    <div class="form-group row">
+                        <label for="amount" class="col-4 col-form-label">Amount</label>
+                        <div class="col-8">
+                            <input class="form-control" ng-change = "invoiceReset()" type="number" ng-model ="invoice.amount" id="amount">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="currency">Currency</label>
+                        <select class="form-control" ng-change = "invoiceReset()" id="currency" ng-model ="invoice.currency">
+                            <option>BGN</option>
+                            <option>USD</option>
+                            <option>EUR</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="services">Services</label>
+                        <select class="form-control" id="services" ng-change = "invoiceReset()" ng-model ="invoice.service">
+                            <option ng-repeat = "service in subscriber.services">{{service}}</option>
+                        </select>
+                    </div>
+                </form>
+                <div class="alert alert-dismissible alert-danger" ng-show="invoiceError">
+                    <strong>{{invoiceError}}</strong>
+                </div>
+                <div class="alert alert-dismissible alert-success" ng-show = "invoiceSuccess">
+                    <strong>{{invoiceSuccess}}</strong>
+                </div>
+                <button class="btn btn btn-success" type="submit" ng-click="addNewInvoice(invoice)">Add New</button>
+            </div>
+            </div>
+        <div class="card border-info mb-3" style="width: 20rem;">
+            <div class="card-header">Personal information </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr class="table-primary">
+                        <th scope="row">First Name</th>
+                        <td>{{subscriber.firstName}}</td>
+                    </tr>
+                    <tr class="table-primary">
+                        <th scope="row">Last Name</th>
+                        <td>{{subscriber.lastName}}</td>
+                    </tr>
+                    <tr class="table-primary">
+                        <th scope="row">EGN</th>
+                        <td>{{subscriber.EGN}}</td>
+                    </tr>
+                    <tr class="table-primary">
+                        <th scope="row">Phone Number</th>
+                        <td id="subscriberPhone">{{subscriber.phoneNumber}}</td>
+                    </tr>
+                    <tr class="table-primary" ng-if="subscriber.client!=null">
+                        <th scope="row">Client</th>
+                        <td>{{subscriber.client}}</td>
+                    </tr>
+                    <tr class="table-primary" ng-if="subscriber.address!=null">
+                        <th scope="row">Address</th>
+                        <td>Country: {{subscriber.address.country}}, City:{{subscriber.address.city}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        </div>
+
 
     </div>
 
