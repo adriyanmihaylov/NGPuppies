@@ -71,15 +71,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="currency">Currency</label>
-                        <select class="form-control" ng-change = "invoiceReset()" id="currency" ng-model ="invoice.currency">
-                            <option>BGN</option>
-                            <option>USD</option>
-                            <option>EUR</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
                         <label for="services">Services</label>
                         <select class="form-control" id="services" ng-change = "invoiceReset()" ng-model ="invoice.service">
                             <option ng-repeat = "service in subscriber.services">{{service}}</option>

@@ -12,7 +12,7 @@ angular.module('NGPuppies')
             var startDate = $("#startDate").val();
             var endDate = $("#endDate").val();
             $http({
-                url: '/api/client/subscriber= ' + phoneNumber + '/invoices/paid?from=' + startDate +"&to=" + endDate,
+                url: '/api/client/subscriber/' + phoneNumber + '/invoices/paid?from=' + startDate +"&to=" + endDate,
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
@@ -26,7 +26,7 @@ angular.module('NGPuppies')
 
         var initNotPayed = function (phoneNumber) {
             $http({
-                url: '/api/client/subscriber=' + phoneNumber + '/invoices/unpaid',
+                url: '/api/client/subscriber/' + phoneNumber + '/invoices/unpaid',
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
@@ -41,7 +41,7 @@ angular.module('NGPuppies')
 
         var initAll = function (phoneNumber) {
             $http({
-                url: '/api/client/subscriber=' + phoneNumber + '/invoices',
+                url: '/api/client/subscriber/' + phoneNumber + '/invoices',
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
@@ -56,9 +56,14 @@ angular.module('NGPuppies')
         };
 
         $scope.initPay = function (invoice) {
+            var data = {"list": [{
+                    id: invoice.id,
+                    currency: "BGN"
+                }]};
                 $http({
-                    url: '/api/client/pay/invoice?id=' + invoice.id,
+                    url: '/api/client/invoice/pay',
                     method: "PUT",
+                    data: JSON.stringify(data),
                     dataType: "json"
                 }).success(function (result) {
                     $scope.message = "Successful payment"
@@ -70,7 +75,7 @@ angular.module('NGPuppies')
             };
 
         $scope.search = function () {
-            var phoneNumber = $scope.phoneNumber;
+            var phoneNumber = $("#phoneNumber").val();
             if (phoneNumber!=="") {
                 if ($scope.invoiceType === "All Invoices") {
                     initAll(phoneNumber);

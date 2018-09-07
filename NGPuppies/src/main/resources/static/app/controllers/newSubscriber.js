@@ -3,6 +3,8 @@ angular.module('NGPuppies')
         var validation = function(){
 
         };
+
+
         $scope.create = function (subscriber) {
             console.log(subscriber);
             var subscriberData = {phone: subscriber.phone,

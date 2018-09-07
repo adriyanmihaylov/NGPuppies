@@ -28,7 +28,7 @@ public class User implements UserDetails {
     private String username;
 
     @Column(name = "Password")
-    @Size(min = 6, max = 30)
+    @Size(min = 6, max = 255)
     private String password;
 
     @OneToOne

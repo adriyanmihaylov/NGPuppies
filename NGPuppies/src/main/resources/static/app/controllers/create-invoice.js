@@ -59,20 +59,18 @@ app.controller('addBillController', function($http, $scope) {
             $scope.invoicesError = "Please enter service";
             return;
         }
-        if (typeof invoice.currency === "undefined"){
-
-            $scope.invoicesError = "Please enter currency";
-            return;
-        }
-
-        var invoiceData = {"invoice" : {
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        console.log(startDate);
+        // var amount = $("#amount").val();
+        // console.log(invoice.amount.toFixed(2));
+        var invoiceData = {"list" : [{
                 subscriberPhone: phone,
-                startDate: invoice.startDate,
-                endDate: invoice.endDate,
-                amount: invoice.amount,
+                startDate: startDate,
+                endDate: endDate,
+                amountBGN: invoice.amount.toFixed(2),
                 service: invoice.service,
-                currency: invoice.currency
-            }
+            }]
         };
         $http({
             url : '/api/invoice/generate',
@@ -80,13 +78,12 @@ app.controller('addBillController', function($http, $scope) {
             data: JSON.stringify(invoiceData),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
-        }).success(function (res) {
+        }).success(function () {
             $scope.invoicesError = null;
             $scope.startDate = null;
             $scope.service = null;
             $scope.money = null;
-            $scope.currency = null;
-            $scope.invoiceSuccess = res.message;
+            $scope.invoiceSuccess = "Successful";
             init(phone);
         }).error(function (error) {
             $scope.invoiceSuccess = null;
