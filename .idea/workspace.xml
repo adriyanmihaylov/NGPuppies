@@ -2,172 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="14faf7d8-ae1f-4c9e-9455-e75f7f693305" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/NGPuppies.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/.circleci/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.circleci/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/configurations/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/configurations/AppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/configurations/HibernateConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/configurations/HibernateConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/configurations/HttpToHttpsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/configurations/HttpToHttpsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/configurations/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/configurations/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/ClientDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/ClientDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/Currency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Currency.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Invoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/Subscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/Subscriber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/TelecomServ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/TelecomServ.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/AdminDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/AdminDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/ClientDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/ClientDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/InvoiceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/InvoiceDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/InvoicePaymentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/InvoicePaymentDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/ResponseMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/ResponseMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/SubscriberDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/SubscriberDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/TelecomServiceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/TelecomServiceDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/dto/ValidList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/dto/ValidList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/users/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/users/Authority.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/Authority.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/users/AuthorityName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/AuthorityName.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/users/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/AdminViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/AdminViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/ClientViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/ClientViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/InvoiceViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/InvoiceViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/SubscriberSimpleViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/SubscriberSimpleViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/SubscriberViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/SubscriberViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TelecomServSimpleViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TelecomServSimpleViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TelecomServViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TelecomServViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TopSubscriberViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/TopSubscriberViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/UserViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/UserViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/AddressRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/AddressRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/AdminRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/AdminRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/AuthorityRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/AuthorityRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientDetailRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientDetailRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/CurrencyRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/CurrencyRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/InvoiceRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/InvoiceRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/SubscriberRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/SubscriberRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/TelecomServRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/TelecomServRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/UserRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AddressRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AddressRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AdminRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AdminRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AuthorityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/AuthorityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/ClientDetailRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/ClientDetailRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/ClientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/ClientRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/CurrencyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/CurrencyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/InvoiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/InvoiceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/SubscriberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/SubscriberRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/TelecomServRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/TelecomServRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/repositories/base/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationEntryPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/security/JwtTokenUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtTokenUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/AddressServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AddressServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/AdminServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AdminServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/CurrencyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/CurrencyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/TelecomServServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/TelecomServServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/AddressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/AddressService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/AdminService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/AuthorityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/AuthorityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/CurrencyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/CurrencyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/InvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/SubscriberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/SubscriberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/TelecomServService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/TelecomServService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/services/base/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidDate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidDate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEgn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEgn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEik.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidEmail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidMoneyAmount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidMoneyAmount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidName.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidPhone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidPhone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidServiceName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidServiceName.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidUsername.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/ValidUsername.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/exceptions/AuthenticationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/exceptions/AuthenticationException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/exceptions/ConstraintViolationExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/exceptions/ConstraintViolationExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/DateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/DateValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EgnValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EgnValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EikValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EikValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EmailValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EmailValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/MoneyAmountValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/MoneyAmountValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/NameValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/NameValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/PhoneValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/PhoneValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/ServiceNameValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/ServiceNameValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/validation/validators/UsernameValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/UsernameValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/AuthenticationRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/AuthenticationRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/GeneralRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/GeneralRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/MethodProtectedRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/MethodProtectedRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminAdministratorsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminAdministratorsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminClientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminClientsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminInvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminInvoiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminSubscriberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminSubscriberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminTelecomServController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminTelecomServController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminUsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/admin/AdminUsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/java/com/paymentsystem/ngpuppies/web/client/ClientRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/client/ClientRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/keystore.p12" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/keystore.p12" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/access-denied.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/access-denied.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/admins.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/admins.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/clients.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/clients.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/create-invoice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/create-invoice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/nav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/page-not-found.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/page-not-found.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/payBill.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/payBill.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/reports.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/reports.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/controllers/subscriber.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/controllers/subscriber.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/services/auth-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/services/auth-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/access-denied.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/access-denied.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/add-bill.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/add-bill.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/clients.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/clients.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/nav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/navigation.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/navigation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/page-not-found.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/page-not-found.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/pay-bills.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/pay-bills.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/reports.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/reports.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/app/views/subscribers.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app/views/subscribers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/css/card.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/card.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/img/backgrounds-blank-blue-953214.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/backgrounds-blank-blue-953214.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/NGPuppiesApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/NGPuppiesApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/RepositoryTests/BillingRecordRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/RepositoryTests/BillingRecordRepositoryTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/rest/AuthenticationRestControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/rest/AuthenticationRestControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/rest/MethodProtectedRestControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/rest/MethodProtectedRestControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/rest/UserRestControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/rest/UserRestControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/security/JwtTokenUtilTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/security/JwtTokenUtilTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/security/UserDetailsDummy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/security/UserDetailsDummy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/service/BillingServiceGetAllTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/BillingServiceGetAllTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceGetALL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceGetALL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NGPuppies/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/JwtAuthenticationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationEntryPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/JwtAuthorizationTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/JwtTokenUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtTokenUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/configurations/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/configurations/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/AuthenticationRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/AuthenticationRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/MethodProtectedRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/MethodProtectedRestController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -186,21 +26,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="settings.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/settings.gradle">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="NGPuppiesApplication.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java">
+      <file leaf-file-name="JwtTokenUtilTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/security/JwtTokenUtilTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="357">
+              <caret line="37" column="2" lean-forward="true" selection-start-line="37" selection-start-column="2" selection-end-line="37" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserDetailsDummy.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/security/UserDetailsDummy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="36" column="36" lean-forward="true" selection-start-column="2" selection-end-line="49" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -208,17 +47,76 @@
       <file leaf-file-name="BillingServiceGetAllTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/BillingServiceGetAllTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="56" column="18" lean-forward="true" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
+            <state>
+              <caret column="27" selection-start-column="27" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserServiceImplTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserServiceImplTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+            <state relative-caret-position="765">
+              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SubscriberServiceGetALL.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceGetALL.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#2090#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NGPuppiesApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JwtTokenUtil.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtTokenUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JwtAuthenticationEntryPoint.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationEntryPoint.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JwtAuthenticationRequest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JwtAuthorizationTokenFilter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+              <folding>
+                <element signature="method#doFilterInternal#0;class#JwtAuthorizationTokenFilter#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -678,6 +576,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/security/UserDetailsDummy.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/security/JwtTokenUtilTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/JwtAuthenticationEntryPoint.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/JwtAuthorizationTokenFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/JwtTokenUtil.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/NGPuppiesApplicationTests.java" />
       </list>
     </option>
   </component>
@@ -738,6 +642,15 @@
               <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
               <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ngpuppies" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NGPuppies" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
@@ -773,6 +686,10 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -791,7 +708,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserServiceImplTest.loadById_whenIdIsPresent_returnUser">
+  <component name="RunManager" selected="Spring Boot.NGPuppiesApplication">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -905,12 +822,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1536325967514</updated>
-      <workItem from="1536325970947" duration="392000" />
+      <workItem from="1536325970947" duration="2312000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="UserServiceImplTest_delete_whenUserExists_shouldReturnTrue - 2018.09.07 at 16h 19m 25s.xml">
+      <configuration name="UserServiceImplTest.delete_whenUserExists_shouldReturnTrue" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceImplTest_loadById_whenIdIsPresent_returnUser - 2018.09.07 at 16h 22m 16s.xml">
+      <configuration name="UserServiceImplTest.loadById_whenIdIsPresent_returnUser" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceImplTest_loadById_whenIdIsPresent_returnUser - 2018.09.07 at 16h 22m 43s.xml">
+      <configuration name="UserServiceImplTest.loadById_whenIdIsPresent_returnUser" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceImplTest_loadById_whenIdIsPresent_returnUser - 2018.09.07 at 16h 33m 29s.xml">
+      <configuration name="UserServiceImplTest.loadById_whenIdIsPresent_returnUser" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="392000" />
+    <option name="totallyTimeSpent" value="2312000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -966,24 +897,124 @@
     <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/rest/AuthenticationRestControllerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        <state>
+          <folding>
+            <element signature="e#0#5070#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/rest/UserRestControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#1400#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/rest/MethodProtectedRestControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#2008#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/RepositoryTests/BillingRecordRepositoryTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#2668#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/security/JwtTokenUtilTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="37" column="2" lean-forward="true" selection-start-line="37" selection-start-column="2" selection-end-line="37" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/security/UserDetailsDummy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="36" column="36" lean-forward="true" selection-start-column="2" selection-end-line="49" selection-end-column="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/BillingServiceGetAllTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="56" column="18" lean-forward="true" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
+        <state>
+          <caret column="27" selection-start-column="27" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+        <state relative-caret-position="765">
+          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/NGPuppiesApplicationTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="16" />
+          <folding>
+            <element signature="e#0#388#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/SubscriberServiceGetALL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#2090#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationEntryPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding>
+            <element signature="method#doFilterInternal#0;class#JwtAuthorizationTokenFilter#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtTokenUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
