@@ -35,7 +35,10 @@ angular.module('NGPuppies')
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
-                $scope.invoices = result;
+                if (result.length !== 0){
+                    $scope.invoices = result;
+                }
+
             }).error(function (err) {
                 $scope.message = err.message;
             })
