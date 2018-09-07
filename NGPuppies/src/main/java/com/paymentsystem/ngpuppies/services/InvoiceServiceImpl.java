@@ -3,20 +3,18 @@ package com.paymentsystem.ngpuppies.services;
 import com.paymentsystem.ngpuppies.models.Currency;
 import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.models.dto.InvoicePayDTO;
-import com.paymentsystem.ngpuppies.models.dto.ValidList;
+import com.paymentsystem.ngpuppies.models.TelecomServ;
+import com.paymentsystem.ngpuppies.models.dto.InvoicePaymentDTO;
 import com.paymentsystem.ngpuppies.repositories.base.CurrencyRepository;
 import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
-import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
-import com.paymentsystem.ngpuppies.services.base.SubscriberService;
+import com.paymentsystem.ngpuppies.services.base.TelecomServService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
@@ -24,6 +22,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     private InvoiceRepository invoiceRepository;
     @Autowired
     private CurrencyRepository currencyRepository;
+    @Autowired
+    private TelecomServService telecomServService;
 
     @Override
     public Invoice getById(Integer id) {
@@ -35,14 +35,15 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public boolean create(Invoice invoice) {
+        return invoiceRepository.create(invoice);
+    }
+
+    @Override
     public List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(Integer subscriberId) {
         return invoiceRepository.getAllInvoicesOfSubscriberBySubscriberId(subscriberId);
     }
 
-    @Override
-    public boolean create(Invoice invoice) {
-        return invoiceRepository.create(invoice);
-    }
 
     @Override
     public boolean update(List<Invoice> invoices) {
@@ -55,25 +56,25 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public List<Invoice> getAllUnpaidInvoices() {
+        return invoiceRepository.getAllUnpaidInvoices();
+    }
+
+    @Override
     public List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId) {
         return invoiceRepository.geAllUnpaidInvoicesOfAllClientSubscribers(clientId);
     }
 
     @Override
-    public Set<Invoice> getInvoicesByIdAndClientId(List<InvoicePayDTO> invoices, Integer clientId) {
-        return invoiceRepository.getInvoicesByIdAndClientId(invoices, clientId);
-    }
-
-    @Override
-    public List<InvoicePayDTO> payInvoices(List<InvoicePayDTO> invoices, Integer clientId) {
-        List<InvoicePayDTO> unpaidInvoices = new ArrayList<>();
-        for (InvoicePayDTO invoicePayDTO: invoices) {
-            Invoice invoice = invoiceRepository.getById(invoicePayDTO.getId());
+    public List<InvoicePaymentDTO> payInvoices(List<InvoicePaymentDTO> invoices, Integer clientId) {
+        List<InvoicePaymentDTO> unpaidInvoices = new ArrayList<>();
+        for (InvoicePaymentDTO invoicePaymentDTO : invoices) {
+            Invoice invoice = invoiceRepository.getById(invoicePaymentDTO.getId());
 
             if (invoice != null && invoice.getSubscriber().getClient() != null) {
                 if (invoice.getPayedDate() == null) {
                     if (invoice.getSubscriber().getClient().getId() == clientId) {
-                        Currency currency = currencyRepository.getByName(invoicePayDTO.getCurrency());
+                        Currency currency = currencyRepository.getByName(invoicePaymentDTO.getCurrency());
 
                         if (currency != null) {
                             invoice.setCurrency(currency);
@@ -89,7 +90,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                     }
                 }
             }
-            unpaidInvoices.add(invoicePayDTO);
+            unpaidInvoices.add(invoicePaymentDTO);
         }
 
         return unpaidInvoices;
@@ -101,8 +102,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(Integer subscriberId) {
-        return invoiceRepository.getAllUnpaidInvoicesOfSubscriberInDescOrder(subscriberId);
+    public List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(String subscriberPhone) {
+        return invoiceRepository.getAllUnpaidInvoicesOfSubscriberInDescOrder(subscriberPhone);
     }
 
     @Override
@@ -113,5 +114,15 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public Invoice getSubscriberLargestPaidInvoice(Integer subscriberId, String fromDate, String endDate) {
         return invoiceRepository.getSubscriberLargestPaidInvoiceForPeriodOfTime(subscriberId,fromDate,endDate);
+    }
+
+    @Override
+    public List<Invoice> getAllUnpaidInvoicesOfService(String serviceName) {
+        TelecomServ telecomServ = telecomServService.getByName(serviceName);
+        if (telecomServ == null) {
+            return new ArrayList<>();
+        }
+
+        return invoiceRepository.getAllUnpaidInvoicesOfService(serviceName);
     }
 }

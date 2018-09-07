@@ -1,30 +1,27 @@
 package com.paymentsystem.ngpuppies.models.dto;
 
-import com.paymentsystem.ngpuppies.validator.base.ValidMoneyAmount;
-import com.paymentsystem.ngpuppies.validator.base.ValidDate;
-import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidMoneyAmount;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidServiceName;
 
 import javax.validation.constraints.NotNull;
 
 public class InvoiceDTO {
 
-    @NotNull
-    @ValidPhone
+    @ValidPhone()
     private String subscriberPhone;
 
-    @NotNull
     @ValidDate
     private String startDate;
 
-    @NotNull
     @ValidDate
     private String endDate;
 
-    @NotNull
     @ValidMoneyAmount
     private String amountBGN;
 
-    @NotNull
+    @ValidServiceName
     private String service;
 
     public InvoiceDTO() {

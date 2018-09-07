@@ -11,8 +11,8 @@ public class Authority {
     @Column(name = "Id")
     private int id;
 
-    @Column(name = "Name", length = 50)
     @NotNull
+    @Column(name = "Name")
     @Enumerated(EnumType.STRING)
     private AuthorityName name;
 

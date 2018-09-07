@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.models.viewModels;
 
 import com.paymentsystem.ngpuppies.models.Address;
-import com.paymentsystem.ngpuppies.models.OfferedServices;
+import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 
 import java.util.ArrayList;
@@ -37,10 +37,12 @@ public class SubscriberViewModel {
             viewModel.EGN = subscriber.getEgn();
             viewModel.totalAmountPaid = subscriber.getTotalAmount();
             viewModel.address = subscriber.getAddress();
-            viewModel.client = subscriber.getClient().getUsername();
+            if(subscriber.getClient() != null) {
+                viewModel.client = subscriber.getClient().getUsername();
+            }
 
-            for(OfferedServices offeredServices : subscriber.getSubscriberServices()) {
-                viewModel.services.add(offeredServices.getName());
+            for(TelecomServ telecomServ : subscriber.getSubscriberServices()) {
+                viewModel.services.add(telecomServ.getName());
             }
         }
 

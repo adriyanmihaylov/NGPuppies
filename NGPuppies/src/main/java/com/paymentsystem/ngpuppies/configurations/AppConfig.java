@@ -12,4 +12,5 @@ public class AppConfig {
     public MethodValidationPostProcessor methodValidationPostProcessor() {
         return new MethodValidationPostProcessor();
     }
+
 }

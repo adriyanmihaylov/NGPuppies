@@ -1,16 +1,15 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.models.ClientDetail;
-import com.paymentsystem.ngpuppies.models.dto.Response;
+import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
 import com.paymentsystem.ngpuppies.models.dto.ClientDTO;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.base.AuthorityService;
-import com.paymentsystem.ngpuppies.services.base.ClientDetailService;
 import com.paymentsystem.ngpuppies.services.base.ClientService;
 import com.paymentsystem.ngpuppies.models.viewModels.ClientViewModel;
-import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,12 +35,10 @@ public class AdminClientsController {
     @Autowired
     private AuthorityService authorityService;
     @Autowired
-    private ClientDetailService clientDetailService;
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/{username}")
-    public ResponseEntity<ClientViewModel> getClientByUsername(@PathVariable("username") @ValidUsername String username) {
+    @GetMapping("/")
+    public ResponseEntity<ClientViewModel> getClientByUsername(@RequestParam("username") @ValidUsername String username) {
         ClientViewModel viewModel = ClientViewModel.fromModel(clientService.loadByUsername(username));
         if (viewModel != null) {
             return new ResponseEntity<>(viewModel, HttpStatus.OK);
@@ -69,10 +66,10 @@ public class AdminClientsController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Response> registerClient(@RequestBody @Valid ClientDTO clientDto,
-                                                   BindingResult bindingResult) {
+    public ResponseEntity<ResponseMessage> registerClient(@RequestBody @Valid ClientDTO clientDto,
+                                                          BindingResult bindingResult) {
         if (clientDto.getPassword() == null) {
-            return new ResponseEntity<>(new Response("Missing password"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseMessage("Missing password"), HttpStatus.BAD_REQUEST);
         }
         try {
             Authority authority = authorityService.getByName(AuthorityName.ROLE_CLIENT);
@@ -82,26 +79,25 @@ public class AdminClientsController {
                     authority,
                     clientDto.getDetails());
 
-            if (!clientService.create(client)) {
-                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
+            if (clientService.create(client)) {
+                return new ResponseEntity<>(new ResponseMessage("Successful registration!"), HttpStatus.OK);
             }
         } catch (SQLException e) {
-            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
+            e.printStackTrace();
         }
-
-        return new ResponseEntity<>(new Response("Successful registration!"), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Response> updateClient(@RequestParam("username") @ValidUsername String username,
-                                                 @RequestBody @Valid ClientDTO clientDto,
-                                                 BindingResult bindingResult) {
+    public ResponseEntity<ResponseMessage> updateClient(@RequestParam("username") @ValidUsername String username,
+                                                        @RequestBody @Valid ClientDTO clientDto,
+                                                        BindingResult bindingResult) {
         try {
             Client client = clientService.loadByUsername(username);
             if (client == null) {
-                return new ResponseEntity<>(new Response("Client not found!"), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new ResponseMessage("Client not found!"), HttpStatus.BAD_REQUEST);
             }
 
             client.setUsername(clientDto.getUsername());
@@ -112,6 +108,7 @@ public class AdminClientsController {
 
                 if (clientDetail != null) {
                     int id = clientDetail.getId();
+
                     client.setDetails(clientDto.getDetails());
                     client.getDetails().setId(id);
                 } else {
@@ -123,17 +120,15 @@ public class AdminClientsController {
                 client.setPassword(passwordEncoder.encode(clientDto.getPassword()));
                 client.setLastPasswordResetDate(new Date());
             }
-            if (!clientService.update(client)) {
-                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
+            if (clientService.update(client)) {
+                return new ResponseEntity<>(new ResponseMessage("Successful update!"), HttpStatus.OK);
             }
 
         } catch (SQLException e) {
-            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
         }
-
-        return new ResponseEntity<>(new Response("Client updated!"), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -27,7 +27,7 @@ public class InvoiceViewModel {
             viewModel.startDate = invoice.getStartDate().toString().substring(0,10);
             viewModel.endDate = invoice.getEndDate().toString().substring(0,10);
             viewModel.amount = invoice.getBGNAmount();
-            viewModel.service = invoice.getOfferedServices().getName();
+            viewModel.service = invoice.getTelecomServ().getName();
             viewModel.subscriberPhone = invoice.getSubscriber().getPhone();
             if(invoice.getPayedDate() != null) {
                 viewModel.status = "Paid on " + invoice.getPayedDate().toString().substring(0,10);

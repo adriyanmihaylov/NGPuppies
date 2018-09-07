@@ -28,9 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
-    // Custom JWT based security filter
     @Autowired
-    JwtAuthorizationTokenFilter authenticationTokenFilter;
+    private JwtAuthorizationTokenFilter authenticationTokenFilter;
 
     @Autowired
     private UserService userService;
@@ -83,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         // AuthenticationTokenFilter will ignore the below paths
         web
                 // allow anonymous resource requests

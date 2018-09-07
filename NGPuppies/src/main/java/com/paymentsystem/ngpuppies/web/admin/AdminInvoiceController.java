@@ -2,14 +2,14 @@ package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.models.*;
 import com.paymentsystem.ngpuppies.models.dto.InvoiceDTO;
-import com.paymentsystem.ngpuppies.models.dto.Response;
+import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
 import com.paymentsystem.ngpuppies.models.dto.ValidList;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
-import com.paymentsystem.ngpuppies.services.base.OfferedServicesService;
+import com.paymentsystem.ngpuppies.services.base.TelecomServService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
-import com.paymentsystem.ngpuppies.validator.PhoneValidator;
 import com.paymentsystem.ngpuppies.models.viewModels.InvoiceViewModel;
-import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidServiceName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,19 +31,16 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/invoice")
 public class AdminInvoiceController {
-
     @Autowired
     private InvoiceService invoiceService;
-
     @Autowired
-    private OfferedServicesService offeredServicesService;
+    private TelecomServService telecomServService;
     @Autowired
     private SubscriberService subscriberService;
 
     private final DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
 
     @GetMapping("/generate")
-    @ResponseBody
     public ValidList<InvoiceDTO> createInvoice() {
         ValidList<InvoiceDTO> invoiceDTOList = new ValidList<>();
         for (int i = 0; i < 2; i++) {
@@ -53,7 +50,6 @@ public class AdminInvoiceController {
     }
 
     @PostMapping("/generate")
-    @ResponseBody
     public ResponseEntity<?> createInvoice(@Valid @RequestBody ValidList<InvoiceDTO> invoiceDTOList,
                                            BindingResult bindingResult) {
         List<InvoiceDTO> failedInvoices = new ArrayList<>();
@@ -71,12 +67,12 @@ public class AdminInvoiceController {
                     failedInvoices.add(invoiceDTO);
                     continue;
                 }
-                OfferedServices offeredServices = offeredServicesService.getByName(invoiceDTO.getService());
-                if (offeredServices == null) {
+                TelecomServ telecomServ = telecomServService.getByName(invoiceDTO.getService());
+                if (telecomServ == null) {
                     failedInvoices.add(invoiceDTO);
                     continue;
                 }
-                if (!subscriber.getSubscriberServices().contains(offeredServices)) {
+                if (!subscriber.getSubscriberServices().contains(telecomServ)) {
                     failedInvoices.add(invoiceDTO);
                     continue;
                 }
@@ -85,7 +81,7 @@ public class AdminInvoiceController {
                         dateFormat.parse(invoiceDTO.getStartDate()),
                         dateFormat.parse(invoiceDTO.getEndDate()),
                         Double.parseDouble(invoiceDTO.getAmountBGN()),
-                        offeredServices);
+                        telecomServ);
 
                 try {
                     if (!invoiceService.create(invoice)) {
@@ -109,23 +105,35 @@ public class AdminInvoiceController {
             if (invoice != null) {
                 if (subscriberPhone.equals(invoice.getSubscriber().getPhone())) {
                     if (invoiceService.delete(invoice)) {
-                        return new ResponseEntity<>(new Response("Invoice deleted!"), HttpStatus.OK);
+                        return new ResponseEntity<>(new ResponseMessage("Invoice deleted!"), HttpStatus.OK);
                     }
                 }
             }
         }
-        return new ResponseEntity<>(new Response("Invalid input!"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseMessage("Invalid input!"), HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/subscriber/{id}/unpaid")
-    public List<InvoiceViewModel> getAllUnpaidInvoicesOfSubscriberInDescOrder(@PathVariable("id") Integer subscriberId) {
-        if (subscriberId != null) {
-            return invoiceService.getAllUnpaidInvoicesOfSubscriberInDescOrder(subscriberId).stream()
-                    .map(InvoiceViewModel::fromModel)
-                    .collect(Collectors.toList());
-        }
+    @GetMapping("/unpaid/subscriber")
+    public List<InvoiceViewModel> getAllUnpaidInvoicesOfSubscriberInDescOrder(@RequestParam("phone") @ValidPhone String phoneNumber) {
+        return invoiceService.getAllUnpaidInvoicesOfSubscriberInDescOrder(phoneNumber).stream()
+                .map(InvoiceViewModel::fromModel)
+                .collect(Collectors.toList());
+    }
 
-        return new ArrayList<>();
+    @GetMapping("/unpaid")
+    public List<InvoiceViewModel> getAllUnpaidInvoices() {
+        return invoiceService.getAllUnpaidInvoices()
+                .stream()
+                .map(InvoiceViewModel::fromModel)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/unpaid/service")
+    public List<InvoiceViewModel> getAllUnpaidInvoicesOfService(@RequestParam("name") @ValidServiceName String serviceName) {
+        return invoiceService.getAllUnpaidInvoicesOfService(serviceName)
+                .stream()
+                .map(InvoiceViewModel::fromModel)
+                .collect(Collectors.toList());
     }
 
     private boolean validateDate(String start, String end) {

@@ -4,7 +4,7 @@ import com.paymentsystem.ngpuppies.models.dto.*;
 import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.services.base.*;
 import com.paymentsystem.ngpuppies.models.viewModels.*;
-import com.paymentsystem.ngpuppies.validator.base.ValidUsername;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,14 +44,19 @@ public class AdminUsersController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/account/update")
+    public AdminDTO getUpdateAccountModel() {
+        return new AdminDTO();
+    }
+
     @PutMapping("/account/update")
-    public ResponseEntity<Response> updateAccount(@Valid @RequestBody AdminDTO adminDTO,
-                                                  Authentication authentication,
-                                                  BindingResult bindingResult) {
+    public ResponseEntity<ResponseMessage> updateAccount(@Valid @RequestBody AdminDTO adminDTO,
+                                                         Authentication authentication,
+                                                         BindingResult bindingResult) {
         try {
             Admin admin = (Admin) authentication.getPrincipal();
             if (!adminDTO.getUsername().equals(admin.getUsername())) {
-                return new ResponseEntity<>(new Response("Invalid credentials!"), HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>(new ResponseMessage("Invalid credentials!"), HttpStatus.UNAUTHORIZED);
             }
             admin.setUsername(adminDTO.getUsername());
             admin.setEmail(adminDTO.getEmail());
@@ -62,14 +67,14 @@ public class AdminUsersController {
             }
 
             if (!adminService.update(admin)) {
-                return new ResponseEntity<>(new Response("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (SQLException e) {
-            return new ResponseEntity<>(new Response(e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>(new Response("Please try again later"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseMessage("Please try again later"), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(new Response("Account updated"), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("Account updated"), HttpStatus.OK);
     }
 
     @GetMapping("/user")
@@ -95,15 +100,24 @@ public class AdminUsersController {
     }
 
     @DeleteMapping("/user/{username}/delete")
-    public ResponseEntity<Response> deleteUserByUsername(@PathVariable("username") @ValidUsername String username) {
-        User user = (User) userService.loadUserByUsername(username);
-        if (user != null) {
-            if (userService.delete(user)) {
-                return new ResponseEntity<>(new Response("User " + username + " deleted successfully"), HttpStatus.OK);
+    public ResponseEntity<ResponseMessage> deleteUserByUsername(@PathVariable("username") @ValidUsername String username,
+                                                                Authentication authentication) {
+        try {
+            User user = (User) userService.loadUserByUsername(username);
+            if (user != null) {
+                Admin admin = (Admin) authentication.getPrincipal();
+                if (user.getUsername().equals(admin.getUsername())) {
+                    return new ResponseEntity<>(new ResponseMessage("You can not delete yourself!"), HttpStatus.BAD_REQUEST);
+                }
+                if (userService.delete(user)) {
+                    return new ResponseEntity<>(new ResponseMessage("User " + username + " deleted successfully"), HttpStatus.OK);
 
+                }
             }
-            return new ResponseEntity<>(new Response("Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
+
+            return new ResponseEntity<>(new ResponseMessage("User not found!"), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseMessage("Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(new Response("User not found!"), HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.models.users;
 
 import com.paymentsystem.ngpuppies.models.ClientDetail;
-import com.paymentsystem.ngpuppies.validator.base.ValidEik;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidEik;
 
 import javax.persistence.*;
 import java.util.Date;

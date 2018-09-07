@@ -1,8 +1,6 @@
 package com.paymentsystem.ngpuppies.repositories;
 
-import com.paymentsystem.ngpuppies.models.Currency;
 import com.paymentsystem.ngpuppies.models.Invoice;
-import com.paymentsystem.ngpuppies.models.dto.InvoicePayDTO;
 import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -144,14 +142,39 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
+    public List<Invoice> getAllUnpaidInvoices() {
+        List<Invoice> invoices;
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " FROM Invoice i" +
+                    " WHERE i.payedDate IS NULL" +
+                    " ORDER BY i.endDate");
+            session.beginTransaction();
+            invoices = query.list();
+            session.getTransaction().commit();
+
+            return invoices;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
+    }
+
+    @Override
     public Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Integer subscriberId, String fromDate, String endDate) {
         try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " FROM Invoice i" +
+                    " WHERE i.subscriber.id=:subscriberId" +
+                    " AND i.payedDate >= :fromDate and i.payedDate <= :toDate" +
+                    " ORDER BY i.BGNAmount DESC");
+            query.setParameter("subscriberId", subscriberId);
+            query.setParameter("fromDate", fromDate);
+            query.setParameter("toDate", endDate);
+
             session.beginTransaction();
-            String query = String.format("FROM Invoice i" +
-                    " WHERE i.subscriber.id=%s" +
-                    " AND i.payedDate >= '%s' and i.payedDate <= '%s'" +
-                    " ORDER BY i.BGNAmount DESC", subscriberId, fromDate, endDate);
-            List<Invoice> invoices = session.createQuery(query).setMaxResults(1).list();
+            List<Invoice> invoices = query.setMaxResults(1).list();
             session.getTransaction().commit();
 
             if (invoices.size() > 0) {
@@ -165,53 +188,18 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId) {
+    public List<Invoice> getAllUnpaidInvoicesOfService(String serviceName) {
+        List<Invoice> invoices;
         try (Session session = sessionFactory.openSession()) {
-            String query = String.format("FROM Invoice b " +
-                    "WHERE b.subscriber.client.id = %s AND b.payedDate IS NULL", clientId);
+            Query query = session.createQuery("" +
+                    " FROM Invoice i" +
+                    " WHERE i.payedDate IS NULL" +
+                    " AND i.telecomServ.name=:serviceName" +
+                    " ORDER BY i.endDate");
+            query.setParameter("serviceName",serviceName);
+
             session.beginTransaction();
-            List<Invoice> allInvoices = (List<Invoice>) session.createQuery(query).list();
-            session.getTransaction().commit();
-            return allInvoices;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return new ArrayList<>();
-    }
-
-    @Override
-    public Set<Invoice> getInvoicesByIdAndClientId(List<InvoicePayDTO> invoicePayDTOS, Integer clientId) {
-        Set<Invoice> allInvoices = new HashSet<>();
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            for (InvoicePayDTO invoicePayDTO : invoicePayDTOS) {
-                String query = String.format("FROM Invoice i " +
-                        "WHERE i.id=%s AND i.subscriber.client.id = %s", invoicePayDTO.getId(), clientId);
-                List<Invoice> invoices = session.createQuery(query).list();
-                if (invoices.size() > 0) {
-                    allInvoices.addAll(invoices);
-                }
-            }
-            session.getTransaction().commit();
-
-            return allInvoices;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return new HashSet<>();
-    }
-
-    @Override
-    public List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(Integer subscriberId, String fromDate, String endDate) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            String query = String.format("FROM Invoice i" +
-                    " WHERE i.subscriber.id=%s" +
-                    " AND i.payedDate >= '%s' and i.payedDate <= '%s'" +
-                    " ORDER BY i.payedDate DESC", subscriberId, fromDate, endDate);
-            List<Invoice> invoices = session.createQuery(query).list();
+            invoices = query.list();
             session.getTransaction().commit();
 
             return invoices;
@@ -223,14 +211,63 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(Integer subscriberId) {
+    public List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId) {
         try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " FROM Invoice i" +
+                    " WHERE i.subscriber.client.id = :clientId" +
+                    " AND i.payedDate IS NULL");
+            query.setParameter("clientId", clientId);
+
             session.beginTransaction();
-            String query = String.format("FROM Invoice i" +
-                    " WHERE i.subscriber.id=%s" +
+            List<Invoice> allInvoices = query.list();
+            session.getTransaction().commit();
+
+            return allInvoices;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(Integer subscriberId, String fromDate, String toDate) {
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " From Invoice i " +
+                    " WHERE i.subscriber.id=:subscriberId" +
+                    " AND i.payedDate >= :fromDate" +
+                    " AND i.payedDate <= :toDate " +
+                    " ORDER BY i.payedDate DESC ");
+            query.setParameter("subscriberId", subscriberId);
+            query.setParameter("fromDate", fromDate);
+            query.setParameter("toDate", toDate);
+
+            session.beginTransaction();
+            List<Invoice> invoices = query.list();
+            session.getTransaction().commit();
+
+            return invoices;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(String subscriberPhone) {
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " From Invoice i " +
+                    " WHERE i.subscriber.phone=:subscriberPhone" +
                     " AND i.payedDate IS NULL" +
-                    " ORDER BY i.endDate DESC", subscriberId);
-            List<Invoice> invoices = session.createQuery(query).list();
+                    " ORDER BY i.endDate DESC ");
+            query.setParameter("subscriberPhone", subscriberPhone);
+
+            session.beginTransaction();
+            List<Invoice> invoices = query.list();
             session.getTransaction().commit();
 
             return invoices;
@@ -244,11 +281,13 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     @Override
     public List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(Integer subscriberId) {
         try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " From Invoice i " +
+                    " WHERE i.subscriber.id=:subscriberId" +
+                    " ORDER BY i.payedDate,i.endDate");
+            query.setParameter("subscriberId", subscriberId);
             session.beginTransaction();
-            String query = String.format("FROM Invoice i" +
-                    " WHERE i.subscriber.id=%s" +
-                    " ORDER BY i.payedDate, i.endDate", subscriberId);
-            List<Invoice> invoices = session.createQuery(query).list();
+            List<Invoice> invoices = query.list();
             session.getTransaction().commit();
 
             return invoices;
@@ -262,12 +301,15 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     @Override
     public List<Invoice> getTenMostRecentInvoices(Integer clientId) {
         try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            String query = String.format("FROM Invoice i" +
-                    " WHERE i.subscriber.client.id = %s" +
+            Query query = session.createQuery("" +
+                    " From Invoice i " +
+                    " WHERE i.subscriber.client.id=:clientId" +
                     " AND i.payedDate IS NOT NULL" +
-                    " ORDER BY i.payedDate DESC", clientId);
-            List<Invoice> invoices = session.createQuery(query).setMaxResults(10).list();
+                    " ORDER BY i.payedDate DESC ");
+            query.setParameter("clientId", clientId);
+
+            session.beginTransaction();
+            List<Invoice> invoices = query.setMaxResults(10).list();
             session.getTransaction().commit();
 
             return invoices;
@@ -278,23 +320,3 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
         return new ArrayList<>();
     }
 }
-
-//    public List<Invoice> getAllInvoicesOfSubscriberByPhoneNumber(String phoneNumber, boolean isPayed) {
-//        List<Invoice> allRecords;
-//        try (Session session = sessionFactory.openSession()) {
-//            Transaction tx = session.beginTransaction();
-//            String status = isPayed ? "NOT NULL" : "NULL";
-//            String query = String.format("From Invoice i where i.subscriber.phoneNumber = '%s'" +
-//                    " AND payedDate IS %s", phoneNumber, status);
-//
-//            allRecords = session.createQuery(query).list();
-//            tx.commit();
-//
-//            return allRecords;
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.out.println("Something went wrong");
-//        }
-//        return new ArrayList<>();
-//    }

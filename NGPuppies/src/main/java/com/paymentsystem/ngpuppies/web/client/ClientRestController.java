@@ -1,8 +1,7 @@
 package com.paymentsystem.ngpuppies.web.client;
 
-import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.models.dto.InvoicePayDTO;
+import com.paymentsystem.ngpuppies.models.dto.InvoicePaymentDTO;
 import com.paymentsystem.ngpuppies.models.dto.ValidList;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
@@ -10,10 +9,9 @@ import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import com.paymentsystem.ngpuppies.models.viewModels.InvoiceViewModel;
 import com.paymentsystem.ngpuppies.models.viewModels.SubscriberViewModel;
 import com.paymentsystem.ngpuppies.models.viewModels.TopSubscriberViewModel;
-import com.paymentsystem.ngpuppies.validator.base.ValidDate;
-import com.paymentsystem.ngpuppies.validator.base.ValidPhone;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,7 +24,6 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Validated
@@ -64,16 +61,17 @@ public class ClientRestController {
     public List<InvoiceViewModel> getAllUnpaidInvoices(Authentication authentication) {
         try {
             Client client = (Client) authentication.getPrincipal();
-            List<InvoiceViewModel> allUnpaidInvoicesOfCurrentClient =
-                    invoiceService.geAllUnpaidInvoicesOfAllClientSubscribers(client.getId())
-                            .stream()
-                            .map(InvoiceViewModel::fromModel)
-                            .collect(Collectors.toList());
 
-            return allUnpaidInvoicesOfCurrentClient;
+            return invoiceService.geAllUnpaidInvoicesOfAllClientSubscribers(client.getId())
+                    .stream()
+                    .map(InvoiceViewModel::fromModel)
+                    .collect(Collectors.toList());
+
         } catch (Exception e) {
-            return null;
+            e.printStackTrace();
         }
+
+        return null;
     }
 
     @GetMapping("/subscriber/{phone}/invoices")
@@ -102,7 +100,7 @@ public class ClientRestController {
             SubscriberViewModel subscriber = getSubscriberOfCurrentlyLoggedClient(phoneNumber, authentication);
 
             if (subscriber != null) {
-                return invoiceService.getAllUnpaidInvoicesOfSubscriberInDescOrder(subscriber.id)
+                return invoiceService.getAllUnpaidInvoicesOfSubscriberInDescOrder(phoneNumber)
                         .stream()
                         .map(InvoiceViewModel::fromModel)
                         .collect(Collectors.toList());
@@ -157,10 +155,10 @@ public class ClientRestController {
     }
 
     @GetMapping("/invoice/pay")
-    public ValidList<InvoicePayDTO> getInvoicePayModel() {
-        ValidList<InvoicePayDTO> invoicePayDTOValidList = new ValidList<>();
+    public ValidList<InvoicePaymentDTO> getInvoicePayModel() {
+        ValidList<InvoicePaymentDTO> invoicePayDTOValidList = new ValidList<>();
         for (int i = 0; i < 2; i++) {
-            invoicePayDTOValidList.add(new InvoicePayDTO());
+            invoicePayDTOValidList.add(new InvoicePaymentDTO());
         }
 
         return invoicePayDTOValidList;
@@ -168,9 +166,9 @@ public class ClientRestController {
 
     @PutMapping("/invoice/pay")
     @ResponseBody
-    public ResponseEntity<?> payInvoices(@RequestBody() @Valid ValidList<InvoicePayDTO> invoicePayDTOList,
+    public ResponseEntity<?> payInvoices(@RequestBody() @Valid ValidList<InvoicePaymentDTO> invoicePayDTOList,
                                          Authentication authentication,BindingResult bindingResult) {
-        List<InvoicePayDTO> unpaidInvoices = new ArrayList<>();
+        List<InvoicePaymentDTO> unpaidInvoices = new ArrayList<>();
         try {
             Client client = (Client) authentication.getPrincipal();
             unpaidInvoices = invoiceService.payInvoices(invoicePayDTOList.getList(), client.getId());

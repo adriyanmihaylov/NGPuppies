@@ -6,6 +6,7 @@ import com.paymentsystem.ngpuppies.services.base.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -29,12 +30,12 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean create(Client model) throws Exception {
+    public boolean create(Client model) throws SQLException {
         return clientRepository.create(model);
     }
 
     @Override
-    public boolean update(Client client) throws Exception {
+    public boolean update(Client client) throws SQLException {
         return clientRepository.update(client);
     }
 }
