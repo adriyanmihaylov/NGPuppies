@@ -1,5 +1,6 @@
 angular.module('NGPuppies')
     .controller('payBillController', function($http, $scope) {
+        var phoneNumber;
         $scope.cases = function () {
             if($scope.invoiceType === "Payed Invoices"){
                 $("#dates").css("display","");
@@ -56,9 +57,11 @@ angular.module('NGPuppies')
         };
 
         $scope.initPay = function (invoice) {
+            var currency = $("#-"+invoice.id).val();
+
             var data = {"list": [{
                     id: invoice.id,
-                    currency: $scope.currency
+                    currency: currency
                 }]};
                 $http({
                     url: '/api/client/invoice/pay',
@@ -66,16 +69,16 @@ angular.module('NGPuppies')
                     data: JSON.stringify(data),
                     dataType: "json"
                 }).success(function (result) {
-                    $scope.message = "Successful payment"
+                    $scope.success = "Successful payment";
                     initAll(invoice.subscriberPhone);
                 }).error(function (err) {
-                    $scope.message = err.message;
+                    $scope.message = "Unsuccessful payment";
 
                 })
             };
 
         $scope.search = function () {
-            var phoneNumber = $("#phoneNumber").val();
+             phoneNumber = $("#phoneNumber").val();
             if (phoneNumber!=="") {
                 if ($scope.invoiceType === "All Invoices") {
                     initAll(phoneNumber);
@@ -90,13 +93,38 @@ angular.module('NGPuppies')
         };
         $scope.paySelected=function () {
             var selected = $(".payed");
-            var ids = "";
+            var selectedID = [selected.length];
+            var selectedCurrency = [selected.length];
             for (var i = 0; i < selected.length; i++) {
-               var id = selected[i].attr('id')
-                console.log(id);
-                console.log($("$currency-" + id)).val();
+               selectedID[i] = selected[i].id;
+               if ($("#-" + selected[i].id).val() === "? undefined:undefined ?") {
+
+               }
+               selectedCurrency[i] = $("#-"+selected[i].id).val();
             }
-            console.log(selected);
+            var o = {};
+            var key = "list";
+            o[key] = [];
+
+            for (var i = 0; i < selected.length ; i++) {
+                var data = {
+                    id : selectedID[i],
+                    currency : selectedCurrency[i]
+                };
+                o[key].push(data);
+            }
+            $http({
+                url: '/api/client/invoice/pay',
+                method: "PUT",
+                data: JSON.stringify(o),
+                dataType: "json"
+            }).success(function () {
+                $scope.success = "Successful paid"
+                initAll(phoneNumber)
+            }).error(function (err) {
+                $scope.message = "Unsuccessful payment";
+
+            })
         }
 
 

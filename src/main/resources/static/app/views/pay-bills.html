@@ -1,6 +1,6 @@
 <style>
     .payed{
-        background-color: rgba(0,0,0,0.75);
+        background-color: rgba(0,0,0,0.80);
     }
 </style>
 <div class="row justify-content-center ng-scope">
@@ -39,7 +39,12 @@
                 </div>
             </div>
             </div>
-        <div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
+            <div class="alert alert-dismissible alert-danger" ng-show="message">
+                <strong>{{message}}</strong>
+            </div>
+            <div class="alert alert-dismissible alert-success" ng-show = "success">
+                <strong>{{success}}</strong>
+            </div>
         </div>
     </form>
     <div id="invoiceDitails" style="display: none; margin-top: 50px">
@@ -52,13 +57,14 @@
             <th scope="col">Currency</th>
             <th scope="col">Service</th>
             <th scope="col">Payed status</th>
+            <th><button class="btn btn btn-success"  type="submit" ng-disabled="checked===false" ng-click = "paySelected()">Pay all selected</button></th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="invoice in invoices" ng-attr-id="{{invoice.id}}" class = "table-danger"  ng-if = "invoice.status === 'Not paid'" ng-class="{ 'payed': checked }">
             <th scope="row"></th>
             <td>{{invoice.amount}}</td>
-            <td><select class="form-control" ng-attr-id="{{currency-invoice.id}}">
+            <td> <select class="form-control" ng-attr-id="{{custom-invoice.id}}" ng-model = "currency">
                 <option>BGN</option>
                 <option>USD</option>
                 <option>EUR</option>
@@ -89,7 +95,7 @@
         </tbody>
     </table>
     </div>
-    <button class="btn btn btn-success"  type="submit" ng-disabled="checked===false" ng-click = "paySelected()">Pay all selected</button>
+
 </div>
 
 </div>
