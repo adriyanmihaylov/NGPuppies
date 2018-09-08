@@ -11,22 +11,18 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull(message = "Please enter city")
     @Column(name = "City")
     private String city;
 
-    @NotNull(message = "Please enter street")
     @Column(name = "Street")
     private String street;
 
     @Column(name = "State")
     private String state;
 
-    @NotNull(message = "Please enter post code")
     @Column(name = "PostCode")
     private String postCode;
 
-    @NotNull(message = "Please enter country")
     @Column(name = "Country")
     private String country;
 

@@ -30,8 +30,6 @@ public class SubscriberDTO {
     @ValidEgn
     private String egn;
 
-    @Valid
-    @NotNull(message = "Please enter address!")
     private Address address;
 
     private String client;

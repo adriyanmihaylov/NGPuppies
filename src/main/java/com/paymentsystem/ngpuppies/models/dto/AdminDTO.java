@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 public class AdminDTO {
     @ValidUsername
     @Size.List({
-            @Size(min = 6, message = "Username must be at least 6 characters"),
+            @Size(min = 4, message = "Username must be at least 4 characters"),
             @Size(max = 20, message = "Username must be less than 20 characters")
     })
     private String username;

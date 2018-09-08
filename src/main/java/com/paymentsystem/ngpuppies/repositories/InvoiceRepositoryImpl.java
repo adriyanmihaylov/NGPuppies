@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Repository
@@ -162,7 +163,7 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Integer subscriberId, String fromDate, String endDate) {
+    public Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Integer subscriberId, LocalDate fromDate, LocalDate toDate) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +
                     " FROM Invoice i" +
@@ -171,7 +172,7 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
                     " ORDER BY i.BGNAmount DESC");
             query.setParameter("subscriberId", subscriberId);
             query.setParameter("fromDate", fromDate);
-            query.setParameter("toDate", endDate);
+            query.setParameter("toDate", toDate);
 
             session.beginTransaction();
             List<Invoice> invoices = query.setMaxResults(1).list();
@@ -232,10 +233,10 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(Integer subscriberId, String fromDate, String toDate) {
+    public List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(int subscriberId, LocalDate fromDate, LocalDate toDate) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +
-                    " From Invoice i " +
+                    " FROM Invoice i " +
                     " WHERE i.subscriber.id=:subscriberId" +
                     " AND i.payedDate >= :fromDate" +
                     " AND i.payedDate <= :toDate " +

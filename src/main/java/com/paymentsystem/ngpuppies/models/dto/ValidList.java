@@ -1,7 +1,5 @@
 package com.paymentsystem.ngpuppies.models.dto;
 
-import com.paymentsystem.ngpuppies.models.Invoice;
-
 import javax.validation.Valid;
 import java.util.*;
 

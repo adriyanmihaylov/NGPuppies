@@ -2,6 +2,7 @@ package com.paymentsystem.ngpuppies.web.client;
 
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.dto.InvoicePaymentDTO;
+import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
 import com.paymentsystem.ngpuppies.models.dto.ValidList;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
@@ -11,6 +12,8 @@ import com.paymentsystem.ngpuppies.models.viewModels.SubscriberViewModel;
 import com.paymentsystem.ngpuppies.models.viewModels.TopSubscriberViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
+import com.paymentsystem.ngpuppies.validation.exceptions.AuthenticationException;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +45,10 @@ public class ClientRestController {
         Client client = (Client) authentication.getPrincipal();
         Subscriber subscriber = subscriberService.getSubscriberByPhone(phoneNumber);
 
-        if (subscriber != null && subscriber.getClient().getId() == client.getId()) {
-            return subscriber;
+        if (subscriber != null && subscriber.getClient() != null) {
+            if (subscriber.getClient().getId() == client.getId()) {
+                return subscriber;
+            }
         }
 
         return null;
@@ -54,6 +59,10 @@ public class ClientRestController {
                                                                     Authentication authentication) {
         try {
             Subscriber subscriber = getSubscriberOfCurrentlyLoggedClient(phoneNumber, authentication);
+
+            if(subscriber == null) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
 
             SubscriberViewModel subscriberViewModel = SubscriberViewModel.fromModel(subscriber);
 
@@ -121,36 +130,40 @@ public class ClientRestController {
     }
 
     @GetMapping("/subscriber/{phone}/average")
-    public Double getSubscriberAverageSumOfPaidInvoices(@PathVariable("phone") String subscriberPhone,
-                                                        @RequestParam("from") @ValidDate String fromDate,
-                                                        @RequestParam("to") @ValidDate String endDate,
-                                                        Authentication authentication) {
+    public ResponseEntity<ResponseMessage> getSubscriberAverageSumOfPaidInvoices(@PathVariable("phone") String subscriberPhone,
+                                                                                 @RequestParam("from") @ValidDate String fromDate,
+                                                                                 @RequestParam("to") @ValidDate String endDate,
+                                                                                 Authentication authentication) {
         try {
             Subscriber subscriber = getSubscriberOfCurrentlyLoggedClient(subscriberPhone, authentication);
             if (subscriber != null) {
-                return subscriberService.getSubscriberAverageSumOfPaidInvoices(subscriber, fromDate, endDate);
+                Double avgAmount = subscriberService.getSubscriberAverageSumOfPaidInvoices(subscriber, fromDate, endDate);
+
+                return new ResponseEntity<>(new ResponseMessage(avgAmount.toString()), HttpStatus.OK);
             }
+        } catch (InvalidParameterException e) {
+            throw new InvalidParameterException(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return 0D;
+        return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @GetMapping("/subscriber/{phone}/invoices/max")
+    @GetMapping("/subscriber/{phone}/invoice/max")
     public ResponseEntity<InvoiceViewModel> getSubscriberLargestPaidInvoice(@PathVariable("phone") @ValidPhone String subscriberPhone,
                                                             @RequestParam("from") @ValidDate String fromDate,
                                                             @RequestParam("to") @ValidDate String endDate,
                                                             Authentication authentication) {
         try {
             Subscriber subscriber = getSubscriberOfCurrentlyLoggedClient(subscriberPhone, authentication);
+
             InvoiceViewModel viewModel = InvoiceViewModel.fromModel(invoiceService.getSubscriberLargestPaidInvoice(subscriber, fromDate, endDate));
 
             return new ResponseEntity<>(viewModel, HttpStatus.OK);
 
         } catch (InvalidParameterException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
+            throw new InvalidParameterException(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,17 +184,16 @@ public class ClientRestController {
     @PutMapping("/invoice/pay")
     @ResponseBody
     public ResponseEntity<?> payInvoices(@RequestBody() @Valid ValidList<InvoicePaymentDTO> invoicePayDTOList,
-                                         Authentication authentication,BindingResult bindingResult) {
+                                         Authentication authentication,
+                                         BindingResult bindingResult) {
         List<InvoicePaymentDTO> unpaidInvoices = new ArrayList<>();
         try {
             Client client = (Client) authentication.getPrincipal();
             unpaidInvoices = invoiceService.payInvoices(invoicePayDTOList.getList(), client.getId());
-
+            return new ResponseEntity<>(unpaidInvoices, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(unpaidInvoices, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity<>(unpaidInvoices, HttpStatus.OK);
     }
 
     @GetMapping("/invoice/last10")
@@ -215,5 +227,10 @@ public class ClientRestController {
         }
 
         return null;
+    }
+    
+    @ExceptionHandler({IllegalArgumentException.class})
+    public ResponseEntity<ResponseMessage> handleAuthenticationException(IllegalArgumentException e) {
+        return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.services;
 
+import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.dto.SubscriberDTO;
@@ -38,6 +39,9 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     public boolean create(SubscriberDTO subscriberDTO) throws InvalidParameterException, SQLException {
+        if(subscriberDTO.getAddress() == null) {
+            subscriberDTO.setAddress(new Address());
+        }
         Subscriber subscriber = new Subscriber(subscriberDTO.getFirstName(),
                 subscriberDTO.getLastName(),
                 subscriberDTO.getPhone(),
@@ -70,7 +74,7 @@ public class SubscriberServiceImpl implements SubscriberService {
         Client client = null;
         if (subscriberDTO.getClient() != null) {
             client = clientService.loadByUsername(subscriberDTO.getClient());
-            if (client != null) {
+            if (client == null) {
                 throw new InvalidParameterException("There is no such client!");
             }
         }
@@ -110,9 +114,7 @@ public class SubscriberServiceImpl implements SubscriberService {
 
         if (subscriber.getSubscriberServices() == null) {
             subscriber.setSubscriberServices(new HashSet<>());
-        }
-
-        if (subscriber.getSubscriberServices().contains(serviceName)) {
+        } else if(subscriber.getSubscriberServices().contains(currentService)) {
             throw new AlreadyBoundException("The subscriber is already using this service");
         }
 

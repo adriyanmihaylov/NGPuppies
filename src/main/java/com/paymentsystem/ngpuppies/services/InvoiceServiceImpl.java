@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -120,9 +119,10 @@ public class InvoiceServiceImpl implements InvoiceService {
                         Currency currency = currencyRepository.getByName(invoicePaymentDTO.getCurrency());
 
                         if (currency != null) {
+
                             invoice.setCurrency(currency);
                             invoice.setAmount(invoice.getBGNAmount() / currency.getFixing());
-                            invoice.setPayedDate(new Date());
+                            invoice.setPayedDate(LocalDate.now());
                             Subscriber subscriber = invoice.getSubscriber();
                             subscriber.setTotalAmount(invoice.getBGNAmount() + subscriber.getTotalAmount());
 
@@ -138,6 +138,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         return unpaidInvoices;
     }
+
     @Override
     public List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(String subscriberPhone) {
         return invoiceRepository.getAllUnpaidInvoicesOfSubscriberInDescOrder(subscriberPhone);
@@ -149,9 +150,10 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(int subscriberId, String fromDate, String endDate) throws InvalidParameterException{
-        validateDate(fromDate,endDate);
-        return invoiceRepository.getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(subscriberId, fromDate, endDate);
+    public List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(int subscriberId, String fromDate, String endDate) throws InvalidParameterException {
+        validateDate(fromDate, endDate);
+
+        return invoiceRepository.getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(subscriberId,LocalDate.parse(fromDate),LocalDate.parse(endDate));
     }
 
     @Override
@@ -163,7 +165,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             throw new InvalidParameterException("There is no such subscriber!");
         }
 
-        return invoiceRepository.getSubscriberLargestPaidInvoiceForPeriodOfTime(subscriber.getId(), fromDate, endDate);
+        return invoiceRepository.getSubscriberLargestPaidInvoiceForPeriodOfTime(subscriber.getId(), LocalDate.parse(fromDate),LocalDate.parse(endDate));
     }
 
     @Override
@@ -176,7 +178,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoiceRepository.getAllUnpaidInvoicesOfService(serviceName);
     }
 
-    private boolean validateDate(String start, String end) throws InvalidParameterException{
+    private boolean validateDate(String start, String end) throws InvalidParameterException {
         if (start.equals(end)) {
             return true;
         }

@@ -24,11 +24,10 @@ public class User implements UserDetails {
 
     @ValidUsername
     @Column(name = "Username")
-    @Size(min = 6, max = 20)
+    @Size(min = 4, max = 20)
     private String username;
 
     @Column(name = "Password")
-    @Size(min = 6, max = 30)
     private String password;
 
     @OneToOne

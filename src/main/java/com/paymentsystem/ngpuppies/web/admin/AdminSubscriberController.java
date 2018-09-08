@@ -33,7 +33,7 @@ public class AdminSubscriberController {
     @Autowired
     private SubscriberService subscriberService;
 
-    @GetMapping("")
+    @GetMapping()
     public ResponseEntity<SubscriberViewModel> getSubscriberByPhoneNumber(@RequestParam("phone") @ValidPhone String phoneNumber) {
         Subscriber subscriber = subscriberService.getSubscriberByPhone(phoneNumber);
 
@@ -99,7 +99,7 @@ public class AdminSubscriberController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseMessage> deleteByNumber(@RequestParam("number") @ValidPhone String phoneNumber) {
+    public ResponseEntity<ResponseMessage> deleteByNumber(@RequestParam("phone") @ValidPhone String phoneNumber) {
         try {
             if (subscriberService.deleteSubscriberByNumber(phoneNumber)) {
                 return new ResponseEntity<>(new ResponseMessage(phoneNumber + " deleted!"), HttpStatus.OK);
@@ -117,7 +117,7 @@ public class AdminSubscriberController {
                                                                      @RequestParam("name") @ValidServiceName String serviceName) {
         try {
             if (subscriberService.addServiceToSubscriber(subscriberPhone, serviceName)) {
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<>(new ResponseMessage(serviceName + " service added to subscriber!"),HttpStatus.OK);
             }
         } catch (IllegalArgumentException | AlreadyBoundException | SQLException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);

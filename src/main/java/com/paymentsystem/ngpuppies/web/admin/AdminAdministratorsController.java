@@ -2,9 +2,6 @@ package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
 import com.paymentsystem.ngpuppies.models.dto.AdminDTO;
-import com.paymentsystem.ngpuppies.models.users.Admin;
-import com.paymentsystem.ngpuppies.models.users.Authority;
-import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.services.base.*;
 import com.paymentsystem.ngpuppies.models.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
@@ -12,14 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,8 +26,8 @@ public class AdminAdministratorsController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("/{username}")
-    public ResponseEntity<AdminViewModel> getAdminByUsername(@PathVariable("username") @ValidUsername String username) {
+    @GetMapping("")
+    public ResponseEntity<AdminViewModel> getAdminByUsername(@RequestParam("username") @ValidUsername String username) {
         AdminViewModel viewModel = AdminViewModel.fromModel(adminService.loadByUsername(username));
 
         if (viewModel != null) {

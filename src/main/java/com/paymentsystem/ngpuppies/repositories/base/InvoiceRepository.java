@@ -2,6 +2,7 @@ package com.paymentsystem.ngpuppies.repositories.base;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface InvoiceRepository {
@@ -21,7 +22,7 @@ public interface InvoiceRepository {
 
     List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId);
 
-    List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(Integer subscriber, String fromDate, String endDate);
+    List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(int subscriberId, LocalDate fromDate, LocalDate toDate);
 
     List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(String subscriberPhone);
 
@@ -29,7 +30,7 @@ public interface InvoiceRepository {
 
     List<Invoice> getTenMostRecentInvoices(Integer clientId);
 
-    Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Integer subscriberId, String fromDate, String endDate);
+    Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Integer subscriberId, LocalDate fromDate, LocalDate toDate);
 
     List<Invoice> getAllUnpaidInvoicesOfService(String serviceName);
 }
