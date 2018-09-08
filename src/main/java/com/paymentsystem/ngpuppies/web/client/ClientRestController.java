@@ -1,15 +1,16 @@
 package com.paymentsystem.ngpuppies.web.client;
 
 import com.paymentsystem.ngpuppies.models.Subscriber;
+import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.dto.InvoicePaymentDTO;
 import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
+import com.paymentsystem.ngpuppies.models.dto.TelecomServiceDTO;
 import com.paymentsystem.ngpuppies.models.dto.ValidList;
 import com.paymentsystem.ngpuppies.models.users.Client;
+import com.paymentsystem.ngpuppies.models.viewModels.*;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
-import com.paymentsystem.ngpuppies.models.viewModels.InvoiceViewModel;
-import com.paymentsystem.ngpuppies.models.viewModels.SubscriberViewModel;
-import com.paymentsystem.ngpuppies.models.viewModels.TopSubscriberViewModel;
+import com.paymentsystem.ngpuppies.services.base.TelecomServService;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class ClientRestController {
 
     @Autowired
     private SubscriberService subscriberService;
+
+    @Autowired
+    private TelecomServService telecomServService;
 
     @Autowired
     private InvoiceService invoiceService;
@@ -230,6 +234,22 @@ public class ClientRestController {
         }
 
         return null;
+    }
+
+    @GetMapping("/my/services")
+    public ResponseEntity<?> getAllTelecomServicesThatTheClientPaysFor(Authentication authentication) {
+        try {
+
+            Client client = (Client) authentication.getPrincipal();
+            List<TelecomServSimpleViewModel> viewModels = telecomServService.getAllServicesOfClient(client).stream()
+                    .map(TelecomServSimpleViewModel::fromModel)
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(viewModels, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({IllegalArgumentException.class})

@@ -2,6 +2,7 @@ package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.dto.TelecomServiceDTO;
+import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.TelecomServRepository;
 import com.paymentsystem.ngpuppies.services.base.TelecomServService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,10 @@ public class TelecomServServiceImpl implements TelecomServService {
     @Override
     public boolean delete(TelecomServ telecomServ) {
         return telecomServRepository.delete(telecomServ);
+    }
+
+    @Override
+    public List<TelecomServ> getAllServicesOfClient(Client client) {
+        return telecomServRepository.getAllServicesOfClient(client.getId());
     }
 }

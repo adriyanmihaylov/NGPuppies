@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,7 +63,7 @@ public class AdminInvoiceController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteInvoice(@RequestParam("id") int id,
+    public ResponseEntity<?> deleteInvoice(@RequestParam("id") @NotNull Integer id,
                                            @RequestParam("phone") @ValidPhone String subscriberPhone) {
         try {
             if (invoiceService.delete(id, subscriberPhone)) {

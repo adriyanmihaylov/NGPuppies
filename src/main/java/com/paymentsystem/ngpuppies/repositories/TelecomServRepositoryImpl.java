@@ -6,6 +6,7 @@ import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
 import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -99,5 +100,24 @@ public class TelecomServRepositoryImpl implements TelecomServRepository {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public List<TelecomServ> getAllServicesOfClient(int clientId) {
+        List<TelecomServ> telecomServs = new ArrayList<>();
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " SELECT t FROM TelecomServ t, Subscriber s" +
+                    " WHERE s.client.id = :clientId" +
+                    " AND t in elements(s.subscriberServices)");
+            query.setParameter("clientId", clientId);
+            session.beginTransaction();
+            telecomServs = query.list();
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return telecomServs;
     }
 }
