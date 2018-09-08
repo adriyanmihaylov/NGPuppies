@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface SubscriberRepository {
-    Subscriber getByNumber(String phoneNumber);
+    Subscriber getSubscriberByPhoneNumber(String phoneNumber);
 
     List<Subscriber> getAll();
 

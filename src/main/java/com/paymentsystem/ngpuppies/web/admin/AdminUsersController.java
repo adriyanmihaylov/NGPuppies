@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +30,6 @@ public class AdminUsersController {
     private UserService userService;
     @Autowired
     private AdminService adminService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/account")
     public ResponseEntity<AdminViewModel> getAccount(Authentication authentication) {
@@ -55,34 +53,27 @@ public class AdminUsersController {
                                                          BindingResult bindingResult) {
         try {
             Admin admin = (Admin) authentication.getPrincipal();
-            if (!adminDTO.getUsername().equals(admin.getUsername())) {
-                return new ResponseEntity<>(new ResponseMessage("Invalid credentials!"), HttpStatus.UNAUTHORIZED);
-            }
-            admin.setUsername(adminDTO.getUsername());
-            admin.setEmail(adminDTO.getEmail());
 
-            if (adminDTO.getPassword() != null) {
-                admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
-                admin.setLastPasswordResetDate(new Date());
+            if (adminService.update(admin.getUsername(), adminDTO)) {
+                return new ResponseEntity<>(new ResponseMessage("Account updated"), HttpStatus.OK);
             }
-
-            if (!adminService.update(admin)) {
-                return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        } catch (SQLException e) {
+        } catch (IllegalArgumentException | SQLException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseMessage("Please try again later"), HttpStatus.BAD_REQUEST);
+            e.printStackTrace();
         }
-        return new ResponseEntity<>(new ResponseMessage("Account updated"), HttpStatus.OK);
+
+        return new ResponseEntity<>(new ResponseMessage("Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("/user")
     public ResponseEntity<UserViewModel> getUserByUsername(@RequestParam("username") @ValidUsername String username) {
         UserViewModel viewModel = UserViewModel.fromModel((User) userService.loadUserByUsername(username));
+
         if (viewModel != null) {
             return new ResponseEntity<>(viewModel, HttpStatus.OK);
         }
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -103,21 +94,24 @@ public class AdminUsersController {
     public ResponseEntity<ResponseMessage> deleteUserByUsername(@PathVariable("username") @ValidUsername String username,
                                                                 Authentication authentication) {
         try {
-            User user = (User) userService.loadUserByUsername(username);
-            if (user != null) {
-                Admin admin = (Admin) authentication.getPrincipal();
-                if (user.getUsername().equals(admin.getUsername())) {
-                    return new ResponseEntity<>(new ResponseMessage("You can not delete yourself!"), HttpStatus.BAD_REQUEST);
-                }
-                if (userService.delete(user)) {
-                    return new ResponseEntity<>(new ResponseMessage("User " + username + " deleted successfully"), HttpStatus.OK);
+            //Get currently logged user - it must be admin otherwise it has to be unauthorized to delete users
+            Admin admin = (Admin) authentication.getPrincipal();
 
-                }
+            //Check if the currently logged user wants to delete himself
+            if (admin.getUsername().equals(username)) {
+                return new ResponseEntity<>(new ResponseMessage("You can not delete yourself!"), HttpStatus.BAD_REQUEST);
             }
 
-            return new ResponseEntity<>(new ResponseMessage("User not found!"), HttpStatus.BAD_REQUEST);
+            if (userService.deleteByUsername(username)) {
+                return new ResponseEntity<>(new ResponseMessage("User " + username + " deleted successfully"), HttpStatus.OK);
+            }
+
+        } catch (UsernameNotFoundException e) {
+            return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseMessage("Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
         }
+
+        return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

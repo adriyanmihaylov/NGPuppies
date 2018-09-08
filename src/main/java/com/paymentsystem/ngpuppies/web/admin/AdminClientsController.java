@@ -32,8 +32,6 @@ import java.util.stream.Collectors;
 public class AdminClientsController {
     @Autowired
     private ClientService clientService;
-    @Autowired
-    private AuthorityService authorityService;
 
     @GetMapping("/")
     public ResponseEntity<ClientViewModel> getClientByUsername(@RequestParam("username") @ValidUsername String username) {

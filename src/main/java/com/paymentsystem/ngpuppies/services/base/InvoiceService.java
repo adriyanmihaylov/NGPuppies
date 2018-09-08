@@ -1,15 +1,16 @@
 package com.paymentsystem.ngpuppies.services.base;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
+import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.dto.InvoiceDTO;
 import com.paymentsystem.ngpuppies.models.dto.InvoicePaymentDTO;
 
-import java.util.ArrayList;
+import java.security.InvalidParameterException;
 import java.util.List;
 
 public interface InvoiceService {
 
-    Invoice getById(Integer id);
+    Invoice getById(int id);
 
     List<Invoice> getAll();
 
@@ -17,23 +18,23 @@ public interface InvoiceService {
 
     boolean update(List<Invoice> invoice);
 
-    boolean delete(Invoice invoice);
+    boolean delete(int id, String subscriberPhone);
 
     List<Invoice> getAllUnpaidInvoices();
 
-    List<InvoicePaymentDTO> payInvoices(List<InvoicePaymentDTO> invoices, Integer clientId);
+    List<InvoicePaymentDTO> payInvoices(List<InvoicePaymentDTO> invoices, int clientId);
 
-    List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(Integer subscriberId);
+    List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(int subscriberId);
 
     List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId);
 
-    List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(Integer subscriberId, String fromDate, String endDate);
+    List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(int subscriberId, String fromDate, String endDate);
 
     List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(String subscriberPhone);
 
-    List<Invoice> getTenMostRecentInvoices(Integer clientId);
+    List<Invoice> getTenMostRecentInvoices(int clientId);
 
-    Invoice getSubscriberLargestPaidInvoice(Integer subscriberId, String fromDate, String endDate);
+    Invoice getSubscriberLargestPaidInvoice(Subscriber subscriber, String fromDate, String endDate) throws InvalidParameterException;
 
-    List<Invoice> getAllUnpaidInvoicesOfService(String serviceName);
+    List<Invoice> getAllUnpaidInvoicesOfService(String serviceName) throws InvalidParameterException;
 }

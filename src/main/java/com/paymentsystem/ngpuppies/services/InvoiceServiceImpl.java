@@ -14,7 +14,7 @@ import com.paymentsystem.ngpuppies.services.base.TelecomServService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.AssertTrue;
+import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +32,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     private SubscriberService subscriberService;
 
     @Override
-    public Invoice getById(Integer id) {
+    public Invoice getById(int id) {
         return invoiceRepository.getById(id);
     }
 
@@ -44,9 +44,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public InvoiceDTO create(InvoiceDTO invoiceDTO) {
 
-        if (!validateDate(invoiceDTO.getStartDate(), invoiceDTO.getEndDate())) {
-            return invoiceDTO;
-        }
+        validateDate(invoiceDTO.getStartDate(), invoiceDTO.getEndDate());
 
         Subscriber subscriber = subscriberService.getSubscriberByPhone(invoiceDTO.getSubscriberPhone());
         if (subscriber == null) {
@@ -76,22 +74,28 @@ public class InvoiceServiceImpl implements InvoiceService {
         return null;
     }
 
-
-
-    @Override
-    public List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(Integer subscriberId) {
-        return invoiceRepository.getAllInvoicesOfSubscriberBySubscriberId(subscriberId);
-    }
-
-
     @Override
     public boolean update(List<Invoice> invoices) {
         return invoiceRepository.update(invoices);
     }
 
     @Override
-    public boolean delete(Invoice invoice) {
+    public boolean delete(int invoiceId, String subscriberPhone) throws InvalidParameterException {
+        Invoice invoice = invoiceRepository.getById(invoiceId);
+        if (invoice == null) {
+            throw new InvalidParameterException("There is no invoice with Id: " + invoiceId);
+        }
+
+        if (!invoice.getSubscriber().getPhone().equals(subscriberPhone)) {
+            throw new IllegalArgumentException("Invoice Id: " + invoiceId + " is not for the selected subscriber!");
+        }
+
         return invoiceRepository.delete(invoice);
+    }
+
+    @Override
+    public List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(int subscriberId) {
+        return invoiceRepository.getAllInvoicesOfSubscriberBySubscriberId(subscriberId);
     }
 
     @Override
@@ -105,7 +109,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<InvoicePaymentDTO> payInvoices(List<InvoicePaymentDTO> invoices, Integer clientId) {
+    public List<InvoicePaymentDTO> payInvoices(List<InvoicePaymentDTO> invoices, int clientId) {
         List<InvoicePaymentDTO> unpaidInvoices = new ArrayList<>();
         for (InvoicePaymentDTO invoicePaymentDTO : invoices) {
             Invoice invoice = invoiceRepository.getById(invoicePaymentDTO.getId());
@@ -134,41 +138,53 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         return unpaidInvoices;
     }
-
-    @Override
-    public List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(Integer subscriberId, String fromDate, String endDate) {
-        return invoiceRepository.getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(subscriberId,fromDate,endDate);
-    }
-
     @Override
     public List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(String subscriberPhone) {
         return invoiceRepository.getAllUnpaidInvoicesOfSubscriberInDescOrder(subscriberPhone);
     }
 
     @Override
-    public List<Invoice> getTenMostRecentInvoices(Integer clientId) {
+    public List<Invoice> getTenMostRecentInvoices(int clientId) {
         return invoiceRepository.getTenMostRecentInvoices(clientId);
     }
 
     @Override
-    public Invoice getSubscriberLargestPaidInvoice(Integer subscriberId, String fromDate, String endDate) {
-        return invoiceRepository.getSubscriberLargestPaidInvoiceForPeriodOfTime(subscriberId,fromDate,endDate);
+    public List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(int subscriberId, String fromDate, String endDate) throws InvalidParameterException{
+        validateDate(fromDate,endDate);
+        return invoiceRepository.getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(subscriberId, fromDate, endDate);
     }
 
     @Override
-    public List<Invoice> getAllUnpaidInvoicesOfService(String serviceName) {
+    public Invoice getSubscriberLargestPaidInvoice(Subscriber subscriber, String fromDate, String endDate) throws InvalidParameterException {
+
+        validateDate(fromDate, endDate);
+
+        if (subscriber == null) {
+            throw new InvalidParameterException("There is no such subscriber!");
+        }
+
+        return invoiceRepository.getSubscriberLargestPaidInvoiceForPeriodOfTime(subscriber.getId(), fromDate, endDate);
+    }
+
+    @Override
+    public List<Invoice> getAllUnpaidInvoicesOfService(String serviceName) throws InvalidParameterException {
         TelecomServ telecomServ = telecomServService.getByName(serviceName);
         if (telecomServ == null) {
-            return new ArrayList<>();
+            throw new InvalidParameterException("There is no such service!");
         }
 
         return invoiceRepository.getAllUnpaidInvoicesOfService(serviceName);
     }
-    private boolean validateDate(String start, String end) {
+
+    private boolean validateDate(String start, String end) throws InvalidParameterException{
         if (start.equals(end)) {
             return true;
         }
-        return LocalDate.parse(start)
-                .isBefore(LocalDate.parse(end));
+
+        if (LocalDate.parse(start).isAfter(LocalDate.parse(end))) {
+            throw new InvalidParameterException("Invalid date range!");
+        }
+
+        return true;
     }
 }

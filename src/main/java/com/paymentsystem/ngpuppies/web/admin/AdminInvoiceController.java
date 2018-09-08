@@ -50,10 +50,15 @@ public class AdminInvoiceController {
         List<InvoiceDTO> failedInvoices = new ArrayList<>();
         try {
             for (InvoiceDTO invoiceDTO : invoiceDTOList.getList()) {
-                InvoiceDTO failedInvoice = invoiceService.create(invoiceDTO);
+                try {
+                    InvoiceDTO failedInvoice = invoiceService.create(invoiceDTO);
 
-                if (failedInvoice != null) {
-                    failedInvoices.add(failedInvoice);
+                    if (failedInvoice != null) {
+                        failedInvoices.add(failedInvoice);
+                    }
+                } catch (IllegalArgumentException e) {
+                    //Date is invalid - startDate is after endDate
+                    failedInvoices.add(invoiceDTO);
                 }
             }
         } catch (Exception e) {
@@ -65,17 +70,17 @@ public class AdminInvoiceController {
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteInvoice(@RequestParam("id") int id,
                                            @RequestParam("phone") @ValidPhone String subscriberPhone) {
-        Invoice invoice = invoiceService.getById(id);
-
-        if (invoice != null) {
-            if (subscriberPhone.equals(invoice.getSubscriber().getPhone())) {
-                if (invoiceService.delete(invoice)) {
-                    return new ResponseEntity<>(new ResponseMessage("Invoice deleted!"), HttpStatus.OK);
-                }
+        try {
+            if (invoiceService.delete(id, subscriberPhone)) {
+                return new ResponseEntity<>(new ResponseMessage("Invoice deleted!"), HttpStatus.OK);
             }
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("/unpaid/subscriber")
@@ -86,18 +91,32 @@ public class AdminInvoiceController {
     }
 
     @GetMapping("/unpaid")
-    public List<InvoiceViewModel> getAllUnpaidInvoices() {
-        return invoiceService.getAllUnpaidInvoices()
-                .stream()
-                .map(InvoiceViewModel::fromModel)
-                .collect(Collectors.toList());
+    public ResponseEntity<List<InvoiceViewModel>> getAllUnpaidInvoices() {
+        try {
+            return new ResponseEntity<>(invoiceService.getAllUnpaidInvoices()
+                    .stream()
+                    .map(InvoiceViewModel::fromModel)
+                    .collect(Collectors.toList()), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("/unpaid/service")
-    public List<InvoiceViewModel> getAllUnpaidInvoicesOfService(@RequestParam("name") @ValidServiceName String serviceName) {
-        return invoiceService.getAllUnpaidInvoicesOfService(serviceName)
-                .stream()
-                .map(InvoiceViewModel::fromModel)
-                .collect(Collectors.toList());
+    public ResponseEntity<List<InvoiceViewModel>> getAllUnpaidInvoicesOfService(@RequestParam("name") @ValidServiceName String serviceName) {
+        try {
+            return new ResponseEntity<>(invoiceService.getAllUnpaidInvoicesOfService(serviceName)
+                    .stream()
+                    .map(InvoiceViewModel::fromModel)
+                    .collect(Collectors.toList()), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -26,5 +26,4 @@ public class ClientDetailServiceImpl implements ClientDetailService {
     public ClientDetail getById(Integer id) {
         return clientDetailRepository.getById(id);
     }
-
 }

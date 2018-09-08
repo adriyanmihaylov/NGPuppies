@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -45,9 +46,9 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean create(ClientDTO clientDTO) throws IllegalArgumentException,SQLException {
+    public boolean create(ClientDTO clientDTO) throws InvalidParameterException,SQLException {
         if (clientDTO.getPassword() == null) {
-            throw new IllegalArgumentException("Password is missing");
+            throw new InvalidParameterException("Password is missing");
         }
 
         Authority authority = authorityService.getByName(AuthorityName.ROLE_CLIENT);
@@ -65,11 +66,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean update(String username, ClientDTO clientDTO) throws IllegalArgumentException, SQLException {
+    public boolean update(String username, ClientDTO clientDTO) throws InvalidParameterException, SQLException {
         Client client = clientRepository.loadByUsername(username);
 
         if (client == null) {
-            throw new IllegalArgumentException("There is no such client!");
+            throw new InvalidParameterException("There is no such client!");
         }
 
         client.setUsername(clientDTO.getUsername());

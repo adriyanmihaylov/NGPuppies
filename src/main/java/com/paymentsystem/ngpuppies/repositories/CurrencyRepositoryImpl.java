@@ -51,7 +51,7 @@ public class CurrencyRepositoryImpl implements CurrencyRepository {
     }
 
     @Override
-    public boolean create(Currency currency) throws Exception {
+    public boolean create(Currency currency) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.save(currency);

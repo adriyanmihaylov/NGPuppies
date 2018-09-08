@@ -13,5 +13,5 @@ public interface UserService extends UserDetailsService {
 
     List<User> getAll();
 
-    boolean delete(User user);
+    boolean deleteByUsername(String username);
 }

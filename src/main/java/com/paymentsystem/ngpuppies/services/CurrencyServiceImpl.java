@@ -6,6 +6,7 @@ import com.paymentsystem.ngpuppies.services.base.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -24,7 +25,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
-    public boolean create(Currency currency) throws Exception {
+    public boolean create(Currency currency) throws SQLException {
         return currencyRepository.create(currency);
     }
 

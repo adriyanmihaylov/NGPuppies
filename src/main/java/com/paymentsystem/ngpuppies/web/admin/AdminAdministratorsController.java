@@ -30,10 +30,6 @@ import java.util.stream.Collectors;
 public class AdminAdministratorsController {
     @Autowired
     private AdminService adminService;
-    @Autowired
-    private AuthorityService authorityService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/{username}")
     public ResponseEntity<AdminViewModel> getAdminByUsername(@PathVariable("username") @ValidUsername String username) {
@@ -67,17 +63,11 @@ public class AdminAdministratorsController {
     @PostMapping("/register")
     public ResponseEntity<ResponseMessage> registerAdmin(@RequestBody @Valid AdminDTO adminDTO,
                                                          BindingResult bindingResult) {
-        if (adminDTO.getPassword() == null) {
-            return new ResponseEntity<>(new ResponseMessage("Missing password!"), HttpStatus.BAD_REQUEST);
-        }
         try {
-            Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
-            Admin admin = new Admin(adminDTO.getUsername(), adminDTO.getPassword(), adminDTO.getEmail(), authority);
-
-            if (adminService.create(admin)) {
-                return new ResponseEntity<>(new ResponseMessage("Successful registration!"), HttpStatus.OK);
+            if (adminService.create(adminDTO)) {
+                return new ResponseEntity<>(new ResponseMessage("Admin created"), HttpStatus.OK);
             }
-        } catch (SQLException e) {
+        } catch (IllegalArgumentException | SQLException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,22 +81,10 @@ public class AdminAdministratorsController {
                                                        @RequestBody @Valid AdminDTO adminDTO,
                                                        BindingResult bindingResult) {
         try {
-            Admin admin = adminService.loadByUsername(username);
-            if (admin == null) {
-                return new ResponseEntity<>(new ResponseMessage(username + " was not found!"), HttpStatus.BAD_REQUEST);
+            if (adminService.update(username, adminDTO)) {
+                return new ResponseEntity<>(new ResponseMessage("Admin updated!"), HttpStatus.OK);
             }
-
-            admin.setUsername(adminDTO.getUsername());
-            admin.setEmail(adminDTO.getEmail());
-            if (adminDTO.getPassword() != null) {
-                admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
-                admin.setLastPasswordResetDate(new Date());
-            }
-
-            if (adminService.update(admin)) {
-                return new ResponseEntity<>(new ResponseMessage("Successful update!"), HttpStatus.OK);
-            }
-        } catch (SQLException e) {
+        } catch (IllegalArgumentException | SQLException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();
