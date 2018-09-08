@@ -3,9 +3,11 @@ package com.paymentsystem.ngpuppies.models;
 
 import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidMoneyAmount;
+import org.apache.tomcat.jni.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -18,11 +20,11 @@ public class Invoice {
 
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Column(name = "StartDate")
-    private Date startDate;
+    private LocalDate startDate;
 
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Column(name = "EndDate")
-    private Date endDate;
+    private LocalDate endDate;
 
     @Column(name = "Amount")
     private double amount;
@@ -51,7 +53,7 @@ public class Invoice {
 
     }
 
-    public Invoice(Subscriber subscriber, Date fromDate, Date toDate, double amountBGN, TelecomServ telecomServ) {
+    public Invoice(Subscriber subscriber, LocalDate fromDate, LocalDate toDate, double amountBGN, TelecomServ telecomServ) {
         setSubscriber(subscriber);
         setStartDate(fromDate);
         setEndDate(toDate);
@@ -67,20 +69,20 @@ public class Invoice {
         this.id = id;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public double getAmount() {

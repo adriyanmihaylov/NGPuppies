@@ -1,5 +1,7 @@
 package com.paymentsystem.ngpuppies.models.dto;
 
+import com.paymentsystem.ngpuppies.models.Invoice;
+
 import javax.validation.Valid;
 import java.util.*;
 
@@ -15,7 +17,6 @@ public class ValidList<E> {
         this.list = list;
     }
 
-    @Valid
     public List<E> getList() {
         return list;
     }

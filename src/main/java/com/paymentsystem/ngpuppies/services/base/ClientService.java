@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.services.base;
 
+import com.paymentsystem.ngpuppies.models.dto.ClientDTO;
 import com.paymentsystem.ngpuppies.models.users.Client;
 
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ public interface ClientService {
 
     Client loadByUsername(String username);
 
-    boolean create(Client client) throws SQLException;
+    boolean create(ClientDTO clientDTO) throws IllegalArgumentException,SQLException;
 
-    boolean update(Client client) throws SQLException;
+    boolean update(String username, ClientDTO clientDTO) throws IllegalArgumentException, SQLException;
 }

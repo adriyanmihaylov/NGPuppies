@@ -24,11 +24,9 @@ public interface SubscriberService {
 
     List<Subscriber> getTenAllTimeSubscribersWithBiggestBillsPaid(Integer clientId);
 
-    Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate);
-
-    Map<Subscriber, Double> getSubscriberWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate);
-
     boolean addServiceToSubscriber(Subscriber subscriber, TelecomServ telecomServ) throws AlreadyBoundException, SQLException;
 
     Double getSubscriberAverageSumOfPaidInvoices(Integer subscriberId, String fromDate, String toDate);
+
+    Map<Subscriber, Double> getSubscriberOfClientWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate);
 }

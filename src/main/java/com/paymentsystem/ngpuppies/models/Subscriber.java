@@ -10,6 +10,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class Subscriber {
     private String egn;
 
 
-    @Column(name ="TotalAmountPaid")
+    @Column(name = "TotalAmountPaid")
     private Double totalAmount;
 
     @OneToOne(orphanRemoval = true, cascade = CascadeType.PERSIST)
@@ -62,18 +63,18 @@ public class Subscriber {
     private List<Invoice> invoices;
 
     @Fetch(FetchMode.SELECT)
-    @ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "subscriber_services",
-            joinColumns = { @JoinColumn(name = "SubscriberID") },
-            inverseJoinColumns = { @JoinColumn(name = "OfferedServiceID") }
+            joinColumns = {@JoinColumn(name = "SubscriberID")},
+            inverseJoinColumns = {@JoinColumn(name = "OfferedServiceID")}
     )
     private Set<TelecomServ> subscriberServices;
 
 
-    public Subscriber(){
+    public Subscriber() {
     }
 
-    public Subscriber(String firstName, String lastName,String phoneNumber,String egn,Address address,Double totalAmount) {
+    public Subscriber(String firstName, String lastName, String phoneNumber, String egn, Address address, Double totalAmount) {
         setFirstName(firstName);
         setLastName(lastName);
         setPhone(phoneNumber);
@@ -166,5 +167,13 @@ public class Subscriber {
 
     public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public void addSubscriberServices(TelecomServ service) {
+        if (subscriberServices == null) {
+            subscriberServices = new HashSet<>();
+        }
+
+        subscriberServices.add(service);
     }
 }

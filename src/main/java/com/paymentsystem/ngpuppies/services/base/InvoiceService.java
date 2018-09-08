@@ -1,8 +1,10 @@
 package com.paymentsystem.ngpuppies.services.base;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
+import com.paymentsystem.ngpuppies.models.dto.InvoiceDTO;
 import com.paymentsystem.ngpuppies.models.dto.InvoicePaymentDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface InvoiceService {
@@ -11,7 +13,7 @@ public interface InvoiceService {
 
     List<Invoice> getAll();
 
-    boolean create(Invoice invoice);
+    InvoiceDTO create(InvoiceDTO invoiceDTO);
 
     boolean update(List<Invoice> invoice);
 

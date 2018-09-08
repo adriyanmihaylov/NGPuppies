@@ -189,7 +189,7 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
         return new ArrayList<>();
     }
     @Override
-    public Object[] getSubscriberWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate) {
+    public Object[] getSubscriberOfClientWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             String query = String.format(
