@@ -1,5 +1,11 @@
 <div  ng-if="role == 'ROLE_ADMIN'">
-    <h1>All Unpaid Invoices</h1>
+    <h1>All Users</h1>
+    <div class="form-group">
+        <label for="roles">Select role</label>
+        <select class="form-control" id="roles"  ng-model = "roleType">
+            <option >ROLE_ADMIN</option>
+            <option >ROLE_CLIENT</option>
+        </select>
     <div class="alert alert-dismissible alert-success" ng-show="success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Successful delete</strong>.
@@ -15,7 +21,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="table-primary" ng-repeat="user in users">
+                    <tr class="table-primary" ng-repeat="user in users" ng-if="user.authority===roleType">
                         <th scope="row">{{user.id}}</th>
                         <td>{{user.username}}</td>
                         <td>{{user.authority}}</td>
@@ -29,8 +35,18 @@
                     </tbody>
             </table>
         </div>
+
 <div  ng-if="role == 'ROLE_CLIENT'">
-    <h1>All Unpaid Invoices</h1>
+
+        <h1>All Unpaid Invoices</h1>
+    <div class="form-group">
+        <label for="services">Select service</label>
+        <select class="form-control" id="services"  ng-model = "service">
+            <option >INTERNET</option>
+
+        </select>
+
+
     <div class="alert alert-info margin-top-5" ng-show="message">{{deletemessage}}</div>
     <table class="table table-hover">
         <thead>
@@ -39,14 +55,16 @@
             <th scope="col">Amount</th>
             <th scope="col">Currency</th>
             <th scope="col">Service</th>
+            <th scope="col">Subscriber</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="table-danger" ng-repeat = "invoice in invoices">
+        <tr class="table-danger" ng-repeat = "invoice in invoices" ng-if="invoice.service === service">
             <th scope="row">#</th>
             <td>{{invoice.amount}}</td>
             <td>BGN</td>
             <td>{{invoice.service}}</td>
+            <td>{{invoice.subscriberPhone}}</td>
         </tr>
 
 

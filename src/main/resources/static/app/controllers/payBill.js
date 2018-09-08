@@ -13,7 +13,7 @@ angular.module('NGPuppies')
             var startDate = $("#startDate").val();
             var endDate = $("#endDate").val();
             $http({
-                url: '/api/client/subscriber/' + phoneNumber + '/invoices/paid?from=' + startDate +"&to=" + endDate,
+                url: '/api/subscriber/' + phoneNumber + '/invoice/completed?from=' + startDate +"&to=" + endDate,
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {

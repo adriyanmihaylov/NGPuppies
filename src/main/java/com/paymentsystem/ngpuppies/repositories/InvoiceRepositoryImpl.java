@@ -173,7 +173,7 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
             query.setParameter("subscriberId", subscriberId);
             query.setParameter("fromDate", fromDate);
             query.setParameter("toDate", endDate);
-            System.out.println(query);
+
             session.beginTransaction();
             List<Invoice> invoices = query.setMaxResults(1).list();
             session.getTransaction().commit();

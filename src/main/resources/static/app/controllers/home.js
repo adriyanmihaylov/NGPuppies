@@ -29,6 +29,20 @@ angular.module('NGPuppies')
 
         })
     }else{
+        var initServices = function () {
+            $http({
+                url: '/api/service/all',
+                method: "GET",
+                dataType: "json"
+            }).success(function(result) {
+                if (result.length !== 0){
+                    $scope.telecomServices = result;
+                }
+
+            }).error(function (err) {
+                $scope.message = err.message;
+            })
+        };
         var initAll = function () {
             $http({
                 url: '/api/client/invoices/unpaid',
@@ -43,9 +57,7 @@ angular.module('NGPuppies')
                 $scope.message = err.message;
             })
         };
-        $scope.isNavCollapsed = true;
-        $scope.isCollapsed = false;
-        $scope.isCollapsedHorizontal = false;
+            // initServices();
             initAll();
     }
 
