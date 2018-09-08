@@ -169,10 +169,11 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
                     " WHERE i.subscriber.id=:subscriberId" +
                     " AND i.payedDate >= :fromDate and i.payedDate <= :toDate" +
                     " ORDER BY i.BGNAmount DESC");
+
             query.setParameter("subscriberId", subscriberId);
             query.setParameter("fromDate", fromDate);
             query.setParameter("toDate", endDate);
-
+            System.out.println(query);
             session.beginTransaction();
             List<Invoice> invoices = query.setMaxResults(1).list();
             session.getTransaction().commit();

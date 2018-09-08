@@ -58,7 +58,7 @@ angular.module('NGPuppies')
         $scope.initPay = function (invoice) {
             var data = {"list": [{
                     id: invoice.id,
-                    currency: "BGN"
+                    currency: $scope.currency
                 }]};
                 $http({
                     url: '/api/client/invoice/pay',
@@ -88,6 +88,17 @@ angular.module('NGPuppies')
                 $scope.message = "Please enter a phone number";
             }
         };
+        $scope.paySelected=function () {
+            var selected = $(".payed");
+            var ids = "";
+            for (var i = 0; i < selected.length; i++) {
+               var id = selected[i].attr('id')
+                console.log(id);
+                console.log($("$currency-" + id)).val();
+            }
+            console.log(selected);
+        }
+
 
     });
 

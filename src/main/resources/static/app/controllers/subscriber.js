@@ -37,7 +37,7 @@ app.controller('subscribersController', function($http, $scope) {
                 isPayment = false;
             }
         }).error(function (err) {
-        })
+        });
         $http({
             url: 'api/client/subscriber/' + phone + '/invoices/max?from=' + startDate + "&to="+endDate,
             method: "GET",
