@@ -25,8 +25,6 @@ public class ClientDTO {
     @ValidEik
     private String eik;
 
-    @Valid
-    @NotNull(message = "Please enter client details!")
     private ClientDetail details;
 
     public ClientDTO() {

@@ -13,7 +13,7 @@ public interface ClientService {
 
     Client loadByUsername(String username);
 
-    boolean create(Client client) throws SQLException;
+    boolean create(ClientDTO clientDTO) throws IllegalArgumentException,SQLException;
 
-    public boolean update(Client client, ClientDTO clientDTO) throws SQLException;
+    boolean update(String username, ClientDTO clientDTO) throws IllegalArgumentException, SQLException;
 }
