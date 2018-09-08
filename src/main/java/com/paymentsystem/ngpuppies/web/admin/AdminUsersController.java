@@ -94,12 +94,12 @@ public class AdminUsersController {
     public ResponseEntity<ResponseMessage> deleteUserByUsername(@PathVariable("username") @ValidUsername String username,
                                                                 Authentication authentication) {
         try {
-            //Get currently logged user - it must be admin otherwise it has to be unauthorized to delete users
+            //Get currently logged user - it must be admin otherwise it has to be unauthorized to deleteCurrencyByName users
             Admin admin = (Admin) authentication.getPrincipal();
 
-            //Check if the currently logged user wants to delete himself
+            //Check if the currently logged user wants to deleteCurrencyByName himself
             if (admin.getUsername().equals(username)) {
-                return new ResponseEntity<>(new ResponseMessage("You can not delete yourself!"), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new ResponseMessage("You can not deleteCurrencyByName yourself!"), HttpStatus.BAD_REQUEST);
             }
 
             if (userService.deleteByUsername(username)) {

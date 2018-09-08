@@ -118,7 +118,7 @@
 //
 //    @Test
 //    public void delete_whenUserExists_shouldReturnTrue() {
-//        when(userRepository.delete(userMock)).thenReturn(true);
+//        when(userRepository.deleteCurrencyByName(userMock)).thenReturn(true);
 //
 //        boolean result = userService.deleteByUsername(userMock);
 //

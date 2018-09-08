@@ -13,7 +13,5 @@ public interface CurrencyService {
 
     boolean create(Currency currency) throws SQLException;
 
-    boolean delete(Currency currency);
-
     List<CurrencyDTO> updateFixings(List<CurrencyDTO> list);
 }

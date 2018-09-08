@@ -5,6 +5,7 @@ import com.paymentsystem.ngpuppies.repositories.base.CurrencyRepository;
 import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -61,22 +62,6 @@ public class CurrencyRepositoryImpl implements CurrencyRepository {
             return true;
         } catch (JDBCException e) {
             throw new SQLException("Currency is present", e);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean delete(Currency currency) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.delete(currency);
-            session.getTransaction().commit();
-
-            System.out.println("DELETED Currency " + currency.getName());
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -124,7 +124,7 @@
 //
 //    @Test
 //    public void delete_whenSuccessful_returnTrue() throws SQLException {
-//        when(subscribersRepository.delete(mockedSubscriber)).thenReturn(true);
+//        when(subscribersRepository.deleteCurrencyByName(mockedSubscriber)).thenReturn(true);
 //
 //        Boolean isSuccessful = subscriberService.deleteSubscriberByNumber(mockedSubscriber);
 //

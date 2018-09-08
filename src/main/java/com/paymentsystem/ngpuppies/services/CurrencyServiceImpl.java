@@ -32,11 +32,6 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
-    public boolean delete(Currency currency) {
-        return currencyRepository.delete(currency);
-    }
-
-    @Override
     public List<CurrencyDTO> updateFixings(List<CurrencyDTO> currencyDTOList) {
         List<CurrencyDTO> failedCurrencies = new ArrayList<>();
         for (CurrencyDTO currencyDTO : currencyDTOList) {
