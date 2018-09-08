@@ -1,0 +1,49 @@
+<div class="row justify-content-center ng-scope">
+    <!--<div class="col-12 col-md-10 col-lg-8">-->
+        <!--<form class="card card-sm ng-pristine ng-valid">-->
+            <!--<div class="card-body row no-gutters align-items-center">-->
+                <!--<div class="col">-->
+                    <!--<label for="serviceAction">Please choose action</label>-->
+                    <!--<select class="form-control" ng-model = "serviceAction" id="serviceAction">-->
+                        <!--<option>Add new</option>-->
+                        <!--<option>List All</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--<div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>-->
+            <!--</div>-->
+        <!--</form>-->
+
+    <!--</div>-->
+    <div class="card border-info mb-6" style="margin-right: 10px; margin-top: 50px; width: 30em ; " >
+        <div class="card-header">Add new service</div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label for="serviceName" class="col-6 col-form-label">Service name</label>
+                <div class="col-8">
+                    <input class="form-control" type="text" ng-model ="serviceName" id="serviceName">
+                </div>
+
+                <button class="btn btn btn-success" type="submit" ng-click="addNewService(serviceName)">Add New</button>
+            </div>
+            <div class="alert alert-dismissible alert-danger" ng-show="serviceError">
+                <strong>{{serviceError}}</strong>
+            </div>
+            <div class="alert alert-dismissible alert-success" ng-show = "serviceSuccess">
+                <strong>{{serviceSuccess}}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="card border-info mb-6" style="margin-right: 10px; margin-top: 50px; width: 20em; ">
+        <div class="card-header">All services</div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <tbody>
+                <tr class="table-primary" ng-repeat = "service in services">
+                    <th scope="row">{{service.service}}</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+

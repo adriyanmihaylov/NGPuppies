@@ -14,18 +14,20 @@
 				<a class="nav-link" ui-sref="clients">Clients</a>
 			</li>
 			<li class="nav-item" ng-if="role == 'ROLE_ADMIN'">
-				<a class="nav-link " ui-sref="register">New user</a>
+				<a class="nav-link " ui-sref="register">New User</a>
 			</li>
 			<li class="nav-item" ng-if="role == 'ROLE_ADMIN'">
-				<a class="nav-link " ui-sref="newSubscriber">New subscriber</a>
+				<a class="nav-link " ui-sref="newSubscriber">New Subscriber</a>
 			</li>
 			<li class="nav-item" ng-if="role == 'ROLE_ADMIN'">
 				<a class="nav-link " ui-sref="addBill">Generate Invoice</a>
 			</li>
-
+			<li class="nav-item" ng-if="role == 'ROLE_ADMIN'">
+				<a class="nav-link " ui-sref="services">Services</a>
+			</li>
 
 			<li class="nav-item" ng-if="role == 'ROLE_CLIENT'">
-				<a class="nav-link " ui-sref="payBill">Pay Bills</a>
+				<a class="nav-link " ui-sref="payBill">Invoices</a>
 			</li>
 			<li class="nav-item" ng-if="role == 'ROLE_CLIENT'">
 				<a class="nav-link " ui-sref="reports">Reports</a>

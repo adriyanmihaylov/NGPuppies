@@ -8,7 +8,6 @@ app.controller('subscribersController', function($http, $scope) {
             method: "GET",
             dataType: "json"
         }).success(function (result) {
-            console.log(result);
             if (result!=="") {
                 $scope.error = "";
                 $scope.subscriber = result;

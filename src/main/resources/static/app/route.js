@@ -124,7 +124,17 @@ angular.module('NGPuppies').config(function($stateProvider,$urlRouterProvider,$l
                     controller : 'newSubscriberController'
                 }
             }
-        });
+        })
+        .state('services', {
+            parent : 'nav',
+            url : '/services',
+            views : {
+                'content@' : {
+                    templateUrl : 'app/views/services.html',
+                    controller : 'servicesController'
+                }
+            }
+        });;
         $locationProvider.html5Mode({
 			enabled: true,
 			requireBase: true
