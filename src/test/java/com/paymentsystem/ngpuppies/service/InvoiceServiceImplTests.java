@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.ServiceTests;
+package com.paymentsystem.ngpuppies.service;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
@@ -18,7 +18,7 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BillingServiceGetAllTests {
+public class InvoiceServiceImplTests {
 
     @Mock
     private InvoiceRepository invoiceMockRepository;
