@@ -171,7 +171,7 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
     }
 
     @Override
-    public List<Subscriber> getTenAllTimeSubscribersWithBiggestBillsPaid(Integer clientId) {
+    public List<Subscriber> getTenAllTimeSubscribersOfClientWithBiggestBillsPaid(Integer clientId) {
         try (Session session = sessionFactory.openSession()) {
             String query = String.format(
                     " FROM Subscriber s" +
