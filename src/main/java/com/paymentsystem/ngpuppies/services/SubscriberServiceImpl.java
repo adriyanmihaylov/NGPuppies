@@ -3,11 +3,11 @@ package com.paymentsystem.ngpuppies.services;
 import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.Subscriber;
+import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
 import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import com.paymentsystem.ngpuppies.repositories.base.TelecomServRepository;
-import com.paymentsystem.ngpuppies.services.base.ClientService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Autowired
     private TelecomServRepository telecomServRepository;
     @Autowired
-    private ClientService clientService;
+    private ClientRepository clientRepository;
 
     @Override
     public List<Subscriber> getAll() {
@@ -50,7 +50,7 @@ public class SubscriberServiceImpl implements SubscriberService {
                 0D);
 
         if (subscriberDTO.getClient() != null) {
-            Client client = clientService.loadByUsername(subscriberDTO.getClient());
+            Client client = clientRepository.loadByUsername(subscriberDTO.getClient());
             if (client == null) {
                 throw new InvalidParameterException("Client not found");
             }
@@ -73,7 +73,7 @@ public class SubscriberServiceImpl implements SubscriberService {
 
         Client client = null;
         if (subscriberDTO.getClient() != null) {
-            client = clientService.loadByUsername(subscriberDTO.getClient());
+            client = clientRepository.loadByUsername(subscriberDTO.getClient());
             if (client == null) {
                 throw new InvalidParameterException("There is no such client!");
             }
@@ -124,7 +124,7 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
     public List<Subscriber> getTenAllTimeSubscribersOfClientWithBiggestBillsPaid(int clientId) {
-        return subscriberRepository.getTenAllTimeSubscribersWithBiggestBillsPaid(clientId);
+        return subscriberRepository.getTenAllTimeSubscribersOfClientWithBiggestBillsPaid(clientId);
     }
 
     @Override

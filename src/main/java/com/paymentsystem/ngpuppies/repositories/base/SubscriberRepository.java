@@ -18,7 +18,7 @@ public interface SubscriberRepository {
 
     List<Subscriber> getAllSubscribersByService(Integer serviceId) ;
 
-    List<Subscriber> getTenAllTimeSubscribersWithBiggestBillsPaid(Integer clientId);
+    List<Subscriber> getTenAllTimeSubscribersOfClientWithBiggestBillsPaid(Integer clientId);
 
     Double getSubscriberAverageInvoiceSumPaid(Integer subscriberId, String fromDate, String toDate);
 

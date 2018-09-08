@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.web.dto;
 
 import com.paymentsystem.ngpuppies.models.Address;
+import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidEgn;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidName;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
@@ -34,6 +35,15 @@ public class SubscriberDTO {
 
     public SubscriberDTO() {
 
+    }
+
+    public SubscriberDTO(String phone, String firstName, String lastName, String egn, Address address, String client) {
+        setPhone(phone);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEgn(egn);
+        setClient(client);
+        setAddress(address);
     }
 
     public String getPhone() {
