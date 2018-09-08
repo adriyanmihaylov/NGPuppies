@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @Validated
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-@RequestMapping("${common.basepath}/subscriber")
+@RequestMapping("/api")
 public class AdminSubscriberController {
     @Autowired
     private SubscriberService subscriberService;
@@ -45,7 +45,7 @@ public class AdminSubscriberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/subscriber/all")
     public ResponseEntity<List<SubscriberViewModel>> getAllSubscribers() {
         List<SubscriberViewModel> viewModels = subscriberService.getAll().stream()
                 .map(SubscriberViewModel::fromModel)
@@ -58,7 +58,7 @@ public class AdminSubscriberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/create")
+    @GetMapping("/subscriber/create")
     public SubscriberDTO createSubscriber() {
         SubscriberDTO subscriberDTO = new SubscriberDTO();
         subscriberDTO.setAddress(new Address());
@@ -66,7 +66,7 @@ public class AdminSubscriberController {
         return subscriberDTO;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/subscriber/create")
     public ResponseEntity<ResponseMessage> createSubscriber(@RequestBody @Valid SubscriberDTO subscriberDTO,
                                                             BindingResult bindingResult) {
         try {
@@ -81,7 +81,7 @@ public class AdminSubscriberController {
         return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PutMapping("/{phone}/update")
+    @PutMapping("/subscriber/{phone}/update")
     public ResponseEntity<ResponseMessage> updateSubscriber(@PathVariable("phone") @ValidPhone String phoneNumber,
                                                             @RequestBody @Valid SubscriberDTO subscriberDTO,
                                                             BindingResult bindingResult) {
@@ -98,7 +98,7 @@ public class AdminSubscriberController {
         return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/subscriber/delete")
     public ResponseEntity<ResponseMessage> deleteByNumber(@RequestParam("phone") @ValidPhone String phoneNumber) {
         try {
             if (subscriberService.deleteSubscriberByNumber(phoneNumber)) {
@@ -112,7 +112,7 @@ public class AdminSubscriberController {
         return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PutMapping("/{phone}/service")
+    @PutMapping("/subscriber/{phone}/service")
     public ResponseEntity<ResponseMessage> addNewServiceToSubscriber(@PathVariable("phone") @ValidPhone String subscriberPhone,
                                                                      @RequestParam("name") @ValidServiceName String serviceName) {
         try {

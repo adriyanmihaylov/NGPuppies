@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.List;
 
 @Validated
@@ -33,7 +34,7 @@ public class AdminCurrencyController {
         return new ResponseEntity<>(currencies, HttpStatus.OK);
     }
 
-    @GetMapping("/set/fixing")
+    @GetMapping("/update")
     public ValidList<CurrencyDTO> getCurrencyUpdateTemplate() {
         ValidList<CurrencyDTO> list = new ValidList<>();
         for (int i = 0; i < 2; i++) {
@@ -42,7 +43,22 @@ public class AdminCurrencyController {
         return list;
     }
 
-    @PutMapping("/set/fixing")
+    @PostMapping("/create")
+    public ResponseEntity<ResponseMessage> createCurrency(@RequestBody @Valid CurrencyDTO currencyDTO) {
+        try {
+            Currency currency = new Currency(currencyDTO.getName());
+            currencyService.create(currency);
+
+            return new ResponseEntity<>(new ResponseMessage("Currency created!"), HttpStatus.OK);
+        } catch (SQLException e) {
+            return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @PutMapping("/update")
     public ResponseEntity<?> setFixing(@RequestBody @Valid ValidList<CurrencyDTO> currencyValidList,
                                        BindingResult bindingResult) {
         List<CurrencyDTO> invalid = currencyService.updateFixings(currencyValidList.getList());

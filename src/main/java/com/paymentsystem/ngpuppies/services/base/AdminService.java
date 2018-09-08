@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.services.base;
 
 import com.paymentsystem.ngpuppies.models.dto.AdminDTO;
+import com.paymentsystem.ngpuppies.models.dto.PasswordResetDТО;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 
 import java.security.InvalidParameterException;
@@ -18,4 +19,5 @@ public interface AdminService {
 
     boolean update(String username,AdminDTO adminDTO) throws InvalidParameterException,SQLException;
 
+    boolean updateAfterFirstLogin(Admin admin, PasswordResetDТО passwordResetDТО) throws SQLException;
 }

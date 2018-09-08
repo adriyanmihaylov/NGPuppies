@@ -29,6 +29,9 @@ public class JwtTokenUtil implements Serializable {
     @Value("${jwt.expiration}")
     private Long expiration;
 
+    @Value("${jwt.first.login.expiration}")
+    private Long firstLoginExpiration;
+
     public Integer getIdFromToken(String token) {
         return Integer.parseInt(getClaimFromToken(token, Claims::getSubject));
     }
@@ -67,15 +70,20 @@ public class JwtTokenUtil implements Serializable {
         return false;
     }
 
-    public String generateToken(User user) {
+    public String generateToken(User user,boolean isFirstLogin) {
         Map<String,Object> claims = new HashMap<>();
         claims.put("role", user.getAuthorities());
-        return doGenerateToken(claims, String.valueOf(user.getId()));
+        return doGenerateToken(claims, String.valueOf(user.getId()),isFirstLogin);
     }
 
-    private String doGenerateToken(Map<String,Object> claims, String subject) {
+    private String doGenerateToken(Map<String,Object> claims, String subject,boolean isFirstLogin) {
         final Date createdDate = clock.now();
-        final Date expirationDate = calculateExpirationDate(createdDate);
+        final Date expirationDate;
+        if(isFirstLogin) {
+            expirationDate = calculateFirstLoginExpirationDate(createdDate);
+        } else {
+            expirationDate = calculateExpirationDate(createdDate);
+        }
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -123,5 +131,9 @@ public class JwtTokenUtil implements Serializable {
 
     private Date calculateExpirationDate(Date createdDate) {
         return new Date(createdDate.getTime() + expiration * 1000);
+    }
+
+    private Date calculateFirstLoginExpirationDate(Date createdDate) {
+        return new Date(createdDate.getTime() + firstLoginExpiration * 1000);
     }
 }
