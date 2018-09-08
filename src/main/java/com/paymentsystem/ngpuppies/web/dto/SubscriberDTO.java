@@ -1,12 +1,10 @@
-package com.paymentsystem.ngpuppies.models.dto;
+package com.paymentsystem.ngpuppies.web.dto;
 
 import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidEgn;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidName;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class SubscriberDTO {
@@ -16,14 +14,14 @@ public class SubscriberDTO {
     @ValidName
     @Size.List({
             @Size(min = 3, message = "First name must be at least 3 characters"),
-            @Size(max = 50, message = "First name must be less than 50 characters")
+            @Size(max = 20, message = "First name must be less than 20 characters")
     })
     private String firstName;
 
     @ValidName
     @Size.List({
             @Size(min = 3, message = "Last name must be at least 3 characters"),
-            @Size(max = 50, message = "Last name must be less than 50 characters")
+            @Size(max = 20, message = "Last name must be less than 20 characters")
     })
     private String lastName;
 

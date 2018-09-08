@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.models.dto;
+package com.paymentsystem.ngpuppies.web.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

@@ -2,11 +2,10 @@ package com.paymentsystem.ngpuppies.web.admin;
 
 
 import com.paymentsystem.ngpuppies.models.Currency;
-import com.paymentsystem.ngpuppies.models.dto.CurrencyDTO;
-import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.models.dto.ValidList;
+import com.paymentsystem.ngpuppies.web.dto.CurrencyDTO;
+import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
+import com.paymentsystem.ngpuppies.web.dto.ValidList;
 import com.paymentsystem.ngpuppies.services.base.CurrencyService;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,17 +33,30 @@ public class AdminCurrencyController {
         return new ResponseEntity<>(currencies, HttpStatus.OK);
     }
 
-    @GetMapping("/update")
+    @GetMapping("/update1")
     public ValidList<CurrencyDTO> getCurrencyUpdateTemplate() {
-        ValidList<CurrencyDTO> list = new ValidList<>();
+        ValidList<CurrencyDTO> validList = new ValidList<>();
         for (int i = 0; i < 2; i++) {
-            list.add(new CurrencyDTO());
+            validList.add(new CurrencyDTO());
         }
-        return list;
+
+        return validList;
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> setFixing(@RequestBody @Valid ValidList<CurrencyDTO> currencyValidList,
+                                       BindingResult bindingResult) {
+        List<CurrencyDTO> invalid = currencyService.updateFixings(currencyValidList.getList());
+        if (invalid.size() > 0) {
+            return new ResponseEntity<>(invalid, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseMessage> createCurrency(@RequestBody @Valid CurrencyDTO currencyDTO) {
+    public ResponseEntity<ResponseMessage> createCurrency(@RequestBody @Valid CurrencyDTO currencyDTO,
+                                                          BindingResult bindingResult) {
         try {
             Currency currency = new Currency(currencyDTO.getName());
             currencyService.create(currency);
@@ -58,15 +70,4 @@ public class AdminCurrencyController {
 
         return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    @PutMapping("/update")
-    public ResponseEntity<?> setFixing(@RequestBody @Valid ValidList<CurrencyDTO> currencyValidList,
-                                       BindingResult bindingResult) {
-        List<CurrencyDTO> invalid = currencyService.updateFixings(currencyValidList.getList());
-        if (invalid.size() > 0) {
-            return new ResponseEntity<>(invalid, HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
 }

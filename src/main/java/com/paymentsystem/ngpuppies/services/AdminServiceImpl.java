@@ -1,7 +1,6 @@
 package com.paymentsystem.ngpuppies.services;
 
-import com.paymentsystem.ngpuppies.models.dto.AdminDTO;
-import com.paymentsystem.ngpuppies.models.dto.PasswordResetDТО;
+import com.paymentsystem.ngpuppies.web.dto.AdminDTO;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
@@ -74,9 +73,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean updateAfterFirstLogin(Admin admin,PasswordResetDТО passwordResetDТО) throws SQLException {
+    public boolean updateOnFirstLogin(Admin admin) throws SQLException {
         Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
-        admin.setPassword(passwordEncoder.encode(passwordResetDТО.getPassword()));
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         admin.setAuthority(authority);
         admin.setLastPasswordResetDate(new Date());
         admin.setEnabled(Boolean.TRUE);

@@ -1,6 +1,6 @@
-package com.paymentsystem.ngpuppies.security;
+package com.paymentsystem.ngpuppies.web;
 
-import com.paymentsystem.ngpuppies.models.dto.PasswordResetDТО;
+import com.paymentsystem.ngpuppies.web.dto.PasswordResetDТО;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,9 @@ public class FirstLoginAuthenticationController {
                                         Authentication authentication) {
         try {
             Admin admin = (Admin) authentication.getPrincipal();
-            adminService.updateAfterFirstLogin(admin, passwordResetDТО);
+            admin.setPassword(passwordResetDТО.getPassword());
+
+            adminService.updateOnFirstLogin(admin);
 
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {

@@ -3,7 +3,7 @@ package com.paymentsystem.ngpuppies.services;
 import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.models.dto.SubscriberDTO;
+import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import com.paymentsystem.ngpuppies.repositories.base.TelecomServRepository;

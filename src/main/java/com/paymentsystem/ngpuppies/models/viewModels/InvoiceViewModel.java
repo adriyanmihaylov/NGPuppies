@@ -9,6 +9,10 @@ public class InvoiceViewModel {
 
     public String endDate;
 
+    public double amountPaid;
+
+    public String currency;
+
     public double amount;
 
     public String service;
@@ -24,15 +28,19 @@ public class InvoiceViewModel {
 
         if (invoice != null) {
             viewModel.id = invoice.getId();
-            viewModel.startDate = invoice.getStartDate().toString().substring(0,10);
-            viewModel.endDate = invoice.getEndDate().toString().substring(0,10);
+            viewModel.startDate = invoice.getStartDate().toString().substring(0, 10);
+            viewModel.endDate = invoice.getEndDate().toString().substring(0, 10);
             viewModel.amount = invoice.getBGNAmount();
             viewModel.service = invoice.getTelecomServ().getName();
             viewModel.subscriberPhone = invoice.getSubscriber().getPhone();
-            if(invoice.getPayedDate() != null) {
-                viewModel.status = "Paid on " + invoice.getPayedDate().toString().substring(0,10);
+            if (invoice.getPayedDate() != null) {
+                viewModel.status = "Paid on " + invoice.getPayedDate().toString().substring(0, 10);
+                viewModel.amountPaid = invoice.getAmount();
+                viewModel.currency = invoice.getCurrency().getName();
             } else {
                 viewModel.status = "Not paid";
+                viewModel.amountPaid = 0;
+                viewModel.currency = null;
             }
 
             viewModel.subscriberName = invoice.getSubscriber().getFirstName() + " "

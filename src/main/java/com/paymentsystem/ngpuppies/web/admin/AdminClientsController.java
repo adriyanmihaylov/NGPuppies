@@ -1,8 +1,7 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
-import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.models.dto.ClientDTO;
-import com.paymentsystem.ngpuppies.models.users.Client;
+import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
+import com.paymentsystem.ngpuppies.web.dto.ClientDTO;
 import com.paymentsystem.ngpuppies.services.base.ClientService;
 import com.paymentsystem.ngpuppies.models.viewModels.ClientViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;

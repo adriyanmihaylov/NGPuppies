@@ -4,8 +4,8 @@ import com.paymentsystem.ngpuppies.models.Currency;
 import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.TelecomServ;
-import com.paymentsystem.ngpuppies.models.dto.InvoiceDTO;
-import com.paymentsystem.ngpuppies.models.dto.InvoicePaymentDTO;
+import com.paymentsystem.ngpuppies.web.dto.InvoiceDTO;
+import com.paymentsystem.ngpuppies.web.dto.InvoicePaymentDTO;
 import com.paymentsystem.ngpuppies.repositories.base.CurrencyRepository;
 import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
@@ -104,7 +104,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId) {
-        return invoiceRepository.geAllUnpaidInvoicesOfAllClientSubscribers(clientId);
+        return invoiceRepository.geAllUnpaidInvoicesForAllSubscribersOfClient(clientId);
     }
 
     @Override
@@ -150,10 +150,14 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(int subscriberId, String fromDate, String endDate) throws InvalidParameterException {
+    public List<Invoice> getSubscriberInvoicesFromDateToDate(String subscriberPhone, String fromDate, String endDate) throws InvalidParameterException {
         validateDate(fromDate, endDate);
+        Subscriber subscriber = subscriberService.getSubscriberByPhone(subscriberPhone);
+        if (subscriber == null) {
+            throw new InvalidParameterException("There is no such subscriber!");
+        }
 
-        return invoiceRepository.getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(subscriberId,LocalDate.parse(fromDate),LocalDate.parse(endDate));
+        return invoiceRepository.getSubscriberPaidInvoicesFromDateToDate(subscriber.getId(), LocalDate.parse(fromDate), LocalDate.parse(endDate));
     }
 
     @Override

@@ -1,8 +1,11 @@
-package com.paymentsystem.ngpuppies.models.dto;
+package com.paymentsystem.ngpuppies.web.dto;
+
+import com.paymentsystem.ngpuppies.validation.anotations.EqualPasswords;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+@EqualPasswords
 public class PasswordResetDТО {
 
     @NotEmpty(message = "Please enter password")
@@ -10,7 +13,10 @@ public class PasswordResetDТО {
     private String password;
 
     @NotEmpty(message = "Please confirm your password")
-    @Size(min = 6, max = 30)
+    @Size.List({
+            @Size(min = 6, message = "Password must be more than 6 characters"),
+            @Size(max = 50, message = "Password must be less than 50 characters")
+    })
     private String confirmPassword;
 
     public PasswordResetDТО() {

@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.security;
+package com.paymentsystem.ngpuppies.web;
 
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.models.users.User;
@@ -64,23 +64,6 @@ public class AuthenticationRestController {
             }
         }
         return new ResponseEntity<>(map, HttpStatus.OK);
-    }
-
-
-    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
-    public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
-        String authToken = request.getHeader(tokenHeader);
-        final String token = authToken.substring(7);
-
-        Integer id = jwtTokenUtil.getIdFromToken(token);
-        User user = userService.loadById(id);
-
-        if (jwtTokenUtil.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
-            String refreshedToken = jwtTokenUtil.refreshToken(token);
-            return ResponseEntity.ok(refreshedToken);
-        } else {
-            return ResponseEntity.badRequest().body(null);
-        }
     }
 
 

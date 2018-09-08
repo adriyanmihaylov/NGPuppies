@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories.base;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
+import com.paymentsystem.ngpuppies.models.Subscriber;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,9 +21,9 @@ public interface InvoiceRepository {
 
     List<Invoice> getAllUnpaidInvoices();
 
-    List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId);
+    List<Invoice> geAllUnpaidInvoicesForAllSubscribersOfClient(int clientId);
 
-    List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(int subscriberId, LocalDate fromDate, LocalDate toDate);
+    List<Invoice> getSubscriberPaidInvoicesFromDateToDate(int subscriberId, LocalDate fromDate, LocalDate toDate);
 
     List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(String subscriberPhone);
 

@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.Currency;
-import com.paymentsystem.ngpuppies.models.dto.CurrencyDTO;
+import com.paymentsystem.ngpuppies.web.dto.CurrencyDTO;
 import com.paymentsystem.ngpuppies.repositories.base.CurrencyRepository;
 import com.paymentsystem.ngpuppies.services.base.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;

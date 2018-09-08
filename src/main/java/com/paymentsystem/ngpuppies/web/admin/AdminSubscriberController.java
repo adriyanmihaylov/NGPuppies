@@ -1,12 +1,10 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.models.Address;
-import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
+import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.models.dto.SubscriberDTO;
+import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
 import com.paymentsystem.ngpuppies.models.viewModels.SubscriberSimpleViewModel;
-import com.paymentsystem.ngpuppies.services.base.ClientService;
-import com.paymentsystem.ngpuppies.services.base.TelecomServService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import com.paymentsystem.ngpuppies.models.viewModels.SubscriberViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
@@ -28,7 +26,7 @@ import java.util.stream.Collectors;
 @Validated
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-@RequestMapping("/api")
+@RequestMapping("${common.basepath}/subscriber")
 public class AdminSubscriberController {
     @Autowired
     private SubscriberService subscriberService;
@@ -45,7 +43,7 @@ public class AdminSubscriberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/subscriber/all")
+    @GetMapping("/all")
     public ResponseEntity<List<SubscriberViewModel>> getAllSubscribers() {
         List<SubscriberViewModel> viewModels = subscriberService.getAll().stream()
                 .map(SubscriberViewModel::fromModel)
@@ -58,7 +56,7 @@ public class AdminSubscriberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/subscriber/create")
+    @GetMapping("/create")
     public SubscriberDTO createSubscriber() {
         SubscriberDTO subscriberDTO = new SubscriberDTO();
         subscriberDTO.setAddress(new Address());
@@ -66,7 +64,7 @@ public class AdminSubscriberController {
         return subscriberDTO;
     }
 
-    @PostMapping("/subscriber/create")
+    @PostMapping("/create")
     public ResponseEntity<ResponseMessage> createSubscriber(@RequestBody @Valid SubscriberDTO subscriberDTO,
                                                             BindingResult bindingResult) {
         try {
@@ -81,7 +79,7 @@ public class AdminSubscriberController {
         return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PutMapping("/subscriber/{phone}/update")
+    @PutMapping("/{phone}/update")
     public ResponseEntity<ResponseMessage> updateSubscriber(@PathVariable("phone") @ValidPhone String phoneNumber,
                                                             @RequestBody @Valid SubscriberDTO subscriberDTO,
                                                             BindingResult bindingResult) {
@@ -98,7 +96,7 @@ public class AdminSubscriberController {
         return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @DeleteMapping("/subscriber/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<ResponseMessage> deleteByNumber(@RequestParam("phone") @ValidPhone String phoneNumber) {
         try {
             if (subscriberService.deleteSubscriberByNumber(phoneNumber)) {
@@ -112,7 +110,7 @@ public class AdminSubscriberController {
         return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PutMapping("/subscriber/{phone}/service")
+    @PutMapping("/{phone}/service")
     public ResponseEntity<ResponseMessage> addNewServiceToSubscriber(@PathVariable("phone") @ValidPhone String subscriberPhone,
                                                                      @RequestParam("name") @ValidServiceName String serviceName) {
         try {

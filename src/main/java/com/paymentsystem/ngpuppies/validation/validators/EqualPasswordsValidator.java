@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.validation.validators;
 
-import com.paymentsystem.ngpuppies.models.dto.PasswordResetDТО;
+import com.paymentsystem.ngpuppies.web.dto.PasswordResetDТО;
 import com.paymentsystem.ngpuppies.validation.anotations.EqualPasswords;
 
 import javax.validation.ConstraintValidator;

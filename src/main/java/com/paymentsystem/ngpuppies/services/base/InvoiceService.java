@@ -2,8 +2,8 @@ package com.paymentsystem.ngpuppies.services.base;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.models.dto.InvoiceDTO;
-import com.paymentsystem.ngpuppies.models.dto.InvoicePaymentDTO;
+import com.paymentsystem.ngpuppies.web.dto.InvoiceDTO;
+import com.paymentsystem.ngpuppies.web.dto.InvoicePaymentDTO;
 
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -28,7 +28,7 @@ public interface InvoiceService {
 
     List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId);
 
-    List<Invoice> getAllPaidInvoicesOfSubscriberInDescOrder(int subscriberId, String fromDate, String endDate);
+    List<Invoice> getSubscriberInvoicesFromDateToDate(String subscriberPhone, String fromDate, String endDate);
 
     List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(String subscriberPhone);
 

@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
+import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -234,7 +235,7 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId) {
+    public List<Invoice> geAllUnpaidInvoicesForAllSubscribersOfClient(int clientId) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +
                     " FROM Invoice i" +
@@ -255,7 +256,7 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(int subscriberId, LocalDate fromDate, LocalDate toDate) {
+    public List<Invoice> getSubscriberPaidInvoicesFromDateToDate(int subscriberId, LocalDate fromDate, LocalDate toDate) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +
                     " FROM Invoice i " +
