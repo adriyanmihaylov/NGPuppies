@@ -28,5 +28,69 @@ angular.module('NGPuppies')
                 $scope.success = null;
                 $scope.error = error.message;
             });
+        };
+        var initClient = function () {
+            $http({
+                url : '/api/client/all',
+                method : "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            }).success(function(res) {
+                $scope.searchedSubscriberClients = res;
+            }).error(function(error) {
+                $scope.error = error.message;
+            });
+        };
+        var phoneNumber;
+        $scope.search = function (subscriberPhone) {
+            phoneNumber= subscriberPhone;
+            $scope.subscriber = null;
+            $http({
+                url: 'api/subscriber?phone=' + subscriberPhone,
+                method: "GET",
+                dataType: "json"
+            }).success(function (result) {
+                if (result!=="") {
+                    $scope.error = "";
+                    $scope.subscriberSearch = result;
+                }else{
+                    $scope.errorMessage = "Please try another number!";
+                }
+            }).error(function (err) {
+                $scope.message = err.message;
+            });
+            initClient();
+        };
+        $scope.deleteSubscriber = function () {
+            $http({
+                url: 'api/subscriber/delete?phone=' + $("#subscriberPhone").val(),
+                method: "DELETE",
+                dataType: "json"
+            }).success(function (result) {
+                $scope.message = result.message;
+                $scope.subscriberSearch = null;
+
+                $scope.subscriberSearch = null;
+            }).error(function (err) {
+                $scope.message = err.message;
+            });
+        };
+        $scope.initEdit = function (subscriber) {
+            var data = {phone: subscriber.subscriberPhone,
+                firstName: subscriber.firstName,
+                lastName: subscriber.lastName,
+                egn: subscriber.EGN,
+                client: subscriber.client};
+            $http({
+                url: 'api/subscriber/' + phoneNumber +"/update",
+                method: "PUT",
+                data : JSON.stringify(data),
+                dataType: "json"
+            }).success(function (result) {
+                $scope.successUpdating = result.message;
+            }).error(function (err) {
+                $scope.errorUpdating = err.message;
+            })
         }
+
     });

@@ -14,12 +14,13 @@ public class Client extends User {
     @Column(name = "ClientEik")
     private String eik;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ClientDetailsID")
     private ClientDetail details;
 
     public Client() {
     }
+
     public Client(String username, String password, String eik,Authority authority) {
         super(username,password,authority);
         setEik(eik);

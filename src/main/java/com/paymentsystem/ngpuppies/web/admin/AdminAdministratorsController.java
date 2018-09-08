@@ -2,9 +2,6 @@ package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
 import com.paymentsystem.ngpuppies.models.dto.AdminDTO;
-import com.paymentsystem.ngpuppies.models.users.Admin;
-import com.paymentsystem.ngpuppies.models.users.Authority;
-import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.services.base.*;
 import com.paymentsystem.ngpuppies.models.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
@@ -12,14 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,13 +25,9 @@ import java.util.stream.Collectors;
 public class AdminAdministratorsController {
     @Autowired
     private AdminService adminService;
-    @Autowired
-    private AuthorityService authorityService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/{username}")
-    public ResponseEntity<AdminViewModel> getAdminByUsername(@PathVariable("username") @ValidUsername String username) {
+    @GetMapping("")
+    public ResponseEntity<AdminViewModel> getAdminByUsername(@RequestParam("username") @ValidUsername String username) {
         AdminViewModel viewModel = AdminViewModel.fromModel(adminService.loadByUsername(username));
 
         if (viewModel != null) {
@@ -67,17 +58,11 @@ public class AdminAdministratorsController {
     @PostMapping("/register")
     public ResponseEntity<ResponseMessage> registerAdmin(@RequestBody @Valid AdminDTO adminDTO,
                                                          BindingResult bindingResult) {
-        if (adminDTO.getPassword() == null) {
-            return new ResponseEntity<>(new ResponseMessage("Missing password!"), HttpStatus.BAD_REQUEST);
-        }
         try {
-            Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
-            Admin admin = new Admin(adminDTO.getUsername(), adminDTO.getPassword(), adminDTO.getEmail(), authority);
-
-            if (adminService.create(admin)) {
-                return new ResponseEntity<>(new ResponseMessage("Successful registration!"), HttpStatus.OK);
+            if (adminService.create(adminDTO)) {
+                return new ResponseEntity<>(new ResponseMessage("Admin created"), HttpStatus.OK);
             }
-        } catch (SQLException e) {
+        } catch (IllegalArgumentException | SQLException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,22 +76,10 @@ public class AdminAdministratorsController {
                                                        @RequestBody @Valid AdminDTO adminDTO,
                                                        BindingResult bindingResult) {
         try {
-            Admin admin = adminService.loadByUsername(username);
-            if (admin == null) {
-                return new ResponseEntity<>(new ResponseMessage(username + " was not found!"), HttpStatus.BAD_REQUEST);
+            if (adminService.update(username, adminDTO)) {
+                return new ResponseEntity<>(new ResponseMessage("Admin updated!"), HttpStatus.OK);
             }
-
-            admin.setUsername(adminDTO.getUsername());
-            admin.setEmail(adminDTO.getEmail());
-            if (adminDTO.getPassword() != null) {
-                admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
-                admin.setLastPasswordResetDate(new Date());
-            }
-
-            if (adminService.update(admin)) {
-                return new ResponseEntity<>(new ResponseMessage("Successful update!"), HttpStatus.OK);
-            }
-        } catch (SQLException e) {
+        } catch (IllegalArgumentException | SQLException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();

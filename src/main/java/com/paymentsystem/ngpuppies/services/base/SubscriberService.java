@@ -1,32 +1,33 @@
 package com.paymentsystem.ngpuppies.services.base;
 
-import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.Subscriber;
+import com.paymentsystem.ngpuppies.models.dto.SubscriberDTO;
 
 import java.rmi.AlreadyBoundException;
+import java.security.InvalidParameterException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 public interface SubscriberService {
 
-    Subscriber getSubscriberByPhone(String phoneNumber);
-
     List<Subscriber> getAll();
 
-    boolean create(Subscriber subscriber) throws SQLException;
+    Subscriber getSubscriberByPhone(String phoneNumber);
 
-    boolean update(Subscriber updatedSubscriber) throws SQLException;
+    boolean create(SubscriberDTO subscriberDTO) throws InvalidParameterException, SQLException;
 
-    boolean delete(Subscriber subscriber);
+    boolean update(String phoneNumber, SubscriberDTO subscriberDTO) throws InvalidParameterException, SQLException;
 
-    List<Subscriber> getAllSubscribersByService(Integer serviceId);
+    boolean deleteSubscriberByNumber(String phoneNumber) throws InvalidParameterException;
 
-    List<Subscriber> getTenAllTimeSubscribersWithBiggestBillsPaid(Integer clientId);
+    boolean addServiceToSubscriber(String subscriberPhone, String serviceName) throws InvalidParameterException, AlreadyBoundException, SQLException;
 
-    boolean addServiceToSubscriber(Subscriber subscriber, TelecomServ telecomServ) throws AlreadyBoundException, SQLException;
+    List<Subscriber> getAllSubscribersUsingServiceByServiceName(String serviceName) throws InvalidParameterException;
 
-    Double getSubscriberAverageSumOfPaidInvoices(Integer subscriberId, String fromDate, String toDate);
+    List<Subscriber> getTenAllTimeSubscribersOfClientWithBiggestBillsPaid(int clientId);
 
-    Map<Subscriber, Double> getSubscriberOfClientWithBiggestAmountPaid(Integer clientId, String fromDate, String toDate);
+    Double getSubscriberAverageSumOfPaidInvoices(Subscriber subscriber, String fromDate, String toDate) throws InvalidParameterException;
+
+    Map<Subscriber, Double> getSubscriberOfClientWithBiggestAmountPaid(int clientId, String fromDate, String toDate) throws InvalidParameterException;
 }

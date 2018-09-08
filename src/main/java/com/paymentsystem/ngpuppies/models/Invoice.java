@@ -1,10 +1,6 @@
 package com.paymentsystem.ngpuppies.models;
 
-
-import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
-import com.paymentsystem.ngpuppies.validation.anotations.ValidMoneyAmount;
 import org.apache.tomcat.jni.Local;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,11 +14,9 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Column(name = "StartDate")
     private LocalDate startDate;
 
-    @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Column(name = "EndDate")
     private LocalDate endDate;
 
@@ -44,10 +38,8 @@ public class Invoice {
     @JoinColumn(name = "SubscriberID")
     private Subscriber subscriber;
 
-    @DateTimeFormat(pattern = "YYYY-MM-DD")
-    @Temporal(TemporalType.DATE)
     @Column(name = "PayedDate")
-    private Date payedDate;
+    private LocalDate payedDate;
 
     public Invoice() {
 
@@ -117,11 +109,11 @@ public class Invoice {
         this.subscriber = subscriber;
     }
 
-    public Date getPayedDate() {
+    public LocalDate getPayedDate() {
         return payedDate;
     }
 
-    public void setPayedDate(Date payedDate) {
+    public void setPayedDate(LocalDate payedDate) {
         this.payedDate = payedDate;
     }
 

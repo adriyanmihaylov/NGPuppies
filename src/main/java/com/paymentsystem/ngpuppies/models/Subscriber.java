@@ -63,7 +63,7 @@ public class Subscriber {
     private List<Invoice> invoices;
 
     @Fetch(FetchMode.SELECT)
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(name = "subscriber_services",
             joinColumns = {@JoinColumn(name = "SubscriberID")},
             inverseJoinColumns = {@JoinColumn(name = "OfferedServiceID")}

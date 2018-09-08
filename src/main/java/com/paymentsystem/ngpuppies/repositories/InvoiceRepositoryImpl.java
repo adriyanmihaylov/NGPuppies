@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Repository
@@ -162,7 +163,7 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Integer subscriberId, String fromDate, String endDate) {
+    public Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Integer subscriberId, LocalDate fromDate, LocalDate toDate) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +
                     " FROM Invoice i" +
@@ -172,7 +173,7 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
 
             query.setParameter("subscriberId", subscriberId);
             query.setParameter("fromDate", fromDate);
-            query.setParameter("toDate", endDate);
+            query.setParameter("toDate", toDate);
 
             session.beginTransaction();
             List<Invoice> invoices = query.setMaxResults(1).list();
@@ -212,6 +213,27 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
+    public List<Invoice> geAllUnpaidInvoicesFromDateToDate(LocalDate fromDate, LocalDate toDate) {
+        List<Invoice> invoices = new ArrayList<>();
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " FROM Invoice i" +
+                    " WHERE i.endDate >= :fromDate and i.endDate <= :toDate" +
+                    " ORDER BY i.endDate DESC");
+            query.setParameter("fromDate", fromDate);
+            query.setParameter("toDate", toDate);
+
+            session.beginTransaction();
+            invoices = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return invoices;
+    }
+
+    @Override
     public List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +
@@ -233,10 +255,10 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(Integer subscriberId, String fromDate, String toDate) {
+    public List<Invoice> getAllPaidInvoicesOfSubscriberByPeriodOfTimeInDescOrder(int subscriberId, LocalDate fromDate, LocalDate toDate) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +
-                    " From Invoice i " +
+                    " FROM Invoice i " +
                     " WHERE i.subscriber.id=:subscriberId" +
                     " AND i.payedDate >= :fromDate" +
                     " AND i.payedDate <= :toDate " +
