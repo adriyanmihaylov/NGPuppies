@@ -212,6 +212,27 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
+    public List<Invoice> geAllUnpaidInvoicesFromDateToDate(LocalDate fromDate, LocalDate toDate) {
+        List<Invoice> invoices = new ArrayList<>();
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " FROM Invoice i" +
+                    " WHERE i.endDate >= :fromDate and i.endDate <= :toDate" +
+                    " ORDER BY i.endDate DESC");
+            query.setParameter("fromDate", fromDate);
+            query.setParameter("toDate", toDate);
+
+            session.beginTransaction();
+            invoices = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return invoices;
+    }
+
+    @Override
     public List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +

@@ -37,4 +37,6 @@ public interface InvoiceService {
     Invoice getSubscriberLargestPaidInvoice(Subscriber subscriber, String fromDate, String endDate) throws InvalidParameterException;
 
     List<Invoice> getAllUnpaidInvoicesOfService(String serviceName) throws InvalidParameterException;
+
+    List<Invoice> geAllUnpaidInvoicesFromDateToDate(String fromDate, String toDate);
 }

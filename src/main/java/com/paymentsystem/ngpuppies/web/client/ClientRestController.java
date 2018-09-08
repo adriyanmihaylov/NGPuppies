@@ -190,7 +190,12 @@ public class ClientRestController {
         try {
             Client client = (Client) authentication.getPrincipal();
             unpaidInvoices = invoiceService.payInvoices(invoicePayDTOList.getList(), client.getId());
-            return new ResponseEntity<>(unpaidInvoices, HttpStatus.OK);
+
+            if(unpaidInvoices.size() > 0) {
+                return new ResponseEntity<>(unpaidInvoices,HttpStatus.BAD_REQUEST);
+            }
+
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(unpaidInvoices, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -228,7 +233,7 @@ public class ClientRestController {
 
         return null;
     }
-    
+
     @ExceptionHandler({IllegalArgumentException.class})
     public ResponseEntity<ResponseMessage> handleAuthenticationException(IllegalArgumentException e) {
         return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);

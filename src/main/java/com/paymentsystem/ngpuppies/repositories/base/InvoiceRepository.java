@@ -33,4 +33,6 @@ public interface InvoiceRepository {
     Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Integer subscriberId, LocalDate fromDate, LocalDate toDate);
 
     List<Invoice> getAllUnpaidInvoicesOfService(String serviceName);
+
+    List<Invoice> geAllUnpaidInvoicesFromDateToDate(LocalDate fromDate, LocalDate toDate);
 }

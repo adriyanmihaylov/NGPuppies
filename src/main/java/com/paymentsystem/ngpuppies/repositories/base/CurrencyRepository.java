@@ -13,4 +13,6 @@ public interface CurrencyRepository {
     boolean create(Currency currency) throws SQLException;
 
     boolean delete(Currency currency);
+
+    boolean update(Currency currency);
 }

@@ -1,16 +1,13 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
-import com.paymentsystem.ngpuppies.models.*;
 import com.paymentsystem.ngpuppies.models.dto.InvoiceDTO;
 import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
 import com.paymentsystem.ngpuppies.models.dto.ValidList;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
-import com.paymentsystem.ngpuppies.services.base.TelecomServService;
-import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import com.paymentsystem.ngpuppies.models.viewModels.InvoiceViewModel;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidServiceName;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +17,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -97,6 +91,23 @@ public class AdminInvoiceController {
                     .stream()
                     .map(InvoiceViewModel::fromModel)
                     .collect(Collectors.toList()), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping("/unpaid/from={from}")
+    public ResponseEntity<List<InvoiceViewModel>> getAllUnpaidInvoicesFromDateToDate(@PathVariable("from") @ValidDate String fromDate,
+                                                                                     @RequestParam("to") @ValidDate String toDate) {
+        try {
+            return new ResponseEntity<>(invoiceService.geAllUnpaidInvoicesFromDateToDate(fromDate,toDate)
+                    .stream()
+                    .map(InvoiceViewModel::fromModel)
+                    .collect(Collectors.toList()), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();
         }

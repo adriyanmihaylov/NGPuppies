@@ -83,4 +83,19 @@ public class CurrencyRepositoryImpl implements CurrencyRepository {
 
         return false;
     }
+
+    @Override
+    public boolean update(Currency currency) {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.update(currency);
+            session.getTransaction().commit();
+
+            return true;
+        }catch (Exception e) {
+
+        }
+
+        return false;
+    }
 }

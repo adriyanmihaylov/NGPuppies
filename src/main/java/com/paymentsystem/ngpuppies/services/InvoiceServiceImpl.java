@@ -178,6 +178,13 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoiceRepository.getAllUnpaidInvoicesOfService(serviceName);
     }
 
+    @Override
+    public List<Invoice> geAllUnpaidInvoicesFromDateToDate(String fromDate, String toDate) {
+        validateDate(fromDate, toDate);
+
+        return invoiceRepository.geAllUnpaidInvoicesFromDateToDate(LocalDate.parse(fromDate), LocalDate.parse(toDate));
+    }
+
     private boolean validateDate(String start, String end) throws InvalidParameterException {
         if (start.equals(end)) {
             return true;
