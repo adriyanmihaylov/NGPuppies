@@ -21,9 +21,6 @@ public class AdminRepositoryImpl implements AdminRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Override
     public List<Admin> getAll() {
         List<Admin> admins = new ArrayList<>();
@@ -79,8 +76,6 @@ public class AdminRepositoryImpl implements AdminRepository {
     public boolean create(Admin admin) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-            admin.setEnabled(Boolean.FALSE);
             session.save(admin);
             session.getTransaction().commit();
             System.out.println("CREATED ADMIN Id: " + admin.getId() + " username:" + admin.getUsername());

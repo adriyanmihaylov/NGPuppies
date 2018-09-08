@@ -1,7 +1,9 @@
 package com.paymentsystem.ngpuppies.services.base;
 
+import com.paymentsystem.ngpuppies.models.dto.AdminDTO;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 
+import java.security.InvalidParameterException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -12,7 +14,8 @@ public interface AdminService {
 
     Admin loadByUsername(String username);
 
-    boolean create(Admin admin) throws SQLException;
+    boolean create(AdminDTO adminDTO) throws InvalidParameterException, SQLException;
 
-    boolean update(Admin admin) throws SQLException;
+    boolean update(String username,AdminDTO adminDTO) throws InvalidParameterException,SQLException;
+
 }

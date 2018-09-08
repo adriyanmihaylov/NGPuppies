@@ -70,7 +70,7 @@ public class TelecomServRepositoryImpl implements TelecomServRepository {
     }
 
     @Override
-    public boolean update(TelecomServ telecomServ) throws Exception {
+    public boolean update(TelecomServ telecomServ) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.update(telecomServ);

@@ -35,7 +35,7 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
     }
 
     @Override
-    public Subscriber getByNumber(String phoneNumber) {
+    public Subscriber getSubscriberByPhoneNumber(String phoneNumber) {
         Subscriber subscriber = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();

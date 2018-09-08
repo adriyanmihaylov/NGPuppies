@@ -28,7 +28,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public boolean delete(User user) {
+    public boolean deleteByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.loadByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Username not found!");
+        }
+
         return userRepository.delete(user);
     }
 

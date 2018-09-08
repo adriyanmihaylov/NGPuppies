@@ -2,6 +2,7 @@ package com.paymentsystem.ngpuppies.repositories.base;
 
 import com.paymentsystem.ngpuppies.models.Currency;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface CurrencyRepository {
@@ -9,7 +10,7 @@ public interface CurrencyRepository {
 
     Currency getByName(String name);
 
-    boolean create(Currency currency) throws Exception;
+    boolean create(Currency currency) throws SQLException;
 
-    boolean delete(Currency currency);
+    boolean update(Currency currency);
 }
