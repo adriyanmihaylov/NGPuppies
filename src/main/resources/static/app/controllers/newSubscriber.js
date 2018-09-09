@@ -4,6 +4,7 @@ angular.module('NGPuppies')
         };
         $scope.create = function (subscriber) {
             console.log(subscriber);
+
             var subscriberData = {phone: subscriber.phone,
                 firstName:subscriber.firstName,
                 lastName:subscriber.lastName,
@@ -37,6 +38,7 @@ angular.module('NGPuppies')
                 dataType: "json"
             }).success(function(res) {
                 $scope.searchedSubscriberClients = res;
+                $scope.Newclients = res;
             }).error(function(error) {
                 $scope.error = error.message;
             });
@@ -50,6 +52,7 @@ angular.module('NGPuppies')
                 method: "GET",
                 dataType: "json"
             }).success(function (result) {
+                $scope.message = null;
                 if (result!=="") {
                     $scope.error = "";
                     $scope.subscriberSearch = result;
@@ -93,5 +96,14 @@ angular.module('NGPuppies')
             })
         };
         initClient();
+
+        $scope.reset = function () {
+            $scope.errorUpdating = null;
+            $scope.successUpdating = null;
+            $scope.message = null;
+            $scope.errorMessage = null;
+            $scope.error = null;
+            $scope.success = null;
+        }
 
     });

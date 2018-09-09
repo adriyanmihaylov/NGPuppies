@@ -2,18 +2,19 @@ angular.module('NGPuppies')
     .controller('payBillController', function($http, $scope) {
         var phoneNumber;
         $scope.cases = function () {
-            if($scope.invoiceType === "Payed Invoices"){
-                $("#dates").css("display","");
-            }else{
+            if($scope.invoiceType === "Unpaid Invoices" || $scope.invoiceType === "All Invoices"){
                 $("#dates").css("display","none");
+            }else{
+                $("#dates").css("display","");
             }
+
         };
 
         var initPayed = function (phoneNumber) {
             var startDate = $("#startDate").val();
             var endDate = $("#endDate").val();
             $http({
-                url: '/api/subscriber/' + phoneNumber + '/invoice/completed?from=' + startDate +"&to=" + endDate,
+                url: '/api/client/invoice/' + phoneNumber + '/paid?from=' + startDate +"&to=" + endDate,
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
@@ -31,10 +32,14 @@ angular.module('NGPuppies')
 
         var initNotPayed = function (phoneNumber) {
             $http({
-                url: '/api/client/subscriber/' + phoneNumber + '/invoices/unpaid',
+                url: '/api/client/subscriber/' + phoneNumber + "/invoices/unpaid",
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
+                if (result === ""){
+                    $scope.message  = "No such subscriber!";
+                    return;
+                }
                 $scope.subscriber = "Unpaid invoices for: " + $scope.phoneNumber;
                 $scope.invoices = result;
                 $("#invoiceDitails").css("display","");
@@ -49,6 +54,10 @@ angular.module('NGPuppies')
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
+                if (result === ""){
+                    $scope.message  = "No such subscriber!";
+                    return;
+                }
                 $scope.subscriber = "All invoices for: " + $scope.phoneNumber;
                 $scope.invoices = result;
 

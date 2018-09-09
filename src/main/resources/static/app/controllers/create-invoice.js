@@ -22,7 +22,7 @@ app.controller('addBillController', function($http, $scope) {
             dataType: "json"
         }).success(function (res) {
             if(res === ""){
-                message.error = "";
+                $scope.error = "";
                 return;
             }
             $scope.subscriber = res;

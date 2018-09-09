@@ -3,7 +3,7 @@
         <form class="card card-sm ng-pristine ng-valid">
             <div class="card-body row no-gutters align-items-center">
                 <div class="col">
-                    <input type="tel" placeholder="Phone Number" class="form-control"  ng-model = "subscriberPhone">
+                    <input type="tel" placeholder="Phone Number" ng-change="reset()" class="form-control"  ng-model = "subscriberPhone">
                 </div>
                 <div class="col-auto">
                     <button class="btn btn btn-success" type="submit" ng-click = "search(subscriberPhone)">View</button>
@@ -34,13 +34,13 @@
                 <div class="form-group row">
                     <label for="startDate" class="col-4 col-form-label">Start Date</label>
                     <div class="col-8">
-                        <input class="form-control"  type="date"  id="startDate">
+                        <input class="form-control"   type="date"  id="startDate">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="endDate" class="col-4 col-form-label">End Date</label>
                     <div class="col-8">
-                        <input class="form-control" type="date" id="endDate">
+                        <input class="form-control"  type="date" id="endDate">
                     </div>
                 </div>
                 <div ng-model = "money" ng-if = "money!=null && money!==''">
@@ -60,6 +60,9 @@
                     </table>
                 </div>
                 <h3 ng-if = "money===null">No payments for this period</h3>
+                <div class="alert alert-dismissible alert-danger" ng-show="errorDate">
+                    <strong>{{errorDate}}</strong>
+                </div>
                 <button class="btn btn btn-success" type="submit" ng-click = "report(subscriber.phoneNumber)">Rerport</button>
             </div>
         </div>

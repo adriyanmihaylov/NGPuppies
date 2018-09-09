@@ -29,16 +29,17 @@ app.controller('subscribersController', function($http, $scope) {
             dataType: "json"
         }).success(function (result) {
             if (result!==0.0) {
-                console.log(result);
-               $scope.average = result;
+               $scope.average = result.message;
                isPayment = true;
             }else{
                 isPayment = false;
             }
         }).error(function (err) {
+            $scope.errorDate = err.message;
+            $scope.money = null;
         });
         $http({
-            url: 'api/client/subscriber/' + phone + '/invoices/max?from=' + startDate + "&to="+endDate,
+            url: 'api/client/subscriber/' + phone + '/invoice/max?from=' + startDate + "&to="+endDate,
             method: "GET",
             dataType: "json"
         }).success(function (result) {
@@ -55,9 +56,14 @@ app.controller('subscribersController', function($http, $scope) {
                 $scope.money  = null;
             }
         }).error(function (err) {
-
+            $scope.money = null;
+            $scope.errorDate = err.message;
         });
 
+    };
+    $scope.reset = function () {
+        $scope.errorDate = null;
+        $scope.error = null;
     }
 
 });
