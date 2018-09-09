@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.web.dto.ClientDTO;
+import com.paymentsystem.ngpuppies.web.dto.ClientDto;
 import com.paymentsystem.ngpuppies.services.base.ClientService;
 import com.paymentsystem.ngpuppies.models.viewModels.ClientViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
@@ -51,15 +51,15 @@ public class AdminClientsController {
     }
 
     @GetMapping("/register")
-    public ClientDTO registerClient() {
-        return new ClientDTO();
+    public ClientDto registerClient() {
+        return new ClientDto();
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseMessage> registerClient(@RequestBody @Valid ClientDTO clientDTO,
+    public ResponseEntity<ResponseMessage> registerClient(@RequestBody @Valid ClientDto clientDto,
                                                           BindingResult bindingResult) {
         try {
-            if (clientService.create(clientDTO)) {
+            if (clientService.create(clientDto)) {
                 return new ResponseEntity<>(new ResponseMessage("Successful registration!"), HttpStatus.OK);
             }
         } catch (IllegalArgumentException | SQLException e) {
@@ -72,7 +72,7 @@ public class AdminClientsController {
 
     @PutMapping("/update")
     public ResponseEntity<ResponseMessage> updateClient(@RequestParam("username") @ValidUsername String username,
-                                                        @RequestBody @Valid ClientDTO clientDto,
+                                                        @RequestBody @Valid ClientDto clientDto,
                                                         BindingResult bindingResult) {
         try {
             if (clientService.update(username, clientDto)) {

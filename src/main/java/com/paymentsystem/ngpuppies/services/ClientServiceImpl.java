@@ -1,7 +1,9 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.ClientDetail;
-import com.paymentsystem.ngpuppies.web.dto.ClientDTO;
+import com.paymentsystem.ngpuppies.repositories.base.AuthorityRepository;
+import com.paymentsystem.ngpuppies.repositories.base.ClientDetailRepository;
+import com.paymentsystem.ngpuppies.web.dto.ClientDto;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.models.users.Client;
@@ -22,7 +24,9 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private ClientRepository clientRepository;
     @Autowired
-    private AuthorityService authorityService;
+    private ClientDetailRepository clientDetailRepository;
+    @Autowired
+    private AuthorityRepository authorityRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -32,59 +36,60 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client loadByEik(String eik) {
-        return clientRepository.loadByEik(eik);
-    }
-
-    @Override
     public Client loadByUsername(String username) {
         return clientRepository.loadByUsername(username);
     }
 
     @Override
-    public boolean create(ClientDTO clientDTO) throws InvalidParameterException,SQLException {
-        if (clientDTO.getPassword() == null) {
+    public boolean create(ClientDto clientDto) throws Exception {
+        if (clientDto.getPassword() == null) {
             throw new InvalidParameterException("Password is missing");
         }
 
-        Authority authority = authorityService.getByName(AuthorityName.ROLE_CLIENT);
-        if (clientDTO.getDetails() == null) {
-            clientDTO.setDetails(new ClientDetail());
+        Authority authority = authorityRepository.getByName(AuthorityName.ROLE_CLIENT);
+        if(authority == null) {
+            throw new Exception("Couldn't find client authority!");
         }
 
-        Client client = new Client(clientDTO.getUsername(),
-                clientDTO.getPassword(),
-                clientDTO.getEik(),
+        if (clientDto.getDetails() == null) {
+            clientDto.setDetails(new ClientDetail());
+        }
+
+        Client client = new Client(clientDto.getUsername(),
+                clientDto.getPassword(),
+                clientDto.getEik(),
                 authority,
-                clientDTO.getDetails());
+                clientDto.getDetails());
 
         return clientRepository.create(client);
     }
 
     @Override
-    public boolean update(String username, ClientDTO clientDTO) throws InvalidParameterException, SQLException {
+    public boolean update(String username, ClientDto clientDto) throws Exception {
         Client client = clientRepository.loadByUsername(username);
 
         if (client == null) {
             throw new InvalidParameterException("There is no such client!");
         }
 
-        client.setUsername(clientDTO.getUsername());
-        client.setEik(clientDTO.getEik());
+        client.setUsername(clientDto.getUsername());
+        client.setEik(clientDto.getEik());
 
 
-        if (clientDTO.getDetails() != null) {
+        if (clientDto.getDetails() != null) {
             if (client.getDetails() != null) {
                 int id = client.getDetails().getId();
-                client.setDetails(clientDTO.getDetails());
+                client.setDetails(clientDto.getDetails());
                 client.getDetails().setId(id);
             } else {
-                client.setDetails(clientDTO.getDetails());
+                client.setDetails(clientDto.getDetails());
             }
+        } else if (client.getDetails() == null) {
+            throw new Exception("Can't update client! Client details were not found!Please create details and add them to client!");
         }
 
-        if (clientDTO.getPassword() != null) {
-            client.setPassword(passwordEncoder.encode(clientDTO.getPassword()));
+        if (clientDto.getPassword() != null) {
+            client.setPassword(passwordEncoder.encode(clientDto.getPassword()));
             client.setLastPasswordResetDate(new Date());
         }
 

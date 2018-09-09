@@ -29,7 +29,7 @@ public class Subscriber {
     @ValidName
     @Size.List({
             @Size(min = 3, message = "First name must be at least 3 characters"),
-            @Size(max = 50, message = "First name must be less than 50 characters")
+            @Size(max = 20, message = "First name must be less than 20 characters")
     })
     @Column(name = "FirstName")
     private String firstName;
@@ -37,7 +37,7 @@ public class Subscriber {
     @ValidName
     @Size.List({
             @Size(min = 3, message = "Last name must be at least 3 characters"),
-            @Size(max = 50, message = "Last name must be less than 50 characters")
+            @Size(max = 20, message = "Last name must be less than 20 characters")
     })
     @Column(name = "LastName")
     private String lastName;
