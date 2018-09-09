@@ -6,7 +6,7 @@ import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
 
 import javax.validation.constraints.Size;
 
-public class ClientDTO {
+public class ClientDto {
     @ValidUsername
     @Size.List({
             @Size(min = 6, message = "Username must be at least 6 characters"),
@@ -25,7 +25,20 @@ public class ClientDTO {
 
     private ClientDetail details;
 
-    public ClientDTO() {
+    public ClientDto() {
+    }
+
+    public ClientDto(String username, String password, String eik) {
+        setUsername(username);
+        setPassword(password);
+        setEik(eik);
+    }
+
+    public ClientDto(String username, String password, String eik,ClientDetail clientDetail) {
+        setUsername(username);
+        setPassword(password);
+        setEik(eik);
+        setDetails(clientDetail);
     }
 
     public String getUsername() {
