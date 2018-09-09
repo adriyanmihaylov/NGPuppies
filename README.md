@@ -1,5 +1,5 @@
 # NGPuppies
-Telerik Academy Project - Payment System for Bright Consulting
+Telerik Academy Project - Payment System for Bright Consulting    
 Documentation for this project: https://documenter.getpostman.com/view/4882506/RWaC1rpY#86f29a42-6bea-48d0-a498-87e2ce3968b8
 
 
