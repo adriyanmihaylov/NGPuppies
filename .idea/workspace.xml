@@ -813,7 +813,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in ngpuppies_test (2)">
+  <component name="RunManager" selected="Spring Boot.NGPuppiesApplication">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
