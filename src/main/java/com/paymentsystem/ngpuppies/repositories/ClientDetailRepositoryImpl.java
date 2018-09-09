@@ -56,4 +56,9 @@ public class ClientDetailRepositoryImpl implements ClientDetailRepository {
         }
         return null;
     }
+
+    @Override
+    public boolean addDetailsToClient(String clientUsername, ClientDetail clientDetail) {
+        return false;
+    }
 }

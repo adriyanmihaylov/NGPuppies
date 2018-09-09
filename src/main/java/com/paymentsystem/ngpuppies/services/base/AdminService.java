@@ -14,9 +14,9 @@ public interface AdminService {
 
     Admin loadByUsername(String username);
 
-    boolean create(AdminDTO adminDTO) throws InvalidParameterException, SQLException;
+    boolean create(AdminDTO adminDTO) throws Exception;
 
     boolean update(String username,AdminDTO adminDTO) throws InvalidParameterException,SQLException;
 
-    boolean updateOnFirstLogin(Admin admin) throws SQLException;
+    boolean updateOnFirstLogin(Admin admin) throws Exception;
 }

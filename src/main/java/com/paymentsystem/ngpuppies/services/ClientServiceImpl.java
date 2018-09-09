@@ -2,20 +2,17 @@ package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.ClientDetail;
 import com.paymentsystem.ngpuppies.repositories.base.AuthorityRepository;
-import com.paymentsystem.ngpuppies.repositories.base.ClientDetailRepository;
 import com.paymentsystem.ngpuppies.web.dto.ClientDto;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
-import com.paymentsystem.ngpuppies.services.base.AuthorityService;
 import com.paymentsystem.ngpuppies.services.base.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +20,6 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
     @Autowired
     private ClientRepository clientRepository;
-    @Autowired
-    private ClientDetailRepository clientDetailRepository;
     @Autowired
     private AuthorityRepository authorityRepository;
     @Autowired
