@@ -108,7 +108,7 @@ public class ClientServiceImplTest {
     }
 
     @Test(expected = Exception.class)
-    public void update_whenClientAndClientDtoDetailsAreNull_shouldThrowException() throws Exception {
+    public void update_whenClientAndClientDtoDetailsAreNull_shouldCreateNewDetails() throws Exception {
         client.setDetails(null);
         clientDto.setDetails(null);
         when(clientRepository.loadByUsername(any(String.class))).thenReturn(client);

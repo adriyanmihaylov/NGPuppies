@@ -8,22 +8,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClientDetailServiceImpl implements ClientDetailService {
+    private final ClientDetailRepository clientDetailRepository;
 
     @Autowired
-    private ClientDetailRepository clientDetailRepository;
+    public ClientDetailServiceImpl(ClientDetailRepository clientDetailRepository) {
+        this.clientDetailRepository = clientDetailRepository;
+    }
 
     @Override
     public boolean create(ClientDetail clientDetail) {
+        if (clientDetail == null) {
+
+            return false;
+        }
         return clientDetailRepository.create(clientDetail);
-    }
-
-    @Override
-    public boolean update(ClientDetail clientDetail) {
-        return clientDetailRepository.update(clientDetail);
-    }
-
-    @Override
-    public ClientDetail getById(Integer id) {
-        return clientDetailRepository.getById(id);
     }
 }
