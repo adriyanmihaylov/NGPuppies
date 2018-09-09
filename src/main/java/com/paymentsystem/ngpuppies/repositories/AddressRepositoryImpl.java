@@ -64,6 +64,7 @@ public class AddressRepositoryImpl implements AddressRepository {
             session.beginTransaction();
             session.update(address);
             session.getTransaction().commit();
+            System.out.println("Address updated!");
             return true;
         } catch (Exception e) {
             e.printStackTrace();

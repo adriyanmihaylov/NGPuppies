@@ -4,7 +4,6 @@ import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
-import com.paymentsystem.ngpuppies.validation.DateValidator;
 import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.rmi.AlreadyBoundException;
 import java.security.InvalidParameterException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.*;
 

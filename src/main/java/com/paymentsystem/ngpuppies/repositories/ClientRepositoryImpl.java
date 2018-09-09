@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceException;
-import javax.xml.soap.Detail;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,14 +75,13 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public boolean create(Client client) throws SQLException {
-        Session session = null;
         Transaction transaction = null;
-        try {
-            ClientDetail details = client.getDetails();
-            client.setEnabled(Boolean.TRUE);
-            client.setPassword(passwordEncoder.encode(client.getPassword()));
+        client.setPassword(passwordEncoder.encode(client.getPassword()));
+        client.setEnabled(Boolean.TRUE);
+        ClientDetail details = client.getDetails();
 
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
+
             transaction = session.beginTransaction();
             session.save(details);
             session.save(client);
@@ -108,10 +106,6 @@ public class ClientRepositoryImpl implements ClientRepository {
                 System.out.println("Couldn't roll back transaction!");
             }
             e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
         return false;
@@ -119,11 +113,10 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public boolean update(Client client) throws SQLException {
-        Session session = null;
         Transaction transaction = null;
-        try {
-            ClientDetail detail = client.getDetails();
-            session = sessionFactory.openSession();
+        ClientDetail detail = client.getDetails();
+
+        try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             if (detail == null || detail.getId() == 0) {
                 session.save(detail);
@@ -153,10 +146,6 @@ public class ClientRepositoryImpl implements ClientRepository {
             }
 
             e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
         return false;

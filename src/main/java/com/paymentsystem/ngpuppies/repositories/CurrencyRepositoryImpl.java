@@ -5,7 +5,6 @@ import com.paymentsystem.ngpuppies.repositories.base.CurrencyRepository;
 import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -78,7 +77,7 @@ public class CurrencyRepositoryImpl implements CurrencyRepository {
 
             return true;
         }catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         return false;

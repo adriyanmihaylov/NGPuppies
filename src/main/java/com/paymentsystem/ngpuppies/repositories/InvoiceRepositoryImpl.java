@@ -49,10 +49,8 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
 
     @Override
     public boolean create(Invoice invoice) {
-        Session session = null;
         Transaction transaction = null;
-        try {
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.save(invoice);
             transaction.commit();
@@ -64,10 +62,6 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
                 System.out.println("Couldn't roll back transaction!");
             }
             e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
         return false;
@@ -87,10 +81,8 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     public boolean payInvoice(Invoice invoice) {
-        Session session = null;
         Transaction transaction = null;
-        try {
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.update(invoice.getSubscriber());
             session.update(invoice);
@@ -104,10 +96,6 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
                 System.out.println("Couldn't roll back transaction!");
             }
             e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
         return false;
