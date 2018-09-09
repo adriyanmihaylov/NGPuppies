@@ -5,6 +5,7 @@ import com.paymentsystem.ngpuppies.repositories.base.CurrencyRepository;
 import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -69,14 +70,18 @@ public class CurrencyRepositoryImpl implements CurrencyRepository {
     }
 
     @Override
-    public boolean update(Currency currency) {
-        try(Session session = sessionFactory.openSession()) {
+    public boolean update(String currencyName,double fixing) {
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " UPDATE Currency c" +
+                    " SET c.fixing=:newFixing" +
+                    " WHERE c.name=:currencyName");
             session.beginTransaction();
-            session.update(currency);
+            int result = query.executeUpdate();
             session.getTransaction().commit();
 
-            return true;
-        }catch (Exception e) {
+            return result > 0;
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

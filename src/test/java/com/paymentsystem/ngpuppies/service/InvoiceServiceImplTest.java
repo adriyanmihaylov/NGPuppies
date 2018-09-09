@@ -53,7 +53,6 @@ public class InvoiceServiceImplTest {
     private TelecomServ mockTelecomServ;
 
     private static final Integer TELECOMSERV_ID = 1;
-    private static final String VALID_TELECOMSERV_NAME = "INTERNET";
 
     private static final LocalDate VALID_FROM_DATE = LocalDate.parse("2015-10-10");
     private static final LocalDate VALID_TO_DATE = LocalDate.parse("2016-11-11");
@@ -164,7 +163,7 @@ public class InvoiceServiceImplTest {
     }
 
     @Test
-    public void create_whenSuccessful_shouldReturnNull() {
+    public void create_onSuccess_shouldReturnNull() {
         mockSubscriber.addSubscriberServices(mockTelecomServ);
         when(subscriberRepository.getSubscriberByPhoneNumber(mockInvoiceDto.getSubscriberPhone())).thenReturn(mockSubscriber);
         when(telecomServRepository.getByName(mockInvoiceDto.getService())).thenReturn(mockTelecomServ);
@@ -191,7 +190,7 @@ public class InvoiceServiceImplTest {
     }
 
     @Test
-    public void delete_whenSuccessful_shouldReturnTrue() {
+    public void delete_onSuccess_shouldReturnTrue() {
         when(invoiceRepository.getById(mockInvoice.getId())).thenReturn(mockInvoice);
         when(invoiceRepository.delete(mockInvoice)).thenReturn(true);
 
@@ -237,8 +236,8 @@ public class InvoiceServiceImplTest {
     }
 
     @Test
-    public void payInvoices_whenSuccess_shouldReturnEmptyList() {
-        Currency currency = new Currency("eur");
+    public void payInvoices_onSuccess_shouldReturnEmptyList() {
+        Currency currency = new Currency("eur",1.955);
         InvoicePaymentDTO invoicePaymentDTO = new InvoicePaymentDTO(1, currency.getName());
         List<InvoicePaymentDTO> paymentDTOList = new ArrayList<>();
         paymentDTOList.add(invoicePaymentDTO);
@@ -259,7 +258,7 @@ public class InvoiceServiceImplTest {
     }
 
     @Test
-    public void getSubscriberInvoicesFromDateToDate_whenSuccess_shouldReturnListInvoices() {
+    public void getSubscriberInvoicesFromDateToDate_onSuccess_shouldReturnListInvoices() {
         when(invoiceRepository.getSubscriberPaidInvoicesFromDateToDate(VALID_PHONE_NUMBER, VALID_FROM_DATE, VALID_TO_DATE)).thenReturn(mockListInvoices);
 
         invoiceService.getSubscriberInvoicesFromDateToDate(VALID_PHONE_NUMBER, VALID_FROM_DATE.toString(), VALID_TO_DATE.toString());
@@ -299,7 +298,7 @@ public class InvoiceServiceImplTest {
     }
 
     @Test
-    public void geAllUnpaidInvoicesFromDateToDate_whenSuccess_shouldReturnListOfInvoices() {
+    public void geAllUnpaidInvoicesFromDateToDate_onSuccess_shouldReturnListOfInvoices() {
         when(invoiceRepository.geAllUnpaidInvoicesFromDateToDate(VALID_FROM_DATE,VALID_TO_DATE)).thenReturn(mockListInvoices);
 
         List<Invoice> result = invoiceService.geAllUnpaidInvoicesFromDateToDate(VALID_FROM_DATE.toString(),VALID_TO_DATE.toString());
@@ -312,7 +311,7 @@ public class InvoiceServiceImplTest {
         invoiceService.getAllUnpaidInvoicesOfSubscriberInDescOrder(null);
     }
     @Test
-    public void getAllUnpaidInvoicesOfSubscriberInDescOrder_whenSuccessful_shoutReturnListOfInvoices(){
+    public void getAllUnpaidInvoicesOfSubscriberInDescOrder_onSuccess_shoutReturnListOfInvoices(){
         when(invoiceRepository.getAllUnpaidInvoicesOfSubscriberInDescOrder(mockSubscriber.getPhone())).thenReturn(mockListInvoices);
 
         List<Invoice> result = invoiceService.getAllUnpaidInvoicesOfSubscriberInDescOrder(mockSubscriber.getPhone());
@@ -320,7 +319,7 @@ public class InvoiceServiceImplTest {
         Assert.assertEquals(mockListInvoices,result);
     }
     @Test
-    public void getTenMostRecentInvoices_whenSuccess_shouldReturnListOfInvoices() {
+    public void getTenMostRecentInvoices_onSuccess_shouldReturnListOfInvoices() {
         when(invoiceRepository.getTenMostRecentInvoices(mockClient.getId())).thenReturn(mockListInvoices);
 
         List<Invoice> result = invoiceService.getTenMostRecentInvoices(mockClient.getId());
@@ -329,7 +328,7 @@ public class InvoiceServiceImplTest {
     }
 
     @Test
-    public void getAllUnpaidInvoices_whenSuccess_shouldReturnListOfInvoices() {
+    public void getAllUnpaidInvoices_onSuccess_shouldReturnListOfInvoices() {
         when(invoiceRepository.getAllUnpaidInvoices()).thenReturn(mockListInvoices);
 
         List<Invoice> result = invoiceService.getAllUnpaidInvoices();
@@ -338,7 +337,7 @@ public class InvoiceServiceImplTest {
     }
 
     @Test
-    public void geAllUnpaidInvoicesOfAllClientSubscribers_whenSuccess_shouldReturnListOfInvoices() {
+    public void geAllUnpaidInvoicesOfAllClientSubscribers_onSuccess_shouldReturnListOfInvoices() {
         when(invoiceRepository.geAllUnpaidInvoicesOfAllClientSubscribers(mockClient.getId())).thenReturn(mockListInvoices);
 
         List<Invoice> result = invoiceService.geAllUnpaidInvoicesOfAllClientSubscribers(mockClient.getId());

@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class CurrencyDTO {
+public class CurrencyDto {
 
     @Length(min = 2,max = 10)
     @NotNull(message = "Invalid currency")
@@ -12,10 +12,10 @@ public class CurrencyDTO {
 
     double fixing;
 
-    public CurrencyDTO() {
+    public CurrencyDto() {
 
     }
-    public CurrencyDTO(String name, double fixing) {
+    public CurrencyDto(String name, double fixing) {
         setName(name);
         setFixing(fixing);
     }
