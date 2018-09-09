@@ -1,18 +1,14 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.ClientDetail;
-import com.paymentsystem.ngpuppies.models.dto.ClientDTO;
-import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
+import com.paymentsystem.ngpuppies.web.dto.ClientDTO;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.models.users.Client;
-import com.paymentsystem.ngpuppies.repositories.base.ClientDetailRepository;
 import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
 import com.paymentsystem.ngpuppies.services.base.AuthorityService;
 import com.paymentsystem.ngpuppies.services.base.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

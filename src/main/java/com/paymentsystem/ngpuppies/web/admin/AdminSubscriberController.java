@@ -1,12 +1,10 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.models.Address;
-import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
+import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.models.dto.SubscriberDTO;
+import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
 import com.paymentsystem.ngpuppies.models.viewModels.SubscriberSimpleViewModel;
-import com.paymentsystem.ngpuppies.services.base.ClientService;
-import com.paymentsystem.ngpuppies.services.base.TelecomServService;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import com.paymentsystem.ngpuppies.models.viewModels.SubscriberViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;

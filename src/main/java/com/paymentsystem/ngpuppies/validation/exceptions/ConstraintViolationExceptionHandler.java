@@ -3,7 +3,7 @@ package com.paymentsystem.ngpuppies.validation.exceptions;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
-import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
+import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

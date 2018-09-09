@@ -1,11 +1,9 @@
-package com.paymentsystem.ngpuppies.models.dto;
+package com.paymentsystem.ngpuppies.web.dto;
 
 import com.paymentsystem.ngpuppies.validation.anotations.ValidMoneyAmount;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidServiceName;
-
-import javax.validation.constraints.NotNull;
 
 public class InvoiceDTO {
 

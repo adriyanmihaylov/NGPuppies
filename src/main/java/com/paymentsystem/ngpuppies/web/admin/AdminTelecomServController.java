@@ -1,13 +1,9 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
-import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.models.TelecomServ;
-import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.models.dto.TelecomServiceDTO;
-import com.paymentsystem.ngpuppies.models.viewModels.SubscriberSimpleViewModel;
+import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
+import com.paymentsystem.ngpuppies.web.dto.TelecomServiceDTO;
 import com.paymentsystem.ngpuppies.services.base.TelecomServService;
 import com.paymentsystem.ngpuppies.models.viewModels.TelecomServSimpleViewModel;
-import com.paymentsystem.ngpuppies.models.viewModels.TelecomServViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidServiceName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

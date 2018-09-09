@@ -1,8 +1,9 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
-import com.paymentsystem.ngpuppies.models.dto.InvoiceDTO;
-import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.models.dto.ValidList;
+import com.paymentsystem.ngpuppies.models.Invoice;
+import com.paymentsystem.ngpuppies.web.dto.InvoiceDTO;
+import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
+import com.paymentsystem.ngpuppies.web.dto.ValidList;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
 import com.paymentsystem.ngpuppies.models.viewModels.InvoiceViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
@@ -103,7 +104,7 @@ public class AdminInvoiceController {
     public ResponseEntity<List<InvoiceViewModel>> getAllUnpaidInvoicesFromDateToDate(@PathVariable("from") @ValidDate String fromDate,
                                                                                      @RequestParam("to") @ValidDate String toDate) {
         try {
-            return new ResponseEntity<>(invoiceService.geAllUnpaidInvoicesFromDateToDate(fromDate,toDate)
+            return new ResponseEntity<>(invoiceService.geAllUnpaidInvoicesFromDateToDate(fromDate, toDate)
                     .stream()
                     .map(InvoiceViewModel::fromModel)
                     .collect(Collectors.toList()), HttpStatus.OK);
@@ -130,5 +131,25 @@ public class AdminInvoiceController {
         }
 
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping("/{phone}/paid")
+    public ResponseEntity<List<InvoiceViewModel>> getSubscriberPaidInvoicesFromDateToDate(@PathVariable("phone") @ValidPhone String subscriberPhone,
+                                                                                          @RequestParam("from") @ValidDate String fromDate,
+                                                                                          @RequestParam("to") @ValidDate String endDate) {
+
+        try {
+            List<Invoice> invoices = invoiceService.getSubscriberInvoicesFromDateToDate(subscriberPhone, fromDate, endDate);
+
+            return new ResponseEntity<>(invoices.stream()
+                    .map(InvoiceViewModel::fromModel)
+                    .collect(Collectors.toList()),
+                    HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

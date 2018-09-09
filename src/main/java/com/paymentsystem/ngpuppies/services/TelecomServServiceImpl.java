@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.TelecomServ;
-import com.paymentsystem.ngpuppies.models.dto.TelecomServiceDTO;
+import com.paymentsystem.ngpuppies.web.dto.TelecomServiceDTO;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.TelecomServRepository;
 import com.paymentsystem.ngpuppies.services.base.TelecomServService;

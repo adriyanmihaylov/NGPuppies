@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.services;
 
-import com.paymentsystem.ngpuppies.models.dto.AdminDTO;
+import com.paymentsystem.ngpuppies.web.dto.AdminDTO;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
@@ -46,7 +46,7 @@ public class AdminServiceImpl implements AdminService {
             throw new InvalidParameterException("Password is missing!");
         }
 
-        Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
+        Authority authority = authorityService.getByName(AuthorityName.ROLE_INITIAL);
         Admin admin = new Admin(adminDTO.getUsername(), passwordEncoder.encode(adminDTO.getPassword()), adminDTO.getEmail(), authority);
         admin.setEnabled(Boolean.FALSE);
 
@@ -68,6 +68,17 @@ public class AdminServiceImpl implements AdminService {
             admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
             admin.setLastPasswordResetDate(new Date());
         }
+
+        return adminRepository.update(admin);
+    }
+
+    @Override
+    public boolean updateOnFirstLogin(Admin admin) throws SQLException {
+        Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        admin.setAuthority(authority);
+        admin.setLastPasswordResetDate(new Date());
+        admin.setEnabled(Boolean.TRUE);
 
         return adminRepository.update(admin);
     }

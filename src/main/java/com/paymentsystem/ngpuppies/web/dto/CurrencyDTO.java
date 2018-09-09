@@ -1,6 +1,5 @@
-package com.paymentsystem.ngpuppies.models.dto;
+package com.paymentsystem.ngpuppies.web.dto;
 
-import com.paymentsystem.ngpuppies.validation.anotations.ValidMoneyAmount;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -11,11 +10,14 @@ public class CurrencyDTO {
     @NotNull(message = "Invalid currency")
     String name;
 
-    @NotNull(message = "Enter fixing")
-    Double fixing;
+    double fixing;
 
     public CurrencyDTO() {
 
+    }
+    public CurrencyDTO(String name, double fixing) {
+        setName(name);
+        setFixing(fixing);
     }
 
     public String getName() {

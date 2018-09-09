@@ -10,9 +10,31 @@ angular.module('NGPuppies')
                 $scope.message = error.message;
             });
         };
-        $scope.initEdit = function(chosenCurrency){
-            $scope.editedCurrency.name = chosenCurrency.name;
-            $scope.editedCurrency.fixing = chosenCurrency.fixing;
+        $scope.initEdit = function(currency){
+            $scope.editedCurrency = currency;
+        };
+        $scope.edit = function(currency){
+            var data = {"list" : [{
+                  name: currency.name,
+                    fixing: currency.fixing
+                }]
+            };
+            $http({
+                url : '/api/currency/update',
+                method : "PUT",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            }).success(function (res) {
+                $scope.currencySuccess = "Success!";
+                initCurrencies();
+            }).error(function (error) {
+                $scope.currencyError = error.message;
+            });
         };
         initCurrencies();
+        $scope.reset = function () {
+            $scope.currencyError = null;
+            $scope.currencySuccess = null;
+        }
     });

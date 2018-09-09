@@ -14,23 +14,23 @@
 
                         </tbody>
                     </table>
-                    <div class="form-group row" >
+                    <div class="form-group row" ng-model="editedCurrency" >
                         <label for="name" class="col-4 col-form-label">Currency name</label>
                         <div class="col-8">
-                            <input class="form-control"  type="number" ng-model ="editedCurrency.name" id="name">
+                            <input class="form-control" disabled type="text" ng-model ="editedCurrency.name" id="name">
                         </div>
                         <label for="name" class="col-4 col-form-label">Fixing</label>
                         <div class="col-8">
-                            <input class="form-control"  type="number" ng-model ="editedCurrency.fixing" id="fixing">
+                            <input class="form-control" ng-change="reset()"  type="number" ng-model ="editedCurrency.fixing" id="fixing">
                         </div>
                     </div>
-                    <div class="alert alert-dismissible alert-success" ng-show = "serviceSuccesss">
-                        <strong>{{serviceSuccesss}}</strong>
+                    <div class="alert alert-dismissible alert-success" ng-show = "currencySuccess">
+                        <strong>{{currencySuccess}}</strong>
                     </div>
-                    <div class="alert alert-dismissible alert-danger" ng-show="errorService">
-                        <strong>{{errorService}}</strong>
+                    <div class="alert alert-dismissible alert-danger" ng-show="currencyError">
+                        <strong>{{currencyError}}</strong>
                     </div>
-                    <button class="btn btn btn-success" type="submit" ng-click="edit(service)">Edit</button>
+                    <button class="btn btn btn-success" type="submit" ng-click="edit(editedCurrency)">Edit</button>
                 </div >
             </div>
     </div>

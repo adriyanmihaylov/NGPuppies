@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.services.base;
 
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.models.dto.SubscriberDTO;
+import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
 
 import java.rmi.AlreadyBoundException;
 import java.security.InvalidParameterException;

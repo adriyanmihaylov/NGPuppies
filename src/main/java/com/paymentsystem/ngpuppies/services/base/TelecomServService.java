@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.services.base;
 
 import com.paymentsystem.ngpuppies.models.TelecomServ;
-import com.paymentsystem.ngpuppies.models.dto.TelecomServiceDTO;
+import com.paymentsystem.ngpuppies.web.dto.TelecomServiceDTO;
 import com.paymentsystem.ngpuppies.models.users.Client;
 
 import java.security.InvalidParameterException;

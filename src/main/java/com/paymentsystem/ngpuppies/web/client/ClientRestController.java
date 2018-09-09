@@ -1,11 +1,10 @@
 package com.paymentsystem.ngpuppies.web.client;
 
+import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.models.TelecomServ;
-import com.paymentsystem.ngpuppies.models.dto.InvoicePaymentDTO;
-import com.paymentsystem.ngpuppies.models.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.models.dto.TelecomServiceDTO;
-import com.paymentsystem.ngpuppies.models.dto.ValidList;
+import com.paymentsystem.ngpuppies.web.dto.InvoicePaymentDTO;
+import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
+import com.paymentsystem.ngpuppies.web.dto.ValidList;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.models.viewModels.*;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
@@ -250,6 +249,32 @@ public class ClientRestController {
         }
 
         return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later!"), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping("invoice/{phone}/paid")
+    public ResponseEntity<List<InvoiceViewModel>> getSubscriberPaidInvoicesFromDateToDate(@PathVariable("phone") @ValidPhone String subscriberPhone,
+                                                                                          @RequestParam("from") @ValidDate String fromDate,
+                                                                                          @RequestParam("to") @ValidDate String endDate,
+                                                                                          Authentication authentication) {
+
+        try {
+            Subscriber subscriber = getSubscriberOfCurrentlyLoggedClient(subscriberPhone,authentication);
+            if(subscriber == null) {
+                throw new IllegalArgumentException("There is no such subscriber");
+            }
+
+            List<Invoice> invoices = invoiceService.getSubscriberInvoicesFromDateToDate(subscriberPhone, fromDate, endDate);
+
+            return new ResponseEntity<>(invoices.stream()
+                    .map(InvoiceViewModel::fromModel)
+                    .collect(Collectors.toList()),
+                    HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @ExceptionHandler({IllegalArgumentException.class})

@@ -1,11 +1,9 @@
-package com.paymentsystem.ngpuppies.models.dto;
+package com.paymentsystem.ngpuppies.web.dto;
 
 import com.paymentsystem.ngpuppies.models.ClientDetail;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidEik;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class ClientDTO {

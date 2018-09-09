@@ -1,6 +1,6 @@
 package com.paymentsystem.ngpuppies.services.base;
 
-import com.paymentsystem.ngpuppies.models.dto.ClientDTO;
+import com.paymentsystem.ngpuppies.web.dto.ClientDTO;
 import com.paymentsystem.ngpuppies.models.users.Client;
 
 import java.security.InvalidParameterException;

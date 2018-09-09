@@ -37,19 +37,17 @@ public class InvoiceServiceImplTests {
     @Test
     public void getAllInvoices_shouldReturnSameListSize() {
         // Arrange
-        invoices.add(new Invoice());
-        invoices.add(new Invoice());
-        invoices.add(new Invoice());
-        invoices.add(new Invoice());
-        invoices.add(new Invoice());
+        for (int i = 0; i < 5; i++) {
+            invoices.add(new Invoice());
+        }
 
         // Act
         List<Invoice> actualRestaurants = invoiceService.getAll();
 
         // Assert
-
         Assert.assertEquals(actualRestaurants.size(), invoices.size());
     }
+
     @Test
     public void getALlBillingRecords_whenNoRecords_ReturnEmptyList(){
         List<Invoice> records = invoiceService.getAll();

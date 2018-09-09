@@ -54,6 +54,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                    User user = userService.loadById(id);
 
                     // For simple validation it is completely sufficient to just check the token integrity.
+                    //Because we are checking user lastPasswordResetDate we have to load the user
                     if (jwtTokenUtil.validateToken(authToken, user)) {
                         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
