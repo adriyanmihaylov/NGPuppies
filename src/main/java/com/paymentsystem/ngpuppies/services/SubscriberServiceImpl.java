@@ -20,12 +20,16 @@ import java.util.*;
 
 @Service
 public class SubscriberServiceImpl implements SubscriberService {
+    private final SubscriberRepository subscriberRepository;
+    private final TelecomServRepository telecomServRepository;
+    private final ClientRepository clientRepository;
+
     @Autowired
-    private SubscriberRepository subscriberRepository;
-    @Autowired
-    private TelecomServRepository telecomServRepository;
-    @Autowired
-    private ClientRepository clientRepository;
+    public SubscriberServiceImpl(SubscriberRepository subscriberRepository, TelecomServRepository telecomServRepository, ClientRepository clientRepository) {
+        this.subscriberRepository = subscriberRepository;
+        this.telecomServRepository = telecomServRepository;
+        this.clientRepository = clientRepository;
+    }
 
     @Override
     public List<Subscriber> getAll() {
@@ -162,13 +166,17 @@ public class SubscriberServiceImpl implements SubscriberService {
         return subscriberRepository.getAllSubscribersByService(telecomServ.getId());
     }
 
-    private boolean validateDate(String start, String end) throws InvalidParameterException{
-        if (start.equals(end)) {
-            return true;
-        }
+    public boolean validateDate(String start, String end) throws InvalidParameterException{
+        try {
+            if (start.equals(end)) {
+                return true;
+            }
 
-        if (LocalDate.parse(start).isAfter(LocalDate.parse(end))) {
-            throw new InvalidParameterException("Invalid date range!");
+            if (LocalDate.parse(start).isAfter(LocalDate.parse(end))) {
+                throw new InvalidParameterException("Invalid date range!");
+            }
+        } catch (Exception e) {
+            throw new InvalidParameterException("Invalid dates!");
         }
 
         return true;

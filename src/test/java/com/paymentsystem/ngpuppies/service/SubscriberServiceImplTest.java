@@ -144,6 +144,17 @@ public class SubscriberServiceImplTest {
         Assert.assertTrue(isExecuted);
     }
 
+    @Test
+    public void create_whenSubscriberDoesNotHaveAddress_shouldAddAddressAndReturnTrue() throws SQLException {
+        when(clientRepository.loadByUsername(subscriberDTO.getClient())).thenReturn(mockedClient);
+        when(subscribersRepository.create(any(Subscriber.class))).thenReturn(true);
+        subscriberDTO.setAddress(null);
+        boolean isExecuted = subscriberService.create(subscriberDTO);
+
+        Assert.assertTrue(isExecuted);
+        Assert.assertTrue(subscriberDTO.getAddress() != null);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void update_whenSubscriberIsNotPresent_shouldThrowException() throws SQLException {
         when(subscribersRepository.getSubscriberByPhoneNumber(VALID_PHONE_NUMBER)).thenReturn(null);
@@ -210,6 +221,17 @@ public class SubscriberServiceImplTest {
 
         subscriberService.addServiceToSubscriber(VALID_PHONE_NUMBER, mockedTelecomServ.getName());
     }
+    @Test()
+    public void addServiceToSubscriber_whenSubscriberListOfServicesIsNull_shouldCreateNewListAndReturnTrue() throws AlreadyBoundException, SQLException {
+        mockedSubscriber.setSubscriberServices(null);
+        when(subscribersRepository.getSubscriberByPhoneNumber(VALID_PHONE_NUMBER)).thenReturn(mockedSubscriber);
+        when(telecomServRepository.getByName(mockedTelecomServ.getName())).thenReturn(mockedTelecomServ);
+        when(subscribersRepository.update(mockedSubscriber)).thenReturn(true);
+
+        boolean expectedResult = subscriberService.addServiceToSubscriber(VALID_PHONE_NUMBER, mockedTelecomServ.getName());
+
+        Assert.assertTrue(expectedResult);
+    }
 
     @Test
     public void addServiceToSubscriber_whenSuccessful_shouldReturnTrue() throws AlreadyBoundException, SQLException {
@@ -251,6 +273,15 @@ public class SubscriberServiceImplTest {
     }
 
     @Test(expected = InvalidParameterException.class)
+    public void getAllSubscribersUsingServiceByServiceName_whenServiceIsNotPresent_shouldThrowException() {
+        when(telecomServRepository.getByName(VALID_TELECOMSERV_NAME)).thenReturn(null);
+        when(subscribersRepository.getAllSubscribersByService(mockedTelecomServ.getId())).thenReturn(subscriberList);
+
+        subscriberService.getAllSubscribersUsingServiceByServiceName(VALID_TELECOMSERV_NAME);
+    }
+
+
+    @Test(expected = InvalidParameterException.class)
     public void getSubscriberAverageSumOfPaidInvoices_whenDatesAreInvalid_shoudThrowException() {
         subscriberService.getSubscriberAverageSumOfPaidInvoices(mockedSubscriber, VALID_FROM_DATE, INVALID_TO_DATE);
     }
@@ -287,5 +318,12 @@ public class SubscriberServiceImplTest {
             Assert.assertEquals(entry.getKey(), mockedSubscriber);
             Assert.assertEquals(targetAmount, entry.getValue(), 0);
         }
+    }
+
+    @Test
+    public void validateDate_whenDatesAreEqual_shouldReturnTrue() {
+        boolean result = subscriberService.validateDate(VALID_FROM_DATE,VALID_FROM_DATE);
+
+        Assert.assertTrue(result);
     }
 }

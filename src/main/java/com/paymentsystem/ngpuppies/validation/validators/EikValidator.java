@@ -8,8 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EikValidator implements ConstraintValidator<ValidEik, String> {
-    private Pattern pattern;
-    private Matcher matcher;
     private static final String EIK_PATTERN = "^[0-9]{9}$";
 
     @Override
@@ -25,8 +23,8 @@ public class EikValidator implements ConstraintValidator<ValidEik, String> {
         if (eik == null) {
             return false;
         }
-        pattern = Pattern.compile(EIK_PATTERN);
-        matcher = pattern.matcher(eik);
+        Pattern pattern = Pattern.compile(EIK_PATTERN);
+        Matcher matcher = pattern.matcher(eik);
 
         return matcher.matches();
     }

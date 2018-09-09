@@ -6,8 +6,6 @@ import javax.validation.*;
 import java.util.regex.*;
 
 public class ServiceNameValidator implements ConstraintValidator<ValidServiceName, String> {
-    private Pattern pattern;
-    private Matcher matcher;
 
     private static final String SERVICE_NAME_PATTERN = "^[A-z0-9]*((-|\\s)*[_A-z0-9]){2,20}$";
 
@@ -24,8 +22,8 @@ public class ServiceNameValidator implements ConstraintValidator<ValidServiceNam
         if (serviceName == null) {
             return false;
         }
-        pattern = Pattern.compile(SERVICE_NAME_PATTERN);
-        matcher = pattern.matcher(serviceName);
+        Pattern pattern = Pattern.compile(SERVICE_NAME_PATTERN);
+        Matcher matcher = pattern.matcher(serviceName);
         return matcher.matches();
     }
 }

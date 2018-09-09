@@ -16,7 +16,7 @@ public interface SubscriberRepository {
 
     boolean delete(Subscriber subscriber);
 
-    List<Subscriber> getAllSubscribersByService(Integer serviceId) ;
+    List<Subscriber> getAllSubscribersByService(Integer serviceId);
 
     List<Subscriber> getTenAllTimeSubscribersOfClientWithBiggestBillsPaid(Integer clientId);
 

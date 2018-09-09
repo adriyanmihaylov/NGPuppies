@@ -3,7 +3,6 @@ package com.paymentsystem.ngpuppies.security;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class  JwtAuthenticationRequest implements Serializable {

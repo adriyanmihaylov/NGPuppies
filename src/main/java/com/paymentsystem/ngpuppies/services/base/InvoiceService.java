@@ -16,7 +16,6 @@ public interface InvoiceService {
 
     InvoiceDTO create(InvoiceDTO invoiceDTO);
 
-    boolean update(List<Invoice> invoice);
 
     boolean delete(int id, String subscriberPhone);
 
@@ -34,7 +33,7 @@ public interface InvoiceService {
 
     List<Invoice> getTenMostRecentInvoices(int clientId);
 
-    Invoice getSubscriberLargestPaidInvoice(Subscriber subscriber, String fromDate, String endDate) throws InvalidParameterException;
+    Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Subscriber subscriber, String fromDate, String endDate) throws InvalidParameterException;
 
     List<Invoice> getAllUnpaidInvoicesOfService(String serviceName) throws InvalidParameterException;
 

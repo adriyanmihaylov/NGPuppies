@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
@@ -124,6 +123,13 @@ public class UserServiceImplTest {
         boolean result = userService.deleteByUsername(userMock.getUsername());
 
         Assert.assertTrue(result);
+    }
+
+    @Test(expected = UsernameNotFoundException.class)
+    public void delete_whenUserNotPresent_shouldThrowException() {
+        when(userRepository.loadByUsername(userMock.getUsername())).thenReturn(null);
+
+        userService.deleteByUsername(userMock.getUsername());
     }
 
 
