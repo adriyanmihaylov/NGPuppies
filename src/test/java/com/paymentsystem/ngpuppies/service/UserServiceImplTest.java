@@ -3,6 +3,7 @@ package com.paymentsystem.ngpuppies.service;
 import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.repositories.base.UserRepository;
 import com.paymentsystem.ngpuppies.services.UserServiceImpl;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -124,6 +125,13 @@ public class UserServiceImplTest {
         boolean result = userService.deleteByUsername(userMock.getUsername());
 
         Assert.assertTrue(result);
+    }
+
+    @Test(expected = UsernameNotFoundException.class)
+    public void delete_whenUserNotPresent_shouldThrowException() {
+        when(userRepository.loadByUsername(userMock.getUsername())).thenReturn(null);
+
+        userService.deleteByUsername(userMock.getUsername());
     }
 
 

@@ -1,7 +1,6 @@
 package com.paymentsystem.ngpuppies.repositories;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
-import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -57,35 +56,6 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
             transaction = session.beginTransaction();
             session.save(invoice);
             transaction.commit();
-            return true;
-        } catch (Exception e) {
-            try {
-                transaction.rollback();
-            } catch (RuntimeException exception) {
-                System.out.println("Couldn't roll back transaction!");
-            }
-            e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean update(List<Invoice> invoices) {
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            for (Invoice invoice : invoices) {
-                session.update(invoice);
-            }
-            transaction.commit();
-            session.close();
             return true;
         } catch (Exception e) {
             try {
@@ -235,7 +205,7 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> geAllUnpaidInvoicesForAllSubscribersOfClient(int clientId) {
+    public List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +
                     " FROM Invoice i" +
@@ -256,15 +226,15 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> getSubscriberPaidInvoicesFromDateToDate(int subscriberId, LocalDate fromDate, LocalDate toDate) {
+    public List<Invoice> getSubscriberPaidInvoicesFromDateToDate(String subscriberPhone, LocalDate fromDate, LocalDate toDate) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +
                     " FROM Invoice i " +
-                    " WHERE i.subscriber.id=:subscriberId" +
+                    " WHERE i.subscriber.phone=:subscriberPhone" +
                     " AND i.payedDate >= :fromDate" +
                     " AND i.payedDate <= :toDate " +
                     " ORDER BY i.payedDate DESC ");
-            query.setParameter("subscriberId", subscriberId);
+            query.setParameter("subscriberPhone", subscriberPhone);
             query.setParameter("fromDate", fromDate);
             query.setParameter("toDate", toDate);
 
@@ -303,7 +273,7 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
-    public List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(Integer subscriberId) {
+    public List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(int subscriberId) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +
                     " From Invoice i " +

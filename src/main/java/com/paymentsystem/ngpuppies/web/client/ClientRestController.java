@@ -159,7 +159,7 @@ public class ClientRestController {
         try {
             Subscriber subscriber = getSubscriberOfCurrentlyLoggedClient(subscriberPhone, authentication);
 
-            InvoiceViewModel viewModel = InvoiceViewModel.fromModel(invoiceService.getSubscriberLargestPaidInvoice(subscriber, fromDate, endDate));
+            InvoiceViewModel viewModel = InvoiceViewModel.fromModel(invoiceService.getSubscriberLargestPaidInvoiceForPeriodOfTime(subscriber, fromDate, endDate));
 
             return new ResponseEntity<>(viewModel, HttpStatus.OK);
 

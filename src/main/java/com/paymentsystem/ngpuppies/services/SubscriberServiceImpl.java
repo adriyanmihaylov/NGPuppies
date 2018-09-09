@@ -4,6 +4,7 @@ import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
+import com.paymentsystem.ngpuppies.validation.DateValidator;
 import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
@@ -15,17 +16,22 @@ import org.springframework.stereotype.Service;
 import java.rmi.AlreadyBoundException;
 import java.security.InvalidParameterException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.*;
 
 @Service
 public class SubscriberServiceImpl implements SubscriberService {
+    private final SubscriberRepository subscriberRepository;
+    private final TelecomServRepository telecomServRepository;
+    private final ClientRepository clientRepository;
+
     @Autowired
-    private SubscriberRepository subscriberRepository;
-    @Autowired
-    private TelecomServRepository telecomServRepository;
-    @Autowired
-    private ClientRepository clientRepository;
+    public SubscriberServiceImpl(SubscriberRepository subscriberRepository, TelecomServRepository telecomServRepository, ClientRepository clientRepository) {
+        this.subscriberRepository = subscriberRepository;
+        this.telecomServRepository = telecomServRepository;
+        this.clientRepository = clientRepository;
+    }
 
     @Override
     public List<Subscriber> getAll() {
@@ -162,13 +168,17 @@ public class SubscriberServiceImpl implements SubscriberService {
         return subscriberRepository.getAllSubscribersByService(telecomServ.getId());
     }
 
-    private boolean validateDate(String start, String end) throws InvalidParameterException{
-        if (start.equals(end)) {
-            return true;
-        }
+    public boolean validateDate(String start, String end) throws InvalidParameterException{
+        try {
+            if (start.equals(end)) {
+                return true;
+            }
 
-        if (LocalDate.parse(start).isAfter(LocalDate.parse(end))) {
-            throw new InvalidParameterException("Invalid date range!");
+            if (LocalDate.parse(start).isAfter(LocalDate.parse(end))) {
+                throw new InvalidParameterException("Invalid date range!");
+            }
+        } catch (Exception e) {
+            throw new InvalidParameterException("Invalid dates!");
         }
 
         return true;
