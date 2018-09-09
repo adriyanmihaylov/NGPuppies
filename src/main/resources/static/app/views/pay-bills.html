@@ -47,55 +47,54 @@
             </div>
         </div>
     </form>
-    <div id="invoiceDitails" style="display: none; margin-top: 50px">
-    <h1> {{subscriber}} </h1>
-    <table  class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Currency</th>
-            <th scope="col">Service</th>
-            <th scope="col">Payed status</th>
-            <th><button class="btn btn btn-success"  type="submit" ng-disabled="checked===false" ng-click = "paySelected()">Pay all selected</button></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="invoice in invoices" ng-attr-id="{{invoice.id}}" class = "table-danger"  ng-if = "invoice.status === 'Not paid'" ng-class="{ 'payed': checked }">
-            <th scope="row"></th>
-            <td>{{invoice.amount}}</td>
-            <td> <select class="form-control" ng-attr-id="{{custom-invoice.id}}" ng-model = "currency">
-                <option>BGN</option>
-                <option>USD</option>
-                <option>EUR</option>
-            </select></td>
-            <td>{{invoice.service}}</td>
-            <td>{{invoice.status}}</td>
-            <td>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" checked="" ng-model = "checked">
-                        Pay me
-                    </label>
-                </div>
-            </td>
-            <td><button type="button" class="btn btn-info btn-sm"
-                        ng-click="initPay(invoice)">
-                Pay
-                <span class="glyphicon glyphicon-edit"></span>
-            </button></td>
-        </tr>
-        <tr ng-repeat="invoice in invoices" class="table-primary" ng-if = "invoice.status !== 'Not paid'">
-            <th scope="row"></th>
-            <td>{{invoice.amount}}</td>
-            <td>BGN</td>
-            <td>{{invoice.service}}</td>
-            <td>{{invoice.status}}</td>
-        </tr>
-        </tbody>
-    </table>
-    </div>
-
 </div>
+    <div id="invoiceDitails" style="display: none; margin-top: 50px">
+        <h1> {{subscriber}} </h1>
+        <table  class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Currency</th>
+                <th scope="col">Service</th>
+                <th scope="col">Payed status</th>
+                <th><button class="btn btn btn-success"  type="submit" ng-disabled="checked===false" ng-click = "paySelected()">Pay all selected</button></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="invoice in invoices" ng-attr-id="{{invoice.id}}" class = "table-danger"  ng-if = "invoice.status === 'Not paid'" ng-class="{ 'payed': checked }">
+                <th scope="row"></th>
+                <td>{{invoice.amount}}</td>
+                <td> <select class="form-control" ng-attr-id="{{custom-invoice.id}}" ng-model = "currency">
+                    <option>BGN</option>
+                    <option>USD</option>
+                    <option>EUR</option>
+                </select></td>
+                <td>{{invoice.service}}</td>
+                <td>{{invoice.status}}</td>
+                <td>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="" checked="" ng-model = "checked">
+                            Pay me
+                        </label>
+                    </div>
+                </td>
+                <td><button type="button" class="btn btn-info btn-sm"
+                            ng-click="initPay(invoice)">
+                    Pay
+                    <span class="glyphicon glyphicon-edit"></span>
+                </button></td>
+            </tr>
+            <tr ng-repeat="invoice in invoices" class="table-primary" ng-if = "invoice.status !== 'Not paid'">
+                <th scope="row"></th>
+                <td>{{invoice.amount}}</td>
+                <td>{{invoice.currency}}</td>
+                <td>{{invoice.service}}</td>
+                <td>{{invoice.status}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </div>

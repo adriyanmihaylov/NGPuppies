@@ -17,6 +17,10 @@ angular.module('NGPuppies')
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
+                if (result === ""){
+                    $scope.message  = "No such subscriber!";
+                    return;
+                }
                 $scope.subscriber = "Paid invoices for: " + $scope.phoneNumber;
                 $scope.invoices = result;
                 $("#invoiceDitails").css("display","");
@@ -33,7 +37,6 @@ angular.module('NGPuppies')
             }).success(function(result) {
                 $scope.subscriber = "Unpaid invoices for: " + $scope.phoneNumber;
                 $scope.invoices = result;
-                console.log(result);
                 $("#invoiceDitails").css("display","");
             }).error(function (err) {
                 $scope.message = err.message;
@@ -48,7 +51,7 @@ angular.module('NGPuppies')
             }).success(function(result) {
                 $scope.subscriber = "All invoices for: " + $scope.phoneNumber;
                 $scope.invoices = result;
-                console.log(result);
+
                 $("#invoiceDitails").css("display","");
             }).error(function (err) {
                 $scope.message = err.message;
