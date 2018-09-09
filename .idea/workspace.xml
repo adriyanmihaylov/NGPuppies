@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b13e098f-721e-4844-93ad-918fc3e04738" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientDetailRepositoryImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/ClientDetailRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/ClientDetailService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/ClientServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/ClientServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -25,7 +19,7 @@
     <SUITE FILE_PATH="coverage/ngpuppies$All_in_ngpuppies_test__3_.ic" NAME="All in ngpuppies_test (3) Coverage Results" MODIFIED="1536515537911" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/ngpuppies$All_in_ngpuppies_test__1_.ic" NAME="All in ngpuppies_test (1) Coverage Results" MODIFIED="1536513615568" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/ngpuppies$All_in_ngpuppies_test__2_.ic" NAME="All in ngpuppies_test (2) Coverage Results" MODIFIED="1536515224902" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/ngpuppies$All_in_ngpuppies_test.ic" NAME="All in ngpuppies_test Coverage Results" MODIFIED="1536514919963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/ngpuppies$All_in_ngpuppies_test.ic" NAME="All in ngpuppies_test Coverage Results" MODIFIED="1536516053273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CoverageOptionsProvider">
     <option name="myAddOrReplace" value="0" />
@@ -56,27 +50,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NGPuppiesApplication.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/NGPuppiesApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientRepositoryImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/ClientRepositoryImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ClientServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -102,11 +75,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientDetailServiceImplTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClientDetailServiceImplTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/ClientDetailServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+            <state relative-caret-position="476">
+              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthorityServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthorityServiceImplTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/AuthorityServiceImplTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="526">
+              <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -628,8 +622,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/DateValidator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EgnValidator.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EikValidator.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/EmailValidator.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/validators/MoneyAmountValidator.java" />
@@ -679,6 +671,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/ClientServiceImplTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/ClientDetailServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/AuthorityServiceImplTest.java" />
       </list>
     </option>
   </component>
@@ -755,17 +749,7 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ngpuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ngpuppies" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ngpuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ngpuppies" type="b2602c69:ProjectViewProjectNode" />
@@ -842,43 +826,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in ngpuppies_test (3)">
+  <component name="RunManager" selected="JUnit.All in ngpuppies_test">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-    </configuration>
-    <configuration name="All in ngpuppies_test (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ngpuppies_test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="All in ngpuppies_test (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ngpuppies_test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
     </configuration>
     <configuration name="All in ngpuppies_test (3)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ngpuppies_test" />
@@ -897,20 +847,14 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="ClientDetailServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in ngpuppies_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ngpuppies_test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
-      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.ClientDetailServiceImplTest" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" />
       <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="package" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -920,7 +864,7 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="ClientDetailServiceImplTest.addDetailsToClient_whenClientDetailIsNull_shouldReturnFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AuthorityServiceImplTest.getById_onSuccess_shouldReturnAuthority" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ngpuppies_test" />
       <extension name="coverage">
         <pattern>
@@ -931,8 +875,54 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
-      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.ClientDetailServiceImplTest" />
-      <option name="METHOD_NAME" value="addDetailsToClient_whenClientDetailIsNull_shouldReturnFalse" />
+      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.AuthorityServiceImplTest" />
+      <option name="METHOD_NAME" value="getById_onSuccess_shouldReturnAuthority" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="AuthorityServiceImplTest.getByName_onSuccess_shouldReturnAuthority" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ngpuppies_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
+      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.AuthorityServiceImplTest" />
+      <option name="METHOD_NAME" value="getByName_onSuccess_shouldReturnAuthority" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="AuthorityServiceImplTest.getByName_whenNameIsNull_shouldReturnNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ngpuppies_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.paymentsystem.ngpuppies.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.paymentsystem.ngpuppies.service" />
+      <option name="MAIN_CLASS_NAME" value="com.paymentsystem.ngpuppies.service.AuthorityServiceImplTest" />
+      <option name="METHOD_NAME" value="getByName_whenNameIsNull_shouldReturnNull" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -987,19 +977,19 @@
     </configuration>
     <list>
       <item itemvalue="Spring Boot.NGPuppiesApplication" />
-      <item itemvalue="JUnit.ClientDetailServiceImplTest.addDetailsToClient_whenClientDetailIsNull_shouldReturnFalse" />
-      <item itemvalue="JUnit.All in ngpuppies_test (1)" />
-      <item itemvalue="JUnit.All in ngpuppies_test (2)" />
-      <item itemvalue="JUnit.ClientDetailServiceImplTest" />
       <item itemvalue="JUnit.All in ngpuppies_test (3)" />
+      <item itemvalue="JUnit.AuthorityServiceImplTest.getById_onSuccess_shouldReturnAuthority" />
+      <item itemvalue="JUnit.AuthorityServiceImplTest.getByName_whenNameIsNull_shouldReturnNull" />
+      <item itemvalue="JUnit.AuthorityServiceImplTest.getByName_onSuccess_shouldReturnAuthority" />
+      <item itemvalue="JUnit.All in ngpuppies_test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in ngpuppies_test" />
+        <item itemvalue="JUnit.AuthorityServiceImplTest.getByName_onSuccess_shouldReturnAuthority" />
+        <item itemvalue="JUnit.AuthorityServiceImplTest.getByName_whenNameIsNull_shouldReturnNull" />
+        <item itemvalue="JUnit.AuthorityServiceImplTest.getById_onSuccess_shouldReturnAuthority" />
         <item itemvalue="JUnit.All in ngpuppies_test (3)" />
-        <item itemvalue="JUnit.ClientDetailServiceImplTest" />
-        <item itemvalue="JUnit.All in ngpuppies_test (2)" />
-        <item itemvalue="JUnit.All in ngpuppies_test (1)" />
-        <item itemvalue="JUnit.ClientDetailServiceImplTest.addDetailsToClient_whenClientDetailIsNull_shouldReturnFalse" />
       </list>
     </recent_temporary>
   </component>
@@ -1013,26 +1003,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1536496257733</updated>
-      <workItem from="1536496260388" duration="18750000" />
+      <workItem from="1536496260388" duration="19395000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ClientDetailServiceImplTest_create_whenClientDetailAreNotNull_shouldReturnTrue - 2018.09.09 at 20h 35m 35s.xml">
-      <configuration name="ClientDetailServiceImplTest.create_whenClientDetailAreNotNull_shouldReturnTrue" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientDetailServiceImplTest_update_whenClientDetailAreNull_shouldReturnFalse - 2018.09.09 at 20h 36m 27s.xml">
-      <configuration name="ClientDetailServiceImplTest.update_whenClientDetailAreNull_shouldReturnFalse" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientServiceImplTest_update_whenClientDetailsAreNull_shouldCreateNewDetailsAndSave - 2018.09.09 at 20h 39m 50s.xml">
-      <configuration name="ClientServiceImplTest.update_whenClientDetailsAreNull_shouldCreateNewDetailsAndSave" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ClientServiceImplTest_update_whenClientAndClientDtoDetailsAreNotNull_shouldUpdateClientDetails - 2018.09.09 at 20h 39m 50s.xml">
-      <configuration name="ClientServiceImplTest.update_whenClientAndClientDtoDetailsAreNotNull_shouldUpdateClientDetails" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_ngpuppies_test - 2018.09.09 at 20h 39m 50s.xml">
-      <configuration name="All in ngpuppies_test" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ClientDetailServiceImplTest_addDetailsToClient_whenClientUsernameIsNull_shouldReturnFalse - 2018.09.09 at 20h 41m 54s.xml">
       <configuration name="ClientDetailServiceImplTest.addDetailsToClient_whenClientUsernameIsNull_shouldReturnFalse" configurationId="JUnit" />
     </history-entry>
@@ -1048,13 +1023,27 @@
     <history-entry file="All_in_ngpuppies_test_(2) - 2018.09.09 at 20h 47m 07s.xml">
       <configuration name="All in ngpuppies_test (2)" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="ClientDetailServiceImplTest - 2018.09.09 at 20h 52m 14s.xml">
+      <configuration name="ClientDetailServiceImplTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_ngpuppies_test_(3) - 2018.09.09 at 20h 52m 20s.xml">
+      <configuration name="All in ngpuppies_test (3)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthorityServiceImplTest_getById_onSuccess_shouldReturnAuthority - 2018.09.09 at 20h 56m 57s.xml">
+      <configuration name="AuthorityServiceImplTest.getById_onSuccess_shouldReturnAuthority" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthorityServiceImplTest_getByName_whenNameIsNull_shouldReturnNull - 2018.09.09 at 21h 00m 10s.xml">
+      <configuration name="AuthorityServiceImplTest.getByName_whenNameIsNull_shouldReturnNull" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthorityServiceImplTest_getByName_onSuccess_shouldReturnAuthority - 2018.09.09 at 21h 00m 49s.xml">
+      <configuration name="AuthorityServiceImplTest.getByName_onSuccess_shouldReturnAuthority" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18750000" />
+    <option name="totallyTimeSpent" value="19395000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="8" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
@@ -1174,25 +1163,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/client/ClientRestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="167" column="31" selection-start-line="167" selection-start-column="31" selection-end-line="167" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/dto/TelecomServDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#241#242#0" expanded="true" />
-            <element signature="e#270#271#0" expanded="true" />
-            <element signature="e#295#296#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/TelecomServ.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -1631,16 +1601,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/ClientServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="553">
@@ -1651,10 +1611,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/ClientDetailServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+        <state relative-caret-position="476">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/AuthorityServiceImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
