@@ -4,7 +4,7 @@ angular.module('NGPuppies')
     $scope.username = AuthService.username;
     $scope.isAuthenticated = AuthService.isAuthenticated;
     $scope.role = AuthService.role;
-    if(AuthService.role === "ROLE_ADMIN") {
+    if (AuthService.role === "ROLE_ADMIN") {
         var init = function () {
             $http.get('api/user/all').success(function (res) {
                 $scope.users = res;
@@ -13,7 +13,7 @@ angular.module('NGPuppies')
             });
         };
         $scope.deleteUser = function (user) {
-            $http.delete('api/user/'  + user.username + '/delete').success(function (res) {
+            $http.delete('api/user/' + user.username + '/delete').success(function (res) {
                 init();
             }).success(function () {
                 $scope.success = "Successful delete!";
@@ -28,37 +28,25 @@ angular.module('NGPuppies')
             init();
 
         })
-    }else{
-        // var initServices = function () {
-        //     $http({
-        //         url: '/api/client/my/services',
-        //         method: "GET",
-        //         dataType: "json"
-        //     }).success(function(result) {
-        //         if (result.length !== 0){
-        //             $scope.telecomServices = result;
-        //         }
-        //
-        //     }).error(function (err) {
-        //         $scope.message = err.message;
-        //     })
-        // };
-        var initAll = function () {
+    } else {
+
+        var initRecent = function () {
             $http({
-                url: '/api/client/invoices/unpaid',
+                url: '/api/client/invoice/last10',
                 method: "GET",
                 dataType: "json"
-            }).success(function(result) {
-                if (result.length !== 0){
-                    $scope.invoices = result;
-                }
-
+            }).success(function (result) {
+                $("#subscriberDetails").css("display", "none");
+                $scope.information = "Latest 10 payments";
+                $scope.invoices = result;
+                $scope.a = 1;
+                console.log(result);
+                $("#invoiceDitails").css("display", "");
             }).error(function (err) {
                 $scope.message = err.message;
             })
         };
-            // initServices();
-            initAll();
-    }
+        initRecent();
 
+    }
 });

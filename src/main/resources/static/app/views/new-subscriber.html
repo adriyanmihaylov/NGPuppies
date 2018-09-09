@@ -25,7 +25,7 @@
         </form>
     </div>
 <!--SEARCHED SUBSCRIBER-->
-    <div class="row" style="margin-top: 50px" ng-model="subscriberSearch" ng-if = "subscriberSearch != null">
+    <div class="row" style="margin-top: 50px" ng-model="subscriberSearch" ng-if = "subscriberSearch != null&&action==='Search for subscriber'">
         <div class="card border-info mb-3" style="width: 30rem">
             <div class="card-header">Personal information </div>
             <div class="card-body">
@@ -47,10 +47,18 @@
                         <th scope="row">Phone Number</th>
                         <td>{{subscriberSearch.phoneNumber}}</td>
                     </tr>
+                    <tr class="table-primary">
+                        <th scope="row">Egn</th>
+                        <td>{{subscriberSearch.EGN}}</td>
+                    </tr>
+                    <tr class="table-primary">
+                        <th scope="row">Address</th>
+                        <td>City:{{subscriberSearch.address.city}}, State: {{subscriberSearch.address.city}}</td>
+                    </tr>
                     </tbody>
                 </table>
 
-                <button type="button" class="btn btn-danger btn-lg btn-block" ng-click="deleteSubscriber(subscriberPhone)">Delete</button>
+
             </div>
         </div>
         <div class="card border-info mb-3" style="width: 30rem;  margin-right: 10px;">

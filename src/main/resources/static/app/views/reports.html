@@ -4,8 +4,8 @@
             <div class="card-body row no-gutters align-items-center">
                     <div class="col">
                         <select class="form-control" ng-model = "reportType">
-                            <option>Recent Payments</option>
                             <option>Top 10 subscribers</option>
+                            <option>All Unpaid</option>
                         </select>
                     </div>
                     <div class="col-auto">
@@ -14,30 +14,46 @@
                 </div>
                 <div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
         </form>
-        <div id="invoiceDitails" style="display: none; margin-top: 50px">
-            <h1> {{information}} </h1>
-            <table  class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Currency</th>
-                    <th scope="col">Service</th>
-                    <th scope="col">Payed status</th>
-                    <th scope="col">Subscriber</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="invoice in invoices" class="table-primary">
-                    <th scope="row" ng-model = "a"></th>
-                    <td >{{invoice.amount}}</td>
-                    <td>{{invoice.currency}}</td>
-                    <td>{{invoice.service}}</td>
-                    <td>{{invoice.status}}</td>
-                    <td>{{invoice.subscriberPhone}}</td>
-                </tr>
-                </tbody>
-            </table>
+        <div id="unpaid" style="display: none">
+        <h1>All Unpaid Invoices</h1>
+        <div class="form-group">
+            <label for="services">Select service</label>
+            <select class="form-control" id="services"  ng-model = "service">
+                <option >MOBILE</option>
+                <option >INTERNET</option>
+                <option >CREDIT CARD</option>
+            </select>
+        </div>
+        <div class="alert alert-info margin-top-5" ng-show="message">{{deletemessage}}</div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Currency</th>
+                <th scope="col">Service</th>
+                <th scope="col">Subscriber</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-danger" ng-repeat = "invoice in invoices" ng-if="invoice.service === service">
+                <th scope="row">#</th>
+                <td>{{invoice.amount}}</td>
+                <td>{{invoice.currency}}</td>
+                <td>{{invoice.service}}</td>
+                <td>{{invoice.subscriberPhone}}</td>
+                <td><button type="button" class="btn btn-info btn-sm"
+                            ng-click="initPay(invoice)">
+                    Pay
+                    <span class="glyphicon glyphicon-edit"></span>
+                </button></td>
+            </tr>
+
+
+
+            </tbody>
+        </table>
         </div>
         <div id="subscriberDetails" style="display: none; margin-top: 50px">
             <h1> {{information}} </h1>
