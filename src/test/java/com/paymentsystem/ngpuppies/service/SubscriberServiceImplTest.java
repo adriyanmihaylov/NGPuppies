@@ -12,7 +12,6 @@ import com.paymentsystem.ngpuppies.repositories.TelecomServRepositoryImpl;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import com.paymentsystem.ngpuppies.services.SubscriberServiceImpl;
 import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.booleanThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.Silent.class)

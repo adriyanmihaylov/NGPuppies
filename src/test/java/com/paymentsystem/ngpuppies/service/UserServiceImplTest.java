@@ -3,7 +3,6 @@ package com.paymentsystem.ngpuppies.service;
 import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.repositories.base.UserRepository;
 import com.paymentsystem.ngpuppies.services.UserServiceImpl;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
