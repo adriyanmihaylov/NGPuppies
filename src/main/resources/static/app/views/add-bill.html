@@ -100,21 +100,10 @@
                         <td>{{subscriber.lastName}}</td>
                     </tr>
                     <tr class="table-primary">
-                        <th scope="row">EGN</th>
-                        <td>{{subscriber.EGN}}</td>
-                    </tr>
-                    <tr class="table-primary">
                         <th scope="row">Phone Number</th>
                         <td id="subscriberPhone">{{subscriber.phoneNumber}}</td>
                     </tr>
-                    <tr class="table-primary" ng-if="subscriber.client!=null">
-                        <th scope="row">Client</th>
-                        <td>{{subscriber.client}}</td>
-                    </tr>
-                    <tr class="table-primary" ng-if="subscriber.address!=null">
-                        <th scope="row">Address</th>
-                        <td>Country: {{subscriber.address.country}}, City:{{subscriber.address.city}}</td>
-                    </tr>
+
                     </tbody>
                 </table>
             </div>
