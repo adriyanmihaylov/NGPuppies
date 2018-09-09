@@ -4,6 +4,7 @@ import com.paymentsystem.ngpuppies.models.users.User;
 import com.paymentsystem.ngpuppies.repositories.base.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -61,21 +62,21 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean delete(User user) {
-        if (user != null) {
-            try (Session session = sessionFactory.openSession()) {
-                session.beginTransaction();
-                session.delete(user);
-                session.getTransaction().commit();
-                System.out.println("DELETED User Id:" + user.getId() + " username: " + user.getUsername());
+    public boolean delete(String username) {
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " DELETE FROM User u" +
+                    " WHERE u.username=:user");
+            query.setParameter("user", username);
 
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            session.beginTransaction();
+            int result = query.executeUpdate();
+            session.getTransaction().commit();
+
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        System.out.println("User with username: " + user.getUsername() + " wasn't found!");
         return false;
     }
 }

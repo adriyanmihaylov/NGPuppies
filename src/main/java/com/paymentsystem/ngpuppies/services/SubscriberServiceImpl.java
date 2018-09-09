@@ -4,7 +4,7 @@ import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.models.TelecomServ;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.repositories.base.ClientRepository;
-import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
+import com.paymentsystem.ngpuppies.web.dto.SubscriberDto;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import com.paymentsystem.ngpuppies.repositories.base.TelecomServRepository;
@@ -42,19 +42,19 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
     @Override
-    public boolean create(SubscriberDTO subscriberDTO) throws InvalidParameterException, SQLException {
-        if(subscriberDTO.getAddress() == null) {
-            subscriberDTO.setAddress(new Address());
+    public boolean create(SubscriberDto subscriberDto) throws InvalidParameterException, SQLException {
+        if(subscriberDto.getAddress() == null) {
+            subscriberDto.setAddress(new Address());
         }
-        Subscriber subscriber = new Subscriber(subscriberDTO.getFirstName(),
-                subscriberDTO.getLastName(),
-                subscriberDTO.getPhone(),
-                subscriberDTO.getEgn(),
-                subscriberDTO.getAddress(),
+        Subscriber subscriber = new Subscriber(subscriberDto.getFirstName(),
+                subscriberDto.getLastName(),
+                subscriberDto.getPhone(),
+                subscriberDto.getEgn(),
+                subscriberDto.getAddress(),
                 0D);
 
-        if (subscriberDTO.getClient() != null) {
-            Client client = clientRepository.loadByUsername(subscriberDTO.getClient());
+        if (subscriberDto.getClient() != null) {
+            Client client = clientRepository.loadByUsername(subscriberDto.getClient());
             if (client == null) {
                 throw new InvalidParameterException("Client not found");
             }
@@ -66,18 +66,18 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
     @Override
-    public boolean update(String phoneNumber, SubscriberDTO subscriberDTO) throws InvalidParameterException, SQLException {
+    public boolean update(String phoneNumber, SubscriberDto subscriberDto) throws InvalidParameterException, SQLException {
         Subscriber subscriber = subscriberRepository.getSubscriberByPhoneNumber(phoneNumber);
         if (subscriber == null) {
             throw new InvalidParameterException("Subscriber not found!");
         }
-        subscriber.setPhone(subscriberDTO.getPhone());
-        subscriber.setFirstName(subscriberDTO.getFirstName());
-        subscriber.setLastName(subscriberDTO.getLastName());
+        subscriber.setPhone(subscriberDto.getPhone());
+        subscriber.setFirstName(subscriberDto.getFirstName());
+        subscriber.setLastName(subscriberDto.getLastName());
 
         Client client = null;
-        if (subscriberDTO.getClient() != null) {
-            client = clientRepository.loadByUsername(subscriberDTO.getClient());
+        if (subscriberDto.getClient() != null) {
+            client = clientRepository.loadByUsername(subscriberDto.getClient());
             if (client == null) {
                 throw new InvalidParameterException("There is no such client!");
             }
@@ -85,9 +85,9 @@ public class SubscriberServiceImpl implements SubscriberService {
 
         subscriber.setClient(client);
 
-        if (subscriberDTO.getAddress() != null) {
+        if (subscriberDto.getAddress() != null) {
             int id = subscriber.getAddress().getId();
-            subscriber.setAddress(subscriberDTO.getAddress());
+            subscriber.setAddress(subscriberDto.getAddress());
             subscriber.getAddress().setId(id);
         }
 

@@ -9,8 +9,8 @@ import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import com.paymentsystem.ngpuppies.repositories.base.TelecomServRepository;
 import com.paymentsystem.ngpuppies.services.InvoiceServiceImpl;
-import com.paymentsystem.ngpuppies.web.dto.InvoiceDTO;
-import com.paymentsystem.ngpuppies.web.dto.InvoicePaymentDTO;
+import com.paymentsystem.ngpuppies.web.dto.InvoiceDto;
+import com.paymentsystem.ngpuppies.web.dto.InvoicePaymentDto;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,8 +62,8 @@ public class InvoiceServiceImplTest {
     private static final double BGN_AMOUNT = 145.55;
     private static final String VALID_BGN_AMOUNT = "145.55";
 
-    private static InvoiceDTO INVOICEDTO_WITH_INVALID_DATE;
-    private static InvoiceDTO mockInvoiceDto;
+    private static InvoiceDto invoicedtoWithInvalidDate;
+    private static InvoiceDto mockInvoiceDto;
     private static Client mockClient;
 
     @Before
@@ -79,8 +79,8 @@ public class InvoiceServiceImplTest {
         for (int i = 0; i < 5; i++) {
             mockListInvoices.add(new Invoice());
         }
-        INVOICEDTO_WITH_INVALID_DATE = new InvoiceDTO(VALID_PHONE_NUMBER, INVALID_FROM_DATE, VALID_TO_DATE.toString(), VALID_BGN_AMOUNT, mockTelecomServ.getName());
-        mockInvoiceDto = new InvoiceDTO(VALID_PHONE_NUMBER, VALID_FROM_DATE.toString(), VALID_TO_DATE.toString(), VALID_BGN_AMOUNT, mockTelecomServ.getName());
+        invoicedtoWithInvalidDate = new InvoiceDto(VALID_PHONE_NUMBER, INVALID_FROM_DATE, VALID_TO_DATE.toString(), VALID_BGN_AMOUNT, mockTelecomServ.getName());
+        mockInvoiceDto = new InvoiceDto(VALID_PHONE_NUMBER, VALID_FROM_DATE.toString(), VALID_TO_DATE.toString(), VALID_BGN_AMOUNT, mockTelecomServ.getName());
 
         Authority authority = new Authority(AuthorityName.ROLE_CLIENT);
         mockClient = new Client("username", "password", "eik", authority);
@@ -113,7 +113,7 @@ public class InvoiceServiceImplTest {
     public void create_whenSubscriberIsNotPresentInDB_shouldReturnInvoiceDTO() {
         when(subscriberRepository.getSubscriberByPhoneNumber(mockInvoiceDto.getSubscriberPhone())).thenReturn(null);
 
-        InvoiceDTO result = invoiceService.create(mockInvoiceDto);
+        InvoiceDto result = invoiceService.create(mockInvoiceDto);
 
         Assert.assertEquals(mockInvoiceDto, result);
     }
@@ -123,7 +123,7 @@ public class InvoiceServiceImplTest {
         when(subscriberRepository.getSubscriberByPhoneNumber(mockInvoiceDto.getSubscriberPhone())).thenReturn(mockSubscriber);
         when(telecomServRepository.getByName(mockInvoiceDto.getService())).thenReturn(null);
 
-        InvoiceDTO result = invoiceService.create(mockInvoiceDto);
+        InvoiceDto result = invoiceService.create(mockInvoiceDto);
 
         Assert.assertEquals(mockInvoiceDto, result);
     }
@@ -133,7 +133,7 @@ public class InvoiceServiceImplTest {
         when(subscriberRepository.getSubscriberByPhoneNumber(mockInvoiceDto.getSubscriberPhone())).thenReturn(mockSubscriber);
         when(telecomServRepository.getByName(mockInvoiceDto.getService())).thenReturn(mockTelecomServ);
 
-        InvoiceDTO result = invoiceService.create(mockInvoiceDto);
+        InvoiceDto result = invoiceService.create(mockInvoiceDto);
 
         Assert.assertEquals(mockInvoiceDto, result);
     }
@@ -145,7 +145,7 @@ public class InvoiceServiceImplTest {
         when(telecomServRepository.getByName(mockInvoiceDto.getService())).thenReturn(mockTelecomServ);
         when(invoiceRepository.create(any(Invoice.class))).thenReturn(false);
 
-        InvoiceDTO expectedResult = invoiceService.create(mockInvoiceDto);
+        InvoiceDto expectedResult = invoiceService.create(mockInvoiceDto);
 
         Assert.assertEquals(mockInvoiceDto, expectedResult);
     }
@@ -157,7 +157,7 @@ public class InvoiceServiceImplTest {
         when(telecomServRepository.getByName(mockInvoiceDto.getService())).thenReturn(mockTelecomServ);
         when(invoiceRepository.create(any(Invoice.class))).thenReturn(true);
 
-        InvoiceDTO result = invoiceService.create(INVOICEDTO_WITH_INVALID_DATE);
+        InvoiceDto result = invoiceService.create(invoicedtoWithInvalidDate);
 
         Assert.assertNotNull(result);
     }
@@ -169,7 +169,7 @@ public class InvoiceServiceImplTest {
         when(telecomServRepository.getByName(mockInvoiceDto.getService())).thenReturn(mockTelecomServ);
         when(invoiceRepository.create(any(Invoice.class))).thenReturn(true);
 
-        InvoiceDTO result = invoiceService.create(mockInvoiceDto);
+        InvoiceDto result = invoiceService.create(mockInvoiceDto);
 
         Assert.assertNull(result);
     }
@@ -210,27 +210,27 @@ public class InvoiceServiceImplTest {
 
     @Test
     public void payInvoices_whenClientIdIsNotTheSameAsSubscriberClientId_shouldReturnListOfUnpaidInvoices() {
-        InvoicePaymentDTO invoicePaymentDTO = new InvoicePaymentDTO(1, "EUR");
-        List<InvoicePaymentDTO> paymentDTOList = new ArrayList<>();
-        paymentDTOList.add(invoicePaymentDTO);
+        InvoicePaymentDto invoicePaymentDto = new InvoicePaymentDto(1, "EUR");
+        List<InvoicePaymentDto> paymentDTOList = new ArrayList<>();
+        paymentDTOList.add(invoicePaymentDto);
         mockInvoice.getSubscriber().setClient(mockClient);
-        when(invoiceRepository.getById(invoicePaymentDTO.getId())).thenReturn(mockInvoice);
+        when(invoiceRepository.getById(invoicePaymentDto.getId())).thenReturn(mockInvoice);
 
-        List<InvoicePaymentDTO> resultList = invoiceService.payInvoices(paymentDTOList, mockInvoice.getSubscriber().getClient().getId() + 1);
+        List<InvoicePaymentDto> resultList = invoiceService.payInvoices(paymentDTOList, mockInvoice.getSubscriber().getClient().getId() + 1);
 
         Assert.assertEquals(paymentDTOList, resultList);
     }
 
     @Test
     public void payInvoices_whenCurrencyIsNotTheSameAsInput_shouldReturnListOfUnpaidInvoices() {
-        InvoicePaymentDTO invoicePaymentDTO = new InvoicePaymentDTO(1, "EUR");
-        List<InvoicePaymentDTO> paymentDTOList = new ArrayList<>();
-        paymentDTOList.add(invoicePaymentDTO);
+        InvoicePaymentDto invoicePaymentDto = new InvoicePaymentDto(1, "EUR");
+        List<InvoicePaymentDto> paymentDTOList = new ArrayList<>();
+        paymentDTOList.add(invoicePaymentDto);
         mockInvoice.getSubscriber().setClient(mockClient);
-        when(invoiceRepository.getById(invoicePaymentDTO.getId())).thenReturn(mockInvoice);
-        when(currencyRepository.getByName(invoicePaymentDTO.getCurrency())).thenReturn(null);
+        when(invoiceRepository.getById(invoicePaymentDto.getId())).thenReturn(mockInvoice);
+        when(currencyRepository.getByName(invoicePaymentDto.getCurrency())).thenReturn(null);
 
-        List<InvoicePaymentDTO> resultList = invoiceService.payInvoices(paymentDTOList, mockInvoice.getSubscriber().getClient().getId());
+        List<InvoicePaymentDto> resultList = invoiceService.payInvoices(paymentDTOList, mockInvoice.getSubscriber().getClient().getId());
 
         Assert.assertEquals(paymentDTOList, resultList);
     }
@@ -238,16 +238,16 @@ public class InvoiceServiceImplTest {
     @Test
     public void payInvoices_onSuccess_shouldReturnEmptyList() {
         Currency currency = new Currency("eur",1.955);
-        InvoicePaymentDTO invoicePaymentDTO = new InvoicePaymentDTO(1, currency.getName());
-        List<InvoicePaymentDTO> paymentDTOList = new ArrayList<>();
-        paymentDTOList.add(invoicePaymentDTO);
+        InvoicePaymentDto invoicePaymentDto = new InvoicePaymentDto(1, currency.getName());
+        List<InvoicePaymentDto> paymentDTOList = new ArrayList<>();
+        paymentDTOList.add(invoicePaymentDto);
         mockInvoice.getSubscriber().setClient(mockClient);
 
-        when(invoiceRepository.getById(invoicePaymentDTO.getId())).thenReturn(mockInvoice);
-        when(currencyRepository.getByName(invoicePaymentDTO.getCurrency())).thenReturn(currency);
+        when(invoiceRepository.getById(invoicePaymentDto.getId())).thenReturn(mockInvoice);
+        when(currencyRepository.getByName(invoicePaymentDto.getCurrency())).thenReturn(currency);
         when(invoiceRepository.payInvoice(any(Invoice.class))).thenReturn(true);
 
-        List<InvoicePaymentDTO> resultList = invoiceService.payInvoices(paymentDTOList, mockInvoice.getSubscriber().getClient().getId());
+        List<InvoicePaymentDto> resultList = invoiceService.payInvoices(paymentDTOList, mockInvoice.getSubscriber().getClient().getId());
 
         Assert.assertEquals(0, resultList.size());
     }

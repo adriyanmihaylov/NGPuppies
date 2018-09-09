@@ -1,9 +1,9 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
-import com.paymentsystem.ngpuppies.web.dto.InvoiceDTO;
+import com.paymentsystem.ngpuppies.web.dto.InvoiceDto;
 import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.web.dto.ValidList;
+import com.paymentsystem.ngpuppies.validation.ValidList;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
 import com.paymentsystem.ngpuppies.models.viewModels.InvoiceViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
@@ -28,33 +28,37 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/invoice")
 public class AdminInvoiceController {
+    private final InvoiceService invoiceService;
+
     @Autowired
-    private InvoiceService invoiceService;
+    public AdminInvoiceController(InvoiceService invoiceService) {
+        this.invoiceService = invoiceService;
+    }
 
     @GetMapping("/generate")
-    public ValidList<InvoiceDTO> createInvoice() {
-        ValidList<InvoiceDTO> invoiceDTOList = new ValidList<>();
+    public ValidList<InvoiceDto> createInvoice() {
+        ValidList<InvoiceDto> invoiceDTOList = new ValidList<>();
         for (int i = 0; i < 2; i++) {
-            invoiceDTOList.add(new InvoiceDTO());
+            invoiceDTOList.add(new InvoiceDto());
         }
         return invoiceDTOList;
     }
 
     @PostMapping("/generate")
-    public ResponseEntity<?> createInvoice(@Valid @RequestBody ValidList<InvoiceDTO> invoiceDTOList,
+    public ResponseEntity<?> createInvoice(@Valid @RequestBody ValidList<InvoiceDto> invoiceDTOList,
                                            BindingResult bindingResult) {
-        List<InvoiceDTO> failedInvoices = new ArrayList<>();
+        List<InvoiceDto> failedInvoices = new ArrayList<>();
         try {
-            for (InvoiceDTO invoiceDTO : invoiceDTOList.getList()) {
+            for (InvoiceDto invoiceDto : invoiceDTOList.getList()) {
                 try {
-                    InvoiceDTO failedInvoice = invoiceService.create(invoiceDTO);
+                    InvoiceDto failedInvoice = invoiceService.create(invoiceDto);
 
                     if (failedInvoice != null) {
                         failedInvoices.add(failedInvoice);
                     }
                 } catch (IllegalArgumentException e) {
                     //Date is invalid - startDate is after endDate
-                    failedInvoices.add(invoiceDTO);
+                    failedInvoices.add(invoiceDto);
                 }
             }
         } catch (Exception e) {

@@ -3,7 +3,7 @@ package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.models.Currency;
 import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.web.dto.ValidList;
+import com.paymentsystem.ngpuppies.validation.ValidList;
 import com.paymentsystem.ngpuppies.services.base.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

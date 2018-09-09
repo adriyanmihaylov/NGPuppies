@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web.dto;
+package com.paymentsystem.ngpuppies.validation;
 
 import javax.validation.Valid;
 import java.util.*;

@@ -5,7 +5,7 @@ import com.paymentsystem.ngpuppies.validation.anotations.ValidDate;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidServiceName;
 
-public class InvoiceDTO {
+public class InvoiceDto {
 
     @ValidPhone()
     private String subscriberPhone;
@@ -22,11 +22,10 @@ public class InvoiceDTO {
     @ValidServiceName
     private String service;
 
-    public InvoiceDTO() {
-
+    public InvoiceDto() {
     }
 
-    public InvoiceDTO(String subscriberPhone,String startDate,String endDate,String amountBGN,String service) {
+    public InvoiceDto(String subscriberPhone, String startDate, String endDate, String amountBGN, String service) {
         setSubscriberPhone(subscriberPhone);
         setStartDate(startDate);
         setEndDate(endDate);
