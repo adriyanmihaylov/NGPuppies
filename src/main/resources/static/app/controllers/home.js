@@ -31,7 +31,7 @@ angular.module('NGPuppies')
     }else{
         var initServices = function () {
             $http({
-                url: '/api/service/all',
+                url: '/api/client/my/services',
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
@@ -57,7 +57,7 @@ angular.module('NGPuppies')
                 $scope.message = err.message;
             })
         };
-            // initServices();
+            initServices();
             initAll();
     }
 

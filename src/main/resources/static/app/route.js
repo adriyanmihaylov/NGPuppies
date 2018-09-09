@@ -134,6 +134,16 @@ angular.module('NGPuppies').config(function($stateProvider,$urlRouterProvider,$l
                     controller : 'servicesController'
                 }
             }
+        })
+        .state('currencies', {
+            parent : 'nav',
+            url : '/currencies',
+            views : {
+                'content@' : {
+                    templateUrl : 'app/views/currencies.html',
+                    controller : 'currenciesController'
+                }
+            }
         });;
         $locationProvider.html5Mode({
 			enabled: true,

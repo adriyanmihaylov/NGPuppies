@@ -35,16 +35,17 @@
                     </tbody>
             </table>
         </div>
+</div>
 
-<div  ng-if="role == 'ROLE_CLIENT'">
+<div  ng-if="role === 'ROLE_CLIENT'">
 
         <h1>All Unpaid Invoices</h1>
     <div class="form-group">
         <label for="services">Select service</label>
         <select class="form-control" id="services"  ng-model = "service">
-            <option >INTERNET</option>
-
+            <option ng-repeat="service in telecomServices" >{{service.service}}</option>
         </select>
+    </div>
 
 
     <div class="alert alert-info margin-top-5" ng-show="message">{{deletemessage}}</div>
@@ -71,4 +72,5 @@
 
         </tbody>
     </table>
+</div>
 </div>

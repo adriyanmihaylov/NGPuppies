@@ -91,6 +91,7 @@ angular.module('NGPuppies')
             }).error(function (err) {
                 $scope.errorUpdating = err.message;
             })
-        }
+        };
+        initClient();
 
     });

@@ -1,0 +1,37 @@
+<div class="row justify-content-center ng-scope">
+    <div class="col-12 col-md-10 col-lg-8">
+      <div class="row" style="margin-top: 50px">
+            <div class="card border-info mb-3" style="width: 30rem;  margin-right: 10px;">
+                <div class="card-header">All currencies</div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr class="table-primary" ng-repeat = "currency in currencies">
+                            <th scope="row">{{currency.name}}</th>
+                            <td>{{currency.fixing}}</td>
+                            <td><button class="btn btn btn-primary" type="submit" ng-click="initEdit(currency)">Edit</button></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="form-group row" >
+                        <label for="name" class="col-4 col-form-label">Currency name</label>
+                        <div class="col-8">
+                            <input class="form-control"  type="number" ng-model ="editedCurrency.name" id="name">
+                        </div>
+                        <label for="name" class="col-4 col-form-label">Fixing</label>
+                        <div class="col-8">
+                            <input class="form-control"  type="number" ng-model ="editedCurrency.fixing" id="fixing">
+                        </div>
+                    </div>
+                    <div class="alert alert-dismissible alert-success" ng-show = "serviceSuccesss">
+                        <strong>{{serviceSuccesss}}</strong>
+                    </div>
+                    <div class="alert alert-dismissible alert-danger" ng-show="errorService">
+                        <strong>{{errorService}}</strong>
+                    </div>
+                    <button class="btn btn btn-success" type="submit" ng-click="edit(service)">Edit</button>
+                </div >
+            </div>
+    </div>
+</div>
