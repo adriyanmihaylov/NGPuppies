@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.TelecomServ;
-import com.paymentsystem.ngpuppies.web.dto.TelecomServiceDTO;
+import com.paymentsystem.ngpuppies.web.dto.TelecomServDto;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.repositories.base.TelecomServRepository;
 import com.paymentsystem.ngpuppies.services.base.TelecomServService;
@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class TelecomServServiceImpl implements TelecomServService {
     @Autowired
-    TelecomServRepository telecomServRepository;
+    private TelecomServRepository telecomServRepository;
 
     @Override
     public List<TelecomServ> getAll() {
@@ -23,40 +23,44 @@ public class TelecomServServiceImpl implements TelecomServService {
     }
 
     @Override
-    public TelecomServ getByName(String name) {
+    public TelecomServ getByName(String name) throws InvalidParameterException {
+        if (name == null) {
+            throw new InvalidParameterException("Service name must not be empty!");
+        }
+
         return telecomServRepository.getByName(name);
     }
 
     @Override
-    public boolean create(TelecomServiceDTO telecomServiceDTO) throws InvalidParameterException, SQLException {
-        if (telecomServiceDTO.getName() == null) {
+    public boolean create(TelecomServDto telecomServDto) throws InvalidParameterException, SQLException {
+        if (telecomServDto.getName() == null) {
             throw new InvalidParameterException("Service name is missing!");
         }
-        TelecomServ telecomServ = new TelecomServ(telecomServiceDTO.getName());
+        TelecomServ telecomServ = new TelecomServ(telecomServDto.getName());
 
         return telecomServRepository.create(telecomServ);
     }
 
     @Override
-    public boolean update(String serviceName, TelecomServiceDTO serviceDTO) throws InvalidParameterException, SQLException {
-        TelecomServ telecomServ = telecomServRepository.getByName(serviceName);
-
-        if (telecomServ == null) {
-            throw new InvalidParameterException("There is no such service in the database!");
+    public boolean update(String serviceName, TelecomServDto telecomServDto)throws InvalidParameterException, SQLException {
+        if (serviceName == null || telecomServDto.getName() == null) {
+            throw new InvalidParameterException("Invalid service name!");
         }
 
-        telecomServ.setName(serviceDTO.getName());
-
-        return telecomServRepository.update(telecomServ);
+        return telecomServRepository.update(serviceName, telecomServDto.getName().toUpperCase());
     }
 
     @Override
-    public boolean delete(TelecomServ telecomServ) {
-        return telecomServRepository.delete(telecomServ);
+    public boolean delete(String telecomServName) throws InvalidParameterException {
+        if (telecomServName == null) {
+            throw new InvalidParameterException("Invalid service name!");
+        }
+
+        return telecomServRepository.delete(telecomServName);
     }
 
     @Override
     public List<TelecomServ> getAllServicesOfClient(Client client) {
-        return telecomServRepository.getAllServicesOfClient(client.getId());
+        return telecomServRepository.getAllServicesOfClientByClientId(client.getId());
     }
 }

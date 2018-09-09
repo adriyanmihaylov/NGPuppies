@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.web.dto.TelecomServiceDTO;
+import com.paymentsystem.ngpuppies.web.dto.TelecomServDto;
 import com.paymentsystem.ngpuppies.services.base.TelecomServService;
 import com.paymentsystem.ngpuppies.models.viewModels.TelecomServSimpleViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidServiceName;
@@ -34,12 +34,12 @@ public class AdminTelecomServController {
     }
 
     @GetMapping("/create")
-    public TelecomServiceDTO createServiceTemplate() {
-        return new TelecomServiceDTO();
+    public TelecomServDto createServiceTemplate() {
+        return new TelecomServDto();
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseMessage> createNewService(@Valid @RequestBody TelecomServiceDTO serviceDTO,
+    public ResponseEntity<ResponseMessage> createNewService(@Valid @RequestBody TelecomServDto serviceDTO,
                                                             BindingResult bindingResult) {
         try {
             if (telecomServService.create(serviceDTO)) {
@@ -53,12 +53,15 @@ public class AdminTelecomServController {
         return new ResponseEntity<>(new ResponseMessage("Something went wrong! Please try again later"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PutMapping("{name}/update")
+    @PutMapping("/{name}/update")
     public ResponseEntity<ResponseMessage> updateTelecomService(@PathVariable("name") @ValidServiceName String serviceName,
-                                                                @Valid @RequestBody TelecomServiceDTO serviceDTO,
+                                                                @Valid @RequestBody TelecomServDto serviceDTO,
                                                                 BindingResult bindingResult) {
         try {
-            telecomServService.update(serviceName, serviceDTO);
+            if (telecomServService.update(serviceName, serviceDTO)) {
+                return new ResponseEntity<>(new ResponseMessage("Service updated!"), HttpStatus.OK);
+            }
+            return new ResponseEntity<>(new ResponseMessage("Service not found!"), HttpStatus.BAD_REQUEST);
         } catch (IllegalArgumentException | SQLException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
