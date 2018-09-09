@@ -3,7 +3,6 @@ package com.paymentsystem.ngpuppies.service;
 import com.paymentsystem.ngpuppies.models.Currency;
 import com.paymentsystem.ngpuppies.repositories.base.CurrencyRepository;
 import com.paymentsystem.ngpuppies.services.CurrencyServiceImpl;
-import com.paymentsystem.ngpuppies.web.dto.CurrencyDto;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +29,6 @@ public class CurrencyServiceImplTest {
     private CurrencyServiceImpl currencyService;
 
     private Currency currency;
-    private CurrencyDto currencyDto;
     private List<Currency> currencyList;
     @Before
     public void beforeTest() {
@@ -41,7 +39,6 @@ public class CurrencyServiceImplTest {
         currency = new Currency("EUR",1.95);
         currency.setId(1);
 
-        currencyDto = new CurrencyDto("NEW EUR",1.99);
     }
 
     @Test
@@ -89,67 +86,67 @@ public class CurrencyServiceImplTest {
 
     @Test
     public void updateFixings_whenCurrenciesNamesAreNull_shouldReturnListOfThoseCurrencies() {
-        List<CurrencyDto> currencyDtoList = new ArrayList<>();
+        List<Currency> currencies = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            currencyDtoList.add(new CurrencyDto(null, 1.955));
+            currencies.add(new Currency(null, 1.956));
         }
 
-        List<CurrencyDto> resultList = currencyService.updateFixings(currencyDtoList);
+        List<Currency> resultList = currencyService.updateFixings(currencies);
 
-        Assert.assertEquals(currencyDtoList.size(), resultList.size());
+        Assert.assertEquals(currencies.size(), resultList.size());
     }
     @Test
     public void updateFixings_whenCurrenciesFixingsAreNegative_shouldReturnListOfThisCurrencies() {
-        List<CurrencyDto> currencyDtoList = new ArrayList<>();
+        List<Currency> currencyDtoList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            currencyDtoList.add(new CurrencyDto("name", -1.955));
+            currencyDtoList.add(new Currency("name", -1.955));
         }
 
-        List<CurrencyDto> resultList = currencyService.updateFixings(currencyDtoList);
+        List<Currency> resultList = currencyService.updateFixings(currencyDtoList);
 
         Assert.assertEquals(currencyDtoList.size(), resultList.size());
     }
 
     @Test
     public void updateFixings_whenRepositoryReturnsFalse_shouldReturnListOfFailedCurrencies() throws SQLException {
-        List<CurrencyDto> currencyDtoList = new ArrayList<>();
+        List<Currency> currencyDtoList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            currencyDtoList.add(new CurrencyDto("name", 1.955));
+            currencyDtoList.add(new Currency("name", 1.955));
         }
         when(currencyRepository.update(any(String.class),any(double.class))).thenReturn(false);
 
-        List<CurrencyDto> resultList = currencyService.updateFixings(currencyDtoList);
+        List<Currency> resultList = currencyService.updateFixings(currencyDtoList);
 
         Assert.assertEquals(currencyDtoList.size(), resultList.size());
     }
 
     @Test
     public void updateFixings_whenPassedInvalidCurrencies_shouldReturnListOfThisCurrencies() throws SQLException {
-        List<CurrencyDto> currencyDtoList = new ArrayList<>();
+        List<Currency> currencyDtoList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            currencyDtoList.add(new CurrencyDto("name", 1.955));
+            currencyDtoList.add(new Currency("name", 1.955));
         }
         int expectedResult = 4;
         for (int i = 0; i < expectedResult; i++) {
-            currencyDtoList.add(new CurrencyDto(null, 1.99));
+            currencyDtoList.add(new Currency(null, 1.99));
         }
 
         when(currencyRepository.update(any(String.class),any(double.class))).thenReturn(true);
 
-        List<CurrencyDto> resultList = currencyService.updateFixings(currencyDtoList);
+        List<Currency> resultList = currencyService.updateFixings(currencyDtoList);
 
         Assert.assertEquals(expectedResult, resultList.size());
     }
 
     @Test
     public void updateFixings_onSuccess_shouldReturnEmptyList() throws SQLException {
-        List<CurrencyDto> currencyDtoList = new ArrayList<>();
+        List<Currency> currencies = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            currencyDtoList.add(new CurrencyDto("name", 1.955));
+            currencies.add(new Currency("name", 1.955));
         }
         when(currencyRepository.update(any(String.class),any(double.class))).thenReturn(true);
 
-        List<CurrencyDto> resultList = currencyService.updateFixings(currencyDtoList);
+        List<Currency> resultList = currencyService.updateFixings(currencies);
 
         Assert.assertEquals(0, resultList.size());
     }

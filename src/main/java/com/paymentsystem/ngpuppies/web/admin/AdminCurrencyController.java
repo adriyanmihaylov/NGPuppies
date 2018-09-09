@@ -2,7 +2,6 @@ package com.paymentsystem.ngpuppies.web.admin;
 
 
 import com.paymentsystem.ngpuppies.models.Currency;
-import com.paymentsystem.ngpuppies.web.dto.CurrencyDto;
 import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
 import com.paymentsystem.ngpuppies.web.dto.ValidList;
 import com.paymentsystem.ngpuppies.services.base.CurrencyService;
@@ -35,19 +34,19 @@ public class AdminCurrencyController {
     }
 
     @GetMapping("/update")
-    public ValidList<CurrencyDto> getCurrencyUpdateTemplate() {
-        ValidList<CurrencyDto> validList = new ValidList<>();
+    public ValidList<Currency> getCurrencyUpdateTemplate() {
+        ValidList<Currency> validList = new ValidList<>();
         for (int i = 0; i < 2; i++) {
-            validList.add(new CurrencyDto());
+            validList.add(new Currency());
         }
 
         return validList;
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> setFixing(@RequestBody @Valid ValidList<CurrencyDto> currencyValidList,
+    public ResponseEntity<?> setFixing(@RequestBody @Valid ValidList<Currency> currencyValidList,
                                        BindingResult bindingResult) {
-        List<CurrencyDto> invalid = currencyService.updateFixings(currencyValidList.getList());
+        List<Currency> invalid = currencyService.updateFixings(currencyValidList.getList());
         if (invalid.size() > 0) {
             return new ResponseEntity<>(invalid, HttpStatus.BAD_REQUEST);
         }
@@ -56,7 +55,7 @@ public class AdminCurrencyController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseMessage> createCurrency(@RequestBody @Valid CurrencyDto currencyDto,
+    public ResponseEntity<ResponseMessage> createCurrency(@RequestBody @Valid Currency currencyDto,
                                                           BindingResult bindingResult) {
         try {
             if(currencyService.create(currencyDto.getName(),currencyDto.getFixing())) {

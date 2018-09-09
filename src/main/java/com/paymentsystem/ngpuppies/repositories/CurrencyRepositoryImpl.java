@@ -76,6 +76,8 @@ public class CurrencyRepositoryImpl implements CurrencyRepository {
                     " UPDATE Currency c" +
                     " SET c.fixing=:newFixing" +
                     " WHERE c.name=:currencyName");
+            query.setParameter("newFixing",fixing);
+            query.setParameter("currencyName",currencyName);
             session.beginTransaction();
             int result = query.executeUpdate();
             session.getTransaction().commit();

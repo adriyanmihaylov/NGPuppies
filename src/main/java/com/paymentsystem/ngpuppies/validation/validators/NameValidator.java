@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class NameValidator implements ConstraintValidator<ValidName, String> {
 
-    private static final String NAME_PATTERN = "[A-Za-z][a-zA-Z]{2,50}$";
+    private static final String NAME_PATTERN = "[A-Za-z][a-zA-Z]{2,21}$";
 
     @Override
     public void initialize(ValidName constraintAnnotation) {

@@ -1,7 +1,6 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.models.Currency;
-import com.paymentsystem.ngpuppies.web.dto.CurrencyDto;
 import com.paymentsystem.ngpuppies.repositories.base.CurrencyRepository;
 import com.paymentsystem.ngpuppies.services.base.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,15 +44,15 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
-    public List<CurrencyDto> updateFixings(List<CurrencyDto> currencyDtoList) {
-        List<CurrencyDto> failedCurrencies = new ArrayList<>();
-        for (CurrencyDto currencyDto : currencyDtoList) {
-            if (currencyDto.getName() == null || currencyDto.getFixing() < 0) {
-                failedCurrencies.add(currencyDto);
+    public List<Currency> updateFixings(List<Currency> currencies) {
+        List<Currency> failedCurrencies = new ArrayList<>();
+        for (Currency currency : currencies) {
+            if (currency.getName() == null || currency.getFixing() < 0) {
+                failedCurrencies.add(currency);
                 continue;
             }
-            if (!currencyRepository.update(currencyDto.getName(), currencyDto.getFixing())) {
-                failedCurrencies.add(currencyDto);
+            if (!currencyRepository.update(currency.getName(), currency.getFixing())) {
+                failedCurrencies.add(currency);
             }
         }
 
