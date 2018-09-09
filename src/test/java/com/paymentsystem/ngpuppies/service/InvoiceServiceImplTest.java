@@ -28,7 +28,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class InvoiceServiceImplTests {
+public class InvoiceServiceImplTest {
 
     @Mock
     private InvoiceRepository invoiceRepository;

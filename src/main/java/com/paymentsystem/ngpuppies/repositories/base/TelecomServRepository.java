@@ -13,9 +13,9 @@ public interface TelecomServRepository {
 
     boolean create(TelecomServ telecomServ) throws SQLException;
 
-    boolean update(TelecomServ telecomServ) throws SQLException;
+    boolean update(String oldName,String newName) throws SQLException;
 
-    boolean delete(TelecomServ telecomServ);
+    boolean delete(String telecomServName);
 
-    List<TelecomServ> getAllServicesOfClient(int clientId);
+    List<TelecomServ> getAllServicesOfClientByClientId(int clientId);
 }

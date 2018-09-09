@@ -71,14 +71,18 @@ public class TelecomServRepositoryImpl implements TelecomServRepository {
     }
 
     @Override
-    public boolean update(TelecomServ telecomServ) throws SQLException {
+    public boolean update(String oldName,String newName) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.update(telecomServ);
+            Query query = session.createQuery("" +
+                    " UPDATE TelecomServ AS t" +
+                    " SET t.name=:newName" +
+                    " WHERE t.name=:oldName");
+            query.setParameter("oldName",oldName);
+            query.setParameter("newName",newName);
+            int result = query.executeUpdate();
             session.getTransaction().commit();
-
-            System.out.printf("UPDATED: Service  Id: %d\n", telecomServ.getId());
-            return true;
+            return result > 0;
         } catch (PersistenceException e) {
             throw new SQLException("Service already exist", e);
         } catch (Exception e) {
@@ -89,13 +93,17 @@ public class TelecomServRepositoryImpl implements TelecomServRepository {
     }
 
     @Override
-    public boolean delete(TelecomServ telecomServ) {
+    public boolean delete(String telecomServName) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.delete(telecomServ);
-            session.getTransaction().commit();
+            Query query = session.createQuery("" +
+                    " DELETE TelecomServ AS t" +
+                    " WHERE t.name=:serviceName");
+            query.setParameter("serviceName", telecomServName);
 
-            return true;
+            int result = query.executeUpdate();
+            session.getTransaction().commit();
+            return result > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,7 +111,7 @@ public class TelecomServRepositoryImpl implements TelecomServRepository {
     }
 
     @Override
-    public List<TelecomServ> getAllServicesOfClient(int clientId) {
+    public List<TelecomServ> getAllServicesOfClientByClientId(int clientId) {
         List<TelecomServ> telecomServs = new ArrayList<>();
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("" +
