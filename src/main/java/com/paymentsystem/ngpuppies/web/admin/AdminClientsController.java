@@ -80,7 +80,7 @@ public class AdminClientsController {
                                                         BindingResult bindingResult) {
         try {
             if (clientService.update(username, clientDto)) {
-                return new ResponseEntity<>(new ResponseMessage("Successful update!"), HttpStatus.OK);
+                return new ResponseEntity<>(new ResponseMessage("Successful addIpAddress!"), HttpStatus.OK);
             }
 
         } catch (IllegalArgumentException | SQLException e) {

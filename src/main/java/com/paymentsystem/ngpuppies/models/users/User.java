@@ -1,15 +1,16 @@
 package com.paymentsystem.ngpuppies.models.users;
 
+import com.paymentsystem.ngpuppies.models.IpAddress;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -40,6 +41,15 @@ public class User implements UserDetails {
     @Column(name = "LastPasswordResetDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastPasswordResetDate;
+
+
+    @Fetch(FetchMode.SELECT)
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_ip",
+            joinColumns = {@JoinColumn(name = "UserId")},
+            inverseJoinColumns = {@JoinColumn(name = "AddressId")}
+    )
+    private Set<IpAddress> ipAddresses;
 
     public User() {
 
@@ -97,6 +107,22 @@ public class User implements UserDetails {
 
     public void setLastPasswordResetDate(Date lastPasswordResetDate) {
         this.lastPasswordResetDate = lastPasswordResetDate;
+    }
+
+    public Set<IpAddress> getIpAddresses() {
+        return ipAddresses;
+    }
+
+    public void setIpAddresses(Set<IpAddress> ipAddresses) {
+        this.ipAddresses = ipAddresses;
+    }
+
+    public void addIpAddress(IpAddress ipAddress) {
+        if (this.ipAddresses == null) {
+            setIpAddresses(new HashSet<>());
+        }
+
+        ipAddresses.add(ipAddress);
     }
 
     public Collection< ? extends GrantedAuthority> getAuthorities() {

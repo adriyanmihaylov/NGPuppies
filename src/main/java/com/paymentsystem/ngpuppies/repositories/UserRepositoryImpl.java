@@ -1,9 +1,11 @@
 package com.paymentsystem.ngpuppies.repositories;
 
+import com.paymentsystem.ngpuppies.models.IpAddress;
 import com.paymentsystem.ngpuppies.models.users.User;
 import com.paymentsystem.ngpuppies.repositories.base.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -75,6 +77,28 @@ public class UserRepositoryImpl implements UserRepository {
 
             return result > 0;
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addIpAddressToUser(User user, IpAddress ipAddress) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.save(ipAddress);
+            user.addIpAddress(ipAddress);
+            session.update(user);
+            transaction.commit();
+
+            return true;
+        } catch (Exception e) {
+            try {
+                transaction.rollback();
+            } catch (RuntimeException exception) {
+                System.out.println("Couldn't roll back transaction!");
+            }
             e.printStackTrace();
         }
         return false;

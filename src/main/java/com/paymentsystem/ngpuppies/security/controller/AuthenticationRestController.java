@@ -17,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class AuthenticationRestController {
     }
 
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody @Valid  JwtAuthenticationRequest authenticationRequest,
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody @Valid  JwtAuthenticationRequest authenticationRequest,HttpServletRequest request,
                                                        BindingResult bindingResult) throws AuthenticationException {
         Map<String, Object> map = new HashMap<>();
         final User user;
@@ -49,6 +50,11 @@ public class AuthenticationRestController {
 
             // Reload password post-security so we can generate the token
             user = (User) userService.loadUserByUsername(authenticationRequest.getUsername());
+            String ipAddress = request.getRemoteAddr();
+            if(user.getIpAddresses() != null && !user.getIpAddresses().contains(ipAddress)) {
+                userService.addIpAddress(user, ipAddress);
+                //save ip address
+            }
             token = jwtTokenUtil.generateToken(user, false);
 
             map.put("token", token);

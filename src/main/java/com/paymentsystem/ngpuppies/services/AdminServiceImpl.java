@@ -93,7 +93,7 @@ public class AdminServiceImpl implements AdminService {
 
         Authority authority = authorityRepository.getByName(AuthorityName.ROLE_ADMIN);
         if(authority == null) {
-            throw new Exception("Couldn't update admin after first login! Authority not found!");
+            throw new Exception("Couldn't addIpAddress admin after first login! Authority not found!");
         }
 
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));

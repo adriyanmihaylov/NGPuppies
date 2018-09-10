@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.services;
 
+import com.paymentsystem.ngpuppies.models.IpAddress;
 import com.paymentsystem.ngpuppies.models.users.User;
 import com.paymentsystem.ngpuppies.repositories.base.UserRepository;
 import com.paymentsystem.ngpuppies.services.base.UserService;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -35,6 +37,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
 
         return userRepository.delete(username);
+    }
+
+    @Override
+    public boolean addIpAddress(User user, String address) {
+        if (user.getIpAddresses() == null) {
+            user.setIpAddresses(new HashSet<>());
+        }
+        IpAddress ipAddress = new IpAddress(address);
+
+        return userRepository.addIpAddressToUser(user,ipAddress);
     }
 
     @Override

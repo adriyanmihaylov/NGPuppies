@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.security;
 
+import com.paymentsystem.ngpuppies.models.IpAddress;
 import com.paymentsystem.ngpuppies.models.users.User;
-import com.paymentsystem.ngpuppies.security.JwtTokenUtil;
 import com.paymentsystem.ngpuppies.services.base.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,7 +52,15 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                 // You could also store the information in the token and read it from it. It's up to you ;)
                 try {
                    User user = userService.loadById(id);
+                    if(user != null) {
+                        IpAddress ipAddress = new IpAddress(request.getRemoteAddr());
+                        boolean isContaining = user.getIpAddresses().contains(ipAddress);
+                        System.out.println(isContaining);
+                        if(user.getIpAddresses().size() > 0 && !user.getIpAddresses().contains(ipAddress)) {
+                            throw new Exception();
+                        }
 
+                    }
                     // For simple validation it is completely sufficient to just check the token integrity.
                     //Because we are checking user lastPasswordResetDate we have to load the user
                     if (jwtTokenUtil.validateToken(authToken, user)) {

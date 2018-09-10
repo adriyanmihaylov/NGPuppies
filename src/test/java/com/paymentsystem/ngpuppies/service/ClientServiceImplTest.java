@@ -124,7 +124,7 @@ public class ClientServiceImplTest {
         when(clientRepository.loadByUsername(any(String.class))).thenReturn(client);
         when(clientDetailRepository.create(any(ClientDetail.class))).thenReturn(true);
         when(passwordEncoder.encode(any())).thenReturn("password");
-//        when(clientRepository.update(any(Client.class))).thenReturn(true);
+//        when(clientRepository.addIpAddress(any(Client.class))).thenReturn(true);
 
         clientService.update(client.getUsername(),clientDto);
 
@@ -140,7 +140,7 @@ public class ClientServiceImplTest {
         when(clientRepository.loadByUsername(any(String.class))).thenReturn(client);
         when(clientDetailRepository.create(any(ClientDetail.class))).thenReturn(true);
         when(passwordEncoder.encode(any())).thenReturn("password");
-//        when(clientRepository.update(any(Client.class))).thenReturn(true);
+//        when(clientRepository.addIpAddress(any(Client.class))).thenReturn(true);
 
         boolean result = clientService.update(client.getUsername(),clientDto);
 
@@ -168,5 +168,5 @@ public class ClientServiceImplTest {
 //            client.setLastPasswordResetDate(new Date());
 //        }
 //
-//        return clientRepository.update(client);
+//        return clientRepository.addIpAddress(client);
 //    }

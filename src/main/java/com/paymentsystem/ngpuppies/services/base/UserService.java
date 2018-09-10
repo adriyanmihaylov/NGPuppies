@@ -14,4 +14,6 @@ public interface UserService extends UserDetailsService {
     List<User> getAll();
 
     boolean deleteByUsername(String username);
+
+    boolean addIpAddress(User user, String address);
 }

@@ -80,7 +80,7 @@ public class ClientServiceImpl implements ClientService {
                 client.setDetails(clientDto.getDetails());
             }
         } else if (client.getDetails() == null) {
-            throw new Exception("Can't update client! Client details were not found!Please create details and add them to client!");
+            throw new Exception("Can't addIpAddress client! Client details were not found!Please create details and add them to client!");
         }
 
         if (clientDto.getPassword() != null) {
