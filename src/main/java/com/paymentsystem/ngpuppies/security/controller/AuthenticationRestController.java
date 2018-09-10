@@ -51,10 +51,12 @@ public class AuthenticationRestController {
             // Reload password post-security so we can generate the token
             user = (User) userService.loadUserByUsername(authenticationRequest.getUsername());
             String ipAddress = request.getRemoteAddr();
+
             if(user.getIpAddresses() != null && !user.getIpAddresses().contains(ipAddress)) {
+                // Save current Ip address
                 userService.addIpAddress(user, ipAddress);
-                //save ip address
             }
+
             token = jwtTokenUtil.generateToken(user, false);
 
             map.put("token", token);

@@ -33,14 +33,18 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasRole('ROLE_CLIENT')")
 public class ClientRestController {
 
-    @Autowired
-    private SubscriberService subscriberService;
+    private final SubscriberService subscriberService;
+
+    private final TelecomServService telecomServService;
+
+    private final InvoiceService invoiceService;
 
     @Autowired
-    private TelecomServService telecomServService;
-
-    @Autowired
-    private InvoiceService invoiceService;
+    public ClientRestController(SubscriberService subscriberService, TelecomServService telecomServService, InvoiceService invoiceService) {
+        this.subscriberService = subscriberService;
+        this.telecomServService = telecomServService;
+        this.invoiceService = invoiceService;
+    }
 
     private Subscriber getSubscriberOfCurrentlyLoggedClient(String phoneNumber,Authentication authentication) {
         Client client = (Client) authentication.getPrincipal();

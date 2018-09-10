@@ -13,8 +13,12 @@ import java.util.List;
 
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
+    private final CurrencyRepository currencyRepository;
+
     @Autowired
-    private CurrencyRepository currencyRepository;
+    public CurrencyServiceImpl(CurrencyRepository currencyRepository) {
+        this.currencyRepository = currencyRepository;
+    }
 
     @Override
     public List<Currency> getAll() {

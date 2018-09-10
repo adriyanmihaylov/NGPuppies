@@ -18,12 +18,16 @@ import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+    private final AdminRepository adminRepository;
+    private final AuthorityRepository authorityRepository;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    private AdminRepository adminRepository;
-    @Autowired
-    private AuthorityRepository authorityRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public AdminServiceImpl(AdminRepository adminRepository, AuthorityRepository authorityRepository, PasswordEncoder passwordEncoder) {
+        this.adminRepository = adminRepository;
+        this.authorityRepository = authorityRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public List<Admin> getAll() {

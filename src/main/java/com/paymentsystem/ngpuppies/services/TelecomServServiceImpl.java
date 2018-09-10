@@ -14,8 +14,12 @@ import java.util.List;
 
 @Service
 public class TelecomServServiceImpl implements TelecomServService {
+    private final TelecomServRepository telecomServRepository;
+
     @Autowired
-    private TelecomServRepository telecomServRepository;
+    public TelecomServServiceImpl(TelecomServRepository telecomServRepository) {
+        this.telecomServRepository = telecomServRepository;
+    }
 
     @Override
     public List<TelecomServ> getAll() {

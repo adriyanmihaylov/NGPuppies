@@ -18,12 +18,16 @@ import java.util.List;
 
 @Service
 public class ClientServiceImpl implements ClientService {
+    private final ClientRepository clientRepository;
+    private final AuthorityRepository authorityRepository;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private AuthorityRepository authorityRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public ClientServiceImpl(ClientRepository clientRepository, AuthorityRepository authorityRepository, PasswordEncoder passwordEncoder) {
+        this.clientRepository = clientRepository;
+        this.authorityRepository = authorityRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public List<Client> getAll() {

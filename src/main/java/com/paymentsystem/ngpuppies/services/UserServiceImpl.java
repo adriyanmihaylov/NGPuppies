@@ -17,8 +17,12 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User loadById(Integer id) {
@@ -41,12 +45,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public boolean addIpAddress(User user, String address) {
-        if (user.getIpAddresses() == null) {
-            user.setIpAddresses(new HashSet<>());
+        if (user == null || address == null) {
+            return false;
         }
         IpAddress ipAddress = new IpAddress(address);
 
-        return userRepository.addIpAddressToUser(user,ipAddress);
+        return userRepository.addIpAddressToUser(user, ipAddress);
     }
 
     @Override

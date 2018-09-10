@@ -54,8 +54,9 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                    User user = userService.loadById(id);
                     if(user != null) {
                         IpAddress ipAddress = new IpAddress(request.getRemoteAddr());
-                        boolean isContaining = user.getIpAddresses().contains(ipAddress);
-                        System.out.println(isContaining);
+                        // Checking the ip addresses to ensure two things
+                        // 1. this is the first login of the user and he doesn't have any ip addresses yet
+                        // 2. this is not the first login of the user and he doesn't have this ip in the list
                         if(user.getIpAddresses().size() > 0 && !user.getIpAddresses().contains(ipAddress)) {
                             throw new Exception();
                         }
