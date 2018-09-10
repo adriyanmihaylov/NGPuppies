@@ -1,6 +1,6 @@
 # NGPuppies
 Telerik Academy Project - Payment System for Bright Consulting    
-PROJECT DOCUMENTATION:(https://documenter.getpostman.com/view/4882506/RWaC1rpY#86f29a42-6bea-48d0-a498-87e2ce3968b8)
+PROJECT DOCUMENTATION(https://documenter.getpostman.com/view/4882506/RWaC1rpY#86f29a42-6bea-48d0-a498-87e2ce3968b8)
 
 ## Database
 ![database2](https://user-images.githubusercontent.com/37835890/45278796-59102a00-b4d7-11e8-9e99-60c775fa291b.png)
