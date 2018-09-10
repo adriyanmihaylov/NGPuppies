@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @EqualPasswords
-public class PasswordResetDТО {
+public class PasswordResetDto {
 
     @NotEmpty(message = "Please enter password")
     @Size(min = 6, max = 30)
@@ -19,10 +19,10 @@ public class PasswordResetDТО {
     })
     private String confirmPassword;
 
-    public PasswordResetDТО() {
+    public PasswordResetDto() {
     }
 
-    public PasswordResetDТО(String password, String confirmPassword) {
+    public PasswordResetDto(String password, String confirmPassword) {
         setPassword(password);
         setConfirmPassword(confirmPassword);
     }

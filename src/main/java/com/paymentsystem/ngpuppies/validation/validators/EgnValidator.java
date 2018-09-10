@@ -8,8 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EgnValidator implements ConstraintValidator<ValidEgn, String> {
-    private Pattern pattern;
-    private Matcher matcher;
     private static final String EGN_PATTERN = "^[0-9]{10}$";
 
     @Override
@@ -26,8 +24,8 @@ public class EgnValidator implements ConstraintValidator<ValidEgn, String> {
             return false;
         }
 
-        pattern = Pattern.compile(EGN_PATTERN);
-        matcher = pattern.matcher(egn);
+        Pattern pattern = Pattern.compile(EGN_PATTERN);
+        Matcher matcher = pattern.matcher(egn);
         return matcher.matches();
     }
 }

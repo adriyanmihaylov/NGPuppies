@@ -1,15 +1,14 @@
 package com.paymentsystem.ngpuppies.web.dto;
 
-import com.paymentsystem.ngpuppies.models.ClientDetail;
-import com.paymentsystem.ngpuppies.validation.anotations.ValidEik;
+import com.paymentsystem.ngpuppies.validation.anotations.ValidEmail;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
 
 import javax.validation.constraints.Size;
 
-public class ClientDTO {
+public class AdminDto {
     @ValidUsername
     @Size.List({
-            @Size(min = 6, message = "Username must be at least 6 characters"),
+            @Size(min = 4, message = "Username must be at least 4 characters"),
             @Size(max = 20, message = "Username must be less than 20 characters")
     })
     private String username;
@@ -20,12 +19,17 @@ public class ClientDTO {
     })
     private String password;
 
-    @ValidEik
-    private String eik;
+    @ValidEmail
+    private String email;
 
-    private ClientDetail details;
+    public AdminDto() {
 
-    public ClientDTO() {
+    }
+
+    public AdminDto(String username, String password, String email) {
+        setUsername(username);
+        setPassword(password);
+        setEmail(email);
     }
 
     public String getUsername() {
@@ -44,19 +48,11 @@ public class ClientDTO {
         this.password = password;
     }
 
-    public String getEik() {
-        return eik;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEik(String eik) {
-        this.eik = eik;
-    }
-
-    public ClientDetail getDetails() {
-        return details;
-    }
-
-    public void setDetails(ClientDetail details) {
-        this.details = details;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -4,16 +4,19 @@ import com.paymentsystem.ngpuppies.models.Currency;
 import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
 import com.paymentsystem.ngpuppies.models.TelecomServ;
-import com.paymentsystem.ngpuppies.web.dto.InvoiceDTO;
-import com.paymentsystem.ngpuppies.web.dto.InvoicePaymentDTO;
+import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
+import com.paymentsystem.ngpuppies.repositories.base.TelecomServRepository;
+import com.paymentsystem.ngpuppies.validation.DateValidator;
+import com.paymentsystem.ngpuppies.web.dto.InvoiceDto;
+import com.paymentsystem.ngpuppies.web.dto.InvoicePaymentDto;
 import com.paymentsystem.ngpuppies.repositories.base.CurrencyRepository;
 import com.paymentsystem.ngpuppies.repositories.base.InvoiceRepository;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
-import com.paymentsystem.ngpuppies.services.base.SubscriberService;
-import com.paymentsystem.ngpuppies.services.base.TelecomServService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,14 +24,23 @@ import java.util.List;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
+    private final InvoiceRepository invoiceRepository;
+    private final CurrencyRepository currencyRepository;
+    private final TelecomServRepository telecomServRepository;
+    private final SubscriberRepository subscriberRepository;
+
+    private DateValidator dateValidator = new DateValidator();
+
     @Autowired
-    private InvoiceRepository invoiceRepository;
-    @Autowired
-    private CurrencyRepository currencyRepository;
-    @Autowired
-    private TelecomServService telecomServService;
-    @Autowired
-    private SubscriberService subscriberService;
+    public InvoiceServiceImpl(InvoiceRepository invoiceRepository,
+                              CurrencyRepository currencyRepository,
+                              TelecomServRepository telecomServRepository,
+                              SubscriberRepository subscriberRepository) {
+        this.invoiceRepository = invoiceRepository;
+        this.currencyRepository = currencyRepository;
+        this.telecomServRepository = telecomServRepository;
+        this.subscriberRepository = subscriberRepository;
+    }
 
     @Override
     public Invoice getById(int id) {
@@ -41,41 +53,38 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public InvoiceDTO create(InvoiceDTO invoiceDTO) {
-
-        validateDate(invoiceDTO.getStartDate(), invoiceDTO.getEndDate());
-
-        Subscriber subscriber = subscriberService.getSubscriberByPhone(invoiceDTO.getSubscriberPhone());
+    public InvoiceDto create(InvoiceDto invoiceDto) {
+        Subscriber subscriber = subscriberRepository.getSubscriberByPhoneNumber(invoiceDto.getSubscriberPhone());
         if (subscriber == null) {
-            return invoiceDTO;
+            return invoiceDto;
         }
-        TelecomServ telecomServ = telecomServService.getByName(invoiceDTO.getService());
+        TelecomServ telecomServ = telecomServRepository.getByName(invoiceDto.getService());
         if (telecomServ == null) {
-            return invoiceDTO;
+            return invoiceDto;
         }
-        if (!subscriber.getSubscriberServices().contains(telecomServ)) {
-            return invoiceDTO;
+        if (subscriber.getSubscriberServices() == null || !subscriber.getSubscriberServices().contains(telecomServ)) {
+            return invoiceDto;
         }
-
+        LocalDate from;
+        LocalDate to;
+        try {
+            from = dateValidator.extractDateFromString(invoiceDto.getStartDate());
+            to = dateValidator.extractDateFromString(invoiceDto.getEndDate());
+            dateValidator.validateDates(from,to);
+        } catch (InvalidParameterException e) {
+            return invoiceDto;
+        }
         Invoice invoice = new Invoice(subscriber,
-                LocalDate.parse(invoiceDTO.getStartDate()),
-                LocalDate.parse(invoiceDTO.getEndDate()),
-                Double.parseDouble(invoiceDTO.getAmountBGN()),
+                from,
+                to,
+                Double.parseDouble(invoiceDto.getAmountBGN()),
                 telecomServ);
 
-        try {
-            if (!invoiceRepository.create(invoice)) {
-                return invoiceDTO;
-            }
-        } catch (Exception e) {
-            return invoiceDTO;
+        if (invoiceRepository.create(invoice)) {
+            return null;
         }
-        return null;
-    }
 
-    @Override
-    public boolean update(List<Invoice> invoices) {
-        return invoiceRepository.update(invoices);
+        return invoiceDto;
     }
 
     @Override
@@ -86,7 +95,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
 
         if (!invoice.getSubscriber().getPhone().equals(subscriberPhone)) {
-            throw new IllegalArgumentException("Invoice Id: " + invoiceId + " is not for the selected subscriber!");
+            throw new InvalidParameterException("Invoice Id: " + invoiceId + " is not for the selected subscriber!");
         }
 
         return invoiceRepository.delete(invoice);
@@ -104,24 +113,24 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public List<Invoice> geAllUnpaidInvoicesOfAllClientSubscribers(int clientId) {
-        return invoiceRepository.geAllUnpaidInvoicesForAllSubscribersOfClient(clientId);
+        return invoiceRepository.geAllUnpaidInvoicesOfAllClientSubscribers(clientId);
     }
 
     @Override
-    public List<InvoicePaymentDTO> payInvoices(List<InvoicePaymentDTO> invoices, int clientId) {
-        List<InvoicePaymentDTO> unpaidInvoices = new ArrayList<>();
-        for (InvoicePaymentDTO invoicePaymentDTO : invoices) {
-            Invoice invoice = invoiceRepository.getById(invoicePaymentDTO.getId());
+    public List<InvoicePaymentDto> payInvoices(List<InvoicePaymentDto> invoices, int clientId) {
+        List<InvoicePaymentDto> unpaidInvoices = new ArrayList<>();
+        for (InvoicePaymentDto invoicePaymentDto : invoices) {
+            Invoice invoice = invoiceRepository.getById(invoicePaymentDto.getId());
 
             if (invoice != null && invoice.getSubscriber().getClient() != null) {
                 if (invoice.getPayedDate() == null) {
                     if (invoice.getSubscriber().getClient().getId() == clientId) {
-                        Currency currency = currencyRepository.getByName(invoicePaymentDTO.getCurrency());
+                        Currency currency = currencyRepository.getByName(invoicePaymentDto.getCurrency());
 
                         if (currency != null) {
 
                             invoice.setCurrency(currency);
-                            invoice.setAmount(invoice.getBGNAmount() / currency.getFixing());
+                            invoice.setAmount(round(invoice.getBGNAmount() / currency.getFixing()));
                             invoice.setPayedDate(LocalDate.now());
                             Subscriber subscriber = invoice.getSubscriber();
                             subscriber.setTotalAmount(invoice.getBGNAmount() + subscriber.getTotalAmount());
@@ -133,14 +142,17 @@ public class InvoiceServiceImpl implements InvoiceService {
                     }
                 }
             }
-            unpaidInvoices.add(invoicePaymentDTO);
+            unpaidInvoices.add(invoicePaymentDto);
         }
 
         return unpaidInvoices;
     }
 
     @Override
-    public List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(String subscriberPhone) {
+    public List<Invoice> getAllUnpaidInvoicesOfSubscriberInDescOrder(String subscriberPhone) throws InvalidParameterException {
+        if(subscriberPhone == null) {
+            throw new InvalidParameterException("Phone must not be empty!");
+        }
         return invoiceRepository.getAllUnpaidInvoicesOfSubscriberInDescOrder(subscriberPhone);
     }
 
@@ -151,53 +163,43 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public List<Invoice> getSubscriberInvoicesFromDateToDate(String subscriberPhone, String fromDate, String endDate) throws InvalidParameterException {
-        validateDate(fromDate, endDate);
-        Subscriber subscriber = subscriberService.getSubscriberByPhone(subscriberPhone);
-        if (subscriber == null) {
-            throw new InvalidParameterException("There is no such subscriber!");
-        }
+        LocalDate from = dateValidator.extractDateFromString(fromDate);
+        LocalDate to = dateValidator.extractDateFromString(endDate);
+        dateValidator.validateDates(from, to);
 
-        return invoiceRepository.getSubscriberPaidInvoicesFromDateToDate(subscriber.getId(), LocalDate.parse(fromDate), LocalDate.parse(endDate));
+        return invoiceRepository.getSubscriberPaidInvoicesFromDateToDate(subscriberPhone, from, to);
     }
 
     @Override
-    public Invoice getSubscriberLargestPaidInvoice(Subscriber subscriber, String fromDate, String endDate) throws InvalidParameterException {
-
-        validateDate(fromDate, endDate);
-
+    public Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Subscriber subscriber, String fromDate, String endDate) throws InvalidParameterException {
         if (subscriber == null) {
             throw new InvalidParameterException("There is no such subscriber!");
         }
 
-        return invoiceRepository.getSubscriberLargestPaidInvoiceForPeriodOfTime(subscriber.getId(), LocalDate.parse(fromDate),LocalDate.parse(endDate));
+        LocalDate from = dateValidator.extractDateFromString(fromDate);
+        LocalDate to = dateValidator.extractDateFromString(endDate);
+        dateValidator.validateDates(from, to);
+
+        return invoiceRepository.getSubscriberLargestPaidInvoiceForPeriodOfTime(subscriber.getId(), from, to);
     }
 
     @Override
     public List<Invoice> getAllUnpaidInvoicesOfService(String serviceName) throws InvalidParameterException {
-        TelecomServ telecomServ = telecomServService.getByName(serviceName);
-        if (telecomServ == null) {
-            throw new InvalidParameterException("There is no such service!");
-        }
-
         return invoiceRepository.getAllUnpaidInvoicesOfService(serviceName);
     }
 
     @Override
-    public List<Invoice> geAllUnpaidInvoicesFromDateToDate(String fromDate, String toDate) {
-        validateDate(fromDate, toDate);
+    public List<Invoice> geAllUnpaidInvoicesFromDateToDate(String fromDate, String endDate) throws InvalidParameterException {
+        LocalDate from = dateValidator.extractDateFromString(fromDate);
+        LocalDate to = dateValidator.extractDateFromString(endDate);
+        dateValidator.validateDates(from, to);
 
-        return invoiceRepository.geAllUnpaidInvoicesFromDateToDate(LocalDate.parse(fromDate), LocalDate.parse(toDate));
+        return invoiceRepository.geAllUnpaidInvoicesFromDateToDate(from, to);
     }
 
-    private boolean validateDate(String start, String end) throws InvalidParameterException {
-        if (start.equals(end)) {
-            return true;
-        }
-
-        if (LocalDate.parse(start).isAfter(LocalDate.parse(end))) {
-            throw new InvalidParameterException("Invalid date range!");
-        }
-
-        return true;
+    public static double round(double value) {
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }

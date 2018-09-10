@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
 import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.web.dto.AdminDTO;
+import com.paymentsystem.ngpuppies.web.dto.AdminDto;
 import com.paymentsystem.ngpuppies.services.base.*;
 import com.paymentsystem.ngpuppies.models.viewModels.AdminViewModel;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
@@ -23,8 +23,12 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/admin")
 public class AdminAdministratorsController {
+    private final AdminService adminService;
+
     @Autowired
-    private AdminService adminService;
+    public AdminAdministratorsController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     @GetMapping("")
     public ResponseEntity<AdminViewModel> getAdminByUsername(@RequestParam("username") @ValidUsername String username) {
@@ -51,15 +55,15 @@ public class AdminAdministratorsController {
     }
 
     @GetMapping("/register")
-    public AdminDTO registerAdmin() {
-        return new AdminDTO();
+    public AdminDto registerAdmin() {
+        return new AdminDto();
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseMessage> registerAdmin(@RequestBody @Valid AdminDTO adminDTO,
+    public ResponseEntity<ResponseMessage> registerAdmin(@RequestBody @Valid AdminDto adminDto,
                                                          BindingResult bindingResult) {
         try {
-            if (adminService.create(adminDTO)) {
+            if (adminService.create(adminDto)) {
                 return new ResponseEntity<>(new ResponseMessage("Admin created"), HttpStatus.OK);
             }
         } catch (IllegalArgumentException | SQLException e) {
@@ -73,10 +77,10 @@ public class AdminAdministratorsController {
 
     @PutMapping("/update")
     public ResponseEntity<ResponseMessage> updateAdmin(@RequestParam @ValidUsername String username,
-                                                       @RequestBody @Valid AdminDTO adminDTO,
+                                                       @RequestBody @Valid AdminDto adminDto,
                                                        BindingResult bindingResult) {
         try {
-            if (adminService.update(username, adminDTO)) {
+            if (adminService.update(username, adminDto)) {
                 return new ResponseEntity<>(new ResponseMessage("Admin updated!"), HttpStatus.OK);
             }
         } catch (IllegalArgumentException | SQLException e) {

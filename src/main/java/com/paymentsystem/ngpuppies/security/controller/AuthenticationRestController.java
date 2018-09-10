@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web;
+package com.paymentsystem.ngpuppies.security.controller;
 
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.models.users.User;
@@ -17,8 +17,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.soap.SOAPBinding;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,14 +27,17 @@ public class AuthenticationRestController {
     @Value("${jwt.header}")
     private String tokenHeader;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtil jwtTokenUtil;
+    final UserService userService;
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    public AuthenticationRestController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserService userService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.userService = userService;
+    }
 
-    @Autowired
-    UserService userService;
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody @Valid  JwtAuthenticationRequest authenticationRequest,
                                                        BindingResult bindingResult) throws AuthenticationException {

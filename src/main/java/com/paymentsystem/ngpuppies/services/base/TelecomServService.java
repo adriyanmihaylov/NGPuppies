@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.services.base;
 
 import com.paymentsystem.ngpuppies.models.TelecomServ;
-import com.paymentsystem.ngpuppies.web.dto.TelecomServiceDTO;
+import com.paymentsystem.ngpuppies.web.dto.TelecomServDto;
 import com.paymentsystem.ngpuppies.models.users.Client;
 
 import java.security.InvalidParameterException;
@@ -14,11 +14,11 @@ public interface TelecomServService {
 
     List<TelecomServ> getAll();
 
-    boolean create(TelecomServiceDTO telecomServiceDTO) throws InvalidParameterException,SQLException;
+    boolean create(TelecomServDto telecomServDto) throws InvalidParameterException,SQLException;
 
-    boolean update(String serviceName, TelecomServiceDTO serviceDTO) throws InvalidParameterException,SQLException;
+    boolean update(String serviceName, TelecomServDto serviceDTO) throws InvalidParameterException,SQLException;
 
-    boolean delete(TelecomServ telecomServ);
+    boolean delete(String telecomServName);
 
     List<TelecomServ> getAllServicesOfClient(Client client);
 }

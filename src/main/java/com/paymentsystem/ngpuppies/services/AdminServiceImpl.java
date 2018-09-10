@@ -1,12 +1,12 @@
 package com.paymentsystem.ngpuppies.services;
 
-import com.paymentsystem.ngpuppies.web.dto.AdminDTO;
+import com.paymentsystem.ngpuppies.repositories.base.AuthorityRepository;
+import com.paymentsystem.ngpuppies.web.dto.AdminDto;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
 import com.paymentsystem.ngpuppies.services.base.AdminService;
-import com.paymentsystem.ngpuppies.services.base.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminRepository adminRepository;
     @Autowired
-    private AuthorityService authorityService;
+    private AuthorityRepository authorityRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -32,22 +32,31 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin loadByEmail(String email) {
+        if(email == null) {
+            return null;
+        }
         return adminRepository.loadByEmail(email);
     }
 
     @Override
     public Admin loadByUsername(String username) {
+        if(username == null) {
+            return null;
+        }
         return adminRepository.loadByUsername(username);
     }
 
     @Override
-    public boolean create(AdminDTO adminDTO) throws InvalidParameterException, SQLException {
-        if (adminDTO.getPassword() == null) {
+    public boolean create(AdminDto adminDto) throws Exception {
+        if (adminDto == null ||  adminDto.getPassword() == null) {
             throw new InvalidParameterException("Password is missing!");
         }
 
-        Authority authority = authorityService.getByName(AuthorityName.ROLE_INITIAL);
-        Admin admin = new Admin(adminDTO.getUsername(), passwordEncoder.encode(adminDTO.getPassword()), adminDTO.getEmail(), authority);
+        Authority authority = authorityRepository.getByName(AuthorityName.ROLE_INITIAL);
+        if(authority == null) {
+            throw new Exception("Could't register admin! Authority not found!");
+        }
+        Admin admin = new Admin(adminDto.getUsername(), passwordEncoder.encode(adminDto.getPassword()), adminDto.getEmail(), authority);
         admin.setEnabled(Boolean.FALSE);
 
         return adminRepository.create(admin);
@@ -55,17 +64,21 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
-    public boolean update(String username, AdminDTO adminDTO) throws InvalidParameterException, SQLException {
+    public boolean update(String username, AdminDto adminDto) throws InvalidParameterException, SQLException {
+        if(username == null || adminDto == null) {
+            throw new InvalidParameterException("Username must not be empty!");
+        }
+
         Admin admin = adminRepository.loadByUsername(username);
         if (admin == null) {
             throw new InvalidParameterException("Username not found!");
         }
 
-        admin.setUsername(adminDTO.getUsername());
-        admin.setEmail(adminDTO.getEmail());
+        admin.setUsername(adminDto.getUsername());
+        admin.setEmail(adminDto.getEmail());
 
-        if (adminDTO.getPassword() != null) {
-            admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
+        if (adminDto.getPassword() != null) {
+            admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
             admin.setLastPasswordResetDate(new Date());
         }
 
@@ -73,8 +86,16 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean updateOnFirstLogin(Admin admin) throws SQLException {
-        Authority authority = authorityService.getByName(AuthorityName.ROLE_ADMIN);
+    public boolean updateOnFirstLogin(Admin admin) throws Exception {
+        if(admin == null) {
+            return false;
+        }
+
+        Authority authority = authorityRepository.getByName(AuthorityName.ROLE_ADMIN);
+        if(authority == null) {
+            throw new Exception("Couldn't update admin after first login! Authority not found!");
+        }
+
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         admin.setAuthority(authority);
         admin.setLastPasswordResetDate(new Date());

@@ -8,10 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NameValidator implements ConstraintValidator<ValidName, String> {
-    private Pattern pattern;
-    private Matcher matcher;
 
-    private static final String NAME_PATTERN = "[A-Za-z][a-zA-Z]{2,50}$";
+    private static final String NAME_PATTERN = "[A-Za-z][a-zA-Z]{2,21}$";
 
     @Override
     public void initialize(ValidName constraintAnnotation) {
@@ -26,8 +24,8 @@ public class NameValidator implements ConstraintValidator<ValidName, String> {
         if(name == null) {
             return false;
         }
-        pattern = Pattern.compile(NAME_PATTERN);
-        matcher = pattern.matcher(name);
+        Pattern pattern = Pattern.compile(NAME_PATTERN);
+        Matcher matcher = pattern.matcher(name);
         return matcher.matches();
     }
 }

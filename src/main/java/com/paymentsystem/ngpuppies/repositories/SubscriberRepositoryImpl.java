@@ -52,12 +52,10 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
 
     @Override
     public boolean create(Subscriber subscriber) throws SQLException {
-        Session session = null;
         Transaction transaction = null;
-        try {
-            Address address = subscriber.getAddress();
+        Address address = subscriber.getAddress();
+        try (Session session = sessionFactory.openSession()) {
 
-            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(address);
             session.save(subscriber);
@@ -84,10 +82,6 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
                 System.out.println("Couldn't roll back transaction!");
             }
             e.printStackTrace();
-        } finally {
-            if(session != null) {
-                session.close();
-            }
         }
 
         return false;
@@ -95,12 +89,10 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
 
     @Override
     public boolean update(Subscriber subscriber) throws SQLException {
-        Session session = null;
         Transaction transaction = null;
-        try {
-            Address address = subscriber.getAddress();
+        Address address = subscriber.getAddress();
+        try (Session session = sessionFactory.openSession()) {
 
-            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.update(address);
             session.update(subscriber);
@@ -126,10 +118,6 @@ public class SubscriberRepositoryImpl implements SubscriberRepository {
                 System.out.println("Couldn't roll back transaction!");
             }
             e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
         return false;

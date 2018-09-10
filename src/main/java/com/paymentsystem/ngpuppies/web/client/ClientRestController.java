@@ -2,9 +2,9 @@ package com.paymentsystem.ngpuppies.web.client;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.web.dto.InvoicePaymentDTO;
+import com.paymentsystem.ngpuppies.web.dto.InvoicePaymentDto;
 import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.web.dto.ValidList;
+import com.paymentsystem.ngpuppies.validation.ValidList;
 import com.paymentsystem.ngpuppies.models.users.Client;
 import com.paymentsystem.ngpuppies.models.viewModels.*;
 import com.paymentsystem.ngpuppies.services.base.InvoiceService;
@@ -159,7 +159,7 @@ public class ClientRestController {
         try {
             Subscriber subscriber = getSubscriberOfCurrentlyLoggedClient(subscriberPhone, authentication);
 
-            InvoiceViewModel viewModel = InvoiceViewModel.fromModel(invoiceService.getSubscriberLargestPaidInvoice(subscriber, fromDate, endDate));
+            InvoiceViewModel viewModel = InvoiceViewModel.fromModel(invoiceService.getSubscriberLargestPaidInvoiceForPeriodOfTime(subscriber, fromDate, endDate));
 
             return new ResponseEntity<>(viewModel, HttpStatus.OK);
 
@@ -173,21 +173,20 @@ public class ClientRestController {
     }
 
     @GetMapping("/invoice/pay")
-    public ValidList<InvoicePaymentDTO> getInvoicePayModel() {
-        ValidList<InvoicePaymentDTO> invoicePayDTOValidList = new ValidList<>();
+    public ValidList<InvoicePaymentDto> getInvoicePayModel() {
+        ValidList<InvoicePaymentDto> invoicePayDTOValidList = new ValidList<>();
         for (int i = 0; i < 2; i++) {
-            invoicePayDTOValidList.add(new InvoicePaymentDTO());
+            invoicePayDTOValidList.add(new InvoicePaymentDto());
         }
 
         return invoicePayDTOValidList;
     }
 
     @PutMapping("/invoice/pay")
-    @ResponseBody
-    public ResponseEntity<?> payInvoices(@RequestBody() @Valid ValidList<InvoicePaymentDTO> invoicePayDTOList,
+    public ResponseEntity<?> payInvoices(@RequestBody() @Valid ValidList<InvoicePaymentDto> invoicePayDTOList,
                                          Authentication authentication,
                                          BindingResult bindingResult) {
-        List<InvoicePaymentDTO> unpaidInvoices = new ArrayList<>();
+        List<InvoicePaymentDto> unpaidInvoices = new ArrayList<>();
         try {
             Client client = (Client) authentication.getPrincipal();
             unpaidInvoices = invoiceService.payInvoices(invoicePayDTOList.getList(), client.getId());

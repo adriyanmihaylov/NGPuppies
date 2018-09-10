@@ -12,5 +12,5 @@ public interface CurrencyRepository {
 
     boolean create(Currency currency) throws SQLException;
 
-    boolean update(Currency currency);
+    boolean update(String currencyName, double fixing);
 }

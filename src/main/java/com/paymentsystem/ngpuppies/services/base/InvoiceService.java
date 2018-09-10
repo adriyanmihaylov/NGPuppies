@@ -2,8 +2,8 @@ package com.paymentsystem.ngpuppies.services.base;
 
 import com.paymentsystem.ngpuppies.models.Invoice;
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.web.dto.InvoiceDTO;
-import com.paymentsystem.ngpuppies.web.dto.InvoicePaymentDTO;
+import com.paymentsystem.ngpuppies.web.dto.InvoiceDto;
+import com.paymentsystem.ngpuppies.web.dto.InvoicePaymentDto;
 
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -14,15 +14,14 @@ public interface InvoiceService {
 
     List<Invoice> getAll();
 
-    InvoiceDTO create(InvoiceDTO invoiceDTO);
+    InvoiceDto create(InvoiceDto invoiceDto);
 
-    boolean update(List<Invoice> invoice);
 
     boolean delete(int id, String subscriberPhone);
 
     List<Invoice> getAllUnpaidInvoices();
 
-    List<InvoicePaymentDTO> payInvoices(List<InvoicePaymentDTO> invoices, int clientId);
+    List<InvoicePaymentDto> payInvoices(List<InvoicePaymentDto> invoices, int clientId);
 
     List<Invoice> getAllInvoicesOfSubscriberBySubscriberId(int subscriberId);
 
@@ -34,7 +33,7 @@ public interface InvoiceService {
 
     List<Invoice> getTenMostRecentInvoices(int clientId);
 
-    Invoice getSubscriberLargestPaidInvoice(Subscriber subscriber, String fromDate, String endDate) throws InvalidParameterException;
+    Invoice getSubscriberLargestPaidInvoiceForPeriodOfTime(Subscriber subscriber, String fromDate, String endDate) throws InvalidParameterException;
 
     List<Invoice> getAllUnpaidInvoicesOfService(String serviceName) throws InvalidParameterException;
 

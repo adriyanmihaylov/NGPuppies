@@ -2,9 +2,8 @@ package com.paymentsystem.ngpuppies.web.admin;
 
 
 import com.paymentsystem.ngpuppies.models.Currency;
-import com.paymentsystem.ngpuppies.web.dto.CurrencyDTO;
 import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
-import com.paymentsystem.ngpuppies.web.dto.ValidList;
+import com.paymentsystem.ngpuppies.validation.ValidList;
 import com.paymentsystem.ngpuppies.services.base.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.InvalidParameterException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -33,20 +33,20 @@ public class AdminCurrencyController {
         return new ResponseEntity<>(currencies, HttpStatus.OK);
     }
 
-    @GetMapping("/update1")
-    public ValidList<CurrencyDTO> getCurrencyUpdateTemplate() {
-        ValidList<CurrencyDTO> validList = new ValidList<>();
+    @GetMapping("/update")
+    public ValidList<Currency> getCurrencyUpdateTemplate() {
+        ValidList<Currency> validList = new ValidList<>();
         for (int i = 0; i < 2; i++) {
-            validList.add(new CurrencyDTO());
+            validList.add(new Currency());
         }
 
         return validList;
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> setFixing(@RequestBody @Valid ValidList<CurrencyDTO> currencyValidList,
+    public ResponseEntity<?> setFixing(@RequestBody @Valid ValidList<Currency> currencyValidList,
                                        BindingResult bindingResult) {
-        List<CurrencyDTO> invalid = currencyService.updateFixings(currencyValidList.getList());
+        List<Currency> invalid = currencyService.updateFixings(currencyValidList.getList());
         if (invalid.size() > 0) {
             return new ResponseEntity<>(invalid, HttpStatus.BAD_REQUEST);
         }
@@ -55,14 +55,15 @@ public class AdminCurrencyController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseMessage> createCurrency(@RequestBody @Valid CurrencyDTO currencyDTO,
+    public ResponseEntity<ResponseMessage> createCurrency(@RequestBody @Valid Currency currencyDto,
                                                           BindingResult bindingResult) {
         try {
-            Currency currency = new Currency(currencyDTO.getName());
-            currencyService.create(currency);
+            if(currencyService.create(currencyDto.getName(),currencyDto.getFixing())) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
 
             return new ResponseEntity<>(new ResponseMessage("Currency created!"), HttpStatus.OK);
-        } catch (SQLException e) {
+        } catch (InvalidParameterException | SQLException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();

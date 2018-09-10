@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.services.base;
 
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
+import com.paymentsystem.ngpuppies.web.dto.SubscriberDto;
 
 import java.rmi.AlreadyBoundException;
 import java.security.InvalidParameterException;
@@ -15,9 +15,9 @@ public interface SubscriberService {
 
     Subscriber getSubscriberByPhone(String phoneNumber);
 
-    boolean create(SubscriberDTO subscriberDTO) throws InvalidParameterException, SQLException;
+    boolean create(SubscriberDto subscriberDto) throws InvalidParameterException, SQLException;
 
-    boolean update(String phoneNumber, SubscriberDTO subscriberDTO) throws InvalidParameterException, SQLException;
+    boolean update(String phoneNumber, SubscriberDto subscriberDto) throws InvalidParameterException, SQLException;
 
     boolean deleteSubscriberByNumber(String phoneNumber) throws InvalidParameterException;
 

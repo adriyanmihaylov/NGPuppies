@@ -3,13 +3,15 @@ package com.paymentsystem.ngpuppies.web.dto;
 import com.paymentsystem.ngpuppies.validation.anotations.ValidServiceName;
 
 
-public class TelecomServiceDTO {
-
+public class TelecomServDto {
     @ValidServiceName
     private String name;
 
-    public TelecomServiceDTO() {
+    public TelecomServDto() {
 
+    }
+    public TelecomServDto(String name) {
+        setName(name);
     }
 
     public String getName() {

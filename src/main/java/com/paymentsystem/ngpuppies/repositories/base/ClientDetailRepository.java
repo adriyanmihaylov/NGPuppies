@@ -8,4 +8,6 @@ public interface ClientDetailRepository {
     boolean update(ClientDetail clientDetail);
 
     ClientDetail getById(Integer id);
+
+    boolean addDetailsToClient(String clientUsername, ClientDetail clientDetail);
 }

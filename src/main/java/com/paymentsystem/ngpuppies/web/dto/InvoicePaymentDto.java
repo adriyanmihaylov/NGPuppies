@@ -3,7 +3,7 @@ package com.paymentsystem.ngpuppies.web.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class InvoicePaymentDTO {
+public class InvoicePaymentDto {
 
     @NotNull(message = "Please enter id")
     private Integer id;
@@ -12,11 +12,10 @@ public class InvoicePaymentDTO {
     @Size(min = 2,max = 5)
     private String currency;
 
-    public InvoicePaymentDTO() {
-
+    public InvoicePaymentDto() {
     }
 
-    public InvoicePaymentDTO(Integer id, String currency) {
+    public InvoicePaymentDto(Integer id, String currency) {
         setId(id);
         setCurrency(currency);
     }

@@ -1,6 +1,10 @@
 package com.paymentsystem.ngpuppies.models;
 
+import com.paymentsystem.ngpuppies.validation.anotations.ValidName;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "currencies")
@@ -10,9 +14,12 @@ public class Currency {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @NotNull
+    @ValidName(message = "Invalid currency name")
     @Column(name = "Name")
     private String name;
 
+    @NotNull
     @Column(name = "FixingBGN")
     private double fixing;
 
@@ -20,8 +27,9 @@ public class Currency {
 
     }
 
-    public Currency(String name) {
-        setName(name);
+    public Currency(String currencyName, double fixing) {
+        setName(currencyName);
+        setFixing(fixing);
     }
 
     public int getId() {

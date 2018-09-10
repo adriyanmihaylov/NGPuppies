@@ -13,12 +13,15 @@ public class AuthorityServiceImpl implements AuthorityService {
     private AuthorityRepository authorityRepository;
 
     @Override
-    public Authority getById(int id) {
-        return authorityRepository.getById(id);
+    public Authority getById(int id) { return authorityRepository.getById(id);
     }
 
     @Override
     public Authority getByName(AuthorityName name) {
+        if (name == null) {
+            return null;
+        }
+
         return authorityRepository.getByName(name);
     }
 }

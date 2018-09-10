@@ -8,10 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UsernameValidator implements ConstraintValidator<ValidUsername, String> {
-    private Pattern pattern;
-    private Matcher matcher;
 
-    private static final String USERNAME_PATTERN = "^[a-zA-Z0-9]+([\\._-]?[a-zA-Z0-9])*$";
+    private static final String USERNAME_PATTERN = "^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9])*$";
 
     @Override
     public void initialize(ValidUsername constraintAnnotation) {
@@ -26,8 +24,8 @@ public class UsernameValidator implements ConstraintValidator<ValidUsername, Str
         if (username == null) {
             return false;
         }
-        pattern = Pattern.compile(USERNAME_PATTERN);
-        matcher = pattern.matcher(username);
+        Pattern pattern = Pattern.compile(USERNAME_PATTERN);
+        Matcher matcher = pattern.matcher(username);
         return matcher.matches();
     }
 }

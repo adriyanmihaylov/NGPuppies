@@ -11,7 +11,7 @@ import com.paymentsystem.ngpuppies.repositories.ClientRepositoryImpl;
 import com.paymentsystem.ngpuppies.repositories.TelecomServRepositoryImpl;
 import com.paymentsystem.ngpuppies.repositories.base.SubscriberRepository;
 import com.paymentsystem.ngpuppies.services.SubscriberServiceImpl;
-import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
+import com.paymentsystem.ngpuppies.web.dto.SubscriberDto;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,7 +51,7 @@ public class SubscriberServiceImplTest {
     private Subscriber mockedSubscriber;
     private Client mockedClient;
     private TelecomServ mockedTelecomServ;
-    private SubscriberDTO subscriberDTO;
+    private SubscriberDto subscriberDto;
 
     private static final String VALID_PHONE_NUMBER = "878998778";
     private static final String INVALID_PHONE_NUMBER = "899999999";
@@ -80,7 +80,7 @@ public class SubscriberServiceImplTest {
         mockedSubscriber.setClient(mockedClient);
         mockedSubscriber.setId(VALID_SUBSCRIBER_ID);
 
-        subscriberDTO = new SubscriberDTO(VALID_PHONE_NUMBER, "John", "Ivanov", VALID_EGN, new Address(), mockedClient.getUsername());
+        subscriberDto = new SubscriberDto(VALID_PHONE_NUMBER, "John", "Ivanov", VALID_EGN, new Address(), mockedClient.getUsername());
 
         subscriberList = new ArrayList<>();
         subscriberList.add(mockedSubscriber);
@@ -129,26 +129,37 @@ public class SubscriberServiceImplTest {
 
     @Test(expected = InvalidParameterException.class)
     public void create_whenClientIsMissing_shouldThrowException() throws SQLException {
-        when(clientRepository.loadByUsername(subscriberDTO.getClient())).thenReturn(null);
+        when(clientRepository.loadByUsername(subscriberDto.getClient())).thenReturn(null);
 
-        subscriberService.create(subscriberDTO);
+        subscriberService.create(subscriberDto);
     }
 
     @Test
     public void create_whenClientIsPresent_shouldReturnTrue() throws SQLException {
-        when(clientRepository.loadByUsername(subscriberDTO.getClient())).thenReturn(mockedClient);
+        when(clientRepository.loadByUsername(subscriberDto.getClient())).thenReturn(mockedClient);
         when(subscribersRepository.create(any(Subscriber.class))).thenReturn(true);
 
-        boolean isExecuted = subscriberService.create(subscriberDTO);
+        boolean isExecuted = subscriberService.create(subscriberDto);
 
         Assert.assertTrue(isExecuted);
+    }
+
+    @Test
+    public void create_whenSubscriberDoesNotHaveAddress_shouldAddAddressAndReturnTrue() throws SQLException {
+        when(clientRepository.loadByUsername(subscriberDto.getClient())).thenReturn(mockedClient);
+        when(subscribersRepository.create(any(Subscriber.class))).thenReturn(true);
+        subscriberDto.setAddress(null);
+        boolean isExecuted = subscriberService.create(subscriberDto);
+
+        Assert.assertTrue(isExecuted);
+        Assert.assertTrue(subscriberDto.getAddress() != null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void update_whenSubscriberIsNotPresent_shouldThrowException() throws SQLException {
         when(subscribersRepository.getSubscriberByPhoneNumber(VALID_PHONE_NUMBER)).thenReturn(null);
 
-        subscriberService.update(VALID_PHONE_NUMBER, subscriberDTO);
+        subscriberService.update(VALID_PHONE_NUMBER, subscriberDto);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -156,7 +167,7 @@ public class SubscriberServiceImplTest {
         when(subscribersRepository.getSubscriberByPhoneNumber(VALID_PHONE_NUMBER)).thenReturn(mockedSubscriber);
         when(clientRepository.loadByUsername(VALID_CLIENT_NAME)).thenReturn(null);
 
-        subscriberService.update(VALID_PHONE_NUMBER, subscriberDTO);
+        subscriberService.update(VALID_PHONE_NUMBER, subscriberDto);
     }
 
     @Test
@@ -165,7 +176,7 @@ public class SubscriberServiceImplTest {
         when(clientRepository.loadByUsername(VALID_CLIENT_NAME)).thenReturn(mockedClient);
         when(subscribersRepository.update(any(Subscriber.class))).thenReturn(true);
 
-        Boolean isSuccessful = subscriberService.update(VALID_PHONE_NUMBER, subscriberDTO);
+        Boolean isSuccessful = subscriberService.update(VALID_PHONE_NUMBER, subscriberDto);
         Assert.assertTrue(isSuccessful);
     }
 
@@ -210,6 +221,17 @@ public class SubscriberServiceImplTest {
 
         subscriberService.addServiceToSubscriber(VALID_PHONE_NUMBER, mockedTelecomServ.getName());
     }
+    @Test()
+    public void addServiceToSubscriber_whenSubscriberListOfServicesIsNull_shouldCreateNewListAndReturnTrue() throws AlreadyBoundException, SQLException {
+        mockedSubscriber.setSubscriberServices(null);
+        when(subscribersRepository.getSubscriberByPhoneNumber(VALID_PHONE_NUMBER)).thenReturn(mockedSubscriber);
+        when(telecomServRepository.getByName(mockedTelecomServ.getName())).thenReturn(mockedTelecomServ);
+        when(subscribersRepository.update(mockedSubscriber)).thenReturn(true);
+
+        boolean expectedResult = subscriberService.addServiceToSubscriber(VALID_PHONE_NUMBER, mockedTelecomServ.getName());
+
+        Assert.assertTrue(expectedResult);
+    }
 
     @Test
     public void addServiceToSubscriber_whenSuccessful_shouldReturnTrue() throws AlreadyBoundException, SQLException {
@@ -251,6 +273,15 @@ public class SubscriberServiceImplTest {
     }
 
     @Test(expected = InvalidParameterException.class)
+    public void getAllSubscribersUsingServiceByServiceName_whenServiceIsNotPresent_shouldThrowException() {
+        when(telecomServRepository.getByName(VALID_TELECOMSERV_NAME)).thenReturn(null);
+        when(subscribersRepository.getAllSubscribersByService(mockedTelecomServ.getId())).thenReturn(subscriberList);
+
+        subscriberService.getAllSubscribersUsingServiceByServiceName(VALID_TELECOMSERV_NAME);
+    }
+
+
+    @Test(expected = InvalidParameterException.class)
     public void getSubscriberAverageSumOfPaidInvoices_whenDatesAreInvalid_shoudThrowException() {
         subscriberService.getSubscriberAverageSumOfPaidInvoices(mockedSubscriber, VALID_FROM_DATE, INVALID_TO_DATE);
     }
@@ -287,5 +318,12 @@ public class SubscriberServiceImplTest {
             Assert.assertEquals(entry.getKey(), mockedSubscriber);
             Assert.assertEquals(targetAmount, entry.getValue(), 0);
         }
+    }
+
+    @Test
+    public void validateDate_whenDatesAreEqual_shouldReturnTrue() {
+        boolean result = subscriberService.validateDate(VALID_FROM_DATE,VALID_FROM_DATE);
+
+        Assert.assertTrue(result);
     }
 }

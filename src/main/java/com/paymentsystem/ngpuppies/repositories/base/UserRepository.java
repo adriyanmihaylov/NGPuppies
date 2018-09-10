@@ -11,5 +11,5 @@ public interface UserRepository {
 
     List<User> getAll();
 
-    boolean delete(User user);
+    boolean delete(String username);
 }

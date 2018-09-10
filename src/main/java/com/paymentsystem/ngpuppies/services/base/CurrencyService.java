@@ -1,7 +1,6 @@
 package com.paymentsystem.ngpuppies.services.base;
 
 import com.paymentsystem.ngpuppies.models.Currency;
-import com.paymentsystem.ngpuppies.web.dto.CurrencyDTO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,7 +10,7 @@ public interface CurrencyService {
 
     Currency getByName(String name);
 
-    boolean create(Currency currency) throws SQLException;
+    boolean create(String currencyName, double fixing) throws SQLException;
 
-    List<CurrencyDTO> updateFixings(List<CurrencyDTO> list);
+    List<Currency> updateFixings(List<Currency> list);
 }

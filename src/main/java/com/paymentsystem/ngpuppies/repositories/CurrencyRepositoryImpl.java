@@ -70,15 +70,21 @@ public class CurrencyRepositoryImpl implements CurrencyRepository {
     }
 
     @Override
-    public boolean update(Currency currency) {
-        try(Session session = sessionFactory.openSession()) {
+    public boolean update(String currencyName,double fixing) {
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("" +
+                    " UPDATE Currency c" +
+                    " SET c.fixing=:newFixing" +
+                    " WHERE c.name=:currencyName");
+            query.setParameter("newFixing",fixing);
+            query.setParameter("currencyName",currencyName);
             session.beginTransaction();
-            session.update(currency);
+            int result = query.executeUpdate();
             session.getTransaction().commit();
 
-            return true;
-        }catch (Exception e) {
-
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return false;

@@ -1,6 +1,6 @@
-package com.paymentsystem.ngpuppies.web;
+package com.paymentsystem.ngpuppies.security.controller;
 
-import com.paymentsystem.ngpuppies.web.dto.PasswordResetDТО;
+import com.paymentsystem.ngpuppies.web.dto.PasswordResetDto;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +22,16 @@ public class FirstLoginAuthenticationController {
     private AdminService adminService;
 
     @GetMapping()
-    public PasswordResetDТО getFirstLoginTemplate() {
-        return new PasswordResetDТО();
+    public PasswordResetDto getFirstLoginTemplate() {
+        return new PasswordResetDto();
     }
 
     @PostMapping()
-    public ResponseEntity<?> firstLogin(@RequestBody @Valid PasswordResetDТО passwordResetDТО,
+    public ResponseEntity<?> firstLogin(@RequestBody @Valid PasswordResetDto passwordResetDto,
                                         Authentication authentication) {
         try {
             Admin admin = (Admin) authentication.getPrincipal();
-            admin.setPassword(passwordResetDТО.getPassword());
+            admin.setPassword(passwordResetDto.getPassword());
 
             adminService.updateOnFirstLogin(admin);
 
