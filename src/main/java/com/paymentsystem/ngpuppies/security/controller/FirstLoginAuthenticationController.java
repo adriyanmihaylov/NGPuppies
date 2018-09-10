@@ -11,22 +11,25 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Validated
 @RestController
-@RequestMapping("/first-login")
-@PreAuthorize("hasRole('ROLE_INITIAL')")
+@RequestMapping()
 public class FirstLoginAuthenticationController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping()
+    @PreAuthorize("hasRole('ROLE_INITIAL')")
+    @GetMapping("/first-login")
     public PasswordResetDto getFirstLoginTemplate() {
         return new PasswordResetDto();
     }
 
-    @PostMapping()
+    @PreAuthorize("hasRole('ROLE_INITIAL')")
+    @PostMapping("/first-login")
     public ResponseEntity<?> firstLogin(@RequestBody @Valid PasswordResetDto passwordResetDto,
                                         Authentication authentication) {
         try {
@@ -40,5 +43,22 @@ public class FirstLoginAuthenticationController {
             e.printStackTrace();
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @PostMapping(value = "/password-reset")
+    public ResponseEntity<?> resetPassword(HttpServletRequest request, @RequestParam("email") String email) {
+         Admin admin =  adminService.loadByEmail(email);
+        if (admin == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        String token = UUID.randomUUID().toString();
+
+        if(adminService.createPasswordResetTokenForUser(admin, token)) {
+//            mailSender.send(constructResetTokenEmail(getAppUrl(request),
+//                    request.getLocale(), token, admin));
+
+
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

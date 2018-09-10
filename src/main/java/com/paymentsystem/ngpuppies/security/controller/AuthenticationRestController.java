@@ -7,6 +7,7 @@ import com.paymentsystem.ngpuppies.security.JwtAuthenticationRequest;
 import com.paymentsystem.ngpuppies.security.JwtTokenUtil;
 import com.paymentsystem.ngpuppies.services.base.UserService;
 import com.paymentsystem.ngpuppies.validation.exceptions.AuthenticationException;
+import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +26,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+@Validated
 @RestController
 public class AuthenticationRestController {
 
@@ -41,8 +45,7 @@ public class AuthenticationRestController {
     }
 
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody @Valid  JwtAuthenticationRequest authenticationRequest,HttpServletRequest request,
-                                                       BindingResult bindingResult) throws AuthenticationException {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody @Valid  JwtAuthenticationRequest authenticationRequest,HttpServletRequest request) throws AuthenticationException {
         Map<String, Object> map = new HashMap<>();
         final User user;
         final String token;

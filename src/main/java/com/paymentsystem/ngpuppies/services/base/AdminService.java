@@ -19,4 +19,7 @@ public interface AdminService {
     boolean update(String username,AdminDto adminDto) throws InvalidParameterException,SQLException;
 
     boolean updateOnFirstLogin(Admin admin) throws Exception;
+
+    boolean createPasswordResetTokenForUser(Admin admin, String token);
+
 }
