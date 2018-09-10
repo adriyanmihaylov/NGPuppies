@@ -137,16 +137,18 @@ public class UserServiceImplTest {
 
     @Test
     public void addIpAddress_whenUserIsNull_shouldReturnFalse() {
-        boolean result = userService.addIpAddress(null, "address");
+        IpAddress ipAddress = new IpAddress("address");
+        boolean result = userService.addIpAddress(null, ipAddress);
 
         Assert.assertFalse(result);
     }
 
     @Test
     public void addIpAddress_onSuccess_shouldReturnTrue() {
+        IpAddress ipAddress = new IpAddress("address");
         when(userRepository.addIpAddressToUser(any(User.class), any(IpAddress.class))).thenReturn(true);
 
-        boolean result = userService.addIpAddress(new User(), "address");
+        boolean result = userService.addIpAddress(new User(), ipAddress);
 
         Assert.assertTrue(result);
     }
