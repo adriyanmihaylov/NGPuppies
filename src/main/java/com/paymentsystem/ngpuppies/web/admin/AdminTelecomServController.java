@@ -43,7 +43,7 @@ public class AdminTelecomServController {
                                                             BindingResult bindingResult) {
         try {
             if (telecomServService.create(serviceDTO)) {
-                return new ResponseEntity<>(new ResponseMessage("Service" + serviceDTO.getName() + " added!"), HttpStatus.OK);
+                return new ResponseEntity<>(new ResponseMessage("Service " + serviceDTO.getName() + " added!"), HttpStatus.OK);
             }
         } catch (IllegalArgumentException | SQLException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
@@ -58,7 +58,9 @@ public class AdminTelecomServController {
                                                                 @Valid @RequestBody TelecomServiceDTO serviceDTO,
                                                                 BindingResult bindingResult) {
         try {
-            telecomServService.update(serviceName, serviceDTO);
+           if (telecomServService.update(serviceName, serviceDTO)) {
+               return new ResponseEntity<>(new ResponseMessage("Service " + serviceDTO.getName() + "updated!"), HttpStatus.OK);
+           }
         } catch (IllegalArgumentException | SQLException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

@@ -12,7 +12,7 @@
             </div>
             <div class = "form-group row">
             <div class="col">
-                <input class="form-control form-control form-control-borderless" type="search" id="phoneNumber" ng-model = "phoneNumber" placeholder=" phone number">
+                <input class="form-control form-control form-control-borderless" ng-change = "reset()" type="search" id="phoneNumber" ng-model = "phoneNumber" placeholder=" phone number">
             </div>
             <div class="col">
             <select class="form-control" ng-model = "invoiceType" ng-change = "cases()">
@@ -29,13 +29,13 @@
             <div class="form-group row">
                 <label for="startDate" class="col-4 col-form-label">Start Date</label>
                 <div class="col-8">
-                    <input class="form-control" type="date" id="startDate">
+                    <input class="form-control"  type="date" id="startDate">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="endDate" class="col-4 col-form-label">End Date</label>
                 <div class="col-8">
-                    <input class="form-control" type="date"  id="endDate">
+                    <input class="form-control"  type="date"  id="endDate">
                 </div>
             </div>
             </div>
@@ -58,7 +58,7 @@
                 <th scope="col">Currency</th>
                 <th scope="col">Service</th>
                 <th scope="col">Payed status</th>
-                <th><button class="btn btn btn-success"  type="submit" ng-disabled="checked===false" ng-click = "paySelected()">Pay all selected</button></th>
+                <th><button class="btn btn btn-success"  type="submit" ng-disabled="checked===false" ng-if="invoiceType!=='Payed Invoices'" ng-click = "paySelected()">Pay all selected</button></th>
             </tr>
             </thead>
             <tbody>
