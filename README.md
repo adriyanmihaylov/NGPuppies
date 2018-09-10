@@ -3,7 +3,7 @@ Telerik Academy Project - Payment System for Bright Consulting
 Documentation for this project: https://documenter.getpostman.com/view/4882506/RWaC1rpY#86f29a42-6bea-48d0-a498-87e2ce3968b8
 
 ## Database
-![diagrampng](https://user-images.githubusercontent.com/37835890/45268553-aadc9400-b486-11e8-970c-d24bece2394e.png)
+![database2](https://user-images.githubusercontent.com/37835890/45278796-59102a00-b4d7-11e8-9e99-60c775fa291b.png)
 
 ### Validators Regular Expressions
 
