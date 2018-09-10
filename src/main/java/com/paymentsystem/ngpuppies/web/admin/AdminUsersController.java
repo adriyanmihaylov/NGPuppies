@@ -1,5 +1,7 @@
 package com.paymentsystem.ngpuppies.web.admin;
 
+import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
+import com.paymentsystem.ngpuppies.services.UserServiceImpl;
 import com.paymentsystem.ngpuppies.web.dto.*;
 import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.services.base.*;
@@ -10,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +26,14 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}")
 public class AdminUsersController {
+    private final UserService userService;
+    private final AdminService adminService;
+
     @Autowired
-    private UserService userService;
-    @Autowired
-    private AdminService adminService;
+    public AdminUsersController(UserServiceImpl userService, AdminServiceImpl adminService) {
+        this.userService = userService;
+        this.adminService = adminService;
+    }
 
     @GetMapping("/account")
     public ResponseEntity<AdminViewModel> getAccount(Authentication authentication) {
@@ -42,18 +47,18 @@ public class AdminUsersController {
     }
 
     @GetMapping("/account/update")
-    public AdminDTO getUpdateAccountModel() {
-        return new AdminDTO();
+    public AdminDto getUpdateAccountModel() {
+        return new AdminDto();
     }
 
     @PutMapping("/account/update")
-    public ResponseEntity<ResponseMessage> updateAccount(@Valid @RequestBody AdminDTO adminDTO,
+    public ResponseEntity<ResponseMessage> updateAccount(@Valid @RequestBody AdminDto adminDto,
                                                          Authentication authentication,
                                                          BindingResult bindingResult) {
         try {
             Admin admin = (Admin) authentication.getPrincipal();
 
-            if (adminService.update(admin.getUsername(), adminDTO)) {
+            if (adminService.update(admin.getUsername(), adminDto)) {
                 return new ResponseEntity<>(new ResponseMessage("Account updated"), HttpStatus.OK);
             }
         } catch (IllegalArgumentException | SQLException e) {
@@ -96,16 +101,16 @@ public class AdminUsersController {
             //Get currently logged user - it must be admin otherwise it has to be unauthorized to deleteCurrencyByName users
             Admin admin = (Admin) authentication.getPrincipal();
 
-            //Check if the currently logged user wants to deleteCurrencyByName himself
+            //Check if the currently logged user wants to delete himself
             if (admin.getUsername().equals(username)) {
-                return new ResponseEntity<>(new ResponseMessage("You can not deleteCurrencyByName yourself!"), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new ResponseMessage("You can not delete yourself!"), HttpStatus.BAD_REQUEST);
             }
 
             if (userService.deleteByUsername(username)) {
-                return new ResponseEntity<>(new ResponseMessage("User " + username + " deleted successfully"), HttpStatus.OK);
+                return new ResponseEntity<>(new ResponseMessage(username + " has been deleted!"), HttpStatus.OK);
             }
-
-        } catch (UsernameNotFoundException e) {
+            return new ResponseEntity<>(new ResponseMessage("User not found!"),HttpStatus.BAD_REQUEST);
+        } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();

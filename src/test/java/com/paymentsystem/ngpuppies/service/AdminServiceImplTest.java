@@ -6,7 +6,7 @@ import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.repositories.base.AdminRepository;
 import com.paymentsystem.ngpuppies.repositories.base.AuthorityRepository;
 import com.paymentsystem.ngpuppies.services.AdminServiceImpl;
-import com.paymentsystem.ngpuppies.web.dto.AdminDTO;
+import com.paymentsystem.ngpuppies.web.dto.AdminDto;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -103,31 +102,31 @@ public class AdminServiceImplTest {
 
     @Test(expected = InvalidParameterException.class)
     public void create_whenPasswordIsNull_shouldThrowException() throws Exception {
-        adminService.create(new AdminDTO());
+        adminService.create(new AdminDto());
     }
 
     @Test(expected = Exception.class)
     public void create_whenAuthorityIsNull_shouldThrowException() throws Exception {
-        AdminDTO adminDTO = new AdminDTO("admin","123456",ADMIN_EMAIL);
+        AdminDto adminDto = new AdminDto("admin","123456",ADMIN_EMAIL);
         when(authorityRepository.getByName(any(AuthorityName.class))).thenReturn(null);
 
-        adminService.create(adminDTO);
+        adminService.create(adminDto);
     }
 
     @Test
     public void create_onSuccess_shouldReturnTrue() throws Exception {
-        AdminDTO adminDTO = new AdminDTO("admin", "123456", ADMIN_EMAIL);
+        AdminDto adminDto = new AdminDto("admin", "123456", ADMIN_EMAIL);
         when(authorityRepository.getByName(any(AuthorityName.class))).thenReturn(authority);
         when(adminRepository.create(any(Admin.class))).thenReturn(true);
 
-        boolean result = adminService.create(adminDTO);
+        boolean result = adminService.create(adminDto);
 
         Assert.assertTrue(result);
     }
 
     @Test(expected = InvalidParameterException.class)
     public void update_whenUsernameIsNull_shouldThrowException() throws SQLException {
-        adminService.update(null,new AdminDTO());
+        adminService.update(null,new AdminDto());
     }
 
     @Test(expected = InvalidParameterException.class)
@@ -139,7 +138,7 @@ public class AdminServiceImplTest {
     public void update_whenAdminIsNotFoundByUsername_shouldThrowException() throws SQLException {
         when(adminRepository.loadByUsername("username")).thenReturn(null);
 
-        adminService.update("username",new AdminDTO());
+        adminService.update("username",new AdminDto());
     }
 
     @Test
@@ -147,7 +146,7 @@ public class AdminServiceImplTest {
         when(adminRepository.loadByUsername("username")).thenReturn(admin);
         when(adminRepository.update(any(Admin.class))).thenReturn(true);
 
-        boolean result = adminService.update("username",new AdminDTO("name","123456","admin@admin.com"));
+        boolean result = adminService.update("username",new AdminDto("name","123456","admin@admin.com"));
 
         Assert.assertTrue(result);
     }

@@ -23,8 +23,12 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/service")
 public class AdminTelecomServController {
+    private final TelecomServService telecomServService;
+
     @Autowired
-    private TelecomServService telecomServService;
+    public AdminTelecomServController(TelecomServService telecomServService) {
+        this.telecomServService = telecomServService;
+    }
 
     @GetMapping("/all")
     public List<TelecomServSimpleViewModel> getAllServices() {

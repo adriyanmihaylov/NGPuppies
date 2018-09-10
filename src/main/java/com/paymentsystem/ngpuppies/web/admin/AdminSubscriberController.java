@@ -3,7 +3,7 @@ package com.paymentsystem.ngpuppies.web.admin;
 import com.paymentsystem.ngpuppies.models.Address;
 import com.paymentsystem.ngpuppies.web.dto.ResponseMessage;
 import com.paymentsystem.ngpuppies.models.Subscriber;
-import com.paymentsystem.ngpuppies.web.dto.SubscriberDTO;
+import com.paymentsystem.ngpuppies.web.dto.SubscriberDto;
 import com.paymentsystem.ngpuppies.models.viewModels.SubscriberSimpleViewModel;
 import com.paymentsystem.ngpuppies.services.base.SubscriberService;
 import com.paymentsystem.ngpuppies.models.viewModels.SubscriberViewModel;
@@ -28,8 +28,12 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/subscriber")
 public class AdminSubscriberController {
+    private final SubscriberService subscriberService;
+
     @Autowired
-    private SubscriberService subscriberService;
+    public AdminSubscriberController(SubscriberService subscriberService) {
+        this.subscriberService = subscriberService;
+    }
 
     @GetMapping()
     public ResponseEntity<SubscriberViewModel> getSubscriberByPhoneNumber(@RequestParam("phone") @ValidPhone String phoneNumber) {
@@ -57,18 +61,18 @@ public class AdminSubscriberController {
     }
 
     @GetMapping("/create")
-    public SubscriberDTO createSubscriber() {
-        SubscriberDTO subscriberDTO = new SubscriberDTO();
-        subscriberDTO.setAddress(new Address());
+    public SubscriberDto createSubscriber() {
+        SubscriberDto subscriberDto = new SubscriberDto();
+        subscriberDto.setAddress(new Address());
 
-        return subscriberDTO;
+        return subscriberDto;
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseMessage> createSubscriber(@RequestBody @Valid SubscriberDTO subscriberDTO,
+    public ResponseEntity<ResponseMessage> createSubscriber(@RequestBody @Valid SubscriberDto subscriberDto,
                                                             BindingResult bindingResult) {
         try {
-            if (subscriberService.create(subscriberDTO)) {
+            if (subscriberService.create(subscriberDto)) {
                 return new ResponseEntity<>(new ResponseMessage("Subscriber created!"), HttpStatus.OK);
             }
         } catch (IllegalArgumentException | SQLException e) {
@@ -81,10 +85,10 @@ public class AdminSubscriberController {
 
     @PutMapping("/{phone}/update")
     public ResponseEntity<ResponseMessage> updateSubscriber(@PathVariable("phone") @ValidPhone String phoneNumber,
-                                                            @RequestBody @Valid SubscriberDTO subscriberDTO,
+                                                            @RequestBody @Valid SubscriberDto subscriberDto,
                                                             BindingResult bindingResult) {
         try {
-            if (subscriberService.update(phoneNumber, subscriberDTO)) {
+            if (subscriberService.update(phoneNumber, subscriberDto)) {
                 return new ResponseEntity<>(new ResponseMessage("Subscriber updated!"), HttpStatus.OK);
             }
         } catch (IllegalArgumentException | SQLException e) {

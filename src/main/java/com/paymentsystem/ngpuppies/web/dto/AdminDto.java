@@ -5,7 +5,7 @@ import com.paymentsystem.ngpuppies.validation.anotations.ValidUsername;
 
 import javax.validation.constraints.Size;
 
-public class AdminDTO {
+public class AdminDto {
     @ValidUsername
     @Size.List({
             @Size(min = 4, message = "Username must be at least 4 characters"),
@@ -22,11 +22,11 @@ public class AdminDTO {
     @ValidEmail
     private String email;
 
-    public AdminDTO() {
+    public AdminDto() {
 
     }
 
-    public AdminDTO(String username, String password, String email) {
+    public AdminDto(String username, String password, String email) {
         setUsername(username);
         setPassword(password);
         setEmail(email);

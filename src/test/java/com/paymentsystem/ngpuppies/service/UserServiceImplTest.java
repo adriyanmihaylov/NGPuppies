@@ -14,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,19 +118,16 @@ public class UserServiceImplTest {
 
     @Test
     public void delete_whenUserExists_shouldReturnTrue() {
-        when(userRepository.loadByUsername(userMock.getUsername())).thenReturn(userMock);
-        when(userRepository.delete(userMock)).thenReturn(true);
+        when(userRepository.delete(userMock.getUsername())).thenReturn(true);
 
         boolean result = userService.deleteByUsername(userMock.getUsername());
 
         Assert.assertTrue(result);
     }
 
-    @Test(expected = UsernameNotFoundException.class)
-    public void delete_whenUserNotPresent_shouldThrowException() {
-        when(userRepository.loadByUsername(userMock.getUsername())).thenReturn(null);
-
-        userService.deleteByUsername(userMock.getUsername());
+    @Test(expected = InvalidParameterException.class)
+    public void delete_whenUsernameIsNull_shouldThrowException() {
+        userService.deleteByUsername(null);
     }
 
 

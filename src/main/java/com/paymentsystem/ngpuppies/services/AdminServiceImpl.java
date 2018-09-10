@@ -1,7 +1,7 @@
 package com.paymentsystem.ngpuppies.services;
 
 import com.paymentsystem.ngpuppies.repositories.base.AuthorityRepository;
-import com.paymentsystem.ngpuppies.web.dto.AdminDTO;
+import com.paymentsystem.ngpuppies.web.dto.AdminDto;
 import com.paymentsystem.ngpuppies.models.users.Admin;
 import com.paymentsystem.ngpuppies.models.users.Authority;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
@@ -47,8 +47,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean create(AdminDTO adminDTO) throws Exception {
-        if (adminDTO == null ||  adminDTO.getPassword() == null) {
+    public boolean create(AdminDto adminDto) throws Exception {
+        if (adminDto == null ||  adminDto.getPassword() == null) {
             throw new InvalidParameterException("Password is missing!");
         }
 
@@ -56,7 +56,7 @@ public class AdminServiceImpl implements AdminService {
         if(authority == null) {
             throw new Exception("Could't register admin! Authority not found!");
         }
-        Admin admin = new Admin(adminDTO.getUsername(), passwordEncoder.encode(adminDTO.getPassword()), adminDTO.getEmail(), authority);
+        Admin admin = new Admin(adminDto.getUsername(), passwordEncoder.encode(adminDto.getPassword()), adminDto.getEmail(), authority);
         admin.setEnabled(Boolean.FALSE);
 
         return adminRepository.create(admin);
@@ -64,8 +64,8 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
-    public boolean update(String username, AdminDTO adminDTO) throws InvalidParameterException, SQLException {
-        if(username == null || adminDTO == null) {
+    public boolean update(String username, AdminDto adminDto) throws InvalidParameterException, SQLException {
+        if(username == null || adminDto == null) {
             throw new InvalidParameterException("Username must not be empty!");
         }
 
@@ -74,11 +74,11 @@ public class AdminServiceImpl implements AdminService {
             throw new InvalidParameterException("Username not found!");
         }
 
-        admin.setUsername(adminDTO.getUsername());
-        admin.setEmail(adminDTO.getEmail());
+        admin.setUsername(adminDto.getUsername());
+        admin.setEmail(adminDto.getEmail());
 
-        if (adminDTO.getPassword() != null) {
-            admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
+        if (adminDto.getPassword() != null) {
+            admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
             admin.setLastPasswordResetDate(new Date());
         }
 

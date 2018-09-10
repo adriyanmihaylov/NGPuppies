@@ -7,7 +7,7 @@ import com.paymentsystem.ngpuppies.validation.anotations.ValidPhone;
 
 import javax.validation.constraints.Size;
 
-public class SubscriberDTO {
+public class SubscriberDto {
     @ValidPhone
     private String phone;
 
@@ -32,11 +32,10 @@ public class SubscriberDTO {
 
     private String client;
 
-    public SubscriberDTO() {
-
+    public SubscriberDto() {
     }
 
-    public SubscriberDTO(String phone, String firstName, String lastName, String egn, Address address, String client) {
+    public SubscriberDto(String phone, String firstName, String lastName, String egn, Address address, String client) {
         setPhone(phone);
         setFirstName(firstName);
         setLastName(lastName);

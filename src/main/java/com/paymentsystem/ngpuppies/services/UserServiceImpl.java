@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 @Service
@@ -28,13 +29,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public boolean deleteByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.loadByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Username not found!");
+    public boolean deleteByUsername(String username) throws InvalidParameterException {
+        if (username == null) {
+            throw new InvalidParameterException("Username not found!");
         }
 
-        return userRepository.delete(user);
+        return userRepository.delete(username);
     }
 
     @Override

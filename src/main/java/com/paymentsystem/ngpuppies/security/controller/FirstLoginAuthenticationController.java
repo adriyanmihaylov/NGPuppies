@@ -1,4 +1,4 @@
-package com.paymentsystem.ngpuppies.web;
+package com.paymentsystem.ngpuppies.security.controller;
 
 import com.paymentsystem.ngpuppies.web.dto.PasswordResetDto;
 import com.paymentsystem.ngpuppies.models.users.Admin;

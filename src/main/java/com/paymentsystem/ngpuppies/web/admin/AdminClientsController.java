@@ -23,8 +23,12 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("${common.basepath}/client")
 public class AdminClientsController {
+    private final ClientService clientService;
+
     @Autowired
-    private ClientService clientService;
+    public AdminClientsController(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @GetMapping()
     public ResponseEntity<ClientViewModel> getClientByUsername(@RequestParam("username") @ValidUsername String username) {
