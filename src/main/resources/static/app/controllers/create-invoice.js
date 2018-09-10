@@ -69,7 +69,7 @@ app.controller('addBillController', function($http, $scope) {
                 startDate: startDate,
                 endDate: endDate,
                 amountBGN: invoice.amount.toFixed(2),
-                service: invoice.service,
+                service: invoice.service
             }]
         };
         $http({

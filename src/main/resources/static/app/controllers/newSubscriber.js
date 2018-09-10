@@ -45,7 +45,9 @@ angular.module('NGPuppies')
         };
         var phoneNumber;
         $scope.search = function (subscriberPhone) {
-            phoneNumber= subscriberPhone;
+            var phoneNumber = subscriberPhone;
+
+
             $scope.subscriber = null;
             $http({
                 url: 'api/subscriber?phone=' + subscriberPhone,
@@ -53,9 +55,11 @@ angular.module('NGPuppies')
                 dataType: "json"
             }).success(function (result) {
                 $scope.message = null;
+                $scope.errorMessage = null;
                 if (result!=="") {
                     $scope.error = "";
                     $scope.subscriberSearch = result;
+                    $scope.subscriberSearch.subscriberPhone=phoneNumber;
                 }else{
                     $scope.errorMessage = "Please try another number!";
                 }

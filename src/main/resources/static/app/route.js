@@ -144,7 +144,17 @@ angular.module('NGPuppies').config(function($stateProvider,$urlRouterProvider,$l
                     controller : 'currenciesController'
                 }
             }
-        });;
+        })
+        .state('changePassword', {
+            parent : 'nav',
+            url : '/changepassword',
+            views : {
+                'content@' : {
+                    templateUrl : 'app/views/changePassword.html',
+                    controller : 'changepasswordController'
+                }
+            }
+        });
         $locationProvider.html5Mode({
 			enabled: true,
 			requireBase: true

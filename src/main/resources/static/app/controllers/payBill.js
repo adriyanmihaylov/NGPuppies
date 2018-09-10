@@ -54,6 +54,7 @@ angular.module('NGPuppies')
                 method: "GET",
                 dataType: "json"
             }).success(function(result) {
+                $scope.message = null;
                 if (result === ""){
                     $scope.message  = "No such subscriber!";
                     return;
@@ -138,7 +139,10 @@ angular.module('NGPuppies')
 
             })
         }
-
+        $scope.reset = function () {
+            $scope.message = null;
+            $scope.success=null;
+        }
 
     });
 

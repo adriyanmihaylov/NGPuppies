@@ -1,5 +1,5 @@
 app.controller('LoginController', function($http, $scope, $state, AuthService, $rootScope) {
-	if(AuthService.isAuthenticated) {
+    if(AuthService.role!=="ROLE_INITIAL") {
         $state.go('home');
     }
 
@@ -21,9 +21,15 @@ app.controller('LoginController', function($http, $scope, $state, AuthService, $
                 // checking if the token is available in the response
                 if (result.token) {
                     AuthService.setToken(result.token);
-                    localStorage.setItem('token', result.token);
-                    localStorage.setItem("user",$scope.username);
-                    $state.go('home');
+                    if(AuthService.role === "ROLE_INITIAL"){
+                        $state.go('changePassword');
+                        return;
+
+                    }else {
+                        localStorage.setItem('token', result.token);
+                        localStorage.setItem("user", $scope.username);
+                        $state.go('home');
+                    }
                 } else {
                     // if the token is not present in the response then the
                     // authentication was not successful. Setting the error message.
