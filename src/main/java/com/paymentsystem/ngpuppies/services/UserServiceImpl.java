@@ -44,11 +44,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public boolean addIpAddress(User user, String address) {
-        if (user == null || address == null) {
+    public boolean addIpAddress(User user, IpAddress ipAddress) {
+        if (user == null || ipAddress == null) {
             return false;
         }
-        IpAddress ipAddress = new IpAddress(address);
 
         return userRepository.addIpAddressToUser(user, ipAddress);
     }

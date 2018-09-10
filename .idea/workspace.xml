@@ -3,17 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b13e098f-721e-4844-93ad-918fc3e04738" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/InvoiceViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/InvoiceViewModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/controller/AuthenticationRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/controller/AuthenticationRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AdminServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AdminServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/CurrencyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/CurrencyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/TelecomServServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/TelecomServServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/client/ClientRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/client/ClientRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/UserService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -26,6 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/ngpuppies$NGPuppiesApplication.ic" NAME="NGPuppiesApplication Coverage Results" MODIFIED="1536556980600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/ngpuppies$All_in_ngpuppies_test__4_.ic" NAME="All in ngpuppies_test (4) Coverage Results" MODIFIED="1536510652460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/ngpuppies$All_in_ngpuppies_test__3_.ic" NAME="All in ngpuppies_test (3) Coverage Results" MODIFIED="1536541674876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/ngpuppies$All_in_ngpuppies_test__1_.ic" NAME="All in ngpuppies_test (1) Coverage Results" MODIFIED="1536530395075" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
@@ -56,108 +50,95 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ClientRestController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/client/ClientRestController.java">
+      <file leaf-file-name="JwtAuthorizationTokenFilter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="102" selection-start-line="102" selection-end-line="102" />
+            <state relative-caret-position="857">
+              <caret line="86" selection-start-line="86" selection-end-line="86" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OncePerRequestFilter.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/5.0.8.RELEASE/c8c58315f925ae04ff692fed6aa3cb4ab966e43b/spring-web-5.0.8.RELEASE-sources.jar!/org/springframework/web/filter/OncePerRequestFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="113" selection-start-line="113" selection-end-line="113" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FilterChainProxy.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/5.0.7.RELEASE/d6a8f337d50f9082135739411940a3441627b306/spring-security-web-5.0.7.RELEASE-sources.jar!/org/springframework/security/web/FilterChainProxy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="472">
+              <caret line="335" selection-start-line="335" selection-end-line="335" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LogoutFilter.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/5.0.7.RELEASE/d6a8f337d50f9082135739411940a3441627b306/spring-security-web-5.0.7.RELEASE-sources.jar!/org/springframework/security/web/authentication/logout/LogoutFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="116" selection-start-line="116" selection-end-line="116" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthenticationRestController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/controller/AuthenticationRestController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="61" column="13" lean-forward="true" selection-start-line="53" selection-start-column="11" selection-end-line="61" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FirstLoginAuthenticationController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/controller/FirstLoginAuthenticationController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="33" column="62" lean-forward="true" selection-start-line="33" selection-start-column="62" selection-end-line="33" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DisabledException.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/5.0.7.RELEASE/e53aa815b8a71395f1b626680ea264533a9b1918/spring-security-core-5.0.7.RELEASE-sources.jar!/org/springframework/security/authentication/DisabledException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
               <folding>
-                <element signature="method#getSubscriberOfCurrentlyLoggedClient#0;class#ClientRestController#0" />
-                <element signature="method#getSubscriber#0;class#ClientRestController#0" />
-                <element signature="method#getAllUnpaidInvoices#0;class#ClientRestController#0" />
-                <element signature="method#getAllUnpaidInvoicesOfSubscriber#0;class#ClientRestController#0" />
-                <element signature="method#getSubscriberAverageSumOfPaidInvoices#0;class#ClientRestController#0" />
-                <element signature="method#getSubscriberLargestPaidInvoice#0;class#ClientRestController#0" />
+                <element signature="e#1233#1234#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdminServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AdminServiceImpl.java">
+      <file leaf-file-name="InvocableHandlerMethod.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/5.0.8.RELEASE/c8c58315f925ae04ff692fed6aa3cb4ab966e43b/spring-web-5.0.8.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+            <state relative-caret-position="-27">
+              <caret line="217" selection-start-line="217" selection-end-line="217" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AuthorityServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/AuthorityServiceImpl.java">
+      <file leaf-file-name="DispatcherServlet.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.8.RELEASE/8330fea4826a439969e8be46b17dff1e765481eb/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/DispatcherServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+            <state relative-caret-position="223">
+              <caret line="930" selection-start-line="930" selection-end-line="930" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientDetailServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java">
+      <file leaf-file-name="FrameworkServlet.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.8.RELEASE/8330fea4826a439969e8be46b17dff1e765481eb/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/FrameworkServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="12" column="7" lean-forward="true" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CurrencyServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/CurrencyServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
-              <folding>
-                <element signature="e#693#694#0" expanded="true" />
-                <element signature="e#753#754#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InvoiceServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/InvoiceServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SubscriberServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/SubscriberServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TelecomServServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/TelecomServServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserServiceImpl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/UserServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
-              <folding>
-                <element signature="e#920#921#0" expanded="true" />
-                <element signature="e#972#973#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="172">
+              <caret line="979" selection-start-line="979" selection-end-line="979" />
             </state>
           </provider>
         </entry>
@@ -634,7 +615,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/AddressRepositoryImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/IsAdmin.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/validation/anotations/isAdmin.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/dto/AdminDTO.java" />
@@ -670,11 +650,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/InternetProtocolAuthFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/UserRepositoryImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/base/UserRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/IpAddress.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/controller/AuthenticationRestController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/viewModels/InvoiceViewModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/web/client/ClientRestController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/static/app/views/pay-bills.html" />
@@ -685,6 +662,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/CurrencyServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/TelecomServServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/UserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/controller/AuthenticationRestController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/controller/FirstLoginAuthenticationController.java" />
       </list>
     </option>
   </component>
@@ -711,6 +692,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -752,7 +734,17 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ngpuppies" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ngpuppies" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NGPuppies" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ngpuppies" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ngpuppies" type="b2602c69:ProjectViewProjectNode" />
@@ -765,7 +757,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -973,7 +964,8 @@
       <option name="presentableId" value="Default" />
       <updated>1536496257733</updated>
       <workItem from="1536496260388" duration="34673000" />
-      <workItem from="1536536270773" duration="7019000" />
+      <workItem from="1536536270773" duration="7080000" />
+      <workItem from="1536556104754" duration="1927000" />
     </task>
     <servers />
   </component>
@@ -1010,42 +1002,42 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41692000" />
+    <option name="totallyTimeSpent" value="43680000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50416666" side_tool="true" visible="true" weight="0.3995749" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50625" side_tool="true" visible="true" weight="0.3995749" />
       <window_info anchor="right" id="Maven Projects" order="0" />
       <window_info anchor="bottom" id="Database Changes" order="6" show_stripe_button="false" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Designer" order="0" />
-      <window_info anchor="right" id="Database" order="2" sideWeight="0.49911505" visible="true" weight="0.14583333" />
+      <window_info anchor="right" id="Database" order="2" sideWeight="0.49734512" visible="true" weight="0.14583333" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="10" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="11" sideWeight="0.49583334" visible="true" weight="0.3995749" />
+      <window_info anchor="bottom" id="Debug" order="11" sideWeight="0.49375" visible="true" weight="0.3995749" />
       <window_info anchor="bottom" id="TODO" order="15" />
-      <window_info anchor="bottom" id="Messages" order="4" sideWeight="0.49739584" weight="0.2879915" />
+      <window_info anchor="bottom" id="Messages" order="4" sideWeight="0.496875" weight="0.2879915" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info id="Image Layers" order="1" />
       <window_info anchor="bottom" id="Java Enterprise" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="10" sideWeight="0.92083335" weight="0.32837406" />
-      <window_info anchor="right" id="Coverage" order="5" sideWeight="0.50088495" side_tool="true" visible="true" weight="0.14583333" />
+      <window_info anchor="bottom" id="Run" order="10" sideWeight="0.9192708" weight="0.32837406" />
+      <window_info anchor="right" id="Coverage" order="5" sideWeight="0.50265485" side_tool="true" visible="true" weight="0.14583333" />
       <window_info anchor="bottom" id="Spring" order="1" />
       <window_info anchor="bottom" id="Terminal" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.25" />
       <window_info anchor="right" id="Bean Validation" order="7" />
       <window_info id="Web" order="4" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="9" sideWeight="0.49895832" weight="0.32943678" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info anchor="right" id="Theme Preview" order="6" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="9" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="9" sideWeight="0.49895832" weight="0.32943678" />
       <window_info anchor="bottom" id="Cvs" order="13" weight="0.25" />
       <window_info anchor="bottom" id="Build" order="0" weight="0.32943678" />
       <window_info anchor="bottom" id="Message" order="8" />
@@ -1183,96 +1175,21 @@
           <properties />
           <option name="timeStamp" value="44" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/controller/FirstLoginAuthenticationController.java</url>
+          <line>32</line>
+          <properties />
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="46" />
+      <option name="time" value="51" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/TelecomServ.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="67" column="20" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationEntryPoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/5.2.17.Final/c21082f4888449976adb58eb25cfbe090cf3afa5/hibernate-core-5.2.17.Final-sources.jar!/org/hibernate/collection/internal/AbstractPersistentCollection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="333" selection-start-line="333" selection-end-line="333" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/5.2.17.Final/c21082f4888449976adb58eb25cfbe090cf3afa5/hibernate-core-5.2.17.Final-sources.jar!/org/hibernate/collection/internal/PersistentSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="154" selection-start-line="154" selection-end-line="154" />
-          <folding>
-            <element signature="e#4265#4266#0" expanded="true" />
-            <element signature="e#4320#4321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/IpAddress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="53" selection-start-line="53" selection-end-line="58" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#586#587#0" expanded="true" />
-            <element signature="e#621#622#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/repositories/InvoiceRepositoryImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-299">
-          <caret line="67" column="5" lean-forward="true" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
-          <folding>
-            <element signature="method#getAllUnpaidInvoices#0;class#InvoiceRepositoryImpl#0" />
-            <element signature="method#getSubscriberLargestPaidInvoiceForPeriodOfTime#0;class#InvoiceRepositoryImpl#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="119" column="50" selection-start-line="119" selection-start-column="50" selection-end-line="119" selection-end-column="50" />
-          <folding>
-            <element signature="e#2821#2822#0" expanded="true" />
-            <element signature="e#2855#2856#0" expanded="true" />
-            <element signature="e#2917#2918#0" expanded="true" />
-            <element signature="e#2963#2964#0" expanded="true" />
-            <element signature="method#addIpAddress#0;class#User#0" />
-            <element signature="method#getAuthorities#0;class#User#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/paymentsystem/ngpuppies/service/UserServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
           <caret line="152" column="1" selection-start-line="152" selection-start-column="1" selection-end-line="152" selection-end-column="1" />
-          <folding>
-            <element signature="e#4300#4301#0" expanded="true" />
-            <element signature="e#4350#4351#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1280,13 +1197,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/controller/AuthenticationRestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="51" column="92" selection-start-line="51" selection-start-column="92" selection-end-line="51" selection-end-column="92" />
         </state>
       </provider>
     </entry>
@@ -1302,13 +1212,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="34" column="51" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
         </state>
       </provider>
     </entry>
@@ -1347,27 +1250,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/5.0.8.RELEASE/c8c58315f925ae04ff692fed6aa3cb4ab966e43b/spring-web-5.0.8.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="140" selection-start-line="140" selection-end-line="140" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.8.RELEASE/8330fea4826a439969e8be46b17dff1e765481eb/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="127" selection-start-line="127" selection-end-line="127" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.8.RELEASE/8330fea4826a439969e8be46b17dff1e765481eb/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="794" selection-start-line="794" selection-end-line="794" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.8.RELEASE/8330fea4826a439969e8be46b17dff1e765481eb/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/mvc/method/AbstractHandlerMethodAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -1375,31 +1257,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.8.RELEASE/8330fea4826a439969e8be46b17dff1e765481eb/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/DispatcherServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="934" selection-start-line="934" selection-end-line="934" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.8.RELEASE/8330fea4826a439969e8be46b17dff1e765481eb/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/FrameworkServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="852" selection-start-line="852" selection-end-line="852" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-websocket/8.5.32/5e24939d634e853407ccaa09be52109091090bd6/tomcat-embed-websocket-8.5.32-sources.jar!/org/apache/tomcat/websocket/server/WsFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="52" selection-start-line="52" selection-end-line="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/5.0.8.RELEASE/c8c58315f925ae04ff692fed6aa3cb4ab966e43b/spring-web-5.0.8.RELEASE-sources.jar!/org/springframework/web/filter/OncePerRequestFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="113" selection-start-line="113" selection-end-line="113" />
         </state>
       </provider>
     </entry>
@@ -1421,13 +1282,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="156" selection-start-line="156" selection-end-line="156" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/5.0.7.RELEASE/d6a8f337d50f9082135739411940a3441627b306/spring-security-web-5.0.7.RELEASE-sources.jar!/org/springframework/security/web/FilterChainProxy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="335" selection-start-line="335" selection-end-line="335" />
         </state>
       </provider>
     </entry>
@@ -1538,7 +1392,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/ClientDetailServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="12" column="7" lean-forward="true" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -1581,14 +1435,147 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.8.RELEASE/8330fea4826a439969e8be46b17dff1e765481eb/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="119" selection-start-line="119" selection-end-line="119" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationEntryPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthenticationRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7">
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/UserServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+        <state relative-caret-position="401">
+          <caret line="46" column="63" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="63" />
           <folding>
             <element signature="e#920#921#0" expanded="true" />
             <element signature="e#972#973#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/services/base/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="18" column="57" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/models/users/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="112" selection-start-line="112" selection-end-line="112" />
+          <folding>
+            <element signature="e#2855#2856#0" expanded="true" />
+            <element signature="e#2917#2918#0" expanded="true" />
+            <element signature="e#2963#2964#0" expanded="true" />
+            <element signature="method#addIpAddress#0;class#User#0" />
+            <element signature="method#getAuthorities#0;class#User#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/5.2.17.Final/c21082f4888449976adb58eb25cfbe090cf3afa5/hibernate-core-5.2.17.Final-sources.jar!/org/hibernate/collection/internal/PersistentSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="155" selection-start-line="155" selection-end-line="155" />
+          <folding>
+            <element signature="e#4265#4266#0" expanded="true" />
+            <element signature="e#4320#4321#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.8.RELEASE/8330fea4826a439969e8be46b17dff1e765481eb/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="884" selection-start-line="884" selection-end-line="884" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.8.RELEASE/8330fea4826a439969e8be46b17dff1e765481eb/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/DispatcherServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="930" selection-start-line="930" selection-end-line="930" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.8.RELEASE/8330fea4826a439969e8be46b17dff1e765481eb/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/FrameworkServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="979" selection-start-line="979" selection-end-line="979" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/5.0.8.RELEASE/c8c58315f925ae04ff692fed6aa3cb4ab966e43b/spring-web-5.0.8.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-27">
+          <caret line="217" selection-start-line="217" selection-end-line="217" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/5.0.7.RELEASE/e53aa815b8a71395f1b626680ea264533a9b1918/spring-security-core-5.0.7.RELEASE-sources.jar!/org/springframework/security/authentication/DisabledException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="e#1233#1234#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/5.0.8.RELEASE/c8c58315f925ae04ff692fed6aa3cb4ab966e43b/spring-web-5.0.8.RELEASE-sources.jar!/org/springframework/web/filter/OncePerRequestFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/5.0.7.RELEASE/d6a8f337d50f9082135739411940a3441627b306/spring-security-web-5.0.7.RELEASE-sources.jar!/org/springframework/security/web/FilterChainProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="335" selection-start-line="335" selection-end-line="335" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/5.0.7.RELEASE/d6a8f337d50f9082135739411940a3441627b306/spring-security-web-5.0.7.RELEASE-sources.jar!/org/springframework/security/web/authentication/logout/LogoutFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="116" selection-start-line="116" selection-end-line="116" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/JwtAuthorizationTokenFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="857">
+          <caret line="86" selection-start-line="86" selection-end-line="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/controller/AuthenticationRestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="61" column="13" lean-forward="true" selection-start-line="53" selection-start-column="11" selection-end-line="61" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/paymentsystem/ngpuppies/security/controller/FirstLoginAuthenticationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="33" column="62" lean-forward="true" selection-start-line="33" selection-start-column="62" selection-end-line="33" selection-end-column="62" />
         </state>
       </provider>
     </entry>

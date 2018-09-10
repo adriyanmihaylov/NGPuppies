@@ -1,6 +1,7 @@
 package com.paymentsystem.ngpuppies.security;
 
 import com.paymentsystem.ngpuppies.models.IpAddress;
+import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.models.users.User;
 import com.paymentsystem.ngpuppies.services.base.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -53,12 +54,15 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                 try {
                    User user = userService.loadById(id);
                     if(user != null) {
-                        IpAddress ipAddress = new IpAddress(request.getRemoteAddr());
-                        // Checking the ip addresses to ensure two things
-                        // 1. this is the first login of the user and he doesn't have any ip addresses yet
-                        // 2. this is not the first login of the user and he doesn't have this ip in the list
-                        if(user.getIpAddresses().size() > 0 && !user.getIpAddresses().contains(ipAddress)) {
-                            throw new Exception();
+                        // Checking IP address of current user
+                        if (user.getAuthority().getName() != AuthorityName.ROLE_CLIENT) {
+                            IpAddress ipAddress = new IpAddress(request.getRemoteAddr());
+                            // Checking the ip addresses to ensure two things
+                            // 1. this is the first login of the user and he doesn't have any ip addresses yet
+                            // 2. this is not the first login of the user and he doesn't have this ip in the list
+                            if (user.getIpAddresses().size() > 0 && !user.getIpAddresses().contains(ipAddress)) {
+                                throw new Exception();
+                            }
                         }
 
                     }
@@ -78,6 +82,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
         } catch (Exception e) {
             //Username changed password while token is valid
+            // Ip address is not valid
         }
     }
 }
