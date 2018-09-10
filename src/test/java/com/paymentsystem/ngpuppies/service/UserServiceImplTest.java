@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.service;
 
+import com.paymentsystem.ngpuppies.models.IpAddress;
 import com.paymentsystem.ngpuppies.models.users.*;
 import com.paymentsystem.ngpuppies.repositories.base.UserRepository;
 import com.paymentsystem.ngpuppies.services.UserServiceImpl;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -43,12 +45,13 @@ public class UserServiceImplTest {
     private Authority clientAuthority;
     private Client clientMock;
     private List<User> userList;
+
     @Before
     public void init() {
         adminAuthority = new Authority(AuthorityName.ROLE_ADMIN);
         clientAuthority = new Authority(AuthorityName.ROLE_CLIENT);
-        adminMock = new Admin("admin","123456","admin@admin.com",adminAuthority);
-        clientMock = new Client("client","123456","123412341",clientAuthority);
+        adminMock = new Admin("admin", "123456", "admin@admin.com", adminAuthority);
+        clientMock = new Client("client", "123456", "123412341", clientAuthority);
 
         userMock = new User();
         userMock.setId(VALID_USER_ID);
@@ -88,8 +91,9 @@ public class UserServiceImplTest {
 
         User user = (User) userService.loadUserByUsername(VALID_USER_USERNAME);
 
-        Assert.assertEquals(user,userMock);
+        Assert.assertEquals(user, userMock);
     }
+
     @Test(expected = UsernameNotFoundException.class)
     public void getUserByUsername_whenUsernameNotPresent_shouldThrowException() {
         when(userRepository.loadByUsername(INVALID_USERNAME)).thenReturn(null);
@@ -98,13 +102,14 @@ public class UserServiceImplTest {
 
         assertNull(user);
     }
+
     @Test
     public void getAll_shouldReturnNotEmptyListOfUsers() {
         when(userRepository.getAll()).thenReturn(userList);
 
         List<User> users = userService.getAll();
 
-        Assert.assertEquals(users.size(),userList.size());
+        Assert.assertEquals(users.size(), userList.size());
     }
 
     @Test
@@ -113,7 +118,7 @@ public class UserServiceImplTest {
 
         List<User> users = userService.getAll();
 
-        Assert.assertEquals(users.size(),0);
+        Assert.assertEquals(users.size(), 0);
     }
 
     @Test
@@ -130,12 +135,21 @@ public class UserServiceImplTest {
         userService.deleteByUsername(null);
     }
 
+    @Test
+    public void addIpAddress_whenUserIsNull_shouldReturnFalse() {
+        IpAddress ipAddress = new IpAddress("address");
+        boolean result = userService.addIpAddress(null, ipAddress);
 
-//    User loadById(Integer id);
-//
-//    UserDetails loadUserByUsername(String username);
-//
-//    List<User> getAll();
-//
-//    boolean deleteSubscriberByNumber(User user);
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void addIpAddress_onSuccess_shouldReturnTrue() {
+        IpAddress ipAddress = new IpAddress("address");
+        when(userRepository.addIpAddressToUser(any(User.class), any(IpAddress.class))).thenReturn(true);
+
+        boolean result = userService.addIpAddress(new User(), ipAddress);
+
+        Assert.assertTrue(result);
+    }
 }

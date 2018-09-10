@@ -193,5 +193,5 @@ public class AdminServiceImplTest {
 //        admin.setLastPasswordResetDate(new Date());
 //        admin.setEnabled(Boolean.TRUE);
 //
-//        return adminRepository.update(admin);
+//        return adminRepository.addIpAddress(admin);
 //    }

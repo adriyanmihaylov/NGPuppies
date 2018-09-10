@@ -18,12 +18,16 @@ import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+    private final AdminRepository adminRepository;
+    private final AuthorityRepository authorityRepository;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    private AdminRepository adminRepository;
-    @Autowired
-    private AuthorityRepository authorityRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public AdminServiceImpl(AdminRepository adminRepository, AuthorityRepository authorityRepository, PasswordEncoder passwordEncoder) {
+        this.adminRepository = adminRepository;
+        this.authorityRepository = authorityRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public List<Admin> getAll() {
@@ -93,7 +97,7 @@ public class AdminServiceImpl implements AdminService {
 
         Authority authority = authorityRepository.getByName(AuthorityName.ROLE_ADMIN);
         if(authority == null) {
-            throw new Exception("Couldn't update admin after first login! Authority not found!");
+            throw new Exception("Couldn't addIpAddress admin after first login! Authority not found!");
         }
 
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));

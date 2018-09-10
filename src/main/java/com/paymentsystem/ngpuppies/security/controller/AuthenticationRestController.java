@@ -1,5 +1,6 @@
 package com.paymentsystem.ngpuppies.security.controller;
 
+import com.paymentsystem.ngpuppies.models.IpAddress;
 import com.paymentsystem.ngpuppies.models.users.AuthorityName;
 import com.paymentsystem.ngpuppies.models.users.User;
 import com.paymentsystem.ngpuppies.security.JwtAuthenticationRequest;
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +41,7 @@ public class AuthenticationRestController {
     }
 
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody @Valid  JwtAuthenticationRequest authenticationRequest,
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody @Valid  JwtAuthenticationRequest authenticationRequest,HttpServletRequest request,
                                                        BindingResult bindingResult) throws AuthenticationException {
         Map<String, Object> map = new HashMap<>();
         final User user;
@@ -49,6 +51,16 @@ public class AuthenticationRestController {
 
             // Reload password post-security so we can generate the token
             user = (User) userService.loadUserByUsername(authenticationRequest.getUsername());
+            if(user.getAuthority().getName() != AuthorityName.ROLE_CLIENT) {
+                IpAddress ipAddress = new IpAddress(request.getRemoteAddr());
+                if (user.getIpAddresses().size() == 0) {
+                    // Save current Ip address
+                    userService.addIpAddress(user, ipAddress);
+                } else if (!user.getIpAddresses().contains(ipAddress)) {
+                    throw new DisabledException("Invalid IP address!");
+                }
+            }
+
             token = jwtTokenUtil.generateToken(user, false);
 
             map.put("token", token);

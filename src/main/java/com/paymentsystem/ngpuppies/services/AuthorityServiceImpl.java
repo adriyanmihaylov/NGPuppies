@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthorityServiceImpl implements AuthorityService {
+    private final AuthorityRepository authorityRepository;
+
     @Autowired
-    private AuthorityRepository authorityRepository;
+    public AuthorityServiceImpl(AuthorityRepository authorityRepository) {
+        this.authorityRepository = authorityRepository;
+    }
 
     @Override
     public Authority getById(int id) { return authorityRepository.getById(id);

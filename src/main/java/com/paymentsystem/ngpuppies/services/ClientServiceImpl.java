@@ -18,12 +18,16 @@ import java.util.List;
 
 @Service
 public class ClientServiceImpl implements ClientService {
+    private final ClientRepository clientRepository;
+    private final AuthorityRepository authorityRepository;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private AuthorityRepository authorityRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public ClientServiceImpl(ClientRepository clientRepository, AuthorityRepository authorityRepository, PasswordEncoder passwordEncoder) {
+        this.clientRepository = clientRepository;
+        this.authorityRepository = authorityRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public List<Client> getAll() {
@@ -80,7 +84,7 @@ public class ClientServiceImpl implements ClientService {
                 client.setDetails(clientDto.getDetails());
             }
         } else if (client.getDetails() == null) {
-            throw new Exception("Can't update client! Client details were not found!Please create details and add them to client!");
+            throw new Exception("Can't addIpAddress client! Client details were not found!Please create details and add them to client!");
         }
 
         if (clientDto.getPassword() != null) {

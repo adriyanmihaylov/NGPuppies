@@ -28,6 +28,7 @@ public class HibernateConfig {
                 .addAnnotatedClass(Currency.class)
                 .addAnnotatedClass(Subscriber.class)
                 .addAnnotatedClass(TelecomServ.class)
+                .addAnnotatedClass(IpAddress.class)
                 .buildSessionFactory();
     }
 }

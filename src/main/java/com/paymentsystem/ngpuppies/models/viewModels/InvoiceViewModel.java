@@ -32,7 +32,7 @@ public class InvoiceViewModel {
             viewModel.endDate = invoice.getEndDate().toString().substring(0, 10);
             viewModel.amount = invoice.getBGNAmount();
             viewModel.service = invoice.getTelecomServ().getName();
-            viewModel.subscriberPhone = invoice.getSubscriber().getPhone();
+            viewModel.subscriberPhone = "(+359) " + invoice.getSubscriber().getPhone();
             if (invoice.getPayedDate() != null) {
                 viewModel.status = "Paid on " + invoice.getPayedDate().toString().substring(0, 10);
                 viewModel.amountPaid = invoice.getAmount();
